@@ -23,7 +23,7 @@ node src/compute.mjs
 node src/record.mjs stills 12.6
 ```
 
-`compute.mjs` rebuilds the data (the shipped `src/data/` already holds the result). `record.mjs stills <seconds>` writes single frames. `record.mjs frames <first> <last>` writes frames at 30 fps, and `src/encode.ps1` joins them with the score into an mp4 (needs ffmpeg).
+`src/film.html` stays blank when opened by hand: it draws a frame only when `window.renderAt(seconds)` is called, which `record.mjs` does. `compute.mjs` rebuilds the data (the shipped `src/data/` already holds the result). `record.mjs stills <seconds>` writes single frames. `record.mjs frames <first> <last>` writes frames at 30 fps, and `src/encode.ps1` joins them with the score into an mp4 (needs ffmpeg).
 
 ## Design
 

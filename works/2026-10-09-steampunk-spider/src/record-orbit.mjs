@@ -26,7 +26,7 @@ const SIMULATION_STEPS_PER_FRAME = 2;
 const SIMULATION_STEPS_PER_SECOND = FRAMES_PER_SECOND * SIMULATION_STEPS_PER_FRAME;
 const PAGE_URL = "http://127.0.0.1:5186/";
 const CHROME_PATH = "C:/Program Files/Google/Chrome/Application/chrome.exe";
-const THREE_PACKAGE_DIRECTORY = "<your 67js checkout>/node_modules/three";
+const THREE_PACKAGE_DIRECTORY = `${process.env.JS67_DIR}/node_modules/three`; // JS67_DIR: your 67.js checkout
 // The spider backs up to this line on the open floor, then the obstacles are switched on ahead of it.
 const START_LINE_Z = -2.4;
 const COURSE_END_Z = 5;

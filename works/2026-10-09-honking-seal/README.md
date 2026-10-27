@@ -16,7 +16,7 @@ A plump procedural seal you can stretch with a mouse or finger. Each pull or cha
 
 ## Run it
 
-The dev server and the build read three.js and the 67.js checkout from a path set at the top of `src/server.mjs` and `src/build.mjs`. Point those paths at your own copies of `three` and 67.js 0.3.3 first. Then, from this folder:
+The dev server and the build read three.js, gl-matrix and the 67.js engine from one folder where you installed them (`npm install three gl-matrix esbuild`, plus the 67.js engine sources in `src/`). Set `JS67_DIR` to that folder first, for example `export JS67_DIR=/path/to/67.js`. The page was made against 67.js 0.3.3. Then, from this folder:
 
 ```
 node src/server.mjs
@@ -24,7 +24,7 @@ node --test src/interaction.test.mjs
 node src/build.mjs
 ```
 
-Open http://127.0.0.1:5178. The header switches between Three.js and 67.js. `build.mjs` writes a static `dist/` folder. The browser scripts need Playwright installed (`npm install playwright`).
+Open http://127.0.0.1:5178. The header shows the three.js renderer; the 67.js switch is marked "coming soon" in this copy (`?engine=67` is not wired to a link). `build.mjs` writes a static `dist/` folder. The browser scripts (`smoke.mjs`, `checks.mjs`) need Playwright (`npm install playwright`, and `npx playwright install chromium` or `CHROME_PATH` for your own Chrome) and the dev server running. Checked 2026-10-27: they still assume the old gesture (a note on the first upward pull), while the page now plays a note on the downward return, so their note assertions fail; the sound, layout and error checks pass. `live-smoke.mjs` compares against the deployed site and needs a built `dist/`.
 Audio starts after the first interaction.
 
 ## Design

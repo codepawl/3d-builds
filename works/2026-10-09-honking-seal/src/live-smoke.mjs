@@ -8,7 +8,7 @@ const remote = Buffer.from(await (await fetch(base + '/main.js')).arrayBuffer())
 const local = await readFile(new URL('./dist/main.js', import.meta.url));
 const hash = b => createHash('sha256').update(b).digest('hex');
 if (hash(remote) !== hash(local)) throw Error('Live bundle mismatch');
-const browser = await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe', headless:true,args:['--disable-renderer-backgrounding']});
+const browser = await chromium.launch({executablePath:process.env.CHROME_PATH||undefined, headless:true,args:['--disable-renderer-backgrounding']});
 try {
   for (const engine of ['three','67']) {
     const page = await browser.newPage({viewport:{width:1440,height:1000}});

@@ -56,4 +56,21 @@ Do:
 Rules: work only in your folder; no top-level `cd`; no bare `python`; check nvidia-smi before GPU-heavy steps and keep VRAM use modest (three apps are being reworked at once); no personal data in files or headers; original designs only (no real brands, logos or existing characters). Write `pass2_started_at.txt` first and `pass2_finished_at.txt` last (UTC). Budget about 100 tool calls. Report: what changed, asset list with GLB sizes, fps, screenshot and film paths, mpdecimate result, and honest gaps.
 ~~~~
 
-The short task message that pointed the agent at its folder and port was not kept. The folder and port are in the topic file.
+## Prompt 8: the task message to the delegated agent, pass 2 (18:49 UTC)
+
+~~~~text
+Use the `simplify-code` skill. Your folder: <game-agent folder>-office (the Orglet Office app, port 5422). Read and follow, completely and exactly, design/BRIEF-BLENDER.md. Assets to rebuild in Blender include the orglet characters (keep them original, chunky and friendly, rigged or split so they walk, sit and carry a task card; not based on any existing character), desks, chairs, monitors, the lead desk, approval kiosks, the routines board, room walls and floors, plants and trees. Do not touch the Orglet repo.
+~~~~
+
+## Prompt 9: Polish pass (19:16 UTC), the message to the delegated agent
+
+~~~~text
+Use the `simplify-code` skill. Final polish pass on an approved app: <game-agent folder>-office (Orglet Office, three.js + Blender GLBs, port 5422; read README.md first). The owner approved everything else; change nothing beyond these fixes:
+
+1. Routines board reads grey because it faces away from the main light: make its tiles and frame read clearly (light it or adjust its material/emissive in the Blender script `blender/build_office.py` and/or the scene), without washing out the rest.
+2. Seated orglets clip into the armrests of the second chair style: fix the seat placement or the chair model so seated orglets sit cleanly in every chair.
+3. Limbs move as rigid blocks: soften the walk and sit animation in `src/Character.jsx` (a small bob and sway, easing on arm and leg swings, a slight lean when carrying the card) so motion reads less robotic. No skinning rewrite.
+4. In the film, Pax walks out of the close-up after about 3 s and the final wide shot ends a bit far out: make the camera follow the selected orglet during the close-up beat (or pick a seated one) and end the final pull-back a little closer so the office fills the frame. Keep the film's beats and 30 s length.
+
+Rebuild assets with `blender/run.ps1` (it waits for other Blender jobs), run `vite build`, take screenshots with `scripts/screenshots.mjs` and look at the overview, the routines board close-up and a seated orglet close-up; then re-record with `scripts/film.mjs` to `shots/film-blender.mp4` (overwrite), check mpdecimate (no repeated frames) and look at 6 stills. Keep 60 fps. Rules: work only in that folder, no top-level cd, no bare python, check nvidia-smi before GPU steps. Budget about 40 tool calls. Report what changed, fps, mpdecimate result, stills you checked, anything left.
+~~~~

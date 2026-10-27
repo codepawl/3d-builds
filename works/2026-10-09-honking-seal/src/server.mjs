@@ -5,11 +5,15 @@ import { fileURLToPath } from "node:url";
 import { cartoonShaders } from "./toon-shader.mjs";
 
 const directory = dirname(fileURLToPath(import.meta.url));
-const threeDirectory =
-  "<your 67js checkout>/node_modules/three";
-const engineDirectory = "<your 67js checkout>/src";
-const matrixDirectory =
-  "<your 67js checkout>/node_modules/gl-matrix/esm";
+// Set JS67_DIR to the folder where three.js, gl-matrix, esbuild and the 67.js engine are installed.
+const checkoutDirectory = process.env.JS67_DIR;
+if (!checkoutDirectory) {
+  console.error("Set JS67_DIR to your 67.js checkout (with node_modules installed).");
+  process.exit(1);
+}
+const threeDirectory = resolve(checkoutDirectory, "node_modules/three");
+const engineDirectory = resolve(checkoutDirectory, "src");
+const matrixDirectory = resolve(checkoutDirectory, "node_modules/gl-matrix/esm");
 const contentTypes = {
   ".html": "text/html",
   ".js": "text/javascript",

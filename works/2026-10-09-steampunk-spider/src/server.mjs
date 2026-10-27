@@ -3,7 +3,13 @@ import { readFile } from "node:fs/promises";
 import { resolve, dirname, extname, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 const directory = dirname(fileURLToPath(import.meta.url));
-const vendor = "<your 67js checkout>/node_modules/three";
+// Set JS67_DIR to the folder where three.js, gl-matrix, esbuild and the 67.js engine are installed.
+const checkoutDirectory = process.env.JS67_DIR;
+if (!checkoutDirectory) {
+  console.error("Set JS67_DIR to your 67.js checkout (with node_modules installed).");
+  process.exit(1);
+}
+const vendor = resolve(checkoutDirectory, "node_modules/three");
 const mime = {
   ".html": "text/html",
   ".js": "text/javascript",

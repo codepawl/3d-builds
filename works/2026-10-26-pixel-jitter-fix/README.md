@@ -16,7 +16,7 @@ A small camera module for three.js that stops pixels from crawling when you rend
 ```
 uv run --no-project python -m http.server 8080 --directory src
 ```
-Open http://localhost:8080/test/index.html. Edit the import map if you keep three.js somewhere else.
+Open http://localhost:8080/test/index.html. The page draws nothing by itself (it is driven by the recorder): type `renderAt(3)` in the browser console, with any time from 0 to `DURATION` seconds, and add `?preset=A` to `?preset=Cdither` to switch the mode. The page uses the three.js copy in `src/three/three.module.js` (r170, MIT). Edit the import map if you keep three.js somewhere else.
 
 ## Design
 The scene renders into a small target (for example 320x180) with an orthographic camera, then a composite pass upscales it with square pixels. Pixels crawl when static geometry lands in different texels from one frame to the next. The fix has three parts.

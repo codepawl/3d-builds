@@ -7,7 +7,7 @@ const engine = process.argv[2] || "three";
 const output = new URL("./artifacts/" + engine + "/", import.meta.url);
 await mkdir(output, { recursive: true });
 const browser = await chromium.launch({
-  executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe",
+  executablePath: process.env.CHROME_PATH || undefined,
   headless: true,
   args: ["--disable-renderer-backgrounding"],
 });

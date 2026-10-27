@@ -15,7 +15,7 @@ A mechanical steampunk spider with an editable Blender model and procedural leg 
 
 ## Run it
 
-You need Node.js. The project used an already installed copy of three.js, esbuild and Playwright, with their paths set in `src/server.mjs`, `src/build.mjs` and the recording scripts. Point those paths at your own installs first. Then, from this folder:
+You need Node.js. three.js and esbuild come from one folder where you ran `npm install three esbuild`. Set `JS67_DIR` to that folder first, for example `export JS67_DIR=/path/to/67.js`. `src/server.mjs`, `src/build.mjs` and the tests read it. The recording and smoke scripts also need Playwright (`npm install playwright`). Then, from this folder:
 
 ```
 node src/server.mjs

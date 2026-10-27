@@ -39,7 +39,7 @@ Ink-line drawing on a paper look, with story time that surges on each beat so so
 
 No external images or models. The score instruments come from `src/generate_theme.py` (synthesized). Kevin Ngo's video is only referenced by link.
 Left out: rendered videos, and the real-recording sound pipeline (`sound/`), whose source recordings are not in this repo.
-The folder `src/src/` also holds `kitchen.js` and `creatures.js` from the earlier sea turtle attempt. They are not used by the fly scenes, as far as I checked.
+The folder `src/src/` also holds `kitchen.js`, `creatures.js` and `turtle.js` from the earlier sea turtle attempt. The fly scenes do not use them, as far as I checked; `study/turtle.html` is the leftover turtle page and needs `turtle.js`.
 
 ## Prompts
 See prompts.md.

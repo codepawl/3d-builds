@@ -13,7 +13,7 @@ A pop-up book for adults who want the real numbers. Pages fold up into 3D scenes
 5. The film was recorded with `src/tools/record-reel.mjs` and checked against the beats with `check-beats.mjs`. Sound is mixed by `src/sound/make_sound.py`.
 
 ## Run it
-Two large images are left out. Rebuild the ship texture first (needs the Titanic plate page running, see `src/tools/capture-plate.mjs`), then:
+Two large images are left out. Without `tex/ship-side.png` the page still opens, but the ship page has no ship and the console shows a 404 and an image decoding error. Rebuild the ship texture first (needs the Titanic plate page running, see `src/tools/capture-plate.mjs`), then:
 ```
 uv run --no-project python -m http.server 8080 --directory src/web
 ```

@@ -1,6 +1,6 @@
 # Prompts
 
-The original prompt was not kept. The seal was built in a Codex session, and those sessions are not in the Claude Code transcripts that the other works use.
+The original prompt is still missing. The seal was built in a Codex session. The Codex session files were removed from this machine when the Codex CLI was dropped, and a search of the Claude Code transcripts (typed messages and agent briefs, with the words seal, trumpet, squeeze and the project name) found no copy.
 
 What the project notes (`src/README.md`) say the request asked for:
 

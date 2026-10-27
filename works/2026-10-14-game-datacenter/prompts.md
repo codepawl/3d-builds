@@ -56,4 +56,24 @@ Do:
 Rules: work only in your folder; no top-level `cd`; no bare `python`; check nvidia-smi before GPU-heavy steps and keep VRAM use modest (three apps are being reworked at once); no personal data in files or headers; original designs only (no real brands, logos or existing characters). Write `pass2_started_at.txt` first and `pass2_finished_at.txt` last (UTC). Budget about 100 tool calls. Report: what changed, asset list with GLB sizes, fps, screenshot and film paths, mpdecimate result, and honest gaps.
 ~~~~
 
-The short task message that pointed the agent at its folder and port was not kept. The folder and port are in the topic file.
+## Prompt 8: the task message to the delegated agent, pass 2 (18:49 UTC)
+
+~~~~text
+Use the `simplify-code` skill. Your folder: <your folder> (the Kelvin AI data center app, port 5421). Read and follow, completely and exactly, design/BRIEF-BLENDER.md. Assets to rebuild in Blender include the server racks with GPU trays (keep the per-tray temperature glow driven by the app), cable trays, cooling units with fans, chillers, pipes, substation, battery room, robot swap carts, technicians (original simple figures), hall buildings, roads and trees.
+~~~~
+
+## Prompt 9: Polish and QA pass (19:52 UTC), the message to the delegated agent
+
+~~~~text
+Use the `simplify-code` skill. Final polish and QA pass on an approved app: <your folder> (Kelvin AI data center, three.js + Blender GLBs, port 5421; read README.md first). The owner approved the app; change nothing beyond these fixes:
+
+1. Roads: the campus roads must read as continuous roads. Find every gap, seam, misaligned tile, overlap or dead end between road tiles and curbs (and where roads meet hall entrances, the chiller yard and the substation), and make them join cleanly: continuous asphalt, continuous curbs and lane markings, proper corners and T-junctions. Fix it in the Blender assets (add corner and junction tiles if needed) and/or the layout code.
+2. Wall vent grilles read as black rectangles in wide shots: make them read as grilles (lighter frame, visible louvres, less black).
+3. The selection ring is hard to see once a cart drives in among the racks: make the selected object readable there (brighter ring drawn on top, or an outline/pin above it).
+4. The honeycomb texture on GPU trays shimmers at distance: fix the aliasing (mipmaps, anisotropy, lower-frequency texture or fade to flat at distance).
+5. The warning sign mark is a plain slash: draw a proper high-voltage lightning bolt.
+6. The film's final pull-back ends far out: end it a little closer so the hall fills the frame. Keep the film's beats and 30 s length.
+Then do a full QA: look at the overview, each hall, close-ups of roads (several angles), racks, cooling, substation, carts and technicians, and fix anything else that looks broken (floating or sunken objects, z-fighting, wrong normals, clipped UI, overlapping labels, text that does not fit). List what you found and fixed.
+
+Rebuild assets with `blender/run.ps1` (waits for other Blender jobs), `npm run build`, take screenshots and close-ups and look at them, re-record the film to `shots/film-blender.mp4` (overwrite) and make `shots/film-blender-web.mp4` under 25 MB (crf ~24), check mpdecimate (no repeated frames) and look at 6 stills. Keep 60 fps. Rules: only that folder, no top-level cd, no bare python, check nvidia-smi before GPU steps, original designs only. Budget about 60 tool calls. Report what changed, QA findings, fps, mpdecimate result, stills checked, anything left.
+~~~~

@@ -7,7 +7,7 @@ setPriority(0, constants.priority.PRIORITY_BELOW_NORMAL);
 
 const directory = resolve(dirname(fileURLToPath(import.meta.url)), "dist");
 const browser = await chromium.launch({
-  executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe",
+  executablePath: process.env.CHROME_PATH || undefined,
   headless: true,
 });
 const page = await browser.newPage();

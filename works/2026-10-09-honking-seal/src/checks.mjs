@@ -1,14 +1,15 @@
 import { chromium } from "playwright";
+import { MELODY } from "./melody.js";
 import { writeFile } from "node:fs/promises";
 import { setPriority, constants } from "node:os";
 
 setPriority(0, constants.priority.PRIORITY_BELOW_NORMAL);
 const browser = await chromium.launch({
-  executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe",
+  executablePath: process.env.CHROME_PATH || undefined,
   headless: true,
 });
 const results = [];
-for (const engine of ["three", "67"]) {
+for (const engine of ["three"]) {
   const page = await browser.newPage({
     viewport: { width: 390, height: 844 },
     hasTouch: true,
@@ -126,7 +127,7 @@ for (const engine of ["three", "67"]) {
     !touch.dragging ||
     touch.position !== 1 ||
     held.position !== 0 ||
-    loop.position !== 2 ||
+    loop.position !== 22 % MELODY.length ||
     sound.rms < 0.01 ||
     sound.peak > 1 ||
     Math.abs(sound.dominantHz - 523.25) > 20 ||

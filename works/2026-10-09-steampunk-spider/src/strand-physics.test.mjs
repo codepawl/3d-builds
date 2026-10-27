@@ -1,13 +1,23 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import * as THREE from "file:///<your 67js checkout>/node_modules/three/build/three.module.js";
+import { resolve } from "node:path";
+import { pathToFileURL } from "node:url";
+
+// Set JS67_DIR to the folder where three.js, gl-matrix, esbuild and the 67.js engine are installed.
+if (!process.env.JS67_DIR) {
+  throw new Error("Set JS67_DIR to your 67.js checkout (with node_modules installed).");
+}
+const threeModuleUrl = pathToFileURL(
+  resolve(process.env.JS67_DIR, "node_modules/three/build/three.module.js"),
+).href;
+const THREE = await import(threeModuleUrl);
 
 const source = (
   await readFile(new URL("./strand-physics.mjs", import.meta.url), "utf8")
 ).replace(
   'from "three"',
-  'from "file:///<your 67js checkout>/node_modules/three/build/three.module.js"',
+  `from "${threeModuleUrl}"`,
 );
 const { createStrandPhysics } = await import(
   `data:text/javascript;base64,${Buffer.from(source).toString("base64")}`
