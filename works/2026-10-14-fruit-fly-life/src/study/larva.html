@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Larva study</title><style>html, body { margin: 0; background: #111; }</style></head>
+<body>
+<canvas id="film" width="1080" height="1080"></canvas>
+<script src="../src/ink.js"></script>
+<script src="../src/larva.js"></script>
+<script>
+  "use strict";
+  // Piece 3: the larva forms and hatches, 6 seconds.
+  const context = document.getElementById("film").getContext("2d");
+  window.renderAt = (seconds) => Larva.renderAt(context, seconds);
+  window.FILM = { duration: Larva.DURATION, cues: [] };
+  window.renderAt(0);
+</script>
+</body>
+</html>

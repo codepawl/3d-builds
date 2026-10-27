@@ -1,0 +1,10 @@
+source: 1-video.mp4
+window: 00:00.00 to 00:15.00 of 00:15.00
+picture: 1920x1080, sheets at 2.00 frames per second: sheet_01.jpg, sheet_02.jpg
+picture: hard cuts at 00:02.16, 00:05.28, 00:06.60, 00:08.96, 00:12.24
+picture: moving (fade, wipe, animation) during nothing
+audio: 1 sounds from 43 onsets (0 tonal), 0.0 s of silence in 0 gaps
+audio: no steady pulse found
+audio: spectrograms spectrogram_00000s-00015s.png
+audio: every sound and silence is in audio_timeline.txt
+measurements for recipe.py: perception.json

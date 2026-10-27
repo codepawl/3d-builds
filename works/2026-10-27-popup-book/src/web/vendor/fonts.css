@@ -1,0 +1,28 @@
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(fonts/f1.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(fonts/f2.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(fonts/f3.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'IM Fell English SC';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(fonts/f4.ttf) format('truetype');
+}

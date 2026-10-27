@@ -1,0 +1,11 @@
+node_modules/
+.venv/
+__pycache__/
+*.mp4
+*.mov
+*.webm
+.env
+.env.*
+out/
+cache/
+BRIEF.md

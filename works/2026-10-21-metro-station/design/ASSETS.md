@@ -1,0 +1,25 @@
+# Metro asset pack (Pass 1)
+
+Metres, +X along the track, +Z up, rail head top z = 0, Blender Z-up exported as glTF Y-up. Look: toy isometric (light cool
+palette, teal brand colour, coral line stripe). Total 8.0 MB in `app/public/assets/`. Rebuild: `blender/run.ps1 -Script <x>.py`.
+Every GLB places its roots side by side with an offset (so previews do not overlap): the app takes a root by name and resets
+its position. Materials have back-face culling on. Recolour by name: `LineStripe` (per-line colour), `FigureShirt` (crowd density).
+
+| GLB | Roots (name: size, pivot) |
+|---|---|
+| trains.glb | `Car_Cab` (20.4 m), `Car_Motor`, `Car_Trailer` (19.6 m), `Car_MotorPanto` (motor car with pantograph for the overhead circle line). Origin at car centre, rail level. Cab nose faces +X; flip 180 deg about Z for the rear cab. Car pitch = (L1+L2)/2 + 0.4 (bellows touch). Children are prefixed by the car kind, for example `Cab_Body`, `Cab_Bogie_A`, `Cab_Wheelset_A1` (pivot at axle, rotate about Y), `Cab_Door_L1_a/b` (L = +Y side, R = -Y side, pivot at leaf centre, slide +-0.7 m along X to open), `MotorPanto_Pantograph_Base/Lower/Upper` (pivots at hinges, rotate about Y). Emissive materials `Headlight`, `Taillight`, `DestinationSign`. |
+| track.glb | `Track_Slab`, `Track_Ballast` (single track, 9.8 m long, centred, third rail on +Y side), `Signal_Mast` (materials `SignalRed/Yellow/Green` emissive, toggle strength), `Cbtc_AccessPoint`, `Buffer_Stop` (faces +X). |
+| tunnel.glb | `Tunnel_Full`, `Tunnel_Cut` (upper -Y quadrant removed so the interior reads): one bore, 9.8 m, centre z = 1.7, inner radius 2.85, outer 3.15, with invert slab, walkway, lamp strip (`TunnelLight`). Twin bores: two instances 14.0 m apart in Y. |
+| station.glb | `Station_Module` (9.8 m island platform, exact 9.8 m so modules abut with no scaling; platform top z = 1.1; the slab lip overhangs the track above z = 0.45 and the core below is 9.6 m wide so bogies and ballast clear it; edge strips and the mezzanine column; no screen doors), `Psd_DoorUnit` (screen door: empty root with `Psd_DoorUnit_Frame` = posts, header, base rail and the `PsdIndicator` emissive strip, plus `Psd_Leaf_a/b` as separate objects, pivot at leaf centre, slide +-1.0 m along X in front of the frame; origin at the door centre on the PSD plane, z = rail head, 2.22 m wide, track side = +Y so the app turns it 180 deg for the other face), `Psd_Panel` (fixed glass panel with header and base rail, 1.0 m long centred, the app scales it along X to fill the gap between door units), `Psd_EndPost`, `Station_Floor`, `Station_Wall` (-Y side; rotate 180 deg for +Y), `Mezzanine_Module` (top z = 6.6), `Escalator` (5.5 m rise at 30 deg, origin at lower landing; child `Escalator_Steps` is the stepped deck: slide it along (0.366, 0.2115) and wrap to fake motion), `Stairs`, `Gateline` (7 bodies; children `Gate_Flap_n_a/b`), `Service_Kiosk`, `Bench`, `Hanging_Sign`, `Street_Entrance` (glass canopy 6 x 4.2). The app builds the screen-door wall per station face from the train consist (`trainDoorCentres` in `src/data/network.js`): one `Psd_DoorUnit` on every train door, `Psd_Panel` between them, `Psd_EndPost` at both ends of the 127.4 m wall; the PSD plane is y = +-5.3, the outermost PSD geometry (leaf stile) +-5.50. Track centres at +-7.22 (`LANE_OFFSET`): car door outer face is 1.57 from the track centre, so the gap to the screen doors is 0.15 m. |
+| structures.glb | `Viaduct_Span` (30 m, deck top z = 0, girder underside -2.0), `Viaduct_Pier` (origin at ground, top 8.7 m; place the span so its underside sits on the pier top), `Shed_Module` (9.8 m x 31 m, sawtooth), `Shed_End`, `Workshop_Module` (9.8 m x 30 m, crane), `Wash_Plant` (40 m; children `Brush_NA/NB/SA/SB` rotate about Z, `Brush_Top` rotates about Y), `Control_Centre` (45 x 28 x 24; `VideoWall` emissive), `Substation` (18 x 10 x 7 plus transformer yard to +Y). |
+| city.glb | `Building_Low_A/B`, `Building_Mid_A/B`, `Building_Tower_A/B` (origin at ground centre), `Tree_0/1/2`, `Street_Lamp`, `Ground_grass`, `Ground_road_x`, `Ground_cross` (30 x 30 block, top z = 0, four soil strata down to -22: the dollhouse cut face). |
+| people.glb | `Figure_Adult_Rig`, `Figure_Child_Rig`, `Figure_Backpack_Rig`: armature with bones Hips, Spine, Head, Arm_L/R, Leg_L/R; clips `Idle` (48 frames) and `Walk` (24 frames loop); faces +X, feet at z = 0, 1.77 m tall. |
+
+Previews: `blender/previews/sheet-*.png` (iso and close, per root), compare sheets `*-compare.png` (left: blockout from the
+dimensions in `refs/`, right: render with the blockout in red) for the car, tunnel, station module, escalator, viaduct
+and wash plant.
+
+Gaps: no reference photos (no-downloads rule), compare sheets use blockouts; no baked textures (flat PBR colours only, UVs are
+box-projected); no turnout or curved track piece (build curves from 9.8 m straights); no vehicles on the street; walk and idle
+clips were not viewed in a posed frame (clip names and rig verified from the GLB, bone axes unverified visually); the car end
+bellows read as a black slab; Shed sawtooth roof reads faintly.

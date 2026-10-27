@@ -1,0 +1,157 @@
+{
+ "units": "metres; Blender axes in size_xyz_m (X across, Y along the length, Z up)",
+ "chamber": {
+  "length": 305.0,
+  "width": 33.5,
+  "module_length": 30.5,
+  "modules_per_chamber": 10,
+  "lift_per_step": 8.5,
+  "steps": 3,
+  "total_lift": 25.5,
+  "wall_height_above_floor": 25.0,
+  "floor_thickness": 3.0,
+  "center_wall_width": 18.0,
+  "lane_centre_offset_from_wall_centre": 25.75,
+  "free_board_at_full_level": 3.0,
+  "water_depth_at_lowest_level": 13.5
+ },
+ "culverts": {
+  "cross_culvert_y_in_module": [
+   -12.2,
+   -6.1,
+   0.0,
+   6.1,
+   12.2
+  ],
+  "port_x_variant_a": [
+   -12.3,
+   -8.7,
+   -5.1,
+   -1.5,
+   1.5,
+   5.1,
+   8.7,
+   12.3
+  ],
+  "port_x_variant_b_even_rows": [
+   -14.0,
+   -10.5,
+   -7.0,
+   -3.5,
+   0.0,
+   3.5,
+   7.0,
+   10.5,
+   14.0
+  ],
+  "port_x_variant_b_odd_rows_shift": 1.75,
+  "port_radius": 0.5,
+  "port_depth": 1.2
+ },
+ "gate": {
+  "leaf_length": 19.2,
+  "thickness": 3.0,
+  "heights": {
+   "h20": 20.0,
+   "h23": 23.0,
+   "h25": 25.5
+  },
+  "hinge_from_inner_face": 1.6,
+  "closed_angle_deg": 17.1,
+  "open_angle_deg": 90,
+  "pocket_depth": 3.3,
+  "sill_height": 8.5,
+  "clip_frames": 60,
+  "fps": 30
+ },
+ "mule": {
+  "rail_offset_from_inner_edge": 2.5,
+  "gauge": 1.5,
+  "length": 11.2,
+  "width": 4.88,
+  "capstan_local": [
+   0.5,
+   -3.4,
+   3.0
+  ],
+  "fairlead_local_at_rest": [
+   2.95,
+   -3.4,
+   3.5
+  ],
+  "rail_top_z_above_wall_top": 0.47
+ },
+ "ships": {
+  "ship_cargo_a": {
+   "length": 301.1,
+   "beam": 34.4,
+   "height_above_keel": 46.58,
+   "min_z_is_draft": 12.0,
+   "propeller": "ship_cargo_a_propeller",
+   "rudder": "ship_cargo_a_rudder"
+  },
+  "ship_cargo_b": {
+   "length": 301.1,
+   "beam": 34.4,
+   "height_above_keel": 46.58,
+   "min_z_is_draft": 12.0,
+   "propeller": "ship_cargo_b_propeller",
+   "rudder": "ship_cargo_b_rudder"
+  },
+  "ship_tanker_a": {
+   "length": 232.6,
+   "beam": 33.48,
+   "height_above_keel": 42.78,
+   "min_z_is_draft": 12.2,
+   "propeller": "ship_tanker_a_propeller",
+   "rudder": "ship_tanker_a_rudder"
+  },
+  "ship_tanker_b": {
+   "length": 232.6,
+   "beam": 33.48,
+   "height_above_keel": 42.78,
+   "min_z_is_draft": 12.2,
+   "propeller": "ship_tanker_b_propeller",
+   "rudder": "ship_tanker_b_rudder"
+  },
+  "ship_bulk_a": {
+   "length": 229.0,
+   "beam": 33.46,
+   "height_above_keel": 41.68,
+   "min_z_is_draft": 13.5,
+   "propeller": "ship_bulk_a_propeller",
+   "rudder": "ship_bulk_a_rudder"
+  }
+ },
+ "tugs": {
+  "tug_a": {
+   "length": 33.2,
+   "beam": 11.59,
+   "draft": 4.85
+  },
+  "tug_b": {
+   "length": 33.2,
+   "beam": 11.59,
+   "draft": 4.85
+  }
+ },
+ "state_materials": [
+  "lamp_warm_on",
+  "lamp_red_on",
+  "lamp_green_on",
+  "lamp_amber_on",
+  "beacon_amber_on",
+  "window_lit",
+  "screen_on",
+  "screen_alert"
+ ],
+ "off_materials": [
+  "lamp_off",
+  "lamp_red_off",
+  "lamp_green_off",
+  "lamp_amber_off",
+  "beacon_off",
+  "window_dark",
+  "screen_off"
+ ]
+}

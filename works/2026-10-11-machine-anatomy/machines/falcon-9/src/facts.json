@@ -1,0 +1,280 @@
+{
+  "facts": {
+    "spacex-overview": {
+      "text": "Falcon 9 is a reusable, two-stage rocket made by SpaceX that carries people and payloads into Earth orbit.",
+      "source": "https://www.spacex.com/vehicles/falcon-9",
+      "quote": "Falcon 9 is a reusable, two-stage rocket designed and manufactured by SpaceX for the reliable and safe transport of people and payloads into Earth orbit and beyond.",
+      "status": "verified"
+    },
+    "spacex-reuse": {
+      "text": "Reusability lets SpaceX fly the most expensive parts of the rocket again.",
+      "source": "https://www.spacex.com/vehicles/falcon-9",
+      "quote": "Reusability allows SpaceX to refly the most expensive parts of the rocket, which in turn drives down the cost of space access.",
+      "status": "verified"
+    },
+    "spacex-dimensions": {
+      "text": "Falcon 9 is 70 m tall and 3.7 m across, and weighs 549,054 kg at liftoff.",
+      "source": "https://www.spacex.com/vehicles/falcon-9",
+      "quote": "HEIGHT 70 m / 229.6 ft DIAMETER 3.7 m / 12 ft MASS 549,054 kg / 1,207,920 lbs",
+      "status": "verified"
+    },
+    "spacex-first-stage": {
+      "text": "The first stage has nine Merlin engines and aluminium-lithium tanks of liquid oxygen and rocket-grade kerosene (RP-1).",
+      "source": "https://www.spacex.com/vehicles/falcon-9",
+      "quote": "Falcon 9's first stage incorporates nine Merlin engines and aluminum-lithium alloy tanks containing liquid oxygen and rocket-grade kerosene (RP-1) propellant.",
+      "status": "verified"
+    },
+    "guide-nine-engines": {
+      "text": "Each of the nine first-stage engines gives up to 845 kN at sea level.",
+      "source": "https://www.spacex.com/assets/media/falcon-users-guide-2025-05-09.pdf",
+      "quote": "Nine SpaceX M1D engines power the Falcon 9 first stage with up to 845 kN (190,000 lbf) thrust per engine at sea level",
+      "status": "verified"
+    },
+    "guide-engine-layout": {
+      "text": "The nine engines sit in a circle of eight round a centre engine.",
+      "source": "https://www.spacex.com/assets/media/falcon-users-guide-2025-05-09.pdf",
+      "quote": "The first stage M1D engines are configured in a circular pattern, with eight engines surrounding a center engine.",
+      "status": "verified"
+    },
+    "guide-throttle": {
+      "text": "The first-stage engines throttle from 190,000 lbf down to 108,300 lbf each.",
+      "source": "https://www.spacex.com/assets/media/falcon-users-guide-2025-05-09.pdf",
+      "quote": "Throttle capability Yes (190,000 lbf to 108,300 lbf sea level)",
+      "status": "verified"
+    },
+    "guide-common-dome": {
+      "text": "A common dome separates the LOX and RP-1 tanks; a transfer tube carries LOX through the RP-1 tank to the engines.",
+      "source": "https://www.spacex.com/assets/media/falcon-users-guide-2025-05-09.pdf",
+      "quote": "A common dome separates the LOX and RP-1 tanks, and a double-wall transfer tube carries LOX through the center of the RP-1 tank to the engine section.",
+      "status": "verified"
+    },
+    "guide-fins-legs": {
+      "text": "Four grid fins near the top of the first stage and four deployable legs at its base are flown for recovery.",
+      "source": "https://www.spacex.com/assets/media/falcon-users-guide-2025-05-09.pdf",
+      "quote": "Four grid fins near the top of the first stage along with four deployable legs at the base are nominally flown to support recovery operations.",
+      "status": "verified"
+    },
+    "guide-held-down": {
+      "text": "After the engines start, the rocket is held down until its systems check out, then released.",
+      "source": "https://www.spacex.com/assets/media/falcon-users-guide-2025-05-09.pdf",
+      "quote": "After engine start, Falcon vehicles are held down until all vehicle systems are verified as functioning normally before release for liftoff.",
+      "status": "verified"
+    },
+    "guide-nitrogen-thrusters": {
+      "text": "Cold nitrogen gas thrusters point and roll the stages; on the first stage they are used for recovery.",
+      "source": "https://www.spacex.com/assets/media/falcon-users-guide-2025-05-09.pdf",
+      "quote": "Coast attitude control Nitrogen gas thrusters (recovery only) Nitrogen gas thrusters",
+      "status": "verified"
+    },
+    "guide-separation": {
+      "text": "The stages are latched at three points; after the first-stage engines shut down, helium releases the latches and four pneumatic pushers push the stages apart.",
+      "source": "https://www.spacex.com/assets/media/falcon-users-guide-2025-05-09.pdf",
+      "quote": "After the first stage engines shut down, a high -pressure helium circuit is used to release the latches via redundant actuators. The helium system also preloads four pneumatic pushers, which provide a positive force for stage separation after latch release.",
+      "status": "verified"
+    },
+    "guide-fairing-halves": {
+      "text": "The fairing is two halves latched along a seam; helium releases them and four pneumatic pushers push them away.",
+      "source": "https://www.spacex.com/assets/media/falcon-users-guide-2025-05-09.pdf",
+      "quote": "To deploy the fairing, a high -pressure helium circuit releases the latches, and four pneumatic pushers facilitate positive-force deployment of the two halves.",
+      "status": "verified"
+    },
+    "guide-timeline": {
+      "text": "A sample flight: liftoff at T+0, max Q at T+74 s, main engine cutoff at T+147 s, stage separation at T+151 s, second engine start at T+158 s, fairing separation at T+222 s.",
+      "source": "https://www.spacex.com/assets/media/falcon-users-guide-2025-05-09.pdf",
+      "quote": "T + 74 s Maximum dynamic pressure (max Q) T + 147 s Main engine cutoff (MECO) T + 151 s Stage separation T + 158 s Second engine start-1 (SES-1) T + 222 s Fairing separation",
+      "status": "verified"
+    },
+    "guide-throttled-in-flight": {
+      "text": "The engines may be throttled in flight to keep loads within limits.",
+      "source": "https://www.spacex.com/assets/media/falcon-users-guide-2025-05-09.pdf",
+      "quote": "Both the first and second stage engines may be throttled to help maintain launch vehicle and payload steady state acceleration limits.",
+      "status": "verified"
+    },
+    "maxq-throttle-down": {
+      "text": "The engines ease back round max Q, the moment of greatest air pressure on the rocket.",
+      "source": "reference/notes.md",
+      "note": "Max Q is in the guide's timeline and the guide says the engines may be throttled to keep loads within limits; throttling down round max Q follows from that and from the model's own pressure peak. The guide does not state it for max Q.",
+      "status": "inferred"
+    },
+    "spacex-interstage": {
+      "text": "The interstage is a composite structure that joins the stages and holds the pneumatic pushers that separate them.",
+      "source": "https://www.spacex.com/vehicles/falcon-9",
+      "quote": "The interstage is a composite structure that connects the first and second stages, and houses the pneumatic pushers that allow the first and second stage to separate during flight.",
+      "status": "verified"
+    },
+    "spacex-grid-fins": {
+      "text": "Four grid fins at the base of the interstage steer the booster on the way back down by moving its centre of pressure.",
+      "source": "https://www.spacex.com/vehicles/falcon-9",
+      "quote": "Falcon 9 is equipped with four hypersonic grid fins positioned at the base of the interstage. They orient the rocket during reentry by moving the center of pressure.",
+      "status": "verified"
+    },
+    "spacex-second-stage": {
+      "text": "The second stage has one Merlin Vacuum engine that lights a few seconds after separation and carries the payload to orbit.",
+      "source": "https://www.spacex.com/vehicles/falcon-9",
+      "quote": "The second stage, powered by a single Merlin Vacuum Engine, delivers Falcon 9's payload to the desired orbit. The second stage engine ignites a few seconds after stage separation",
+      "status": "verified"
+    },
+    "guide-mvac-nozzle": {
+      "text": "The Merlin Vacuum engine has a fixed nozzle with a 165:1 expansion ratio.",
+      "source": "https://www.spacex.com/assets/media/falcon-users-guide-2025-05-09.pdf",
+      "quote": "A single Merlin Vacuum (MVac) engine powers the second stage, using a fixed 165:1 expansion nozzle.",
+      "status": "verified"
+    },
+    "spacex-fairing": {
+      "text": "The carbon-composite fairing, 13.1 m tall and 5.2 m across, protects the satellites and is dropped about three minutes into flight.",
+      "source": "https://www.spacex.com/vehicles/falcon-9",
+      "quote": "Made of a carbon composite material, the fairing protects satellites on their way to orbit. The fairing is jettisoned approximately 3 minutes into flight",
+      "status": "verified"
+    },
+    "spacex-fairing-size": {
+      "text": "Fairing height 13.1 m, diameter 5.2 m.",
+      "source": "https://www.spacex.com/vehicles/falcon-9",
+      "quote": "HEIGHT 13.1 m / 43 ft DIAMETER 5.2 m / 17.1 ft",
+      "status": "verified"
+    },
+    "wiki-recovery-burns": {
+      "text": "After separation the booster flips round; an optional boostback burn reverses its course, an entry burn slows it before the thick air, and a landing burn brings it down to touchdown.",
+      "source": "https://en.wikipedia.org/wiki/SpaceX_reusable_launch_system_development_program",
+      "quote": "After stage separation, the booster flips around (an optional boostback burn reverses its course), a reentry burn sheds gravity-induced speed to prevent stage overheating as the spacecraft reenters the thicker part of the atmosphere, and a landing burn accomplishes the final low-altitude deceleration and touchdown.",
+      "status": "verified"
+    },
+    "asds-barge": {
+      "text": "A droneship is a modified ocean-going barge with its own propulsion to hold position and a large landing platform.",
+      "source": "https://en.wikipedia.org/wiki/Autonomous_spaceport_drone_ship",
+      "quote": "An autonomous spaceport drone ship (ASDS) is a modified ocean-going barge developed by SpaceX and equipped with propulsion systems to maintain precise position and a large landing platform.",
+      "status": "verified"
+    },
+    "wiki-crs8-landing": {
+      "text": "A Falcon 9 booster first landed on a droneship on the CRS-8 flight in April 2016.",
+      "source": "https://en.wikipedia.org/wiki/Falcon_9",
+      "quote": "Flight 23, CRS-8 — first successful landing on an autonomous spaceport drone ship.",
+      "status": "verified"
+    },
+    "model-values": {
+      "text": "Heights, speeds, throttle and the recovery burn times come from a small flat-Earth model with chosen masses, drag and burn plan.",
+      "source": "reference/notes.md",
+      "note": "Liftoff mass, thrust per engine, throttle floor and the ascent event times are sourced; stage masses, specific impulse, drag areas, pitch program, boostback length, entry burn and the landing guidance are chosen so the flight behaves sensibly. Numbers after separation are not a real mission's.",
+      "status": "inferred"
+    },
+    "drawing-proportions": {
+      "text": "Lengths of the tanks, interstage and engines are estimated from the sourced height, diameters and fairing size.",
+      "source": "reference/notes.md",
+      "note": "The total height, the 3.66 m and 5.2 m diameters and the 13.1 m fairing are sourced; the LOX tank is drawn above the RP-1 tank as the transfer tube implies; the split of lengths between them is estimated.",
+      "status": "inferred"
+    },
+    "film-compression": {
+      "text": "The film compresses the flight in time and draws distances to the pad and droneship on a squeezed scale.",
+      "source": "reference/notes.md",
+      "note": "A drawing choice: the eight-minute flight plays in about 26 s at a varying rate, and the scenery moves on a scale that saturates so the pad and ship stay findable.",
+      "status": "inferred"
+    },
+    "thruster-place": {
+      "text": "The nitrogen thruster pods are drawn near the top of the interstage.",
+      "source": "reference/notes.md",
+      "note": "The guide names nitrogen thrusters on both stages but does not draw them; their place on the first stage near the grid fins is from photographs and is not sourced here.",
+      "status": "inferred"
+    },
+    "guide-slc40": {
+      "text": "SpaceX launches Falcon 9 from Space Launch Complex 40 at Cape Canaveral, with a launch pad and lightning towers.",
+      "source": "https://www.spacex.com/assets/media/falcon-users-guide-2025-05-09.pdf",
+      "quote": "SpaceX facilities at SLC-40 (Figure 8-1) include a launch vehicle integration hangar, propellant and pressurant storage and supply areas, a launch pad, and lightning towers.",
+      "status": "verified"
+    },
+    "guide-lightning-wires": {
+      "text": "The SLC-40 and LC-39A pads have overhead wire lightning protection.",
+      "source": "https://www.spacex.com/assets/media/falcon-users-guide-2025-05-09.pdf",
+      "quote": "The SLC-40 and LC-39A launch pads are equipped with overhead wire lightning protection systems.",
+      "status": "verified"
+    },
+    "guide-strongback": {
+      "text": "The transporter-erector strongback is pulled back just before launch.",
+      "source": "https://www.spacex.com/assets/media/falcon-users-guide-2025-05-09.pdf",
+      "quote": "The transporter-erector strongback is retracted just prior to launch.",
+      "status": "verified"
+    },
+    "guide-clamps": {
+      "text": "Engines light while hydraulic clamps hold the rocket at its base; the clamps release at T-0.",
+      "source": "https://www.spacex.com/assets/media/falcon-users-guide-2025-05-09.pdf",
+      "quote": "Engine ignition occurs shortly before liftoff, while the vehicle is held down at the base via hydraulic clamps. The flight computer evaluates engine ignition and full-power performance during the prelaunch hold-down, and if nominal criteria are satisfied, the hydraulic release system is activated at T-0.",
+      "status": "verified"
+    },
+    "wiki-shock-diamonds": {
+      "text": "Shock diamonds are standing wave patterns in a supersonic exhaust plume, seen when the engine runs in an atmosphere.",
+      "source": "https://en.wikipedia.org/wiki/Shock_diamond",
+      "quote": "Shock diamonds (also known as Mach diamonds or thrust diamonds, and less commonly Mach disks) are a formation of standing wave patterns that appear in the supersonic exhaust plume of an aerospace propulsion system, such as a supersonic jet engine, rocket, ramjet, or scramjet, when it is operated in an atmosphere.",
+      "status": "verified"
+    },
+    "pad-drawing": {
+      "text": "The launch mount, flame trench and the places of the towers are drawn after photographs of the pad, simplified, with the lightning towers closer to the rocket than they stand.",
+      "source": "reference/notes.md",
+      "note": "The guide names the pad, lightning towers with overhead wires, the transporter-erector and the hold-down clamps; photographs show the layout but not the trench inside, so the trench is a plain duct opening on the side away from the erector, and the tower pairs are drawn about 30 m either side instead of the larger real spacing.",
+      "status": "inferred"
+    },
+    "plume-drawing": {
+      "text": "Exhaust flames, shock diamonds and the cloud at liftoff are drawn effects driven by the model throttle and altitude, not measured shapes.",
+      "source": "reference/notes.md",
+      "note": "Shock diamonds are sourced for a plume in an atmosphere; the core, the widening with altitude and the cloud are drawn after common launch footage, not from a measurement.",
+      "status": "inferred"
+    },
+    "wiki-slc40-crew-tower": {
+      "text": "Since 2023 SLC-40 has its own access tower, first used for a crew launch in September 2024.",
+      "source": "https://en.wikipedia.org/wiki/Cape_Canaveral_Space_Launch_Complex_40",
+      "quote": "To add additional operational flexibility and reduce reliance on LC-39A, in early 2023, SpaceX began constructing an access tower at SLC-40.",
+      "status": "verified"
+    },
+    "wiki-slc40-slide": {
+      "text": "The SLC-40 tower's emergency escape is an evacuation slide.",
+      "source": "https://en.wikipedia.org/wiki/Cape_Canaveral_Space_Launch_Complex_40",
+      "quote": "In February 2024, SpaceX tested its new emergency escape system for future crewed missions, which uses an evacuation slide instead of the slidewire baskets used at LC-39A.",
+      "status": "verified"
+    },
+    "photo-lightning-towers": {
+      "text": "The four lightning towers stand in two pairs either side of the pad: steel lattice towers with a white mast on top, wires strung between the masts and guyed to the ground.",
+      "source": "https://commons.wikimedia.org/wiki/File:NASA’s_SpaceX_Crew-9_Falcon_9-Dragon_Rollout_at_Space_Launch_C_(NHQ202409270001).jpg",
+      "note": "Read off NASA's 2024 photograph (reference/pad/pad-3.jpg) and SpaceX's 2010 aerial (pad-1.jpg); no source gives the heights, which are estimated from the photograph against the crew tower.",
+      "status": "inferred"
+    },
+    "photo-erector": {
+      "text": "The transporter-erector is a steel lattice beam beside the rocket, hinged at its foot by the launch mount, with arms that hold the stack.",
+      "source": "https://commons.wikimedia.org/wiki/File:NASA’s_SpaceX_Crew-9_Falcon_9-Dragon_Rollout_at_Space_Launch_C_(NHQ202409270003).jpg",
+      "note": "Read off NASA's photographs of the rocket being raised (pad-3.jpg) and standing on the pad (pad-4.jpg) and SpaceX's 2015 photograph (pad-2.jpg); the arm count and the angle it pulls back are drawing choices.",
+      "status": "inferred"
+    },
+    "photo-crew-tower": {
+      "text": "The access tower is a square dark steel tower beside the pad with a swing arm and a white room near its top.",
+      "source": "https://commons.wikimedia.org/wiki/File:NASA’s_SpaceX_Crew-9_Falcon_9-Dragon_Rollout_at_Space_Launch_C_(NHQ202409270003).jpg",
+      "note": "Read off NASA's 2024 photographs (pad-3.jpg, pad-4.jpg); the arm is drawn swung away, as for a flight with no crew, and the slide is a plain chute.",
+      "status": "inferred"
+    },
+    "wiki-three-engine-burns": {
+      "text": "The boostback and entry burns light three of the nine engines.",
+      "source": "https://en.wikipedia.org/wiki/Falcon_9_first-stage_landing_tests",
+      "quote": "by the fourth flight test, in September 2014, SpaceX was reigniting the engines three times to accomplish its EDL test objectives (although only three of the nine engines were used): a boost-back burn, a reentry burn, and a landing burn.",
+      "status": "verified"
+    },
+    "wiki-centre-engine-burns": {
+      "text": "The centre engine lights for every recovery burn.",
+      "source": "https://en.wikipedia.org/wiki/SpaceX_reusable_launch_system_development_program",
+      "quote": "If the booster returns to a landing site on land another burn is needed shortly after stage separation to reverse the flight direction of the booster, for a total of four burns for the center engine.",
+      "status": "verified"
+    },
+    "wiki-single-engine-landing": {
+      "text": "The landing burn here uses the centre engine alone, as single-engine landings do; some landings use three engines.",
+      "source": "https://en.wikipedia.org/wiki/SpaceX_reusable_launch_system_development_program",
+      "quote": "SpaceX opted for a shorter landing burn with three engines instead of the single-engine burns seen in earlier attempts",
+      "status": "verified"
+    },
+    "wiki-fairing-recovery": {
+      "text": "The fairing halves come down under parachutes and are scooped out of the sea to fly again.",
+      "source": "https://en.wikipedia.org/wiki/Falcon_9",
+      "quote": "Additionally, the fairing halves are scooped out of water after a parachute-assisted landing and can be reflown multiple times.",
+      "status": "verified"
+    },
+    "film-time-factor": {
+      "text": "The readout shows how many times faster than real time the film runs.",
+      "source": "reference/notes.md",
+      "note": "The factor is the film's playback rate at that moment (model playbackRate times the film's slow-motion speed); the flight's real times stay those of the model.",
+      "status": "inferred"
+    }
+  }
+}

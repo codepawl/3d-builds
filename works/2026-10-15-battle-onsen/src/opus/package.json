@@ -1,0 +1,16 @@
+{
+  "name": "battle-onsen-opus",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Snowy mountain hot spring scene: Blender assets, three.js app.",
+  "scripts": {
+    "build:assets": "node tools/build-assets.mjs",
+    "serve": "node tools/serve.mjs 5505",
+    "shots": "node tools/shoot.mjs 5505",
+    "fps": "node tools/measure-fps.mjs 5505"
+  },
+  "dependencies": {
+    "three": "0.180.0"
+  }
+}

@@ -1,0 +1,46 @@
+.iso{--anatomy-weight:.9px}
+.ma-zoom-source{--glow:0;fill:none;stroke:var(--anatomy-mid);stroke-width:var(--anatomy-weight);opacity:var(--glow);pointer-events:none}
+.ma-zoom-ties{--glow:0;fill:none;stroke:var(--anatomy-mid);stroke-width:var(--anatomy-weight);stroke-dasharray:calc(var(--anatomy-weight)*4) calc(var(--anatomy-weight)*3.4);opacity:var(--glow);pointer-events:none}
+.ma-zoom{--glow:0;opacity:var(--glow);pointer-events:none}
+.ma-zoom-paper{fill:var(--anatomy-card)}
+.ma-zoom-edge{fill:none;stroke:var(--anatomy-mid);stroke-width:calc(var(--anatomy-weight)*1.2)}
+.ma-tracebox{margin-top:12px;user-select:none;-webkit-user-select:none}
+.ma-trace{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px 8px;font-size:12.5px}
+.ma-chip{--glow:0;color:var(--anatomy-strong);opacity:calc(.32 + .68*var(--glow));white-space:nowrap}
+.ma-chip[data-tint="flow"]{color:var(--ma-flow);font-weight:600}
+.ma-chip[data-tint="flow-2"]{color:var(--ma-flow-2);font-weight:600}
+.ma-chip[data-tint="heat"]{color:var(--ma-heat);font-weight:600}
+.ma-chip-arrow{color:var(--anatomy-lo)}
+.ma-pathkey{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 20px;margin-top:8px;font-size:12px;color:var(--anatomy-muted)}
+.ma-pathkey span{display:flex;align-items:center;gap:8px;white-space:nowrap}
+.ma-swatch{display:block;width:24px;height:3px;border-radius:2px;background:var(--ma-flow)}
+.ma-swatch[data-tint="flow-2"]{background:var(--ma-flow-2)}
+.ma-steps,.ma-stepmark{display:none}
+.ma-hit{fill:#000;fill-opacity:0;stroke:none;cursor:pointer;outline:none}
+.iso[data-theme="dark"] .ma-hit,.iso[data-theme="blueprint"] .ma-hit{fill:#fff}
+.ma-hit:hover,.ma-hit:focus-visible{fill-opacity:.12}
+.iso-stage[data-open] .ma-hit{display:none}
+.iso-stage{position:relative;touch-action:pan-y;outline:none;cursor:pointer;user-select:none;-webkit-user-select:none}
+.iso-stage:focus-visible{outline:1px solid var(--anatomy-muted);outline-offset:6px}
+.ma-badges{position:absolute;inset:0;pointer-events:none}
+.ma-badge,.ma-num{display:grid;place-items:center;width:18px;height:18px;border-radius:50%;flex:none;font-family:var(--anatomy-mono);font-size:10.5px;font-weight:600;line-height:1;color:var(--anatomy-card);background:var(--anatomy-strong);font-variant-numeric:tabular-nums}
+.ma-badge{position:absolute;left:0;top:0;margin:-9px 0 0 -9px;opacity:0;box-shadow:0 0 0 2px var(--anatomy-card)}
+.ma-parts{display:grid;grid-template-columns:repeat(auto-fill,minmax(248px,1fr));gap:5px 18px;margin:0;padding:0;list-style:none}
+.ma-parts li{display:flex;align-items:center;gap:8px}
+.ma-controls{display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin-left:-10px;user-select:none;-webkit-user-select:none}
+.ma-controls button{font:inherit;font-size:13px;color:var(--anatomy-muted);background:none;border:0;border-radius:6px;padding:5px 10px;cursor:pointer}
+.ma-controls button:hover{color:var(--anatomy-strong)}
+.ma-controls button[aria-pressed="true"]{color:var(--anatomy-strong);background:color-mix(in srgb,var(--anatomy-strong) 10%,transparent)}
+.ma-controls button:focus-visible{outline:1px solid var(--anatomy-muted);outline-offset:1px}
+.ma-controls button:disabled{opacity:.45;cursor:default}
+.ma-range{display:flex;align-items:center;gap:8px;padding:5px 10px;font-size:13px;color:var(--anatomy-muted);white-space:nowrap}
+.ma-range input{width:120px;accent-color:var(--ma-heat)}
+.ma-range output{min-width:44px;color:var(--anatomy-strong);font-family:var(--anatomy-mono);font-size:12px}
+.ma-simplified{display:block;margin-top:8px;font-size:12px;line-height:1.5;color:var(--anatomy-muted)}
+.ma-simplified-label{color:var(--anatomy-text);font-weight:600}
+.ma-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.ma-film-legend{display:none}
+.ma-fx-halo{fill:#ff6a1a;stroke:none;pointer-events:none}.ma-fx-body{fill:#ff9b30;stroke:none;pointer-events:none}.ma-fx-core{fill:#fffbea;stroke:none;pointer-events:none}.ma-fx-diamond{fill:#fff3c4;stroke:none;pointer-events:none}.ma-fx-smoke{fill:#ebe8e1;stroke:none;pointer-events:none}.ma-fx-glow{fill:#ffb54a;stroke:none;pointer-events:none}
+html,body{overflow-x:hidden}
+body[data-theme="blueprint"]{color-scheme:dark}
+@media (max-width:520px){.iso-plate-corner[data-corner="hint"]{display:none}.iso-plate-corner[data-corner="readout"]{max-width:100%;white-space:normal;text-align:right}}

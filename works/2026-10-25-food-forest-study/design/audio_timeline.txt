@@ -1,0 +1,5 @@
+# Levels are relative to the loudest moment. 'tonal' means one pitch dominates (a note, a beep, a voice);
+# 'noisy' means a broadband sound (a hit, a whoosh, a click). This says what the sound does, not what it is:
+# name the source by reading the spectrogram and the frame at the same second.
+
+[00:00.02-00:14.92] sound  peak    0.0 dB  mid         noisy  (43 onsets, uneven)

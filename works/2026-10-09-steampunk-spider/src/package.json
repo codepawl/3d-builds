@@ -1,0 +1,2 @@
+{"name":"itsy-procedural-spider","private":true,"type":"module","scripts":{"dev":"node server.mjs","test":"node --test motion.test.mjs strand-physics.test.mjs footsteps.test.mjs","build":"node build.mjs"}}
+

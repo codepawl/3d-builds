@@ -1,0 +1,11 @@
+{
+  "images": [
+    { "file": "pad-1.jpg", "url": "https://commons.wikimedia.org/wiki/File:Space_Launch_Complex_40_at_Cape_Canaveral_(aerial).jpg", "shows": "SLC-40 from the air, 2010 (SpaceX): apron, launch mount, four lightning towers in two pairs, hangar and ring road", "compare": "pad" },
+    { "file": "pad-2.jpg", "url": "https://commons.wikimedia.org/wiki/File:Falcon_9_with_CRS-7_on_SLC-40_pad_(18999110808).jpg", "shows": "Falcon 9 vertical on SLC-40, 2015 (SpaceX): lattice erector beside the rocket, raised launch mount, lightning towers with masts and wires", "compare": "pad" },
+    { "file": "pad-3.jpg", "url": "https://commons.wikimedia.org/wiki/File:NASA%E2%80%99s_SpaceX_Crew-9_Falcon_9-Dragon_Rollout_at_Space_Launch_C_(NHQ202409270001).jpg", "shows": "SLC-40 in 2024 (NASA/Keegan Barber): rocket being raised on the erector, the black access tower, both pairs of lightning towers with masts and catenary wires", "compare": "pad" },
+    { "file": "pad-4.jpg", "url": "https://commons.wikimedia.org/wiki/File:NASA%E2%80%99s_SpaceX_Crew-9_Falcon_9-Dragon_Rollout_at_Space_Launch_C_(NHQ202409270003).jpg", "shows": "Crew-9 Falcon 9 on SLC-40, 2024 (NASA/Keegan Barber): erector lattice and arms beside the stack, access tower with its swing arm and white room", "compare": "pad" },
+    { "file": "pad-5.jpg", "url": "https://commons.wikimedia.org/wiki/File:Falcon_9_Starlink_6-35_Launch_(8192460).jpg", "shows": "Falcon 9 climbing at dusk, 2024 (U.S. Space Force): the exhaust glow and trail at altitude", "compare": "separation" },
+    { "file": "booster-landed.jpg", "url": "https://commons.wikimedia.org/wiki/File:Falcon_9_Flight_20_OG2_first_stage_on_the_landing_pad_(23908478245).jpg", "shows": "A landed Falcon 9 first stage standing on its legs after flight, 2015 (SpaceX), sooted tanks and interstage", "compare": "touchdown" },
+    { "file": "octaweb.jpg", "url": "https://commons.wikimedia.org/wiki/File:SpaceX_Falcon_9_Octaweb_(29255024784).jpg", "shows": "The engine section of a flown first stage on display: eight Merlin bells round a centre one, leg hinges and struts", "compare": "end" }
+  ]
+}

@@ -1,0 +1,18 @@
+# Prompts
+
+The messages are from An, translated from Vietnamese, with chat filler removed. Times are UTC. The briefs are copied as sent, with local paths removed.
+
+## Prompt 1 (translated from Vietnamese, 2026-10-17 01:01 UTC)
+
+Look for 3D models on Sketchfab or other model platforms, pull them in, adjust them and use them as reference. Do not make them low poly. I need them realistic, for example plants, rocks, houses, furniture, exteriors. The materials must be realistic too, so look online for references.
+
+## Prompt 2: topic file, the plan for this app (`design/TOPIC-pitlane.md`)
+
+~~~~text
+Your folder: <your folder> (create it). Port 5429.
+Look: toy isometric (references/looks.md).
+Subject: a single-seater race team's race weekend operations app. Sites are three circuits of a made-up championship (a street circuit at night, a classic parkland circuit, a desert circuit). The world: the pit lane with garages, the team's two cars (open-wheel, open cockpit with halo, front and rear wings, made-up livery) on track and in the pit box, the pit crew in position (front and rear jack, four wheel guns, tyre carriers, release lights gantry), tyre blankets and tyre racks by compound, the pit wall with the strategy stand, the garage with mechanics and the car on stands, the paddock with team trucks and hospitality, the track with kerbs, grandstands, safety car, marshal posts and overtaking zones. Data: cars (driver, position, gap, last lap, tyre compound and age, energy, damage), laps, pit stops (lap, duration, tyres fitted), weather (track temperature, rain chance), strategy (planned stop lap, undercut window), race control messages (yellow flags, safety car). KPIs: race position, gap to leader, average pit stop time, tyre life left. The bottom timeline follows one pit stop (box call, entry, stop, release) inside the race strategy. Use made-up team, driver, sponsor and championship names; no real team, driver, logo or livery.
+Reference images: An approved (2026-10-17) fetching about 20 to 40 reference images for modelling from Wikimedia Commons (check each licence) and public domain US government sites, kept in blender/refs/, never shown in the app or film.
+~~~~
+
+The original task message for this app was not kept, so its pass 1 and pass 2 briefs are not available. The work followed the pattern of the earlier apps in this series. See `works/2026-10-15-game-atc/design/PASS1-atc.md` and `PASS2-atc.md`, the briefs for the same series two days earlier. `src/blender/ASSETS.md` describes the reference-image step.

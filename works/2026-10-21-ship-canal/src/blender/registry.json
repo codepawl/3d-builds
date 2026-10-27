@@ -1,0 +1,899 @@
+[
+ {
+  "file": "mules.glb",
+  "node": "mule_a",
+  "pivot": "top of the rail under the mule centre; children wheel_* pivot at the axle, capstan at the drum axis, cable_arm at its hinge",
+  "facing": "faces -Y (hood at -Y, cab behind); ship side = +X",
+  "clips": "wheel_roll, capstan_spin, arm_swing_out (1 s loops at 30 fps)",
+  "size_xyz_m": [
+   4.88,
+   11.2,
+   5.53
+  ],
+  "min": [
+   -1.65,
+   -5.6,
+   -0.08
+  ],
+  "max": [
+   3.23,
+   5.6,
+   5.45
+  ],
+  "use": "electric towing locomotive 10.4 x 3.3 x 5.2 m on the wall-top track; hands the line to the ship"
+ },
+ {
+  "file": "mules.glb",
+  "node": "mule_b",
+  "pivot": "top of the rail under the mule centre; children wheel_* pivot at the axle, capstan at the drum axis, cable_arm at its hinge",
+  "facing": "faces -Y (hood at -Y, cab behind); ship side = +X",
+  "clips": "wheel_roll, capstan_spin, arm_swing_out (1 s loops at 30 fps)",
+  "size_xyz_m": [
+   4.88,
+   11.2,
+   5.53
+  ],
+  "min": [
+   -1.65,
+   -5.6,
+   -0.08
+  ],
+  "max": [
+   3.23,
+   5.6,
+   5.45
+  ],
+  "use": "electric towing locomotive 10.4 x 3.3 x 5.2 m on the wall-top track; hands the line to the ship"
+ },
+ {
+  "file": "mules.glb",
+  "node": "mule_c",
+  "pivot": "top of the rail under the mule centre; children wheel_* pivot at the axle, capstan at the drum axis, cable_arm at its hinge",
+  "facing": "faces -Y (hood at -Y, cab behind); ship side = +X",
+  "clips": "wheel_roll, capstan_spin, arm_swing_out (1 s loops at 30 fps)",
+  "size_xyz_m": [
+   4.88,
+   11.2,
+   5.53
+  ],
+  "min": [
+   -1.65,
+   -5.6,
+   -0.08
+  ],
+  "max": [
+   3.23,
+   5.6,
+   5.45
+  ],
+  "use": "electric towing locomotive 10.4 x 3.3 x 5.2 m on the wall-top track; hands the line to the ship"
+ },
+ {
+  "file": "ships.glb",
+  "node": "ship_cargo_a",
+  "pivot": "midship, centre line, waterline z=0 (keel below); children *_propeller pivot at the hub, *_rudder at the stock top",
+  "facing": "bow toward -Y (blender) = +Z (glTF); stern +Y",
+  "clips": "prop_spin (30 f loop), rudder_swing (60 f)",
+  "size_xyz_m": [
+   34.4,
+   301.1,
+   46.58
+  ],
+  "min": [
+   -17.2,
+   -154.05,
+   -12.0
+  ],
+  "max": [
+   17.2,
+   147.05,
+   34.58
+  ],
+  "use": "cargo a ship, 294 m long, at design draft"
+ },
+ {
+  "file": "ships.glb",
+  "node": "ship_cargo_b",
+  "pivot": "midship, centre line, waterline z=0 (keel below); children *_propeller pivot at the hub, *_rudder at the stock top",
+  "facing": "bow toward -Y (blender) = +Z (glTF); stern +Y",
+  "clips": "prop_spin (30 f loop), rudder_swing (60 f)",
+  "size_xyz_m": [
+   34.4,
+   301.1,
+   46.58
+  ],
+  "min": [
+   -17.2,
+   -154.05,
+   -12.0
+  ],
+  "max": [
+   17.2,
+   147.05,
+   34.58
+  ],
+  "use": "cargo b ship, 294 m long, at design draft"
+ },
+ {
+  "file": "ships.glb",
+  "node": "ship_tanker_a",
+  "pivot": "midship, centre line, waterline z=0 (keel below); children *_propeller pivot at the hub, *_rudder at the stock top",
+  "facing": "bow toward -Y (blender) = +Z (glTF); stern +Y",
+  "clips": "prop_spin (30 f loop), rudder_swing (60 f)",
+  "size_xyz_m": [
+   33.48,
+   232.6,
+   42.78
+  ],
+  "min": [
+   -16.74,
+   -118.3,
+   -12.2
+  ],
+  "max": [
+   16.74,
+   114.3,
+   30.58
+  ],
+  "use": "tanker a ship, 229 m long, at design draft"
+ },
+ {
+  "file": "ships.glb",
+  "node": "ship_tanker_b",
+  "pivot": "midship, centre line, waterline z=0 (keel below); children *_propeller pivot at the hub, *_rudder at the stock top",
+  "facing": "bow toward -Y (blender) = +Z (glTF); stern +Y",
+  "clips": "prop_spin (30 f loop), rudder_swing (60 f)",
+  "size_xyz_m": [
+   33.48,
+   232.6,
+   42.78
+  ],
+  "min": [
+   -16.74,
+   -118.3,
+   -12.2
+  ],
+  "max": [
+   16.74,
+   114.3,
+   30.58
+  ],
+  "use": "tanker b ship, 229 m long, at design draft"
+ },
+ {
+  "file": "ships.glb",
+  "node": "ship_bulk_a",
+  "pivot": "midship, centre line, waterline z=0 (keel below); children *_propeller pivot at the hub, *_rudder at the stock top",
+  "facing": "bow toward -Y (blender) = +Z (glTF); stern +Y",
+  "clips": "prop_spin (30 f loop), rudder_swing (60 f)",
+  "size_xyz_m": [
+   33.46,
+   229.0,
+   41.68
+  ],
+  "min": [
+   -16.73,
+   -116.5,
+   -13.5
+  ],
+  "max": [
+   16.73,
+   112.5,
+   28.18
+  ],
+  "use": "bulk a ship, 225 m long, at design draft"
+ },
+ {
+  "file": "site.glb",
+  "node": "control_house_a",
+  "pivot": "ground footprint centre, z=0 at ground (buoys at the waterline)",
+  "facing": "door on -Y",
+  "clips": "none",
+  "size_xyz_m": [
+   10.4,
+   10.4,
+   7.8
+  ],
+  "min": [
+   -5.2,
+   -5.9,
+   0.0
+  ],
+  "max": [
+   5.2,
+   4.5,
+   7.8
+  ],
+  "use": "control house on the centre wall, one floor, 10.4 x 8.4 x 5 m; *_windows swaps window_dark to window_lit"
+ },
+ {
+  "file": "site.glb",
+  "node": "control_house_b",
+  "pivot": "ground footprint centre, z=0 at ground (buoys at the waterline)",
+  "facing": "door on -Y",
+  "clips": "none",
+  "size_xyz_m": [
+   10.4,
+   10.4,
+   10.8
+  ],
+  "min": [
+   -5.2,
+   -5.9,
+   0.0
+  ],
+  "max": [
+   5.2,
+   4.5,
+   10.8
+  ],
+  "use": "control house on the centre wall, two floors with radar dome, 10.4 x 8.4 x 9 m"
+ },
+ {
+  "file": "site.glb",
+  "node": "control_center",
+  "pivot": "ground footprint centre, z=0 at ground (buoys at the waterline)",
+  "facing": "entrance on -Y",
+  "clips": "radar_sweep (90 f loop)",
+  "size_xyz_m": [
+   71.5,
+   33.75,
+   36.6
+  ],
+  "min": [
+   -38.0,
+   -17.75,
+   0.0
+  ],
+  "max": [
+   33.5,
+   16.0,
+   36.6
+  ],
+  "use": "canal control center 66 x 32 x 40 m; *_screens swaps screen_off to screen_on or screen_alert; *_radar sweeps"
+ },
+ {
+  "file": "site.glb",
+  "node": "light_tower",
+  "pivot": "ground footprint centre, z=0 at ground (buoys at the waterline)",
+  "facing": "lamps face -Y",
+  "clips": "none",
+  "size_xyz_m": [
+   3.2,
+   1.78,
+   18.35
+  ],
+  "min": [
+   -1.6,
+   -0.89,
+   0.0
+  ],
+  "max": [
+   1.6,
+   0.89,
+   18.35
+  ],
+  "use": "floodlight tower 18 m; *_lamps swaps lamp_off to lamp_warm_on"
+ },
+ {
+  "file": "site.glb",
+  "node": "buoy_red",
+  "pivot": "ground footprint centre, z=0 at ground (buoys at the waterline)",
+  "facing": "none",
+  "clips": "none",
+  "size_xyz_m": [
+   1.97,
+   1.98,
+   6.0
+  ],
+  "min": [
+   -0.98,
+   -0.99,
+   -2.3
+  ],
+  "max": [
+   0.98,
+   0.99,
+   3.7
+  ],
+  "use": "channel buoy, 4 m; *_lamp swaps lamp_red_off to lamp_red_on"
+ },
+ {
+  "file": "site.glb",
+  "node": "buoy_green",
+  "pivot": "ground footprint centre, z=0 at ground (buoys at the waterline)",
+  "facing": "none",
+  "clips": "none",
+  "size_xyz_m": [
+   1.97,
+   1.98,
+   6.0
+  ],
+  "min": [
+   -0.98,
+   -0.99,
+   -2.3
+  ],
+  "max": [
+   0.98,
+   0.99,
+   3.7
+  ],
+  "use": "channel buoy, 4 m; *_lamp swaps lamp_green_off to lamp_green_on"
+ },
+ {
+  "file": "site.glb",
+  "node": "state_materials",
+  "pivot": "ground footprint centre, z=0 at ground (buoys at the waterline)",
+  "facing": "none",
+  "clips": "none",
+  "size_xyz_m": [
+   3.0,
+   0.2,
+   0.2
+  ],
+  "min": [
+   -0.1,
+   -0.1,
+   -0.1
+  ],
+  "max": [
+   2.9,
+   0.1,
+   0.1
+  ],
+  "use": "swatch node: carries the 'on' materials so the app can reuse them by name"
+ },
+ {
+  "file": "lock_equipment.glb",
+  "node": "gate_h20_L",
+  "pivot": "hinge pintle at the leaf bottom (origin); rotates about Z (glTF Y)",
+  "facing": "leaf extends along local +X; skin plate on -Y, girders on +Y; rest pose = closed",
+  "clips": "gate_open, gate_close (60 frames at 30 fps)",
+  "size_xyz_m": [
+   2.98,
+   20.19,
+   21.25
+  ],
+  "min": [
+   -1.5,
+   -19.3,
+   0.0
+  ],
+  "max": [
+   1.48,
+   0.89,
+   21.25
+  ],
+  "use": "miter gate leaf L, 20 m high x 19.2 m long x 3 m thick; closed V apex points to +Y at 17.1 deg"
+ },
+ {
+  "file": "lock_equipment.glb",
+  "node": "gate_h20_R",
+  "pivot": "hinge pintle at the leaf bottom (origin); rotates about Z (glTF Y)",
+  "facing": "leaf extends along local -X; skin plate on -Y, girders on +Y; rest pose = closed",
+  "clips": "gate_open, gate_close (60 frames at 30 fps)",
+  "size_xyz_m": [
+   2.98,
+   20.19,
+   21.25
+  ],
+  "min": [
+   -1.48,
+   -19.3,
+   0.0
+  ],
+  "max": [
+   1.5,
+   0.89,
+   21.25
+  ],
+  "use": "miter gate leaf R, 20 m high x 19.2 m long x 3 m thick; closed V apex points to +Y at 17.1 deg"
+ },
+ {
+  "file": "lock_equipment.glb",
+  "node": "gate_h23_L",
+  "pivot": "hinge pintle at the leaf bottom (origin); rotates about Z (glTF Y)",
+  "facing": "leaf extends along local +X; skin plate on -Y, girders on +Y; rest pose = closed",
+  "clips": "gate_open, gate_close (60 frames at 30 fps)",
+  "size_xyz_m": [
+   2.98,
+   20.19,
+   24.25
+  ],
+  "min": [
+   -1.5,
+   -19.3,
+   0.0
+  ],
+  "max": [
+   1.48,
+   0.89,
+   24.25
+  ],
+  "use": "miter gate leaf L, 23 m high x 19.2 m long x 3 m thick; closed V apex points to +Y at 17.1 deg"
+ },
+ {
+  "file": "lock_equipment.glb",
+  "node": "gate_h23_R",
+  "pivot": "hinge pintle at the leaf bottom (origin); rotates about Z (glTF Y)",
+  "facing": "leaf extends along local -X; skin plate on -Y, girders on +Y; rest pose = closed",
+  "clips": "gate_open, gate_close (60 frames at 30 fps)",
+  "size_xyz_m": [
+   2.98,
+   20.19,
+   24.25
+  ],
+  "min": [
+   -1.48,
+   -19.3,
+   0.0
+  ],
+  "max": [
+   1.5,
+   0.89,
+   24.25
+  ],
+  "use": "miter gate leaf R, 23 m high x 19.2 m long x 3 m thick; closed V apex points to +Y at 17.1 deg"
+ },
+ {
+  "file": "lock_equipment.glb",
+  "node": "gate_h25_L",
+  "pivot": "hinge pintle at the leaf bottom (origin); rotates about Z (glTF Y)",
+  "facing": "leaf extends along local +X; skin plate on -Y, girders on +Y; rest pose = closed",
+  "clips": "gate_open, gate_close (60 frames at 30 fps)",
+  "size_xyz_m": [
+   2.98,
+   20.19,
+   26.75
+  ],
+  "min": [
+   -1.5,
+   -19.3,
+   0.0
+  ],
+  "max": [
+   1.48,
+   0.89,
+   26.75
+  ],
+  "use": "miter gate leaf L, 25 m high x 19.2 m long x 3 m thick; closed V apex points to +Y at 17.1 deg"
+ },
+ {
+  "file": "lock_equipment.glb",
+  "node": "gate_h25_R",
+  "pivot": "hinge pintle at the leaf bottom (origin); rotates about Z (glTF Y)",
+  "facing": "leaf extends along local -X; skin plate on -Y, girders on +Y; rest pose = closed",
+  "clips": "gate_open, gate_close (60 frames at 30 fps)",
+  "size_xyz_m": [
+   2.98,
+   20.19,
+   26.75
+  ],
+  "min": [
+   -1.48,
+   -19.3,
+   0.0
+  ],
+  "max": [
+   1.5,
+   0.89,
+   26.75
+  ],
+  "use": "miter gate leaf R, 25 m high x 19.2 m long x 3 m thick; closed V apex points to +Y at 17.1 deg"
+ },
+ {
+  "file": "lock_equipment.glb",
+  "node": "gate_rolling",
+  "pivot": "centre of the gate at floor level (slides along X)",
+  "facing": "gate faces along Y; slides along X",
+  "clips": "none (app slides it)",
+  "size_xyz_m": [
+   35.0,
+   7.45,
+   25.5
+  ],
+  "min": [
+   -17.5,
+   -3.74,
+   -0.0
+  ],
+  "max": [
+   17.5,
+   3.71,
+   25.5
+  ],
+  "use": "rolling gate 35 x 7 x 24 m"
+ },
+ {
+  "file": "lock_equipment.glb",
+  "node": "valve_house_a",
+  "pivot": "house base centre at the floor; children valve_*_stem pivot at the top of the stem, *_wheel at its axis",
+  "facing": "door on -Y",
+  "clips": "valve_open, valve_close (45 frames)",
+  "size_xyz_m": [
+   3.7,
+   3.42,
+   6.4
+  ],
+  "min": [
+   -1.85,
+   -1.77,
+   0.0
+  ],
+  "max": [
+   1.85,
+   1.65,
+   6.4
+  ],
+  "use": "culvert valve house 3.4 x 3.0 x 4 m; lamps lamp_open / lamp_closed swap materials"
+ },
+ {
+  "file": "lock_equipment.glb",
+  "node": "valve_house_b",
+  "pivot": "house base centre at the floor; children valve_*_stem pivot at the top of the stem, *_wheel at its axis",
+  "facing": "door on -Y",
+  "clips": "valve_open, valve_close (45 frames)",
+  "size_xyz_m": [
+   3.7,
+   3.42,
+   6.4
+  ],
+  "min": [
+   -1.85,
+   -1.77,
+   0.0
+  ],
+  "max": [
+   1.85,
+   1.65,
+   6.4
+  ],
+  "use": "culvert valve house 3.4 x 3.0 x 4 m; lamps lamp_open / lamp_closed swap materials"
+ },
+ {
+  "file": "lock_equipment.glb",
+  "node": "signal_post_a",
+  "pivot": "pole foot",
+  "facing": "lamps face -Y",
+  "clips": "none (app swaps lamp materials)",
+  "size_xyz_m": [
+   0.7,
+   0.77,
+   7.2
+  ],
+  "min": [
+   -0.35,
+   -0.42,
+   0.0
+  ],
+  "max": [
+   0.35,
+   0.35,
+   7.2
+  ],
+  "use": "chamber signal post, 6 m, lamp objects are separate nodes"
+ },
+ {
+  "file": "lock_equipment.glb",
+  "node": "signal_post_b",
+  "pivot": "pole foot",
+  "facing": "lamps face -Y",
+  "clips": "none (app swaps lamp materials)",
+  "size_xyz_m": [
+   0.7,
+   0.77,
+   6.85
+  ],
+  "min": [
+   -0.35,
+   -0.42,
+   0.0
+  ],
+  "max": [
+   0.35,
+   0.35,
+   6.85
+  ],
+  "use": "chamber signal post, 6 m, lamp objects are separate nodes"
+ },
+ {
+  "file": "tugs.glb",
+  "node": "tug_a",
+  "pivot": "midship centre line at the waterline; *_thruster_l/r pivot on the steering axis",
+  "facing": "bow toward -Y (blender) = +Z (glTF)",
+  "clips": "thruster_steer (60 f)",
+  "size_xyz_m": [
+   11.59,
+   33.2,
+   16.15
+  ],
+  "min": [
+   -5.8,
+   -17.2,
+   -4.85
+  ],
+  "max": [
+   5.8,
+   16.0,
+   11.3
+  ],
+  "use": "azimuth harbour tug 32 x 11 m, draft 4.8 m, for the approach channel and lake side"
+ },
+ {
+  "file": "tugs.glb",
+  "node": "tug_b",
+  "pivot": "midship centre line at the waterline; *_thruster_l/r pivot on the steering axis",
+  "facing": "bow toward -Y (blender) = +Z (glTF)",
+  "clips": "thruster_steer (60 f)",
+  "size_xyz_m": [
+   11.59,
+   33.2,
+   16.15
+  ],
+  "min": [
+   -5.8,
+   -17.2,
+   -4.85
+  ],
+  "max": [
+   5.8,
+   16.0,
+   11.3
+  ],
+  "use": "azimuth harbour tug 32 x 11 m, draft 4.8 m, for the approach channel and lake side"
+ },
+ {
+  "file": "lock_structure.glb",
+  "node": "wall_side_a",
+  "pivot": "inner face x=0, floor level z=0, module centre y=0; right-hand wall (outer side +X), rotate 180 deg about Z for the left wall",
+  "facing": "none: long axis along Y, symmetric",
+  "clips": "",
+  "size_xyz_m": [
+   15.03,
+   30.5,
+   28.25
+  ],
+  "min": [
+   -0.03,
+   -15.25,
+   -3.0
+  ],
+  "max": [
+   15.0,
+   15.25,
+   25.25
+  ],
+  "use": "side wall module, 30.5 m long, 25 m above the chamber floor"
+ },
+ {
+  "file": "lock_structure.glb",
+  "node": "wall_side_b",
+  "pivot": "inner face x=0, floor level z=0, module centre y=0; right-hand wall (outer side +X), rotate 180 deg about Z for the left wall",
+  "facing": "none: long axis along Y, symmetric",
+  "clips": "",
+  "size_xyz_m": [
+   15.17,
+   30.5,
+   34.2
+  ],
+  "min": [
+   -0.17,
+   -15.25,
+   -3.0
+  ],
+  "max": [
+   15.0,
+   15.25,
+   31.2
+  ],
+  "use": "side wall module, 30.5 m long, 25 m above the chamber floor"
+ },
+ {
+  "file": "lock_structure.glb",
+  "node": "wall_side_c",
+  "pivot": "inner face x=0, floor level z=0, module centre y=0; right-hand wall (outer side +X), rotate 180 deg about Z for the left wall",
+  "facing": "none: long axis along Y, symmetric",
+  "clips": "",
+  "size_xyz_m": [
+   15.03,
+   30.5,
+   34.2
+  ],
+  "min": [
+   -0.03,
+   -15.25,
+   -3.0
+  ],
+  "max": [
+   15.0,
+   15.25,
+   31.2
+  ],
+  "use": "side wall module, 30.5 m long, 25 m above the chamber floor"
+ },
+ {
+  "file": "lock_structure.glb",
+  "node": "wall_side_gate",
+  "pivot": "inner face x=0, floor z=0; gate hinge pintle at local (x=1.6, y=+10.0); pocket for the open leaf runs from y=+11.5 back to y=-9.5",
+  "facing": "none: long axis along Y, symmetric",
+  "clips": "",
+  "size_xyz_m": [
+   15.03,
+   30.5,
+   28.25
+  ],
+  "min": [
+   -0.03,
+   -15.25,
+   -3.0
+  ],
+  "max": [
+   15.0,
+   15.25,
+   25.25
+  ],
+  "use": "side wall module with the gate pocket where a miter leaf lies when open"
+ },
+ {
+  "file": "lock_structure.glb",
+  "node": "wall_center_a",
+  "pivot": "centre of the wall x=0, floor level z=0, module centre y=0",
+  "facing": "none: long axis along Y, symmetric",
+  "clips": "",
+  "size_xyz_m": [
+   18.06,
+   30.5,
+   28.23
+  ],
+  "min": [
+   -9.03,
+   -15.25,
+   -3.0
+  ],
+  "max": [
+   9.03,
+   15.25,
+   25.23
+  ],
+  "use": "centre wall between the two lanes, 18 m wide, 25 m above the chamber floor"
+ },
+ {
+  "file": "lock_structure.glb",
+  "node": "chamber_floor_a",
+  "pivot": "chamber centre line x=0, floor surface z=0, module centre y=0",
+  "facing": "none: long axis along Y, symmetric",
+  "clips": "",
+  "size_xyz_m": [
+   33.5,
+   30.5,
+   3.0
+  ],
+  "min": [
+   -16.75,
+   -15.25,
+   -3.0
+  ],
+  "max": [
+   16.75,
+   15.25,
+   0.0
+  ],
+  "use": "chamber floor slab with culvert ports: 40 in variant a (5 rows x 8), 43 in variant b (staggered 9/8 rows)"
+ },
+ {
+  "file": "lock_structure.glb",
+  "node": "wall_center_b",
+  "pivot": "centre of the wall x=0, floor level z=0, module centre y=0",
+  "facing": "none: long axis along Y, symmetric",
+  "clips": "",
+  "size_xyz_m": [
+   18.34,
+   30.5,
+   34.2
+  ],
+  "min": [
+   -9.17,
+   -15.25,
+   -3.0
+  ],
+  "max": [
+   9.17,
+   15.25,
+   31.2
+  ],
+  "use": "centre wall between the two lanes, 18 m wide, 25 m above the chamber floor"
+ },
+ {
+  "file": "lock_structure.glb",
+  "node": "chamber_floor_b",
+  "pivot": "chamber centre line x=0, floor surface z=0, module centre y=0",
+  "facing": "none: long axis along Y, symmetric",
+  "clips": "",
+  "size_xyz_m": [
+   33.5,
+   30.5,
+   3.0
+  ],
+  "min": [
+   -16.75,
+   -15.25,
+   -3.0
+  ],
+  "max": [
+   16.75,
+   15.25,
+   0.0
+  ],
+  "use": "chamber floor slab with culvert ports: 40 in variant a (5 rows x 8), 43 in variant b (staggered 9/8 rows)"
+ },
+ {
+  "file": "lock_structure.glb",
+  "node": "chamber_sill",
+  "pivot": "chamber centre x=0, gate hinge line y=0, lower floor z=0 (top at z=8.5)",
+  "facing": "none: long axis along Y, symmetric",
+  "clips": "",
+  "size_xyz_m": [
+   36.86,
+   11.0,
+   12.5
+  ],
+  "min": [
+   -18.43,
+   -2.0,
+   -3.0
+  ],
+  "max": [
+   18.43,
+   9.0,
+   9.5
+  ],
+  "use": "sill block between two chambers, step height 8.5 m, miter ridge pointing to +Y"
+ },
+ {
+  "file": "lock_structure.glb",
+  "node": "mule_track_a",
+  "pivot": "track centre line x=0, sleeper bottom z=0, module centre y=0",
+  "facing": "none: long axis along Y, symmetric",
+  "clips": "",
+  "size_xyz_m": [
+   2.3,
+   30.5,
+   0.5
+  ],
+  "min": [
+   -1.15,
+   -15.25,
+   0.0
+  ],
+  "max": [
+   1.15,
+   15.25,
+   0.5
+  ],
+  "use": "mule track with centre rack, gauge 1.5 m, 30.5 m module (sits on the wall top 2.5 m from the inner edge)"
+ },
+ {
+  "file": "lock_structure.glb",
+  "node": "mule_track_b",
+  "pivot": "track centre line x=0, sleeper bottom z=0, module centre y=0",
+  "facing": "none: long axis along Y, symmetric",
+  "clips": "",
+  "size_xyz_m": [
+   3.8,
+   30.5,
+   0.5
+  ],
+  "min": [
+   -1.9,
+   -15.25,
+   0.0
+  ],
+  "max": [
+   1.9,
+   15.25,
+   0.5
+  ],
+  "use": "mule track with centre rack, gauge 1.5 m, 30.5 m module (sits on the wall top 2.5 m from the inner edge)"
+ }
+]

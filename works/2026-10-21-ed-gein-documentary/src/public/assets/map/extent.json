@@ -1,0 +1,9 @@
+{
+ "west": -89.75,
+ "south": 44.0,
+ "east": -89.25,
+ "north": 44.5,
+ "crs": "EPSG:4326",
+ "heightmap": "heightmap.png",
+ "heightmap_note": "illustrative relief, not measured"
+}

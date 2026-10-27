@@ -1,0 +1,74 @@
+[
+ {
+  "role": "hoof",
+  "license": "Creative Commons 0",
+  "author": "swiftoid",
+  "page": "https://freesound.org/people/swiftoid/sounds/182504/",
+  "title": "Horse Clip Clopping Downhill (stereo)",
+  "file": "<your folder>/castle-cutaway\\sound\\sources\\hoof\\182504_swiftoid.ogg"
+ },
+ {
+  "role": "hoofwood",
+  "license": "Creative Commons 0",
+  "author": "craigsmith",
+  "page": "https://freesound.org/people/craigsmith/sounds/479789/",
+  "title": "R21-62-Horse Walk on Wood Interior.wav",
+  "file": "<your folder>/castle-cutaway\\sound\\sources\\hoofwood\\479789_craigsmith.ogg"
+ },
+ {
+  "role": "chain",
+  "license": "Creative Commons 0",
+  "author": "qubodup",
+  "page": "https://freesound.org/people/qubodup/sounds/199282/",
+  "title": "Big Metal Chain",
+  "file": "<your folder>/castle-cutaway\\sound\\sources\\chain\\199282_qubodup.ogg"
+ },
+ {
+  "role": "bell",
+  "license": "Creative Commons 0",
+  "author": "ivolipa",
+  "page": "https://freesound.org/people/ivolipa/sounds/266525/",
+  "title": "Bells_distant_in_town.wav",
+  "file": "<your folder>/castle-cutaway\\sound\\sources\\bell\\266525_ivolipa.ogg"
+ },
+ {
+  "role": "smith",
+  "license": "Creative Commons 0",
+  "author": "draftcraft",
+  "page": "https://freesound.org/people/draftcraft/sounds/434339/",
+  "title": "Hammer hitting an anvil",
+  "file": "<your folder>/castle-cutaway\\sound\\sources\\smith\\434339_draftcraft.ogg"
+ },
+ {
+  "role": "pots",
+  "license": "Creative Commons 0",
+  "author": "OwlStorm",
+  "page": "https://freesound.org/people/OwlStorm/sounds/209002/",
+  "title": "Pots and Pans Clatter 1",
+  "file": "<your folder>/castle-cutaway\\sound\\sources\\pots\\209002_OwlStorm.ogg"
+ },
+ {
+  "role": "chop",
+  "license": "Creative Commons 0",
+  "author": "krissyeliot",
+  "page": "https://freesound.org/people/krissyeliot/sounds/125521/",
+  "title": "chopping-lettuce.wav",
+  "file": "<your folder>/castle-cutaway\\sound\\sources\\chop\\125521_krissyeliot.ogg"
+ },
+ {
+  "role": "thud",
+  "license": "Creative Commons 0",
+  "author": "CastIronCarousel",
+  "page": "https://freesound.org/people/CastIronCarousel/sounds/216872/",
+  "title": "Doorslam.wav",
+  "file": "<your folder>/castle-cutaway\\sound\\sources\\thud\\216872_CastIronCarousel.ogg"
+ },
+ {
+  "role": "gate",
+  "license": "Creative Commons 0",
+  "author": "ThabzMalik",
+  "page": "https://freesound.org/people/ThabzMalik/sounds/767058/",
+  "title": "Metal gate opening and closing",
+  "file": "<your folder>/castle-cutaway\\sound\\sources\\gate\\767058_ThabzMalik.ogg"
+ }
+]

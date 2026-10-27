@@ -1,0 +1,94 @@
+
+## <project folder>\app\public\assets\buildings.glb  3119 KB, 96888 triangles, 35 materials
+- castle: castle_body, castle_lights
+- entrance_gate: entrance_gate_body, entrance_gate_lights
+- showhouse_space: showhouse_space_board, showhouse_space_body, showhouse_space_entrance, showhouse_space_glow, showhouse_space_marquee
+- showhouse_tale: showhouse_tale_board, showhouse_tale_body, showhouse_tale_entrance, showhouse_tale_glow, showhouse_tale_marquee
+- showhouse_temple: showhouse_temple_board, showhouse_temple_body, showhouse_temple_entrance, showhouse_temple_glow, showhouse_temple_marquee
+
+## <project folder>\app\public\assets\coaster.glb  4591 KB, 149396 triangles, 21 materials
+- coaster_brakes: coaster_brake_fins
+- coaster_lift: coaster_lift_chain, coaster_lift_drive, coaster_lift_walkway
+- coaster_station: coaster_station_booth, coaster_station_canopy, coaster_station_deck, coaster_station_gates, coaster_station_status
+- coaster_supports: coaster_support_columns, coaster_support_footings
+- coaster_track: coaster_track_rails, coaster_track_ties
+- coaster_train_a: coaster_train_a_car_1, coaster_train_a_car_2, coaster_train_a_car_3, coaster_train_a_car_4, coaster_train_a_car_5
+- coaster_train_b: coaster_train_b_car_1, coaster_train_b_car_2, coaster_train_b_car_3, coaster_train_b_car_4, coaster_train_b_car_5
+
+## <project folder>\app\public\assets\flume.glb  1095 KB, 31024 triangles, 22 materials
+- flume_channel: flume_trestles, flume_trough, flume_water
+- flume_lift: flume_lift_belt, flume_lift_walkway
+- flume_log_a: 
+- flume_log_b: 
+- flume_log_c: 
+- flume_pool: flume_pool_basin, flume_splash
+- flume_station: flume_station_deck, flume_status
+
+## <project folder>\app\public\assets\people.glb  1806 KB, 54192 triangles, 55 materials
+- guest_a: guest_a_rig
+- guest_b: guest_b_rig
+- guest_c: guest_c_rig
+- guest_child_a: guest_child_a_rig
+- guest_child_b: guest_child_b_rig
+- guest_d: guest_d_rig
+- guest_e: guest_e_rig
+- guest_f: guest_f_rig
+- staff_operator: staff_operator_rig
+- staff_tech: staff_tech_rig
+- clips: guest_a_idle, guest_a_operate, guest_a_walk, guest_a_wave, guest_b_idle, guest_b_operate, guest_b_walk, guest_b_wave, guest_c_idle, guest_c_operate, guest_c_walk, guest_c_wave, guest_child_a_idle, guest_child_a_operate, guest_child_a_walk, guest_child_a_wave, guest_child_b_idle, guest_child_b_operate, guest_child_b_walk, guest_child_b_wave, guest_d_idle, guest_d_operate, guest_d_walk, guest_d_wave, guest_e_idle, guest_e_operate, guest_e_walk, guest_e_wave, guest_f_idle, guest_f_operate, guest_f_walk, guest_f_wave, staff_operator_idle, staff_operator_operate, staff_operator_walk, staff_operator_wave, staff_tech_idle, staff_tech_operate, staff_tech_walk, staff_tech_wave
+
+## <project folder>\app\public\assets\props.glb  406 KB, 10808 triangles, 19 materials
+- balloon_cluster: balloon_cluster_body
+- bench: bench_body
+- bollard: bollard_body
+- bush_a: bush_a_body
+- bush_b: bush_b_body
+- flower_bed: flower_bed_body
+- info_kiosk: info_kiosk_body
+- lamp_post: lamp_post_body, lamp_post_glow
+- parking_light: parking_light_body
+- planter_box: planter_box_body
+- trash_bin: trash_bin_body
+- tree_conifer: tree_conifer_body
+- tree_palm: tree_palm_body
+- tree_round_a: tree_round_a_body
+- tree_round_b: tree_round_b_body
+
+## <project folder>\app\public\assets\rides.glb  4924 KB, 143756 triangles, 39 materials
+- carousel: carousel_base, carousel_rotor, carousel_status
+- ferris_wheel: ferris_base, ferris_rotor, ferris_status, ferris_towers
+
+## <project folder>\app\public\assets\stands.glb  1048 KB, 30296 triangles, 31 materials
+- cart_icecream: cart_icecream_body
+- cart_popcorn: cart_popcorn_body
+- fastpass_merge: fastpass_merge_body
+- queue_canopy: queue_canopy_body
+- queue_rail_straight: queue_rail_straight_body
+- queue_rail_turn: queue_rail_turn_body
+- shop_adventure: shop_adventure_body
+- shop_space: shop_space_body
+- shop_tale: shop_tale_body
+- stand_kiosk_a: stand_kiosk_a_body
+- stand_kiosk_b: stand_kiosk_b_body
+- table_umbrella: table_umbrella_body
+- wait_board: wait_board_frame, wait_board_screen, wait_board_status
+
+## <project folder>\app\public\assets\transport.glb  2612 KB, 78956 triangles, 38 materials
+- car_hatch: car_hatch_body, car_hatch_wheel_fl, car_hatch_wheel_fr, car_hatch_wheel_rl, car_hatch_wheel_rr
+- car_sedan: car_sedan_body, car_sedan_wheel_fl, car_sedan_wheel_fr, car_sedan_wheel_rl, car_sedan_wheel_rr
+- car_suv: car_suv_body, car_suv_wheel_fl, car_suv_wheel_fr, car_suv_wheel_rl, car_suv_wheel_rr
+- float_cake: float_cake_body
+- float_carriage: float_carriage_body
+- float_rocket: float_rocket_body
+- maint_cart_bed: maint_cart_bed_body, maint_cart_bed_wheel_fl, maint_cart_bed_wheel_fr, maint_cart_bed_wheel_rl, maint_cart_bed_wheel_rr
+- maint_cart_box: maint_cart_box_body, maint_cart_box_wheel_fl, maint_cart_box_wheel_fr, maint_cart_box_wheel_rl, maint_cart_box_wheel_rr
+- monorail_beam: monorail_beam_body
+- monorail_car_lead: monorail_car_lead_body, monorail_car_lead_door_L1, monorail_car_lead_door_L2, monorail_car_lead_door_R1, monorail_car_lead_door_R2
+- monorail_car_mid: monorail_car_mid_body, monorail_car_mid_door_L1, monorail_car_mid_door_L2, monorail_car_mid_door_R1, monorail_car_mid_door_R2
+- monorail_car_tail: monorail_car_tail_body, monorail_car_tail_door_L1, monorail_car_tail_door_L2, monorail_car_tail_door_R1, monorail_car_tail_door_R2
+- monorail_pylon: monorail_pylon_body
+- monorail_station: monorail_station_body, monorail_station_lights
+- tram_tractor: tram_tractor_body, tram_tractor_wheel_fl, tram_tractor_wheel_fr, tram_tractor_wheel_rl, tram_tractor_wheel_rr
+- tram_trailer: tram_trailer_body, tram_trailer_wheel_fl, tram_trailer_wheel_fr, tram_trailer_wheel_rl, tram_trailer_wheel_rr
+
+total 19.14 MB

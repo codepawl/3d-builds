@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>A Castle, Alive</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #f0e3c2; overflow: hidden; }
+  #stage, #stage canvas { position: absolute; inset: 0; display: block; }
+  #vignette { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 48%, rgba(120, 80, 30, 0) 58%, rgba(110, 70, 25, 0.34) 100%); }
+  #labels { position: absolute; inset: 0; pointer-events: none; font-family: Georgia, 'Times New Roman', serif; }
+  .label { position: absolute; left: 0; top: 0; display: flex; align-items: center; gap: 12px; padding: 8px 18px 9px 14px; font-size: 30px; line-height: 1; letter-spacing: 0.01em; color: #3a2310; white-space: nowrap; background: rgba(247, 236, 210, 0.9); border: 1px solid rgba(90, 58, 26, 0.55); border-radius: 3px; box-shadow: 0 3px 10px rgba(70, 40, 10, 0.25); opacity: 0; user-select: none; }
+  .label i { width: 9px; height: 9px; border-radius: 50%; background: #9a2b2f; flex: none; }
+</style>
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.js" } }
+</script>
+</head>
+<body>
+<div id="stage"></div>
+<div id="vignette"></div>
+<div id="labels"></div>
+<script type="module" src="./main.js"></script>
+</body>
+</html>

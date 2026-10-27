@@ -1,0 +1,41 @@
+<!doctype html>
+<meta charset="utf-8">
+<style>html,body{margin:0;background:#000}canvas{display:block}</style>
+<script type="importmap">{"imports":{"three":"/three/three.module.js"}}</script>
+<canvas id="view" width="1280" height="720"></canvas>
+<script type="module">
+import * as THREE from 'three';
+import { PixelCamera } from '/pixel-camera.js';
+import { buildDiorama, cameraViewAt, vehiclePositionAt, DURATION } from '/test/diorama.js';
+
+const PRESETS = {
+  A:       { snap: false, offset: 'none',     zoom: 'naive', objectSnap: false },
+  B:       { snap: true,  offset: 'none',     zoom: 'naive', objectSnap: false },
+  battle:  { snap: true,  offset: 'pixel',    zoom: 'naive', objectSnap: false },
+  C:       { snap: true,  offset: 'pixel',    zoom: 'hold',  objectSnap: true },
+  Csub:    { snap: true,  offset: 'subtexel', zoom: 'hold',  objectSnap: true },
+  Csteps:  { snap: true,  offset: 'pixel',    zoom: 'steps', objectSnap: true },
+  Cblur:   { snap: true,  offset: 'pixel',    zoom: 'hold',  objectSnap: true, rotation: 'blur' },
+  Cboost:  { snap: true,  offset: 'pixel',    zoom: 'hold',  objectSnap: true, rotation: 'boost' },
+  Cdither: { snap: true,  offset: 'pixel',    zoom: 'hold',  objectSnap: true, rotation: 'dither' },
+};
+const presetName = new URLSearchParams(location.search).get('preset') ?? 'C';
+const canvas = document.getElementById('view');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, preserveDrawingBuffer: true });
+renderer.setPixelRatio(1);
+renderer.setSize(1280, 720, false);
+const { scene, vehicle } = buildDiorama();
+const pixelCamera = new PixelCamera(renderer, {
+  lowWidth: 320, lowHeight: 180, outputWidth: 1280, outputHeight: 720,
+  baseTexelWorld: 0.125, zoomMin: 1, mode: PRESETS[presetName],
+});
+const scratch = new THREE.Vector3();
+window.DURATION = DURATION;
+window.renderAt = (time) => {
+  const view = cameraViewAt(time);
+  pixelCamera.prepare(view);
+  vehicle.position.copy(pixelCamera.snapPosition(vehiclePositionAt(time), scratch));
+  pixelCamera.render(scene);
+};
+window.reelReady = true;
+</script>

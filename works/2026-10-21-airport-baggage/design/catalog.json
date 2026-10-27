@@ -1,0 +1,50 @@
+{
+  "units": "metres, Blender axes (X flow, Y across, Z up); glTF swaps to Y up with Blender -Y = +Z",
+  "conveyor": {
+    "moduleLength": 2.0, "beltWidth": 0.80, "frameWidth": 0.96, "beltTopHeight": 0.80, "guardHeightAboveBelt": 0.14,
+    "curve90": {"centerlineRadius": 1.5, "entry": [0, 0], "exit": [1.5, 1.5], "exitHeadingDeg": 90, "turn": "left"},
+    "incline": {"planLength": 2.0, "rise": 0.5, "angleDeg": 14.04},
+    "merge": {"mainLength": 2.0, "feederJoinPoint": [1.2, 0.55], "feederAngleDeg": 45, "sideGap": [0.7, 1.7]},
+    "beltUvUnit": "metres along the path (U), texture rib pitch 0.125 m",
+    "beltSpeedMps": {"checkin": 0.5, "collector": 1.0, "induction": 1.5, "sorterLoop": 2.2, "ctScanner": 0.35}
+  },
+  "sorter": {
+    "trayLength": 1.15, "trayWidth": 0.85, "trayPitch": 1.30, "deckHeight": 1.0, "hingeHeight": 0.92,
+    "tiltMaxDeg": 30, "tiltClipFrames": 26, "railGauge": 0.70, "railTop": 0.40,
+    "trackStraightLength": 2.0, "trackCurve90Radius": 2.0, "traysPerStraightModule": 1.54,
+    "chute": {"width": 1.0, "length": 2.0, "angleDeg": 22, "headHeight": 0.85, "footHeight": 0.10, "horizontalRun": 1.85}
+  },
+  "bags": {
+    "bag_hard_blue": {"size": [0.68, 0.45, 0.26], "typicalKg": 18},
+    "bag_hard_orange": {"size": [0.78, 0.50, 0.30], "typicalKg": 23},
+    "bag_hard_teal": {"size": [0.58, 0.40, 0.23], "typicalKg": 12},
+    "bag_soft_grey": {"size": [0.62, 0.40, 0.24], "typicalKg": 15},
+    "bag_duffel_green": {"size": [0.72, 0.38, 0.26], "typicalKg": 14},
+    "bag_backpack_red": {"size": [0.52, 0.34, 0.20], "typicalKg": 9},
+    "restingPose": "on its back, long axis along X, origin at the underside centre"
+  },
+  "uld": {
+    "ld3": {"modelSize": [2.01, 1.534, 1.625], "baseSize": [1.562, 1.534], "topWidth": 2.01, "height": 1.625,
+            "volumeM3": 4.3, "tareKg": 82, "maxGrossKg": 1588, "doorFace": "-Y", "bagsPerContainerTypical": 35},
+    "doorClipFrames": 20
+  },
+  "screening": {
+    "ct": {"housing": [2.1, 1.6, 1.95], "tunnel": [0.95, 0.75], "beltTop": 0.80, "beltLength": 2.7, "gantryPivot": [0, 0, 1.175],
+           "spinClipFrames": 48, "throughputBagsPerHour": 900},
+    "searchTable": [2.4, 1.0, 0.95], "searchRoom": [4.0, 3.2, 2.65]
+  },
+  "readArch": {"clearWidth": 1.2, "clearHeight": 0.88, "length": 0.5, "lamps": ["read_arch_lamp_idle", "read_arch_lamp_ok", "read_arch_lamp_noread"]},
+  "checkin": {"desk": [1.9, 0.9, 1.0], "weighBelt": [1.9, 0.78], "beltTop": 0.80},
+  "makeup": {"carouselStraight": 6.0, "carouselCenterlineRadius": 1.4, "beltWidth": 1.1, "beltTop": 0.55, "loopLength": 20.8,
+             "bagCart": [1.3, 0.95, 1.0]},
+  "earlyBagStore": {"rackBay": [2.0, 1.2, 4.0], "levels": 5, "firstShelf": 0.35, "levelPitch": 0.8, "tote": [0.88, 0.72, 0.34],
+                    "craneCarriageTravel": [0.4, 3.4], "craneClipFrames": 60},
+  "ramp": {
+    "tug": {"size": [1.54, 3.26, 1.84], "wheelRadius": 0.3, "wheelbase": 1.75, "trackHalf": 0.58, "hitchPin": [0, 1.78, 0.58], "wheelRollClipFrames": 25},
+    "dolly": {"size": [2.0, 3.8, 0.9], "drawbarPin": [0, -2.18, 0.35]},
+    "beltLoader": {"chassis": [2.0, 3.0, 1.6], "hinge": [0, -0.3, 1.3], "boomLength": 4.6, "boomMaxRaiseDeg": 25, "tipHeightRaised": 3.24, "boomClipFrames": 48},
+    "handlerHeight": 1.75,
+    "aircraft": {"length": 37.6, "span": 35.35, "height": 11.65, "fuselageDiameter": 3.95, "holdDoorSide": "-X",
+                 "holdDoors": [[-1.51, 4.0, 2.63]], "noseAt": "-Y", "doorClipFrames": 30}
+  }
+}

@@ -1,0 +1,388 @@
+{
+  "ambulance": [
+    {
+      "file": "ambulance/01.jpg",
+      "query": "Type III ambulance",
+      "title": "File:2018 Ford E450 Type III Life Line Ambulance of Rothsville Volunteer Fire Company.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:2018_Ford_E450_Type_III_Life_Line_Ambulance_of_Rothsville_Volunteer_Fire_Company.jpg",
+      "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9b/2018_Ford_E450_Type_III_Life_Line_Ambulance_of_Rothsville_Volunteer_Fire_Company.jpg/960px-2018_Ford_E450_Type_III_Life_Line_Ambulance_of_Rothsville_Volunteer_Fire_Company.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "licence": "CC BY-SA 4.0",
+      "artist": "Oleg Yunakov",
+      "description": "2018 Ford E450 Type III Life Line Ambulance of Rothsville Volunteer Fire Company"
+    },
+    {
+      "file": "ambulance/02.jpg",
+      "query": "Type III ambulance",
+      "title": "File:Tokyo Fire Department Special Ambulance Type III Front Right.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Tokyo_Fire_Department_Special_Ambulance_Type_III_Front_Right.jpg",
+      "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3c/Tokyo_Fire_Department_Special_Ambulance_Type_III_Front_Right.jpg/960px-Tokyo_Fire_Department_Special_Ambulance_Type_III_Front_Right.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "licence": "CC BY-SA 4.0",
+      "artist": "Triangle-Heart",
+      "description": "東京消防庁 特殊救急車III型 前部右側"
+    },
+    {
+      "file": "ambulance/03.jpg",
+      "query": "ambulance rear doors",
+      "title": "File:Ambulance rear 12u07.JPG",
+      "page": "https://commons.wikimedia.org/wiki/File:Ambulance_rear_12u07.JPG",
+      "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/51/Ambulance_rear_12u07.JPG/960px-Ambulance_rear_12u07.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "licence": "CC BY-SA 3.0",
+      "artist": "Snowmanradio",
+      "description": "photograph of the read of an ambulance in Coventry, England. Shows rear doors."
+    },
+    {
+      "file": "ambulance/04.jpg",
+      "query": "ambulance side view",
+      "title": "File:Inside of a ANSW ambulance (side view).jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Inside_of_a_ANSW_ambulance_(side_view).jpg",
+      "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c7/Inside_of_a_ANSW_ambulance_%28side_view%29.jpg/960px-Inside_of_a_ANSW_ambulance_%28side_view%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "licence": "CC BY-SA 3.0",
+      "artist": "Bidgee",
+      "description": "Inside of a Ambulance Service of New South Wales ambulance."
+    },
+    {
+      "file": "ambulance/05.jpg",
+      "query": "ambulance side view",
+      "title": "File:DCFD Fire Department Ambulance - side view - 2010-09-07.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:DCFD_Fire_Department_Ambulance_-_side_view_-_2010-09-07.jpg",
+      "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b7/DCFD_Fire_Department_Ambulance_-_side_view_-_2010-09-07.jpg/960px-DCFD_Fire_Department_Ambulance_-_side_view_-_2010-09-07.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "licence": "CC BY-SA 3.0",
+      "artist": "Tim1965",
+      "description": "Oblique side view of a District of Columbia Department of Fire and Emergency Medical Services ambulance in Washington, D.C., in the United States."
+    }
+  ],
+  "helicopter": [
+    {
+      "file": "helicopter/01.jpg",
+      "query": "EC135 air ambulance",
+      "title": "File:DRF Eurocopter EC135 Christoph 44 D-HDRK Göttingen 2017 03.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:DRF_Eurocopter_EC135_Christoph_44_D-HDRK_G%C3%B6ttingen_2017_03.jpg",
+      "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/18/DRF_Eurocopter_EC135_Christoph_44_D-HDRK_G%C3%B6ttingen_2017_03.jpg/960px-DRF_Eurocopter_EC135_Christoph_44_D-HDRK_G%C3%B6ttingen_2017_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "licence": "CC BY 4.0",
+      "artist": "Julian Herzog (Website)",
+      "description": "DRF Luftrettung Eurocopter EC135 P2 \"Christoph 44\" air ambulance helicopter (reg. D-HDRK, s/n 0477) during takeoff in Göttingen, Germany. Christoph 44 is called"
+    },
+    {
+      "file": "helicopter/02.jpg",
+      "query": "EC135 air ambulance",
+      "title": "File:Thames Valley Air Ambulances EC135 Helicopter.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Thames_Valley_Air_Ambulances_EC135_Helicopter.jpg",
+      "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d5/Thames_Valley_Air_Ambulances_EC135_Helicopter.jpg/960px-Thames_Valley_Air_Ambulances_EC135_Helicopter.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "licence": "CC BY-SA 4.0",
+      "artist": "JF2608",
+      "description": "Thames Valley Air Ambulances EC135, registered G-TVLY, departing a scene after assisting an ambulance crew in Oxford."
+    },
+    {
+      "file": "helicopter/03.jpg",
+      "query": "H135 helicopter",
+      "title": "File:Airbus Helicopters H135 HB-ZUE.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Airbus_Helicopters_H135_HB-ZUE.jpg",
+      "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4e/Airbus_Helicopters_H135_HB-ZUE.jpg/960px-Airbus_Helicopters_H135_HB-ZUE.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "licence": "CC BY-SA 4.0",
+      "artist": "Chme82",
+      "description": "Rescue helicopter Airbus Helicopters H135 T2+ HB-ZUE of Alpine Air Ambulance at its base at Birrfeld airfield in Switzerland (LSZF)."
+    },
+    {
+      "file": "helicopter/04.jpg",
+      "query": "H135 helicopter",
+      "title": "File:Eurocopter EC135 D-HZSG Brownout III Brüggemann.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Eurocopter_EC135_D-HZSG_Brownout_III_Br%C3%BCggemann.jpg",
+      "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d0/Eurocopter_EC135_D-HZSG_Brownout_III_Br%C3%BCggemann.jpg/960px-Eurocopter_EC135_D-HZSG_Brownout_III_Br%C3%BCggemann.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "licence": "CC BY-SA 3.0",
+      "artist": "Jan Brüggemann",
+      "description": "Eurocopter EC135 D-HZSG Brownout"
+    }
+  ],
+  "helipad": [
+    {
+      "file": "helipad/01.jpg",
+      "query": "hospital helipad",
+      "title": "File:Rooftop helipad at hospital St.Anna, Brno.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Rooftop_helipad_at_hospital_St.Anna,_Brno.jpg",
+      "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e1/Rooftop_helipad_at_hospital_St.Anna%2C_Brno.jpg/960px-Rooftop_helipad_at_hospital_St.Anna%2C_Brno.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "licence": "CC BY-SA 4.0",
+      "artist": "Fúzač Červený",
+      "description": "Rooftop helipad at St. Anna hospital in Brno"
+    },
+    {
+      "file": "helipad/02.jpg",
+      "query": "hospital helipad",
+      "title": "File:Hospital Helipad - geograph.org.uk - 667808.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Hospital_Helipad_-_geograph.org.uk_-_667808.jpg",
+      "thumb": "https://upload.wikimedia.org/wikipedia/commons/3/37/Hospital_Helipad_-_geograph.org.uk_-_667808.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "licence": "CC BY-SA 2.0",
+      "artist": "Mary and Angus Hogg",
+      "description": "Hospital Helipad It is, of course, vital to keep clear access to this emergency point at all times."
+    }
+  ],
+  "stretcher": [
+    {
+      "file": "stretcher/01.jpg",
+      "query": "ambulance stretcher",
+      "title": "File:Ferno Model 35-P stretcher in back of ambulance, EMS Museum, Heritage Village, Kingsville, Ontario, 2026-10-04.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Ferno_Model_35-P_stretcher_in_back_of_ambulance,_EMS_Museum,_Heritage_Village,_Kingsville,_Ontario,_2026-10-04.jpg",
+      "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c8/Ferno_Model_35-P_stretcher_in_back_of_ambulance%2C_EMS_Museum%2C_Heritage_Village%2C_Kingsville%2C_Ontario%2C_2026-10-04.jpg/960px-Ferno_Model_35-P_stretcher_in_back_of_ambulance%2C_EMS_Museum%2C_Heritage_Village%2C_Kingsville%2C_Ontario%2C_2026-10-04.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "licence": "CC BY-SA 4.0",
+      "artist": "Chris Woodrich",
+      "description": "Ferno Model 35-P stretcher in back of ambulance, EMS Museum, Heritage Village, Kingsville, Ontario, 2026-10-04"
+    },
+    {
+      "file": "stretcher/02.jpg",
+      "query": "ambulance stretcher",
+      "title": "File:ROCA VW Ambulance and Stretcher Display in Chengkungling 20121006.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:ROCA_VW_Ambulance_and_Stretcher_Display_in_Chengkungling_20121006.jpg",
+      "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/ff/ROCA_VW_Ambulance_and_Stretcher_Display_in_Chengkungling_20121006.jpg/960px-ROCA_VW_Ambulance_and_Stretcher_Display_in_Chengkungling_20121006.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "licence": "CC BY-SA 3.0",
+      "artist": "玄史生",
+      "description": "​2012年成功嶺營區開放活動，榕蔭下展示的陸軍VW T5救護車與擔架床等急救裝備。"
+    }
+  ],
+  "hospital_bed": [
+    {
+      "file": "hospital_bed/01.jpg",
+      "query": "hospital bed",
+      "title": "File:Hospital Bed 2011.JPG",
+      "page": "https://commons.wikimedia.org/wiki/File:Hospital_Bed_2011.JPG",
+      "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d1/Hospital_Bed_2011.JPG/960px-Hospital_Bed_2011.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "licence": "CC0",
+      "artist": "Blogotron",
+      "description": "electrically moved hospital bed 2011"
+    },
+    {
+      "file": "hospital_bed/02.jpg",
+      "query": "hospital bed",
+      "title": "File:Hospital bed made by schroder.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Hospital_bed_made_by_schroder.jpg",
+      "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ef/Hospital_bed_made_by_schroder.jpg/960px-Hospital_bed_made_by_schroder.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "licence": "CC BY 4.0",
+      "artist": "Fatiens",
+      "description": "Hospital Bed Made By Schröder"
+    },
+    {
+      "file": "hospital_bed/03.jpg",
+      "query": "hospital bed",
+      "title": "File:Hill-Rom hospital bed tray.JPG",
+      "page": "https://commons.wikimedia.org/wiki/File:Hill-Rom_hospital_bed_tray.JPG",
+      "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/24/Hill-Rom_hospital_bed_tray.JPG/960px-Hill-Rom_hospital_bed_tray.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "licence": "CC BY-SA 3.0",
+      "artist": "BrokenSphere",
+      "description": "The tray for a Hill-Rom hospital bed, located at the foot of the bed."
+    }
+  ],
+  "ct_scanner": [
+    {
+      "file": "ct_scanner/01.jpg",
+      "query": "CT scanner",
+      "title": "File:CT Scanner (NIH BioArt 373 - 632561).png",
+      "page": "https://commons.wikimedia.org/wiki/File:CT_Scanner_(NIH_BioArt_373_-_632561).png",
+      "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c7/CT_Scanner_%28NIH_BioArt_373_-_632561%29.png/960px-CT_Scanner_%28NIH_BioArt_373_-_632561%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "licence": "Public domain",
+      "artist": "Courtesy of NIAID Ryan Kissinger",
+      "description": "Perspective view of a CT Scanner."
+    },
+    {
+      "file": "ct_scanner/02.jpg",
+      "query": "CT scanner",
+      "title": "File:CT Scanner (NIH BioArt 373 - 632566).png",
+      "page": "https://commons.wikimedia.org/wiki/File:CT_Scanner_(NIH_BioArt_373_-_632566).png",
+      "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/01/CT_Scanner_%28NIH_BioArt_373_-_632566%29.png/960px-CT_Scanner_%28NIH_BioArt_373_-_632566%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "licence": "Public domain",
+      "artist": "Courtesy of NIAID Ryan Kissinger",
+      "description": "Perspective view of a CT Scanner."
+    },
+    {
+      "file": "ct_scanner/03.jpg",
+      "query": "CT scanner",
+      "title": "File:AS&E CT Scanner.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:AS%26E_CT_Scanner.jpg",
+      "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e4/AS%26E_CT_Scanner.jpg/960px-AS%26E_CT_Scanner.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "licence": "CC BY 4.0",
+      "artist": "AlexGustschin",
+      "description": "Image of an open AS&amp;E CT scanner from a product brochure in 1976. Acquired from \"Supplemental material for how CT happened—the early development of medical "
+    }
+  ],
+  "xray": [
+    {
+      "file": "xray/01.jpg",
+      "query": "radiography room x-ray",
+      "title": "File:Dedicated chest x-ray room.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Dedicated_chest_x-ray_room.jpg",
+      "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ca/Dedicated_chest_x-ray_room.jpg/960px-Dedicated_chest_x-ray_room.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "licence": "CC BY-SA 4.0",
+      "artist": "Ptrump16",
+      "description": "Dedicated digital chest radiography room at a hospital. Device pictured: Philips Essenta DR"
+    },
+    {
+      "file": "xray/02.jpg",
+      "query": "radiography room x-ray",
+      "title": "File:X-ray Room.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:X-ray_Room.jpg",
+      "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/65/X-ray_Room.jpg/960px-X-ray_Room.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "licence": "CC BY-SA 3.0",
+      "artist": "Rtstudents",
+      "description": "X-ray room at allied health college."
+    },
+    {
+      "file": "xray/03.jpg",
+      "query": "x-ray machine",
+      "title": "File:Garfield X-ray machine.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Garfield_X-ray_machine.jpg",
+      "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e3/Garfield_X-ray_machine.jpg/960px-Garfield_X-ray_machine.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "licence": "Public domain",
+      "artist": "Harris &amp; Ewing, photographer",
+      "description": "X-ray at Garfield Hospital"
+    }
+  ],
+  "nurses_station": [
+    {
+      "file": "nurses_station/01.jpg",
+      "query": "nurses station",
+      "title": "File:Nurses in a nurses' station, USA 1987.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Nurses_in_a_nurses%27_station,_USA_1987.jpg",
+      "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ae/Nurses_in_a_nurses%27_station%2C_USA_1987.jpg/960px-Nurses_in_a_nurses%27_station%2C_USA_1987.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "licence": "Public domain",
+      "artist": "Bill Branson, National Cancer Institute",
+      "description": "Several nurses in a nurses' station, two of which are working on a computer accessing PDQ. Physicians Data Query was designed by the National Cancer Institute t"
+    },
+    {
+      "file": "nurses_station/02.jpg",
+      "query": "nurses station",
+      "title": "File:Capt. Della H. Raney, Army Nurse Corps, who now heads the nursing staff at the station hospital at Camp Beale, CA - NARA - 535942.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Capt._Della_H._Raney,_Army_Nurse_Corps,_who_now_heads_the_nursing_staff_at_the_station_hospital_at_Camp_Beale,_CA_-_NARA_-_535942.jpg",
+      "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2f/Capt._Della_H._Raney%2C_Army_Nurse_Corps%2C_who_now_heads_the_nursing_staff_at_the_station_hospital_at_Camp_Beale%2C_CA_-_NARA_-_535942.jpg/960px-Capt._Della_H._Raney%2C_Army_Nurse_Corps%2C_who_now_heads_the_nursing_staff_at_the_station_hospital_at_Camp_Beale%2C_CA_-_NARA_-_535942.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "licence": "Public domain",
+      "artist": "Uncredited; Restored by Adam Cuerden",
+      "description": "Делла Г. Рейні була першою афроамериканкою, прийнятою в армійський корпус медсестер, США."
+    },
+    {
+      "file": "nurses_station/03.jpg",
+      "query": "emergency department",
+      "title": "File:Emergency room sign.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Emergency_room_sign.jpg",
+      "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/46/Emergency_room_sign.jpg/960px-Emergency_room_sign.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "licence": "CC BY-SA 3.0",
+      "artist": "Coolcaesar at en.wikipedia",
+      "description": "A roadside sign at Santa Clara Valley Medical Center in San Jose. This sign is an example of how the U.S. state of California requires all hospitals with emerge"
+    },
+    {
+      "file": "nurses_station/04.jpg",
+      "query": "emergency department",
+      "title": "File:Emergency Room - RSU MMC.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Emergency_Room_-_RSU_MMC.jpg",
+      "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/12/Emergency_Room_-_RSU_MMC.jpg/960px-Emergency_Room_-_RSU_MMC.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "licence": "CC BY-SA 4.0",
+      "artist": "RSU. Manado Medical Center",
+      "description": "Emergency Room - RSU. Manado Medical Center"
+    }
+  ],
+  "waiting_room": [
+    {
+      "file": "waiting_room/01.jpg",
+      "query": "hospital waiting room",
+      "title": "File:A waiting room at a medical healthcare clinic, doctor's office, hospital.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:A_waiting_room_at_a_medical_healthcare_clinic,_doctor%27s_office,_hospital.jpg",
+      "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f9/A_waiting_room_at_a_medical_healthcare_clinic%2C_doctor%27s_office%2C_hospital.jpg/960px-A_waiting_room_at_a_medical_healthcare_clinic%2C_doctor%27s_office%2C_hospital.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "licence": "CC BY 4.0",
+      "artist": "Harrison Keely",
+      "description": "A waiting room at a medical healthcare clinic / doctor's office / hospital"
+    },
+    {
+      "file": "waiting_room/02.jpg",
+      "query": "hospital waiting room",
+      "title": "File:CCBRT Disability Hospital waiting room 1 (10679012155).jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:CCBRT_Disability_Hospital_waiting_room_1_(10679012155).jpg",
+      "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/41/CCBRT_Disability_Hospital_waiting_room_1_%2810679012155%29.jpg/960px-CCBRT_Disability_Hospital_waiting_room_1_%2810679012155%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "licence": "CC BY 2.0",
+      "artist": "Department of Foreign Affairs and Trade",
+      "description": "CCBRT Disability Hospital waiting room 1"
+    }
+  ],
+  "lab_analyzer": [
+    {
+      "file": "lab_analyzer/01.jpg",
+      "query": "clinical chemistry analyzer",
+      "title": "File:Clinical Chemistry Analyzer , Клинички биохемиски анализатор 3.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Clinical_Chemistry_Analyzer_,_%D0%9A%D0%BB%D0%B8%D0%BD%D0%B8%D1%87%D0%BA%D0%B8_%D0%B1%D0%B8%D0%BE%D1%85%D0%B5%D0%BC%D0%B8%D1%81%D0%BA%D0%B8_%D0%B0%D0%BD%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%82%D0%BE%D1%80_3.jpg",
+      "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f6/Clinical_Chemistry_Analyzer_%2C_%D0%9A%D0%BB%D0%B8%D0%BD%D0%B8%D1%87%D0%BA%D0%B8_%D0%B1%D0%B8%D0%BE%D1%85%D0%B5%D0%BC%D0%B8%D1%81%D0%BA%D0%B8_%D0%B0%D0%BD%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%82%D0%BE%D1%80_3.jpg/960px-Clinical_Chemistry_Analyzer_%2C_%D0%9A%D0%BB%D0%B8%D0%BD%D0%B8%D1%87%D0%BA%D0%B8_%D0%B1%D0%B8%D0%BE%D1%85%D0%B5%D0%BC%D0%B8%D1%81%D0%BA%D0%B8_%D0%B0%D0%BD%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%82%D0%BE%D1%80_3.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "licence": "CC BY-SA 4.0",
+      "artist": "Делфина",
+      "description": "Clinical Chemistry Analyzer are automated analyzer “Immulite” for many biochemical parameters at the same time in biochemical laboratory."
+    },
+    {
+      "file": "lab_analyzer/02.jpg",
+      "query": "clinical chemistry analyzer",
+      "title": "File:Clinical Chemistry Analyzer , Клинички биохемиски анализатор 1.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Clinical_Chemistry_Analyzer_,_%D0%9A%D0%BB%D0%B8%D0%BD%D0%B8%D1%87%D0%BA%D0%B8_%D0%B1%D0%B8%D0%BE%D1%85%D0%B5%D0%BC%D0%B8%D1%81%D0%BA%D0%B8_%D0%B0%D0%BD%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%82%D0%BE%D1%80_1.jpg",
+      "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d3/Clinical_Chemistry_Analyzer_%2C_%D0%9A%D0%BB%D0%B8%D0%BD%D0%B8%D1%87%D0%BA%D0%B8_%D0%B1%D0%B8%D0%BE%D1%85%D0%B5%D0%BC%D0%B8%D1%81%D0%BA%D0%B8_%D0%B0%D0%BD%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%82%D0%BE%D1%80_1.jpg/960px-Clinical_Chemistry_Analyzer_%2C_%D0%9A%D0%BB%D0%B8%D0%BD%D0%B8%D1%87%D0%BA%D0%B8_%D0%B1%D0%B8%D0%BE%D1%85%D0%B5%D0%BC%D0%B8%D1%81%D0%BA%D0%B8_%D0%B0%D0%BD%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%82%D0%BE%D1%80_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "licence": "CC BY-SA 4.0",
+      "artist": "Делфина",
+      "description": "Clinical Chemistry Analyzer"
+    }
+  ],
+  "wheelchair": [
+    {
+      "file": "wheelchair/01.jpg",
+      "query": "wheelchair",
+      "title": "File:Wheelchair as seen from the monument arc.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Wheelchair_as_seen_from_the_monument_arc.jpg",
+      "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/64/Wheelchair_as_seen_from_the_monument_arc.jpg/960px-Wheelchair_as_seen_from_the_monument_arc.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "licence": "CC BY-SA 4.0",
+      "artist": "Soulful sunshine",
+      "description": "Wheelchair as seen from the monument arc"
+    },
+    {
+      "file": "wheelchair/02.jpg",
+      "query": "wheelchair",
+      "title": "File:Man in wheelchair with AFO braces and crutches b.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Man_in_wheelchair_with_AFO_braces_and_crutches_b.jpg",
+      "thumb": "https://upload.wikimedia.org/wikipedia/commons/6/69/Man_in_wheelchair_with_AFO_braces_and_crutches_b.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "licence": "CC BY-SA 4.0",
+      "artist": "File:Man in wheelchair with AFO braces and crutches.jpg: Pagemaker787 derivative",
+      "description": "Man in wheelchair wearing AFO braces"
+    }
+  ],
+  "staff": [
+    {
+      "file": "staff/01.jpg",
+      "query": "scrubs nurse uniform",
+      "title": "File:Nurse holds container of grains while standing in a health-focused kitchen.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Nurse_holds_container_of_grains_while_standing_in_a_health-focused_kitchen.jpg",
+      "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a6/Nurse_holds_container_of_grains_while_standing_in_a_health-focused_kitchen.jpg/960px-Nurse_holds_container_of_grains_while_standing_in_a_health-focused_kitchen.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "licence": "CC BY 2.0",
+      "artist": "Shixart1985",
+      "description": "A healthcare professional in scrubs presents a clear container filled with grains in a kitchen setting. The background shows shelves stocked with various health"
+    },
+    {
+      "file": "staff/02.jpg",
+      "query": "scrubs nurse uniform",
+      "title": "File:Nurse relaxes on couch with coffee and phone, enjoying a brief break during a busy shift in a healthcare facility.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Nurse_relaxes_on_couch_with_coffee_and_phone,_enjoying_a_brief_break_during_a_busy_shift_in_a_healthcare_facility.jpg",
+      "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/84/Nurse_relaxes_on_couch_with_coffee_and_phone%2C_enjoying_a_brief_break_during_a_busy_shift_in_a_healthcare_facility.jpg/960px-Nurse_relaxes_on_couch_with_coffee_and_phone%2C_enjoying_a_brief_break_during_a_busy_shift_in_a_healthcare_facility.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "licence": "CC BY 2.0",
+      "artist": "Shixart1985",
+      "description": "A healthcare professional takes a moment to unwind on a couch, sipping coffee from a red cup and checking a phone while dressed in scrubs. This moment captures "
+    }
+  ],
+  "ed_building": [
+    {
+      "file": "ed_building/01.jpg",
+      "query": "emergency department entrance ambulance",
+      "title": "File:Ambulance Entrance and Emergency Department, King's College Hospital - geograph.org.uk - 2700127.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Ambulance_Entrance_and_Emergency_Department,_King%27s_College_Hospital_-_geograph.org.uk_-_2700127.jpg",
+      "thumb": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Ambulance_Entrance_and_Emergency_Department%2C_King%27s_College_Hospital_-_geograph.org.uk_-_2700127.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "licence": "CC BY-SA 2.0",
+      "artist": "Robin Webster",
+      "description": "Ambulance Entrance and Emergency Department, King's College Hospital"
+    },
+    {
+      "file": "ed_building/02.jpg",
+      "query": "emergency department entrance ambulance",
+      "title": "File:LMH emergency entrance (2025)1.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:LMH_emergency_entrance_(2025)1.jpg",
+      "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ec/LMH_emergency_entrance_%282025%291.jpg/960px-LMH_emergency_entrance_%282025%291.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "licence": "CC BY 4.0",
+      "artist": "Wikipedialuva",
+      "description": "A daytime exterior view of the Lawrence Memorial Hospital's emergency department entrance. The building is primarily brick with dark glass sections. A modern, w"
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+
+## <project folder>\app\public\assets\beds.glb  908 KB, 26900 triangles, 28 materials
+- bed_ward: bed_ward_backrest, bed_ward_castor_fl, bed_ward_castor_fr, bed_ward_castor_rl, bed_ward_castor_rr, bed_ward_frame, bed_ward_head_rails, bed_ward_status
+- patient_a: patient_a_legs, patient_a_tag, patient_a_upper
+- patient_b: patient_b_legs, patient_b_tag, patient_b_upper
+- patient_c: patient_c_legs, patient_c_tag, patient_c_upper
+- stretcher_cot: stretcher_cot_backrest, stretcher_cot_castor_fl, stretcher_cot_castor_fr, stretcher_cot_castor_rl, stretcher_cot_castor_rr, stretcher_cot_frame
+- stretcher_ed: stretcher_ed_backrest, stretcher_ed_castor_fl, stretcher_ed_castor_fr, stretcher_ed_castor_rl, stretcher_ed_castor_rr, stretcher_ed_frame
+- wheelchair: wheelchair_castor_l, wheelchair_castor_r, wheelchair_frame, wheelchair_wheel_l, wheelchair_wheel_r
+
+## <project folder>\app\public\assets\building.glb  805 KB, 22752 triangles, 28 materials
+- ambulance_canopy: ambulance_canopy_body
+- bench: bench_body
+- bollard: bollard_body
+- entrance_ambulance: entrance_ambulance_body, entrance_ambulance_door_l, entrance_ambulance_door_r
+- entrance_walkin: entrance_walkin_body, entrance_walkin_door_l, entrance_walkin_door_r
+- floor_tile: floor_tile_body
+- floor_tile_alt: floor_tile_alt_body
+- helipad: helipad_body, helipad_windsock
+- lamp_post: lamp_post_body
+- parking_mark: parking_mark_body
+- road_tile: road_tile_body
+- shrub: shrub_body
+- tree_a: tree_a_body
+- tree_b: tree_b_body
+- tree_c: tree_c_body
+- wall_corner: wall_corner_body
+- wall_full: wall_full_body
+- wall_low: wall_low_body
+- wall_window: wall_window_body
+
+## <project folder>\app\public\assets\furniture.glb  1781 KB, 53096 triangles, 34 materials
+- checkin_kiosk: checkin_kiosk_body
+- crash_cart: crash_cart_body, crash_cart_castor_fl, crash_cart_castor_fr, crash_cart_castor_rl, crash_cart_castor_rr
+- cubicle: cubicle_body, cubicle_curtain, cubicle_status
+- iv_pole: iv_pole_body
+- lab_analyzer: lab_analyzer_body, lab_analyzer_rotor
+- lab_bench: lab_bench_body, lab_bench_lid
+- monitor_stand: monitor_stand_body
+- nurses_station: nurses_station_board, nurses_station_body
+- resus_bay: resus_bay_body, resus_bay_status, resus_bay_vent_castorl, resus_bay_vent_castorr
+- seats_row3: seats_row3_body
+- seats_row4: seats_row4_body
+- side_table: side_table_body
+- sign_plate_a: sign_plate_a_body
+- sign_plate_b: sign_plate_b_body
+- triage_desk: triage_desk_body
+- workstation_cart: workstation_cart_body, workstation_cart_castor_fl, workstation_cart_castor_fr, workstation_cart_castor_rl, workstation_cart_castor_rr
+
+## <project folder>\app\public\assets\helicopter.glb  688 KB, 23104 triangles, 14 materials
+- heli_a: heli_a_body, heli_a_door_clam_l, heli_a_door_clam_r, heli_a_rotor_main, heli_a_rotor_tail
+- heli_b: heli_b_body, heli_b_door_clam_l, heli_b_door_clam_r, heli_b_rotor_main, heli_b_rotor_tail
+
+## <project folder>\app\public\assets\imaging.glb  541 KB, 15796 triangles, 15 materials
+- ct_console: ct_console_body
+- ct_scanner: ct_scanner_body, ct_scanner_status, ct_scanner_table
+- lead_screen: lead_screen_body
+- xray_room: xray_room_base, xray_room_column, xray_room_detector, xray_room_tube
+
+## <project folder>\app\public\assets\people.glb  1124 KB, 33028 triangles, 33 materials
+- staff_doctor: staff_doctor_rig
+- staff_nurse: staff_nurse_rig
+- staff_paramedic: staff_paramedic_rig
+- staff_porter: staff_porter_rig
+- visitor: visitor_rig
+- clips: staff_doctor_chart, staff_doctor_idle, staff_doctor_push_bed, staff_doctor_sit, staff_doctor_walk, staff_nurse_chart, staff_nurse_idle, staff_nurse_push_bed, staff_nurse_sit, staff_nurse_walk, staff_paramedic_chart, staff_paramedic_idle, staff_paramedic_push_bed, staff_paramedic_sit, staff_paramedic_walk, staff_porter_chart, staff_porter_idle, staff_porter_push_bed, staff_porter_sit, staff_porter_walk, visitor_chart, visitor_idle, visitor_push_bed, visitor_sit, visitor_walk
+
+## <project folder>\app\public\assets\vehicles.glb  2162 KB, 65640 triangles, 21 materials
+- amb_type3_a: amb_type3_a_body, amb_type3_a_cab_lightbar, amb_type3_a_door_rear_l, amb_type3_a_door_rear_r, amb_type3_a_door_side, amb_type3_a_lightbar, amb_type3_a_wheel_fl, amb_type3_a_wheel_fr, amb_type3_a_wheel_rl, amb_type3_a_wheel_rr
+- amb_type3_b: amb_type3_b_body, amb_type3_b_cab_lightbar, amb_type3_b_door_rear_l, amb_type3_b_door_rear_r, amb_type3_b_door_side, amb_type3_b_lightbar, amb_type3_b_wheel_fl, amb_type3_b_wheel_fr, amb_type3_b_wheel_rl, amb_type3_b_wheel_rr
+- amb_van: amb_van_body, amb_van_door_rear_l, amb_van_door_rear_r, amb_van_door_side, amb_van_lightbar, amb_van_wheel_fl, amb_van_wheel_fr, amb_van_wheel_rl, amb_van_wheel_rr
+
+total 7.82 MB

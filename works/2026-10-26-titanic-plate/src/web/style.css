@@ -1,0 +1,159 @@
+:root {
+  --paper: #f3ead6;
+  --ink: #2a1d12;
+  --ink-soft: #4a3828;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'EB Garamond', Georgia, serif;
+  -webkit-user-select: none;
+  user-select: none;
+}
+#stage {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+}
+#leaders {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+#leaders polyline {
+  fill: none;
+  stroke: #3d2616;
+  stroke-width: 1;
+  opacity: 0.8;
+}
+#leaders polyline.halo { stroke: #f3ead6; stroke-width: 2.6; opacity: 0.5; }
+#leaders circle { fill: #3d2616; opacity: 0.9; }
+#labels { position: fixed; inset: 0; pointer-events: none; }
+.callout {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 228px;
+  font-size: 15px;
+  line-height: 1.28;
+  pointer-events: auto;
+  cursor: pointer;
+  will-change: transform;
+}
+.callout b {
+  display: block;
+  font-size: 16.5px;
+  font-weight: 700;
+  margin-bottom: 1px;
+}
+.callout span { color: var(--ink-soft); }
+.callout:hover b { color: #8a3a22; }
+.pin { display: none; }
+#title {
+  position: fixed;
+  left: 26px;
+  top: 16px;
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+  pointer-events: none;
+  max-width: calc(100vw - 52px);
+}
+#title .heading { max-width: 470px; }
+h1 {
+  margin: 0 0 6px;
+  font-family: 'IM Fell English SC', 'Cormorant SC', Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(40px, 4.4vw, 74px);
+  line-height: 1;
+  letter-spacing: 0.01em;
+}
+#title p {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.3;
+}
+#inset {
+  width: 320px;
+  height: 148px;
+  transform: scaleX(-1);
+  
+  margin-top: 4px;
+}
+#people {
+  position: fixed;
+  left: 26px;
+  right: 26px;
+  bottom: 12px;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 10px;
+  pointer-events: none;
+}
+.person { text-align: center; font-size: 14px; line-height: 1.2; }
+.person canvas {
+  height: 168px;
+  width: auto;
+  display: block;
+  margin: 0 auto 3px;
+  
+}
+.person b { display: block; font-size: 15px; }
+.person span { display: block; color: var(--ink-soft); white-space: pre-line; }
+.people-title {
+  grid-column: 1 / -1;
+  font-family: 'IM Fell English SC', Georgia, serif;
+  font-size: 22px;
+  text-align: left;
+  margin: 0;
+}
+#card { display: none; }
+
+@media (max-width: 719px) {
+  #title { left: 16px; top: 12px; gap: 0; }
+  #title p, #inset, #people { display: none; }
+  h1 { font-size: 34px; }
+  .callout { display: none; }
+  .pin {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 0;
+    padding: 0;
+    background: #5b3a22;
+    color: #f3ead6;
+    font: 700 12px 'EB Garamond', serif;
+    pointer-events: auto;
+    will-change: transform;
+  }
+  .pin.active { background: #a8322b; }
+  #card {
+    display: block;
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    bottom: 18px;
+    font-size: 16px;
+    line-height: 1.3;
+  }
+  #card b { display: block; font-size: 18px; }
+  #card span { color: var(--ink-soft); }
+}
+
+.callout, #leaders, #people, #title { transition: opacity 0.4s; }
+body.zoomed .callout, body.zoomed #leaders, body.zoomed #people, body.zoomed #title { opacity: 0; }
+
+.callout, #leaders, #people, #title { opacity: var(--ui, 1); }

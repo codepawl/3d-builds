@@ -1,0 +1,7 @@
+frames 900 at 30 fps · slow switch-on {"from":4.6,"to":12,"speed":0.3} · story [[0.3,"setSwitch",true],[1.5,"setSwitch",false],[2.1,"setSwitch",true],[2.9,"setVolts",55],[3.7,"setVolts",115],[4.3,"setSwitch",false],[4.4,"setVolts",100],[4.6,"holdZoom",false],[4.6,"setSwitch",true],[12,"setSwitch",false],[12.8,"setSwitch",true],[14.2,"setSwitch",false],[14.9,"setSwitch",true],[16.7,"letAirIn"],[18.7,"mend"],[19.9,"setApart",true],[25,"setApart",false],[27.6,"setSwitch",true]]
+zoom frame born at 5.43 s
+slow switch-on closes at 0.47 s, 2,000 K passed at 1.43 s
+switch events: on 0.47, off 1.53, on 2.27, off 4.33, on 5.13, off 12.03, on 12.97, off 14.23, on 15.07, off 19.93, on 27.77
+air in at 16.70 s, burnt out at 17.93 s, new filament at 18.70 s
+apart: first piece leaves at 21.38 s, all apart at 23.59 s, closing from 25.00 s, seated at 27.23 s
+zoom frame hidden from 20.27 s; last frame {"closed":true,"wanted":true,"volts":100,"amperes":0.7143,"kelvin":2100,"brightness":1,"air":false,"broken":false,"litSeconds":1.9,"zoomAge":24.5333,"zoomShown":1,"apart":false,"open":0,"resting":true,"time":29.9667,"readout":"on · 100 V · 0.71 A · about 1,850 °C, yellow-white · lit for 1.9 s"}

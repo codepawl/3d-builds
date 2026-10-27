@@ -1,0 +1,5 @@
+node_modules/
+shots/
+tools/*.log
+tools/*.err
+.env

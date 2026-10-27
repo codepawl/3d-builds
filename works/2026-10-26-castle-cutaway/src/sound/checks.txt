@@ -1,0 +1,7 @@
+{
+ "cues": 177,
+ "max_offset_ms": 0.01,
+ "lufs": -14.0,
+ "true_peak_dbtp": -1.5,
+ "share_2_to_6khz": 0.0526
+}

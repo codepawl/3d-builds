@@ -1,0 +1,2294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Pixel Airport</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --panel: rgba(18, 17, 30, 0.86);
+    --panel-soft: rgba(255, 255, 255, 0.06);
+    --text: #f4ecd8;
+    --muted: #a7a3b8;
+    --amber: #ffc857;
+    --green: #7ad67f;
+    --blue: #7fc4ff;
+    --red: #ff6b5b;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #0b0d18; }
+  body {
+    font-family: 'Silkscreen', ui-monospace, 'Courier New', monospace;
+    font-size: 16px;
+    line-height: 1.25;
+    color: var(--text);
+    -webkit-font-smoothing: none;
+    font-smooth: never;
+  }
+  [hidden] { display: none !important; }
+  #view {
+    position: fixed; inset: 0;
+    width: 100vw; height: 100vh;
+    display: block;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    touch-action: none;
+    cursor: grab;
+  }
+  #view:active { cursor: grabbing; }
+  #hud { position: fixed; inset: 0; pointer-events: none; user-select: none; -webkit-user-select: none; }
+  .panel { position: absolute; background: var(--panel); padding: 10px 12px; pointer-events: auto; }
+  #stats { top: 12px; left: 12px; min-width: 196px; }
+  .clock-row { display: flex; align-items: center; gap: 10px; font-size: 32px; line-height: 1; margin-bottom: 10px; }
+  #sky-icon { width: 16px; height: 16px; flex: none; }
+  #sky-icon.sun { background: var(--amber); box-shadow: 0 0 0 3px rgba(255, 200, 87, 0.25); }
+  #sky-icon.moon { background: #dfe6ff; box-shadow: inset -5px -3px 0 0 #6f7bb0; border-radius: 50%; }
+  #sky-icon.dusk { background: #ff8f5a; clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%); }
+  .stat { display: flex; justify-content: space-between; gap: 16px; }
+  .stat span { color: var(--muted); }
+  #speed { display: flex; gap: 4px; margin-top: 10px; }
+  #speed button {
+    font: inherit; color: var(--muted); background: transparent; border: 0;
+    padding: 4px 8px; cursor: pointer;
+  }
+  #speed button:hover { color: var(--text); }
+  #speed button[aria-pressed="true"] { color: var(--text); background: var(--panel-soft); }
+  #board { top: 12px; right: 12px; width: 470px; }
+  #board h2 { font-size: 16px; font-weight: normal; color: var(--amber); margin: 0 0 4px; }
+  #board h2 + table { margin-bottom: 10px; }
+  #board table:last-child { margin-bottom: 0; }
+  #board table { width: 100%; border-collapse: collapse; }
+  #board td { padding: 2px 4px; white-space: nowrap; }
+  #board td:first-child { padding-left: 0; }
+  #board tr { cursor: pointer; }
+  #board tr.live:hover td { background: var(--panel-soft); }
+  #board tr.followed td { background: rgba(255, 200, 87, 0.14); }
+  #board .time { color: var(--muted); }
+  #board .empty td { color: var(--muted); cursor: default; }
+  .status { display: inline-flex; align-items: center; gap: 6px; }
+  .ic { display: inline-block; width: 10px; height: 10px; background: currentColor; flex: none; }
+  .ic.up { clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+  .ic.down { clip-path: polygon(0 0, 100% 0, 50% 100%); }
+  .ic.dot { border-radius: 50%; }
+  .ic.diamond { clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+  .ic.ring { background: none; box-shadow: inset 0 0 0 2px currentColor; border-radius: 50%; }
+  .c-green { color: var(--green); } .c-amber { color: var(--amber); } .c-blue { color: var(--blue); }
+  .c-red { color: var(--red); } .c-muted { color: var(--muted); } .c-text { color: var(--text); }
+  #follow { left: 12px; bottom: 12px; min-width: 250px; }
+  #follow .flight { font-size: 32px; line-height: 1; margin-bottom: 4px; }
+  #follow .airline { color: var(--amber); margin-bottom: 8px; }
+  #follow .row { display: flex; justify-content: space-between; gap: 16px; }
+  #follow .row span { color: var(--muted); }
+  #follow button {
+    font: inherit; color: var(--muted); background: var(--panel-soft); border: 0;
+    padding: 4px 8px; margin-top: 10px; cursor: pointer;
+  }
+  #follow button:hover { color: var(--text); }
+  #tag {
+    position: absolute; transform: translate(-50%, -100%); padding: 2px 6px;
+    background: var(--panel); color: var(--amber); white-space: nowrap; font-size: 16px;
+  }
+  #hint { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); color: var(--text);
+    background: var(--panel); padding: 4px 10px; transition: opacity 1s; white-space: nowrap; }
+  @media (max-width: 760px) {
+    body { font-size: 16px; }
+    #stats { top: 8px; left: 8px; min-width: 0; padding: 8px 10px; }
+    .clock-row { font-size: 24px; margin-bottom: 6px; }
+    #board { top: auto; left: 8px; right: 8px; bottom: 8px; width: auto; padding: 8px 10px; }
+    #board .city { display: none; }
+    #board table, #board h2 { font-size: 12px; }
+    #board td { padding: 1px 3px; }
+    #board tbody tr:nth-child(n+4) { display: none; }
+    #follow {
+      left: 8px; right: 8px; top: auto; bottom: 184px; min-width: 0; padding: 8px 10px;
+      font-size: 12px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px;
+    }
+    #follow .flight, #follow .airline, #follow button { grid-column: 1 / -1; }
+    #follow .flight { font-size: 24px; }
+    #follow .airline { margin-bottom: 4px; }
+    #follow button { justify-self: start; margin-top: 6px; }
+    #hint { display: none; }
+  }
+</style>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+<canvas id="view"></canvas>
+<div id="hud">
+  <section id="stats" class="panel" aria-label="Airport status">
+    <div class="clock-row"><span id="sky-icon" class="sun"></span><span id="clock">06:30</span></div>
+    <div class="stat"><span>Ground</span><b id="stat-ground">0</b></div>
+    <div class="stat"><span>Air</span><b id="stat-air">0</b></div>
+    <div class="stat"><span>Moves/h</span><b id="stat-moves">0</b></div>
+    <div id="speed" role="group" aria-label="Simulation speed">
+      <button type="button" data-speed="1" aria-pressed="true">1x</button>
+      <button type="button" data-speed="4" aria-pressed="false">4x</button>
+      <button type="button" data-speed="16" aria-pressed="false">16x</button>
+    </div>
+  </section>
+  <section id="board" class="panel" aria-label="Flight board">
+    <h2>Arrivals</h2>
+    <table><tbody id="arrivals"></tbody></table>
+    <h2>Departures</h2>
+    <table><tbody id="departures"></tbody></table>
+  </section>
+  <section id="follow" class="panel" hidden aria-live="polite">
+    <div class="flight" id="follow-flight"></div>
+    <div class="airline" id="follow-airline"></div>
+    <div class="row"><span>Type</span><b id="follow-type"></b></div>
+    <div class="row"><span>Gate</span><b id="follow-gate"></b></div>
+    <div class="row"><span>State</span><b id="follow-state"></b></div>
+    <div class="row"><span>Alt</span><b id="follow-alt"></b></div>
+    <div class="row"><span>Speed</span><b id="follow-speed"></b></div>
+    <button type="button" id="follow-stop">Stop following</button>
+  </section>
+  <div id="tag" hidden></div>
+  <div id="hint">Drag to orbit, scroll to zoom, click a plane</div>
+</div>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
+
+// ---------------------------------------------------------------------------
+// Seeded randomness: the simulation never touches Math.random.
+// ---------------------------------------------------------------------------
+function createRandom(seed) {
+  let state = seed >>> 0;
+  return function next() {
+    state = (state + 0x6D2B79F5) >>> 0;
+    let value = state;
+    value = Math.imul(value ^ (value >>> 15), value | 1);
+    value ^= value + Math.imul(value ^ (value >>> 7), value | 61);
+    return ((value ^ (value >>> 14)) >>> 0) / 4294967296;
+  };
+}
+const simRandom = createRandom(20261024);
+const decorRandom = createRandom(7741);
+const randomBetween = (random, low, high) => low + (high - low) * random();
+const pickFrom = (random, list) => list[Math.floor(random() * list.length)];
+const clamp = (value, low, high) => Math.min(high, Math.max(low, value));
+const clamp01 = (value) => clamp(value, 0, 1);
+const lerp = (from, to, amount) => from + (to - from) * amount;
+const smoothstep = (edge0, edge1, value) => {
+  const t = clamp01((value - edge0) / (edge1 - edge0));
+  return t * t * (3 - 2 * t);
+};
+function wrapAngle(angle) {
+  let result = angle % (Math.PI * 2);
+  if (result > Math.PI) result -= Math.PI * 2;
+  if (result < -Math.PI) result += Math.PI * 2;
+  return result;
+}
+function approachAngle(current, target, maxStep) {
+  const difference = wrapAngle(target - current);
+  return current + clamp(difference, -maxStep, maxStep);
+}
+
+// ---------------------------------------------------------------------------
+// World layout (x east, z south, y up). Runway 09/27 runs along x.
+// ---------------------------------------------------------------------------
+const SIM_RATE = 4;                 // simulated seconds per real second at 1x
+const DAY_LENGTH_SIM = 240 * SIM_RATE; // a full sky cycle takes 4 real minutes at 1x
+const DAY_START = 0.27;
+const START_CLOCK = 6 * 3600 + 30 * 60;
+const STEP = 0.25;
+
+const RUNWAY = { x0: -93, x1: 93, halfWidth: 2.8 };
+const TAXIWAY_Z = -14;
+const LANE_Z = -22;
+const NOSE_Z = -37;
+const ROAD_Z = -39;
+const TERMINAL_FRONT_Z = -41;
+const GATE_X = [-44, -28, -12, 4, 20, 36];
+const GATE_NAMES = ['A1', 'A2', 'A3', 'A4', 'A5', 'A6'];
+const EXIT_NEAR = 46;
+const EXIT_FAR = 76;
+const HOLD = { x: -82, z: -7.5 };
+const CONNECTOR_X = -58;
+const TOUCHDOWN_X = -70;
+const ORBIT = { x: -190, z: 30, radius: 30 };
+const FINAL_ALT = 13;
+const DEPOTS = [{ x: -62, z: ROAD_Z }, { x: 54, z: ROAD_Z }];
+
+const PALETTE = {
+  grass: 0x6f9a4a, grassDark: 0x5d8a40, grassLight: 0x8aae58, wheat: 0xc9b25e,
+  soil: 0x7a5534, soilDark: 0x553a26,
+  asphalt: 0x3a3e49, taxiway: 0x4a4e59, apron: 0x9c9b93, apronDark: 0x8a8981, road: 0x55555e,
+  white: 0xf2efe6, yellow: 0xf2c14e,
+  terminal: 0xdcd2bf, roof: 0x8c95a3, concrete: 0xb9b2a4,
+  hangar: 0x8a9696, hangarRoof: 0x5d6b78, hangarDoor: 0x4c5560,
+  tank: 0xe9e5db, tankBand: 0xc8372d, tower: 0xd6cfc0,
+  tree: 0x3f7a3a, treeDark: 0x2f5f30, trunk: 0x6b4a2f,
+  dark: 0x2a2a33, outline: 0x17151f,
+};
+
+const AIRLINES = [
+  { code: 'MG', name: 'Mango Air', main: 0xf08a24, accent: 0x2b2d42, body: 0xf4efe4 },
+  { code: 'PL', name: 'Polar Lines', main: 0x2f6fb5, accent: 0x9fd3f0, body: 0xf2f2ee },
+  { code: 'KS', name: 'Kestrel', main: 0xc8372d, accent: 0xf2c14e, body: 0xf0ebe0 },
+  { code: 'LT', name: 'Lotus Sky', main: 0x8a4fa3, accent: 0xf29bb8, body: 0xf4f0f4 },
+  { code: 'TA', name: 'Teal Atlantic', main: 0x1f8a87, accent: 0xe9d8a6, body: 0xeef0ec },
+];
+const CITIES = ['OSL', 'LIS', 'NRT', 'SYD', 'YVR', 'CPT', 'REK', 'HAN', 'MEX', 'DXB', 'SFO', 'BKK', 'AMS', 'GRU', 'ICN', 'NBO'];
+const TYPES = {
+  narrow: { key: 'narrow', name: 'N320 narrow body', code: 'N320', length: 5.0, span: 4.8, radius: 0.36, gear: 0.3 },
+  wide: { key: 'wide', name: 'W787 wide body', code: 'W787', length: 7.4, span: 7.2, radius: 0.54, gear: 0.4 },
+  prop: { key: 'prop', name: 'T72 turboprop', code: 'T72', length: 3.8, span: 4.3, radius: 0.3, gear: 0.26 },
+};
+for (const type of Object.values(TYPES)) type.reach = Math.max(type.length, type.span) / 2;
+
+// ---------------------------------------------------------------------------
+// Renderer, low resolution targets and the pixel post pass.
+// ---------------------------------------------------------------------------
+const canvas = document.getElementById('view');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, powerPreference: 'high-performance' });
+renderer.setPixelRatio(1);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.BasicShadowMap;
+renderer.shadowMap.autoUpdate = false;
+
+const scene = new THREE.Scene();
+const camera = new THREE.OrthographicCamera(-100, 100, 60, -60, 1, 2600);
+const controls = new OrbitControls(camera, canvas);
+controls.target.set(-6, 0, -22);
+camera.zoom = 1.7;
+camera.updateProjectionMatrix();
+{
+  const radius = 900;
+  const polar = 0.96;
+  const azimuth = 0.62;
+  camera.position.set(
+    controls.target.x + radius * Math.sin(polar) * Math.sin(azimuth),
+    controls.target.y + radius * Math.cos(polar),
+    controls.target.z + radius * Math.sin(polar) * Math.cos(azimuth),
+  );
+}
+controls.enableDamping = true;
+controls.dampingFactor = 0.08;
+controls.minPolarAngle = 0.35;
+controls.maxPolarAngle = 1.25;
+controls.minZoom = 0.45;
+controls.maxZoom = 8;
+controls.autoRotate = true;
+controls.autoRotateSpeed = 0.35;
+controls.update();
+
+let pixelScale = 4;
+let renderWidth = 400;
+let renderHeight = 225;
+let colorTarget = null;
+let idTarget = null;
+
+const BAYER_GLSL = `
+const float BAYER[16] = float[16](0.0, 8.0, 2.0, 10.0, 12.0, 4.0, 14.0, 6.0, 3.0, 11.0, 1.0, 9.0, 15.0, 7.0, 13.0, 5.0);
+float bayer(ivec2 p) { return (BAYER[(p.x & 3) + (p.y & 3) * 4] + 0.5) / 16.0; }
+`;
+
+const postMaterial = new THREE.ShaderMaterial({
+  uniforms: {
+    tColor: { value: null }, tColorDepth: { value: null }, tId: { value: null }, tIdDepth: { value: null },
+    rtSize: { value: new THREE.Vector2(400, 225) }, pixelScale: { value: 4 },
+    skyTop: { value: new THREE.Color() }, skyBottom: { value: new THREE.Color() },
+    outlineColor: { value: new THREE.Color(PALETTE.outline) },
+    uNight: { value: 0 }, uTime: { value: 0 },
+  },
+  vertexShader: `void main() { gl_Position = vec4(position.xy, 0.0, 1.0); }`,
+  fragmentShader: `
+    precision highp float;
+    uniform sampler2D tColor; uniform sampler2D tColorDepth; uniform sampler2D tId; uniform sampler2D tIdDepth;
+    uniform vec2 rtSize; uniform float pixelScale; uniform vec3 skyTop; uniform vec3 skyBottom;
+    uniform vec3 outlineColor; uniform float uNight; uniform float uTime;
+    ${BAYER_GLSL}
+    float hash(vec2 p) { return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453); }
+    void main() {
+      ivec2 size = ivec2(rtSize);
+      ivec2 p = ivec2(floor(gl_FragCoord.xy / pixelScale));
+      p = min(p, size - 1);
+      vec4 base = texelFetch(tColor, p, 0);
+      vec3 color;
+      if (base.a < 0.5) {
+        float t = (float(p.y) + 0.5) / rtSize.y;
+        color = mix(skyBottom, skyTop, smoothstep(0.0, 1.0, t));
+        float star = step(0.9965, hash(vec2(p)));
+        float twinkle = 0.55 + 0.45 * sin(uTime * 2.0 + hash(vec2(p.yx)) * 6.28);
+        color += star * uNight * t * twinkle * vec3(0.8, 0.82, 1.0);
+      } else {
+        color = base.rgb;
+        vec2 id = texelFetch(tId, p, 0).rg;
+        if (id.x + id.y > 0.0) {
+          float depth = texelFetch(tIdDepth, p, 0).r;
+          float visibleDepth = texelFetch(tColorDepth, p, 0).r;
+          if (abs(depth - visibleDepth) < 0.0004) {
+            bool edge = false;
+            ivec2 offsets[4] = ivec2[4](ivec2(1, 0), ivec2(-1, 0), ivec2(0, 1), ivec2(0, -1));
+            for (int i = 0; i < 4; i++) {
+              ivec2 q = clamp(p + offsets[i], ivec2(0), size - 1);
+              vec2 neighbourId = texelFetch(tId, q, 0).rg;
+              if (abs(neighbourId.x - id.x) + abs(neighbourId.y - id.y) > 0.001) {
+                float neighbourDepth = texelFetch(tIdDepth, q, 0).r;
+                if (neighbourId.x + neighbourId.y == 0.0 || neighbourDepth > depth + 0.00004) edge = true;
+              }
+            }
+            if (edge) color = mix(color, outlineColor, 0.88);
+          }
+        }
+      }
+      vec3 srgb = pow(max(color, vec3(0.0)), vec3(1.0 / 2.2));
+      float levels = 18.0;
+      srgb = floor(srgb * levels + bayer(p)) / levels;
+      gl_FragColor = vec4(srgb, 1.0);
+    }
+  `,
+  depthTest: false,
+  depthWrite: false,
+});
+const postScene = new THREE.Scene();
+const postCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+postScene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), postMaterial));
+
+function createTargets() {
+  if (colorTarget) colorTarget.dispose();
+  if (idTarget) idTarget.dispose();
+  const colorDepth = new THREE.DepthTexture(renderWidth, renderHeight);
+  colorTarget = new THREE.WebGLRenderTarget(renderWidth, renderHeight, {
+    type: THREE.HalfFloatType, minFilter: THREE.NearestFilter, magFilter: THREE.NearestFilter, depthTexture: colorDepth,
+  });
+  const idDepth = new THREE.DepthTexture(renderWidth, renderHeight);
+  idTarget = new THREE.WebGLRenderTarget(renderWidth, renderHeight, {
+    minFilter: THREE.NearestFilter, magFilter: THREE.NearestFilter, depthTexture: idDepth,
+  });
+  postMaterial.uniforms.tColor.value = colorTarget.texture;
+  postMaterial.uniforms.tColorDepth.value = colorTarget.depthTexture;
+  postMaterial.uniforms.tId.value = idTarget.texture;
+  postMaterial.uniforms.tIdDepth.value = idTarget.depthTexture;
+  postMaterial.uniforms.rtSize.value.set(renderWidth, renderHeight);
+}
+
+function resize() {
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+  pixelScale = Math.max(1, Math.round(Math.max(width, height) / 400));
+  renderWidth = Math.ceil(width / pixelScale);
+  renderHeight = Math.ceil(height / pixelScale);
+  renderer.setSize(width, height, false);
+  canvas.style.width = width + 'px';
+  canvas.style.height = height + 'px';
+  postMaterial.uniforms.pixelScale.value = pixelScale;
+  createTargets();
+  const aspect = renderWidth / renderHeight;
+  let halfWidth;
+  let halfHeight;
+  if (aspect >= 1) {
+    halfHeight = 60;
+    halfWidth = halfHeight * aspect;
+  } else {
+    halfWidth = 64;
+    halfHeight = halfWidth / aspect;
+  }
+  camera.left = -halfWidth;
+  camera.right = halfWidth;
+  camera.top = halfHeight;
+  camera.bottom = -halfHeight;
+  camera.updateProjectionMatrix();
+}
+window.addEventListener('resize', resize);
+
+// ---------------------------------------------------------------------------
+// Materials.
+// ---------------------------------------------------------------------------
+const lambertCache = new Map();
+function lambert(hex) {
+  if (!lambertCache.has(hex)) lambertCache.set(hex, new THREE.MeshLambertMaterial({ color: hex, flatShading: true }));
+  return lambertCache.get(hex);
+}
+
+const ID_VERTEX = `
+#include <common>
+void main() {
+  #include <begin_vertex>
+  #include <project_vertex>
+}`;
+const ID_FRAGMENT = `uniform vec3 idColor; void main() { gl_FragColor = vec4(idColor, 1.0); }`;
+let nextOutlineId = 1;
+function createIdMaterial() {
+  const id = nextOutlineId++;
+  return new THREE.ShaderMaterial({
+    uniforms: { idColor: { value: new THREE.Vector3((id & 255) / 255, ((id >> 8) & 255) / 255, 0) } },
+    vertexShader: ID_VERTEX,
+    fragmentShader: ID_FRAGMENT,
+  });
+}
+const ID_ZERO = new THREE.ShaderMaterial({
+  uniforms: { idColor: { value: new THREE.Vector3(0, 0, 0) } },
+  vertexShader: ID_VERTEX,
+  fragmentShader: ID_FRAGMENT,
+});
+
+const sharedTime = { value: 0 };
+
+const exhaustTemplate = new THREE.ShaderMaterial({
+  uniforms: { uStrength: { value: 0 }, uTime: sharedTime },
+  vertexShader: `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+  fragmentShader: `
+    uniform float uStrength; uniform float uTime; varying vec2 vUv;
+    ${BAYER_GLSL}
+    void main() {
+      float along = vUv.x;
+      float across = 1.0 - abs(vUv.y - 0.5) * 2.0;
+      float flicker = 0.55 + 0.45 * sin(uTime * 23.0 + vUv.x * 19.0 + vUv.y * 11.0);
+      float alpha = uStrength * pow(along, 1.4) * across * flicker;
+      if (alpha < bayer(ivec2(gl_FragCoord.xy))) discard;
+      vec3 hot = vec3(0.98, 0.86, 0.68);
+      vec3 cool = vec3(0.78, 0.8, 0.84);
+      gl_FragColor = vec4(mix(cool, hot, along), 1.0);
+    }`,
+  side: THREE.DoubleSide,
+});
+
+const propMaterial = new THREE.ShaderMaterial({
+  uniforms: { uTime: sharedTime },
+  vertexShader: `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+  fragmentShader: `
+    uniform float uTime; varying vec2 vUv;
+    ${BAYER_GLSL}
+    void main() {
+      vec2 c = vUv - 0.5;
+      float angle = atan(c.y, c.x);
+      float blades = 0.5 + 0.5 * sin(angle * 2.0 + uTime * 40.0);
+      float alpha = 0.25 + 0.45 * blades;
+      if (alpha < bayer(ivec2(gl_FragCoord.xy))) discard;
+      gl_FragColor = vec4(vec3(0.2, 0.2, 0.24), 1.0);
+    }`,
+  side: THREE.DoubleSide,
+});
+
+const cloudUniforms = { uTime: sharedTime, uLit: { value: new THREE.Color(1, 1, 1) }, uShade: { value: new THREE.Color(0.7, 0.75, 0.85) } };
+
+// ---------------------------------------------------------------------------
+// Lighting.
+// ---------------------------------------------------------------------------
+const sunLight = new THREE.DirectionalLight(0xfff1d6, 2.6);
+sunLight.castShadow = true;
+sunLight.shadow.mapSize.set(1024, 1024);
+sunLight.shadow.camera.left = -150;
+sunLight.shadow.camera.right = 150;
+sunLight.shadow.camera.top = 150;
+sunLight.shadow.camera.bottom = -150;
+sunLight.shadow.camera.near = 1;
+sunLight.shadow.camera.far = 700;
+sunLight.shadow.bias = -0.0006;
+sunLight.shadow.normalBias = 0.03;
+sunLight.target.position.set(0, 0, -15);
+scene.add(sunLight, sunLight.target);
+const hemisphereLight = new THREE.HemisphereLight(0xbcd7f0, 0x6b7a4a, 1.4);
+scene.add(hemisphereLight);
+const apronLights = [];
+for (const x of [-36, -4, 28]) {
+  const light = new THREE.PointLight(0xffd59a, 0, 40, 1);
+  light.position.set(x, 7, -36);
+  scene.add(light);
+  apronLights.push(light);
+}
+
+// ---------------------------------------------------------------------------
+// Static scenery: diorama slab, surfaces and markings.
+// ---------------------------------------------------------------------------
+const surfaceBatches = new Map();
+function addSurface(hex, x0, x1, z0, z1, y) {
+  const geometry = new THREE.PlaneGeometry(Math.abs(x1 - x0), Math.abs(z1 - z0));
+  geometry.rotateX(-Math.PI / 2);
+  geometry.translate((x0 + x1) / 2, y, (z0 + z1) / 2);
+  if (!surfaceBatches.has(hex)) surfaceBatches.set(hex, []);
+  surfaceBatches.get(hex).push(geometry);
+}
+function addLine(hex, ax, az, bx, bz, width, y = 0.06) {
+  const half = width / 2;
+  if (Math.abs(az - bz) < 1e-6) addSurface(hex, Math.min(ax, bx), Math.max(ax, bx), az - half, az + half, y);
+  else addSurface(hex, ax - half, ax + half, Math.min(az, bz), Math.max(az, bz), y);
+}
+function flushSurfaces() {
+  for (const [hex, geometries] of surfaceBatches) {
+    const mesh = new THREE.Mesh(mergeGeometries(geometries), lambert(hex));
+    mesh.receiveShadow = true;
+    scene.add(mesh);
+  }
+  surfaceBatches.clear();
+}
+
+function buildGround() {
+  const slabGeometry = new THREE.BoxGeometry(290, 10, 160);
+  slabGeometry.translate(0, -5, -15);
+  const slab = new THREE.Mesh(slabGeometry, [
+    lambert(PALETTE.soil), lambert(PALETTE.soil), lambert(PALETTE.grass),
+    lambert(PALETTE.soilDark), lambert(PALETTE.soil), lambert(PALETTE.soil),
+  ]);
+  slab.receiveShadow = true;
+  scene.add(slab);
+  const strata = new THREE.Mesh(new THREE.BoxGeometry(291, 2, 161), lambert(PALETTE.soilDark));
+  strata.position.set(0, -7, -15);
+  scene.add(strata);
+
+  // Fields south of the runway.
+  const fieldColors = [PALETTE.grassDark, PALETTE.grassLight, PALETTE.wheat, PALETTE.grassDark];
+  for (let row = 0; row < 2; row++) {
+    for (let column = 0; column < 9; column++) {
+      const x0 = -135 + column * 30 + 2;
+      const z0 = 22 + row * 21;
+      addSurface(pickFrom(decorRandom, fieldColors), x0, x0 + 26, z0, z0 + 17, 0.01);
+    }
+  }
+  // Paved surfaces.
+  addSurface(PALETTE.asphalt, RUNWAY.x0, RUNWAY.x1, -RUNWAY.halfWidth, RUNWAY.halfWidth, 0.045);
+  addSurface(PALETTE.taxiway, RUNWAY.x0 - 6, RUNWAY.x0, -RUNWAY.halfWidth, RUNWAY.halfWidth, 0.04);
+  addSurface(PALETTE.taxiway, RUNWAY.x1, RUNWAY.x1 + 6, -RUNWAY.halfWidth, RUNWAY.halfWidth, 0.04);
+  addSurface(PALETTE.taxiway, -85, 80, TAXIWAY_Z - 2.6, TAXIWAY_Z + 2.6, 0.03);
+  for (const exitX of [EXIT_NEAR, EXIT_FAR]) addSurface(PALETTE.taxiway, exitX - 2.6, exitX + 2.6, TAXIWAY_Z, 0, 0.03);
+  addSurface(PALETTE.taxiway, HOLD.x - 2.6, HOLD.x + 2.6, TAXIWAY_Z, 0, 0.03);
+  addSurface(PALETTE.taxiway, CONNECTOR_X - 2.6, CONNECTOR_X + 2.6, LANE_Z, TAXIWAY_Z, 0.03);
+  addSurface(PALETTE.apron, -64, 58, TERMINAL_FRONT_Z, -18.4, 0.035);
+  for (const gateX of GATE_X) addSurface(PALETTE.apronDark, gateX - 4, gateX + 4, -37.6, -28, 0.04);
+  addSurface(PALETTE.road, -64, 58, ROAD_Z - 0.9, ROAD_Z + 0.9, 0.042);
+  addSurface(PALETTE.apron, -116, -84, -34, -16.6, 0.035);
+  addSurface(PALETTE.concrete, 86, 116, -62, -36, 0.03);
+  addSurface(PALETTE.concrete, 56, 72, -58, -44, 0.03);
+  addSurface(PALETTE.road, -145, 145, -60, -56, 0.03);
+  addSurface(PALETTE.apronDark, -46, 28, -76, -62, 0.03);
+
+  // Runway markings.
+  for (let x = -78; x < 78; x += 7) addLine(PALETTE.white, x, 0, x + 3.5, 0, 0.4);
+  addLine(PALETTE.white, RUNWAY.x0, 2.45, RUNWAY.x1, 2.45, 0.25);
+  addLine(PALETTE.white, RUNWAY.x0, -2.45, RUNWAY.x1, -2.45, 0.25);
+  for (let k = 0; k < 6; k++) {
+    for (const side of [-1, 1]) {
+      const z = side * (0.45 + k * 0.35);
+      addLine(PALETTE.white, -92.5, z, -88.5, z, 0.22);
+      addLine(PALETTE.white, 88.5, z, 92.5, z, 0.22);
+    }
+  }
+  for (const side of [-1, 1]) {
+    addSurface(PALETTE.white, -73, -69, side * 1.0, side * 1.6, 0.06);
+    addSurface(PALETTE.white, 69, 73, side * 1.0, side * 1.6, 0.06);
+  }
+  drawRunwayNumber('09', -86.5, 1, 0.6);
+  drawRunwayNumber('27', 86.5, -1, 0.6);
+
+  // Taxiway lines.
+  addLine(PALETTE.yellow, HOLD.x, TAXIWAY_Z, 80, TAXIWAY_Z, 0.3);
+  for (const exitX of [EXIT_NEAR, EXIT_FAR]) addLine(PALETTE.yellow, exitX, TAXIWAY_Z, exitX, 0, 0.3);
+  addLine(PALETTE.yellow, HOLD.x, TAXIWAY_Z, HOLD.x, 0, 0.3);
+  addLine(PALETTE.yellow, CONNECTOR_X, LANE_Z, CONNECTOR_X, TAXIWAY_Z, 0.3);
+  addLine(PALETTE.yellow, CONNECTOR_X, LANE_Z, 50, LANE_Z, 0.3);
+  for (const gateX of GATE_X) {
+    addLine(PALETTE.yellow, gateX, NOSE_Z, gateX, LANE_Z, 0.3);
+    addLine(PALETTE.white, gateX - 0.9, NOSE_Z - 0.1, gateX + 0.9, NOSE_Z - 0.1, 0.25, 0.065);
+  }
+  addLine(PALETTE.yellow, HOLD.x - 2.5, HOLD.z - 1.0, HOLD.x + 2.5, HOLD.z - 1.0, 0.18);
+  addLine(PALETTE.yellow, HOLD.x - 2.5, HOLD.z - 1.4, HOLD.x + 2.5, HOLD.z - 1.4, 0.18);
+  flushSurfaces();
+}
+
+const DIGITS = {
+  '0': ['111', '101', '101', '101', '111'],
+  '9': ['111', '101', '111', '001', '111'],
+  '2': ['111', '001', '111', '100', '111'],
+  '7': ['111', '001', '010', '010', '010'],
+};
+function drawRunwayNumber(text, startX, direction, cell) {
+  // direction 1: read by a pilot heading east, -1: heading west.
+  const totalWidth = text.length * 3 * cell + (text.length - 1) * cell;
+  const zStart = -direction * totalWidth / 2;
+  text.split('').forEach((character, characterIndex) => {
+    const rows = DIGITS[character];
+    rows.forEach((row, rowIndex) => {
+      row.split('').forEach((bit, columnIndex) => {
+        if (bit !== '1') return;
+        const x = startX + direction * (4 - rowIndex) * cell;
+        const z = zStart + direction * ((characterIndex * 4 + columnIndex) * cell);
+        addSurface(PALETTE.white, x, x + direction * cell, z, z + direction * cell, 0.06);
+      });
+    });
+  });
+}
+
+// ---------------------------------------------------------------------------
+// Buildings.
+// ---------------------------------------------------------------------------
+function addBuildingMesh(geometry, hex, x, y, z, idMaterial, parent = scene) {
+  const mesh = new THREE.Mesh(geometry, typeof hex === 'number' ? lambert(hex) : hex);
+  mesh.position.set(x, y, z);
+  mesh.castShadow = true;
+  mesh.receiveShadow = true;
+  mesh.userData.idMat = idMaterial;
+  parent.add(mesh);
+  return mesh;
+}
+
+const windowMaterials = [];
+function buildTerminal() {
+  const idMaterial = createIdMaterial();
+  const depth = 9;
+  const centerZ = TERMINAL_FRONT_Z - depth / 2;
+  addBuildingMesh(new THREE.BoxGeometry(100, 3.6, depth), PALETTE.terminal, -4, 1.8, centerZ, idMaterial);
+  addBuildingMesh(new THREE.BoxGeometry(101, 0.5, depth + 1), PALETTE.roof, -4, 3.85, centerZ, idMaterial);
+  addBuildingMesh(new THREE.BoxGeometry(22, 2.2, depth - 2), PALETTE.terminal, -4, 5.2, centerZ - 0.5, idMaterial);
+  addBuildingMesh(new THREE.BoxGeometry(23, 0.4, depth - 1), PALETTE.roof, -4, 6.45, centerZ - 0.5, idMaterial);
+  // Front windows, lit at night.
+  const windowPositions = [];
+  for (let row = 0; row < 2; row++) {
+    for (let x = -53; x <= 45; x += 1.25) {
+      if (GATE_X.some((gateX) => Math.abs(x - (gateX - 5)) < 1)) continue;
+      windowPositions.push([x, 1.05 + row * 1.25, TERMINAL_FRONT_Z + 0.02]);
+    }
+  }
+  for (let x = -14; x <= 6; x += 1.25) windowPositions.push([x, 5.3, TERMINAL_FRONT_Z - 0.48]);
+  const windowMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+  windowMaterials.push(windowMaterial);
+  const windows = new THREE.InstancedMesh(new THREE.BoxGeometry(0.8, 0.6, 0.1), windowMaterial, windowPositions.length);
+  const matrix = new THREE.Matrix4();
+  const color = new THREE.Color();
+  windowPositions.forEach((position, index) => {
+    matrix.makeTranslation(position[0], position[1], position[2]);
+    windows.setMatrixAt(index, matrix);
+    const lit = decorRandom() < 0.78 ? 1 : 0.3;
+    color.setRGB(lit, lit, lit);
+    windows.setColorAt(index, color);
+  });
+  windows.userData.idMat = idMaterial;
+  scene.add(windows);
+}
+
+const towerGlass = new THREE.MeshBasicMaterial({ color: 0x2d4256 });
+
+function buildTower() {
+  const idMaterial = createIdMaterial();
+  const x = 64;
+  const z = -51;
+  addBuildingMesh(new THREE.BoxGeometry(5, 2.2, 5), PALETTE.concrete, x, 1.1, z, idMaterial);
+  addBuildingMesh(new THREE.CylinderGeometry(0.9, 1.1, 12, 8), PALETTE.tower, x, 8, z, idMaterial);
+  addBuildingMesh(new THREE.CylinderGeometry(2.0, 1.4, 0.8, 8), PALETTE.tower, x, 14.2, z, idMaterial);
+  addBuildingMesh(new THREE.CylinderGeometry(1.9, 1.9, 1.6, 8), towerGlass, x, 15.4, z, idMaterial);
+  addBuildingMesh(new THREE.CylinderGeometry(2.2, 2.0, 0.4, 8), PALETTE.roof, x, 16.4, z, idMaterial);
+  addBuildingMesh(new THREE.BoxGeometry(0.12, 2.2, 0.12), PALETTE.dark, x, 17.7, z, idMaterial);
+}
+
+function buildHangar() {
+  const idMaterial = createIdMaterial();
+  const x = -100;
+  const z = -43;
+  addBuildingMesh(new THREE.BoxGeometry(24, 4.2, 16), PALETTE.hangar, x, 2.1, z, idMaterial);
+  const roofGeometry = new THREE.CylinderGeometry(8, 8, 24.4, 10, 1, false, 0, Math.PI);
+  roofGeometry.rotateZ(Math.PI / 2);
+  roofGeometry.scale(1, 0.45, 1);
+  addBuildingMesh(roofGeometry, PALETTE.hangarRoof, x, 4.2, z, idMaterial);
+  addBuildingMesh(new THREE.BoxGeometry(18, 3.6, 0.2), PALETTE.hangarDoor, x, 1.8, z + 8.05, idMaterial);
+  for (let k = -2; k <= 2; k++) {
+    addBuildingMesh(new THREE.BoxGeometry(0.15, 3.6, 0.22), PALETTE.dark, x + k * 3.6, 1.8, z + 8.1, idMaterial);
+  }
+  addBuildingMesh(new THREE.BoxGeometry(18, 0.35, 0.24), PALETTE.yellow, x, 3.75, z + 8.12, idMaterial);
+}
+
+function buildFuelFarm() {
+  const tanks = [[94, -49], [104, -49], [99, -42.5], [109, -42.5]];
+  for (const [x, z] of tanks) {
+    const idMaterial = createIdMaterial();
+    addBuildingMesh(new THREE.CylinderGeometry(3, 3, 3.6, 12), PALETTE.tank, x, 1.8, z, idMaterial);
+    addBuildingMesh(new THREE.CylinderGeometry(3.02, 3.02, 0.4, 12), PALETTE.tankBand, x, 2.8, z, idMaterial);
+    addBuildingMesh(new THREE.CylinderGeometry(2.6, 3, 0.5, 12), PALETTE.concrete, x, 3.85, z, idMaterial);
+  }
+  const wallId = createIdMaterial();
+  addBuildingMesh(new THREE.BoxGeometry(28, 0.6, 0.4), PALETTE.concrete, 101, 0.3, -37, wallId);
+  addBuildingMesh(new THREE.BoxGeometry(28, 0.6, 0.4), PALETTE.concrete, 101, 0.3, -61, wallId);
+  addBuildingMesh(new THREE.BoxGeometry(0.4, 0.6, 24), PALETTE.concrete, 87, 0.3, -49, wallId);
+  addBuildingMesh(new THREE.BoxGeometry(0.4, 0.6, 24), PALETTE.concrete, 115, 0.3, -49, wallId);
+  const pumpId = createIdMaterial();
+  addBuildingMesh(new THREE.BoxGeometry(3, 1.6, 2.4), PALETTE.terminal, 93, 0.8, -57.5, pumpId);
+}
+
+function buildTrees() {
+  const positions = [];
+  let attempts = 0;
+  while (positions.length < 170 && attempts < 4000) {
+    attempts++;
+    const x = randomBetween(decorRandom, -142, 142);
+    const z = randomBetween(decorRandom, -93, 63);
+    const nearAirfield = z > -64 && z < 20 && x > -130 && x < 122;
+    const inField = z > 21 && z < 61;
+    const onRoad = z > -77 && z < -55 && x > -48 && x < 30;
+    const onLandsideRoad = z > -62 && z < -54;
+    if (nearAirfield || onRoad || onLandsideRoad) continue;
+    if (inField && decorRandom() < 0.8) continue;
+    positions.push([x, z, randomBetween(decorRandom, 0.8, 1.4)]);
+  }
+  const foliage = new THREE.InstancedMesh(new THREE.ConeGeometry(1.2, 3, 6), lambert(0xffffff), positions.length);
+  const trunks = new THREE.InstancedMesh(new THREE.BoxGeometry(0.35, 1, 0.35), lambert(PALETTE.trunk), positions.length);
+  const matrix = new THREE.Matrix4();
+  const color = new THREE.Color();
+  positions.forEach(([x, z, size], index) => {
+    matrix.makeScale(size, size, size).setPosition(x, 1 * size + 1.5 * size, z);
+    foliage.setMatrixAt(index, matrix);
+    color.setHex(decorRandom() < 0.5 ? PALETTE.tree : PALETTE.treeDark);
+    foliage.setColorAt(index, color);
+    matrix.makeScale(size, size, size).setPosition(x, 0.5 * size, z);
+    trunks.setMatrixAt(index, matrix);
+  });
+  for (const mesh of [foliage, trunks]) {
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    scene.add(mesh);
+  }
+}
+
+function buildParkingLot() {
+  const carColors = [0xd2483c, 0x3f6fb5, 0xf2efe6, 0x2a2a33, 0xf2c14e, 0x7d8a99, 0x58b368];
+  const cars = [];
+  for (let row = 0; row < 4; row++) {
+    for (let x = -44; x < 26; x += 1.6) {
+      if (decorRandom() < 0.32) continue;
+      cars.push([x + 0.5, -74 + row * 3.4 + (row % 2) * 0.6]);
+    }
+  }
+  const mesh = new THREE.InstancedMesh(new THREE.BoxGeometry(0.8, 0.55, 1.5), lambert(0xffffff), cars.length);
+  const matrix = new THREE.Matrix4();
+  const color = new THREE.Color();
+  cars.forEach(([x, z], index) => {
+    matrix.makeTranslation(x, 0.3, z);
+    mesh.setMatrixAt(index, matrix);
+    color.setHex(pickFrom(decorRandom, carColors));
+    mesh.setColorAt(index, color);
+  });
+  mesh.castShadow = true;
+  scene.add(mesh);
+}
+
+function buildWindsock() {
+  const pole = new THREE.Mesh(new THREE.BoxGeometry(0.12, 2.4, 0.12), lambert(PALETTE.white));
+  pole.position.set(-60, 1.2, 9);
+  pole.castShadow = true;
+  scene.add(pole);
+  const sock = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.3, 1.4, 6).rotateZ(Math.PI / 2), lambert(0xf08a24));
+  sock.position.set(-59.2, 2.25, 9);
+  sock.castShadow = true;
+  scene.add(sock);
+}
+
+// ---------------------------------------------------------------------------
+// Jet bridges.
+// ---------------------------------------------------------------------------
+const gates = GATE_X.map((gateX, index) => ({ index, x: gateX, reservedBy: null, docked: null, extension: 0, goal: 0, bridge: null }));
+function buildBridges() {
+  const tunnelGeometry = new THREE.BoxGeometry(1, 0.55, 0.6);
+  tunnelGeometry.translate(0.5, 0, 0);
+  const rotundaGeometry = new THREE.CylinderGeometry(0.6, 0.6, 1, 8);
+  rotundaGeometry.translate(0, 0.5, 0);
+  const legGeometry = new THREE.BoxGeometry(0.18, 1, 0.18);
+  legGeometry.translate(0, 0.5, 0);
+  for (const gate of gates) {
+    const idMaterial = createIdMaterial();
+    const start = { x: gate.x - 5, z: TERMINAL_FRONT_Z + 0.7 };
+    const rotunda = addBuildingMesh(rotundaGeometry, 0xd8dbe2, start.x, 0, start.z, idMaterial);
+    const tunnel = addBuildingMesh(tunnelGeometry, 0xd8dbe2, start.x, 1.2, start.z, idMaterial);
+    const leg = addBuildingMesh(legGeometry, PALETTE.dark, start.x, 0, start.z, idMaterial);
+    const cab = addBuildingMesh(new THREE.BoxGeometry(0.5, 0.65, 0.75), 0x4f6d8a, start.x, 1.2, start.z, idMaterial);
+    gate.bridge = { start, rotunda, tunnel, leg, cab };
+  }
+}
+
+function updateBridge(gate, dt) {
+  const step = dt / 8;
+  gate.extension = gate.goal > gate.extension ? Math.min(gate.goal, gate.extension + step) : Math.max(gate.goal, gate.extension - step);
+  const bridge = gate.bridge;
+  const park = { x: gate.x - 3.6, z: NOSE_Z - 1.2 };
+  let door = park;
+  let doorY = 1.2;
+  const aircraft = gate.docked;
+  if (aircraft) {
+    door = { x: gate.x - aircraft.type.radius - 0.3, z: NOSE_Z + aircraft.type.length * 0.16 };
+    doorY = aircraft.type.gear + aircraft.type.radius * 1.15;
+  }
+  const amount = smoothstep(0, 1, gate.extension);
+  const endX = lerp(park.x, door.x, amount);
+  const endZ = lerp(park.z, door.z, amount);
+  const y = lerp(1.2, doorY, amount);
+  const deltaX = endX - bridge.start.x;
+  const deltaZ = endZ - bridge.start.z;
+  const length = Math.hypot(deltaX, deltaZ);
+  const yaw = Math.atan2(-deltaZ, deltaX);
+  bridge.tunnel.position.set(bridge.start.x, y, bridge.start.z);
+  bridge.tunnel.rotation.y = yaw;
+  bridge.tunnel.scale.x = Math.max(0.5, length - 0.25);
+  bridge.cab.position.set(endX - Math.cos(yaw) * 0.25, y, endZ + Math.sin(yaw) * 0.25);
+  bridge.cab.rotation.y = yaw;
+  bridge.rotunda.scale.y = y + 0.3;
+  bridge.leg.position.set(bridge.start.x + deltaX * 0.75, 0, bridge.start.z + deltaZ * 0.75);
+  bridge.leg.scale.y = Math.max(0.1, y - 0.27);
+}
+
+// ---------------------------------------------------------------------------
+// Clouds.
+// ---------------------------------------------------------------------------
+const clouds = [];
+function buildClouds() {
+  const material = new THREE.ShaderMaterial({
+    uniforms: cloudUniforms,
+    vertexShader: `varying vec2 vUv; varying vec3 vWorld;
+      void main() { vUv = uv; vec4 world = modelMatrix * vec4(position, 1.0); vWorld = world.xyz; gl_Position = projectionMatrix * viewMatrix * world; }`,
+    fragmentShader: `
+      uniform vec3 uLit; uniform vec3 uShade; varying vec2 vUv; varying vec3 vWorld;
+      ${BAYER_GLSL}
+      float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+      float noise(vec2 p) {
+        vec2 i = floor(p); vec2 f = fract(p); vec2 u = f * f * (3.0 - 2.0 * f);
+        return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), u.x), mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x), u.y);
+      }
+      float fbm(vec2 p) { float total = 0.0; float amplitude = 0.5; for (int i = 0; i < 4; i++) { total += amplitude * noise(p); p *= 2.1; amplitude *= 0.5; } return total; }
+      void main() {
+        vec2 centered = (vUv - 0.5) * vec2(1.0, 1.5);
+        float radius = length(centered) * 2.0;
+        float density = fbm(vWorld.xz * 0.06) - radius * 0.6 + 0.3;
+        float alpha = smoothstep(0.25, 0.6, density) * 0.9;
+        if (alpha < bayer(ivec2(gl_FragCoord.xy))) discard;
+        gl_FragColor = vec4(mix(uShade, uLit, smoothstep(0.25, 0.75, density + (0.5 - vUv.y) * 0.3)), 1.0);
+      }`,
+    side: THREE.DoubleSide,
+  });
+  for (let k = 0; k < 7; k++) {
+    const width = randomBetween(decorRandom, 30, 52);
+    const geometry = new THREE.PlaneGeometry(width, width * 0.6);
+    geometry.rotateX(-Math.PI / 2);
+    const mesh = new THREE.Mesh(geometry, material);
+    mesh.position.set(randomBetween(decorRandom, -260, 260), randomBetween(decorRandom, 42, 62), randomBetween(decorRandom, -110, 70));
+    mesh.userData.noId = true;
+    mesh.userData.drift = randomBetween(decorRandom, 0.25, 0.45);
+    scene.add(mesh);
+    clouds.push(mesh);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Point lights (runway, taxiway, beacons) with dithered glow.
+// ---------------------------------------------------------------------------
+const lightMaterial = new THREE.ShaderMaterial({
+  uniforms: { uNight: { value: 0 }, uScale: { value: 1 } },
+  vertexShader: `
+    attribute vec3 lightColor; attribute float size; attribute float kind;
+    uniform float uNight; uniform float uScale;
+    varying vec3 vColor; varying float vGlow;
+    void main() {
+      vec4 viewPosition = modelViewMatrix * vec4(position, 1.0);
+      gl_Position = projectionMatrix * viewPosition;
+      float lit = kind < 0.5 ? uNight : 1.0;
+      if (lit < 0.05 || size <= 0.0) { gl_Position = vec4(2.0, 2.0, 2.0, 1.0); }
+      float pointSize = size * uScale * mix(0.7, 1.0, uNight) * mix(0.6, 1.0, lit);
+      gl_PointSize = max(pointSize, 1.0);
+      vColor = lightColor * mix(0.6, 1.0, lit);
+      vGlow = mix(0.35, 1.0, uNight);
+    }`,
+  fragmentShader: `
+    varying vec3 vColor; varying float vGlow;
+    ${BAYER_GLSL}
+    void main() {
+      vec2 offset = gl_PointCoord - 0.5;
+      float distance = length(offset) * 2.0;
+      bool core = distance < 0.42;
+      float halo = (1.0 - distance) * vGlow;
+      if (!core && halo < bayer(ivec2(gl_FragCoord.xy)) + 0.2) discard;
+      vec3 color = core ? vColor * 1.6 : vColor * 0.75;
+      gl_FragColor = vec4(color, 1.0);
+    }`,
+  depthWrite: true,
+});
+
+function buildStaticLights() {
+  const positions = [];
+  const colors = [];
+  const sizes = [];
+  const add = (x, y, z, hex, size) => {
+    positions.push(x, y, z);
+    const color = new THREE.Color(hex);
+    colors.push(color.r, color.g, color.b);
+    sizes.push(size);
+  };
+  for (let x = RUNWAY.x0; x <= RUNWAY.x1 + 0.1; x += 7.15) {
+    add(x, 0.2, RUNWAY.halfWidth + 0.3, 0xfff2cc, 3);
+    add(x, 0.2, -RUNWAY.halfWidth - 0.3, 0xfff2cc, 3);
+  }
+  for (let z = -2.5; z <= 2.51; z += 0.84) {
+    add(RUNWAY.x0 - 0.4, 0.2, z, 0x6cff7a, 3);
+    add(RUNWAY.x1 + 0.4, 0.2, z, 0xff4a3a, 3);
+  }
+  for (let x = RUNWAY.x0 - 4; x >= -142; x -= 4) add(x, 0.3, 0, 0xffffff, 3);
+  for (let z = -4; z <= 4; z += 1) if (z !== 0) add(-112, 0.3, z, 0xffffff, 3);
+  for (let x = HOLD.x; x <= 80; x += 3) add(x, 0.15, TAXIWAY_Z, 0x5cff6c, 2);
+  for (let x = -85; x <= 80; x += 6) {
+    add(x, 0.15, TAXIWAY_Z - 2.9, 0x5a7dff, 2);
+    add(x, 0.15, TAXIWAY_Z + 2.9, 0x5a7dff, 2);
+  }
+  for (const exitX of [EXIT_NEAR, EXIT_FAR, HOLD.x]) for (let z = TAXIWAY_Z + 2; z < -2; z += 2.2) add(exitX, 0.15, z, 0x5cff6c, 2);
+  for (let z = LANE_Z; z <= TAXIWAY_Z; z += 2.5) add(CONNECTOR_X, 0.15, z, 0x5cff6c, 2);
+  for (let x = CONNECTOR_X; x <= 50; x += 4) add(x, 0.15, LANE_Z, 0x5cff6c, 2);
+  for (let x = HOLD.x - 2.4; x <= HOLD.x + 2.41; x += 0.8) add(x, 0.15, HOLD.z - 1.9, 0xff3b30, 2);
+  for (let x = -140; x <= 140; x += 12) add(x, 2.2, -61.5, 0xffc870, 3);
+  for (const x of [-36, -4, 28]) add(x, 4.6, TERMINAL_FRONT_Z + 0.2, 0xfff0c0, 4);
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  geometry.setAttribute('lightColor', new THREE.Float32BufferAttribute(colors, 3));
+  geometry.setAttribute('size', new THREE.Float32BufferAttribute(sizes, 1));
+  geometry.setAttribute('kind', new THREE.Float32BufferAttribute(new Array(sizes.length).fill(0), 1));
+  const points = new THREE.Points(geometry, lightMaterial);
+  points.frustumCulled = false;
+  points.renderOrder = 10;
+  scene.add(points);
+}
+
+const DYNAMIC_LIGHT_LIMIT = 320;
+const dynamicLightGeometry = new THREE.BufferGeometry();
+const dynamicPositions = new Float32Array(DYNAMIC_LIGHT_LIMIT * 3);
+const dynamicColors = new Float32Array(DYNAMIC_LIGHT_LIMIT * 3);
+const dynamicSizes = new Float32Array(DYNAMIC_LIGHT_LIMIT);
+dynamicLightGeometry.setAttribute('position', new THREE.BufferAttribute(dynamicPositions, 3).setUsage(THREE.DynamicDrawUsage));
+dynamicLightGeometry.setAttribute('lightColor', new THREE.BufferAttribute(dynamicColors, 3).setUsage(THREE.DynamicDrawUsage));
+dynamicLightGeometry.setAttribute('size', new THREE.BufferAttribute(dynamicSizes, 1).setUsage(THREE.DynamicDrawUsage));
+dynamicLightGeometry.setAttribute('kind', new THREE.BufferAttribute(new Float32Array(DYNAMIC_LIGHT_LIMIT).fill(1), 1));
+const dynamicLights = new THREE.Points(dynamicLightGeometry, lightMaterial);
+dynamicLights.frustumCulled = false;
+dynamicLights.renderOrder = 10;
+scene.add(dynamicLights);
+
+// ---------------------------------------------------------------------------
+// Aircraft models.
+// ---------------------------------------------------------------------------
+const geometryCache = new Map();
+function cachedGeometry(key, factory) {
+  if (!geometryCache.has(key)) geometryCache.set(key, factory());
+  return geometryCache.get(key);
+}
+function halfWingGeometry(span, rootChord, tipChord, thickness, sweep, side) {
+  const geometry = new THREE.BoxGeometry(rootChord, thickness, span / 2);
+  geometry.translate(0, 0, side * span / 4);
+  const position = geometry.attributes.position;
+  for (let index = 0; index < position.count; index++) {
+    const t = Math.abs(position.getZ(index)) / (span / 2);
+    const x = position.getX(index);
+    position.setX(index, x * (1 + (tipChord / rootChord - 1) * t) - sweep * t);
+  }
+  geometry.computeVertexNormals();
+  return geometry;
+}
+function wingGeometry(span, rootChord, tipChord, thickness, sweep) {
+  return mergeGeometries([
+    halfWingGeometry(span, rootChord, tipChord, thickness, sweep, 1),
+    halfWingGeometry(span, rootChord, tipChord, thickness, sweep, -1),
+  ]);
+}
+function finGeometry(chord, height, thickness, taper, sweep) {
+  const geometry = new THREE.BoxGeometry(chord, height, thickness);
+  geometry.translate(0, height / 2, 0);
+  const position = geometry.attributes.position;
+  for (let index = 0; index < position.count; index++) {
+    if (position.getY(index) > 0.01) position.setX(index, position.getX(index) * taper - sweep);
+  }
+  geometry.computeVertexNormals();
+  return geometry;
+}
+
+function buildAircraftModel(type, airline, idMaterial) {
+  const length = type.length;
+  const radius = type.radius;
+  const span = type.span;
+  const gear = type.gear;
+  const bodyY = gear + radius;
+  const key = type.key;
+  const isProp = key === 'prop';
+  const root = new THREE.Group();
+  const body = new THREE.Group();
+  root.add(body);
+  const white = lambert(airline.body);
+  const main = lambert(airline.main);
+  const accent = lambert(airline.accent);
+  const dark = lambert(PALETTE.dark);
+  const grey = lambert(0xb8bcc4);
+  const add = (geometry, material, x, y, z) => {
+    const mesh = new THREE.Mesh(geometry, material);
+    mesh.position.set(x, y, z);
+    mesh.castShadow = true;
+    mesh.userData.idMat = idMaterial;
+    body.add(mesh);
+    return mesh;
+  };
+  const bodyLength = length * 0.64;
+  const noseLength = length * 0.14;
+  const tailLength = length * 0.22;
+  const bodyCenter = -length / 2 + tailLength + bodyLength / 2;
+  add(cachedGeometry(key + 'body', () => new THREE.CylinderGeometry(radius, radius, bodyLength, 8).rotateZ(Math.PI / 2)), white, bodyCenter, bodyY, 0);
+  add(cachedGeometry(key + 'nose', () => new THREE.CylinderGeometry(radius * 0.3, radius, noseLength, 8).rotateZ(-Math.PI / 2)), white, length / 2 - noseLength / 2, bodyY - radius * 0.08, 0);
+  add(cachedGeometry(key + 'tail', () => new THREE.CylinderGeometry(radius * 0.3, radius, tailLength, 8).rotateZ(Math.PI / 2)), white, -length / 2 + tailLength / 2, bodyY + radius * 0.2, 0);
+  add(cachedGeometry(key + 'cheat', () => new THREE.BoxGeometry(bodyLength + noseLength * 0.4, radius * 0.3, radius * 2 + 0.06)), main, bodyCenter + noseLength * 0.2, bodyY - radius * 0.1, 0);
+  add(cachedGeometry(key + 'belly', () => new THREE.BoxGeometry(bodyLength * 0.95, radius * 0.25, radius * 1.4)), accent, bodyCenter, bodyY - radius * 0.86, 0);
+
+  const wingX = isProp ? length * 0.06 : length * 0.04;
+  const wingY = isProp ? bodyY + radius * 0.9 : bodyY - radius * 0.5;
+  const wingSweep = isProp ? length * 0.02 : length * 0.13;
+  const rootChord = isProp ? length * 0.15 : length * 0.22;
+  const tipChord = isProp ? length * 0.09 : length * 0.07;
+  add(cachedGeometry(key + 'wing', () => wingGeometry(span, rootChord, tipChord, 0.07, wingSweep)), grey, wingX, wingY, 0);
+
+  const finX = -length * 0.4;
+  const finHeight = radius * (isProp ? 2.6 : 2.8);
+  add(cachedGeometry(key + 'fin', () => finGeometry(length * 0.15, finHeight, 0.07, 0.55, length * 0.09)), main, finX, bodyY + radius * 0.5, 0);
+  add(cachedGeometry(key + 'logo', () => finGeometry(length * 0.08, finHeight * 0.35, 0.09, 0.8, length * 0.02)), accent, finX - length * 0.03, bodyY + radius * 0.5 + finHeight * 0.35, 0);
+  const stabilizerY = isProp ? bodyY + radius * 0.5 + finHeight * 0.95 : bodyY + radius * 0.25;
+  const stabilizerX = isProp ? finX - length * 0.085 : -length * 0.43;
+  add(cachedGeometry(key + 'stab', () => wingGeometry(span * 0.36, length * 0.1, length * 0.05, 0.06, length * 0.05)), isProp ? main : grey, stabilizerX, stabilizerY, 0);
+
+  // Engines.
+  const exhausts = [];
+  const props = [];
+  const engineRadius = isProp ? radius * 0.55 : radius * (key === 'wide' ? 0.55 : 0.45);
+  const engineLength = isProp ? length * 0.2 : length * 0.14;
+  const engineZ = span * (isProp ? 0.19 : (key === 'wide' ? 0.22 : 0.18));
+  const engineX = wingX + (isProp ? length * 0.06 : length * 0.07) - wingSweep * (engineZ / (span / 2));
+  const engineY = isProp ? wingY - engineRadius * 0.2 : wingY - engineRadius * 0.9;
+  const nacelleGeometry = cachedGeometry(key + 'nacelle', () => new THREE.CylinderGeometry(engineRadius, engineRadius * 0.85, engineLength, 8).rotateZ(-Math.PI / 2));
+  const exhaustLength = isProp ? length * 0.25 : length * 0.38;
+  const exhaustGeometry = cachedGeometry(key + 'exhaust', () => new THREE.PlaneGeometry(exhaustLength, engineRadius * 2.6).rotateX(-Math.PI / 2));
+  for (const side of [-1, 1]) {
+    add(nacelleGeometry, accent, engineX, engineY, side * engineZ);
+    const exhaust = new THREE.Mesh(exhaustGeometry, exhaustTemplate.clone());
+    exhaust.material.uniforms.uTime = sharedTime;
+    exhaust.position.set(engineX - engineLength / 2 - exhaustLength / 2, engineY, side * engineZ);
+    exhaust.userData.noId = true;
+    exhaust.visible = false;
+    body.add(exhaust);
+    exhausts.push(exhaust);
+    if (isProp) {
+      const propRadius = span * 0.13;
+      const disc = new THREE.Mesh(cachedGeometry('propdisc', () => new THREE.CircleGeometry(1, 12).rotateY(Math.PI / 2)), propMaterial);
+      disc.scale.setScalar(propRadius);
+      disc.position.set(engineX + engineLength / 2 + 0.04, engineY, side * engineZ);
+      disc.userData.noId = true;
+      body.add(disc);
+      const blades = add(cachedGeometry('propblade', () => new THREE.BoxGeometry(0.04, 1, 0.08)), dark, engineX + engineLength / 2 + 0.04, engineY, side * engineZ);
+      blades.scale.y = propRadius * 2;
+      props.push({ disc, blades });
+    }
+  }
+  // Landing gear.
+  const gearGeometry = cachedGeometry(key + 'gear', () => new THREE.BoxGeometry(0.14, gear, 0.14));
+  add(gearGeometry, dark, length * 0.33, gear / 2, 0);
+  add(gearGeometry, dark, wingX - rootChord * 0.3, gear / 2, radius * 0.8);
+  add(gearGeometry, dark, wingX - rootChord * 0.3, gear / 2, -radius * 0.8);
+
+  const tipX = wingX - wingSweep;
+  const lightOffsets = {
+    beaconTop: new THREE.Vector3(bodyCenter, bodyY + radius + 0.04, 0),
+    beaconBottom: new THREE.Vector3(bodyCenter - 0.3, bodyY - radius - 0.04, 0),
+    navLeft: new THREE.Vector3(tipX, wingY, -span / 2),
+    navRight: new THREE.Vector3(tipX, wingY, span / 2),
+    tail: new THREE.Vector3(-length / 2, bodyY + radius * 0.2, 0),
+  };
+  return { root, body, exhausts, props, lightOffsets };
+}
+
+// ---------------------------------------------------------------------------
+// Ground vehicles.
+// ---------------------------------------------------------------------------
+function buildVehicleModel(kind) {
+  const group = new THREE.Group();
+  const add = (geometry, hex, x, y, z) => {
+    const mesh = new THREE.Mesh(geometry, lambert(hex));
+    mesh.position.set(x, y, z);
+    mesh.castShadow = true;
+    group.add(mesh);
+    return mesh;
+  };
+  let beaconHeight = 0.8;
+  if (kind === 'baggage') {
+    add(cachedGeometry('tug', () => new THREE.BoxGeometry(0.9, 0.55, 0.6)), 0xf2c14e, 0, 0.32, 0);
+    add(cachedGeometry('tugcab', () => new THREE.BoxGeometry(0.4, 0.35, 0.55)), 0x2a2a33, -0.1, 0.75, 0);
+    for (let cart = 1; cart <= 3; cart++) {
+      add(cachedGeometry('cart', () => new THREE.BoxGeometry(0.85, 0.5, 0.6)), 0x7d8a99, -cart * 1.15, 0.35, 0);
+      add(cachedGeometry('bags', () => new THREE.BoxGeometry(0.6, 0.2, 0.45)), 0x3f6fb5, -cart * 1.15, 0.7, 0);
+    }
+    beaconHeight = 1.0;
+  } else if (kind === 'fuel') {
+    add(cachedGeometry('fuelcab', () => new THREE.BoxGeometry(0.6, 0.75, 0.8)), 0xd2483c, 0.9, 0.45, 0);
+    add(cachedGeometry('fueltank', () => new THREE.CylinderGeometry(0.42, 0.42, 1.7, 8).rotateZ(Math.PI / 2)), 0xf2efe6, -0.3, 0.6, 0);
+    add(cachedGeometry('fuelchassis', () => new THREE.BoxGeometry(2.4, 0.2, 0.8)), 0x2a2a33, 0.05, 0.15, 0);
+    beaconHeight = 0.95;
+  } else if (kind === 'catering') {
+    add(cachedGeometry('catcab', () => new THREE.BoxGeometry(0.55, 0.7, 0.8)), 0xf2efe6, 0.95, 0.4, 0);
+    add(cachedGeometry('catlift', () => new THREE.BoxGeometry(1.2, 0.5, 0.5)), 0x2a2a33, -0.1, 0.45, 0);
+    add(cachedGeometry('catbox', () => new THREE.BoxGeometry(1.6, 0.85, 0.9)), 0xf2efe6, -0.1, 1.1, 0);
+    add(cachedGeometry('catstripe', () => new THREE.BoxGeometry(1.62, 0.18, 0.92)), 0x1f8a87, -0.1, 1.2, 0);
+    beaconHeight = 1.6;
+  } else {
+    add(cachedGeometry('pushtug', () => new THREE.BoxGeometry(1.2, 0.4, 0.85)), 0xc9a227, 0, 0.25, 0);
+    add(cachedGeometry('pushcab', () => new THREE.BoxGeometry(0.35, 0.3, 0.7)), 0x2a2a33, -0.3, 0.55, 0);
+    beaconHeight = 0.75;
+  }
+  return { group, beaconHeight };
+}
+
+// ---------------------------------------------------------------------------
+// Paths with rounded corners.
+// ---------------------------------------------------------------------------
+function buildPath(points, radius = 3) {
+  const dense = [points[0]];
+  for (let index = 1; index < points.length - 1; index++) {
+    const previous = points[index - 1];
+    const corner = points[index];
+    const next = points[index + 1];
+    const toPreviousX = previous.x - corner.x;
+    const toPreviousZ = previous.z - corner.z;
+    const toNextX = next.x - corner.x;
+    const toNextZ = next.z - corner.z;
+    const previousLength = Math.hypot(toPreviousX, toPreviousZ);
+    const nextLength = Math.hypot(toNextX, toNextZ);
+    if (previousLength < 1e-6 || nextLength < 1e-6) continue;
+    const firstRadius = Math.min(radius, previousLength / 2);
+    const secondRadius = Math.min(radius, nextLength / 2);
+    const start = { x: corner.x + toPreviousX / previousLength * firstRadius, z: corner.z + toPreviousZ / previousLength * firstRadius };
+    const end = { x: corner.x + toNextX / nextLength * secondRadius, z: corner.z + toNextZ / nextLength * secondRadius };
+    const steps = 8;
+    for (let step = 0; step <= steps; step++) {
+      const t = step / steps;
+      const u = 1 - t;
+      dense.push({
+        x: u * u * start.x + 2 * u * t * corner.x + t * t * end.x,
+        z: u * u * start.z + 2 * u * t * corner.z + t * t * end.z,
+      });
+    }
+  }
+  dense.push(points[points.length - 1]);
+  const cleaned = [dense[0]];
+  for (let index = 1; index < dense.length; index++) {
+    const last = cleaned[cleaned.length - 1];
+    if (Math.hypot(dense[index].x - last.x, dense[index].z - last.z) > 1e-4) cleaned.push(dense[index]);
+  }
+  const lengths = [0];
+  for (let index = 1; index < cleaned.length; index++) {
+    lengths.push(lengths[index - 1] + Math.hypot(cleaned[index].x - cleaned[index - 1].x, cleaned[index].z - cleaned[index - 1].z));
+  }
+  return { points: cleaned, lengths, total: lengths[lengths.length - 1] };
+}
+
+function samplePath(path, distance) {
+  const points = path.points;
+  const lengths = path.lengths;
+  if (points.length === 1) return { x: points[0].x, z: points[0].z, dirX: 1, dirZ: 0 };
+  const clamped = clamp(distance, 0, path.total);
+  let low = 0;
+  let high = lengths.length - 1;
+  while (high - low > 1) {
+    const middle = (low + high) >> 1;
+    if (lengths[middle] <= clamped) low = middle;
+    else high = middle;
+  }
+  const segmentLength = lengths[high] - lengths[low];
+  const t = segmentLength > 0 ? (clamped - lengths[low]) / segmentLength : 0;
+  const from = points[low];
+  const to = points[high];
+  return {
+    x: from.x + (to.x - from.x) * t,
+    z: from.z + (to.z - from.z) * t,
+    dirX: segmentLength > 0 ? (to.x - from.x) / segmentLength : 1,
+    dirZ: segmentLength > 0 ? (to.z - from.z) / segmentLength : 0,
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Simulation state.
+// ---------------------------------------------------------------------------
+let simTime = 0;
+let speedMultiplier = 1;
+const runway = { owner: null };
+const aircraftList = [];
+const vehicles = [];
+const movements = [];
+const departedRecords = [];
+const scheduledArrivals = [];
+let nextArrivalTime = 25;
+let nextAircraftId = 1;
+
+const GROUND_STATES = new Set(['ROLLOUT', 'TAXI_IN', 'DOCKED', 'PUSHBACK', 'STARTUP', 'TAXI_OUT', 'HOLD_SHORT']);
+function isOnGround(aircraft) {
+  if (GROUND_STATES.has(aircraft.state)) return true;
+  return aircraft.state === 'TAKEOFF' && aircraft.altitude < 0.3;
+}
+function isGroundMover(aircraft) {
+  if (aircraft.state === 'TAXI_IN' || aircraft.state === 'PUSHBACK' || aircraft.state === 'TAXI_OUT') return true;
+  return aircraft.state === 'ROLLOUT' && aircraft.distance > aircraft.exitDistance - 2;
+}
+
+function pickTypeKey() {
+  const roll = simRandom();
+  if (roll < 0.52) return 'narrow';
+  if (roll < 0.78) return 'prop';
+  return 'wide';
+}
+
+function makeArrivalEntry() {
+  const airline = pickFrom(simRandom, AIRLINES);
+  const number = 100 + Math.floor(simRandom() * 440) * 2;
+  const entry = {
+    airline,
+    number,
+    flight: `${airline.code} ${number}`,
+    typeKey: pickTypeKey(),
+    origin: pickFrom(simRandom, CITIES),
+    spawnAt: nextArrivalTime,
+    sta: nextArrivalTime + 120,
+  };
+  nextArrivalTime += randomBetween(simRandom, 120, 175);
+  return entry;
+}
+function refillSchedule() {
+  while (scheduledArrivals.length < 6) scheduledArrivals.push(makeArrivalEntry());
+}
+
+function createAircraft(entry) {
+  const type = TYPES[entry.typeKey];
+  const idMaterial = createIdMaterial();
+  const model = buildAircraftModel(type, entry.airline, idMaterial);
+  scene.add(model.root);
+  const destinationChoices = CITIES.filter((city) => city !== entry.origin);
+  const aircraft = {
+    id: nextAircraftId++,
+    type,
+    airline: entry.airline,
+    arrivalFlight: entry.flight,
+    departureFlight: `${entry.airline.code} ${entry.number + 1}`,
+    origin: entry.origin,
+    destination: pickFrom(simRandom, destinationChoices),
+    sta: entry.sta,
+    std: null,
+    gateIndex: -1,
+    state: 'INBOUND',
+    stateTime: 0,
+    position: new THREE.Vector3(),
+    altitude: 0,
+    yaw: 0,
+    displayYaw: 0,
+    pitch: 0,
+    roll: 0,
+    speed: 0,
+    path: null,
+    distance: 0,
+    reverse: false,
+    readySince: 0,
+    holdLevel: -1,
+    orbitAngle: 0,
+    entryAngle: 0,
+    timeline: {},
+    blocker: null,
+    blockDistance: Infinity,
+    model,
+    idMaterial,
+  };
+  aircraftList.push(aircraft);
+  return aircraft;
+}
+
+function setState(aircraft, state) {
+  aircraft.state = state;
+  aircraft.stateTime = 0;
+}
+
+function freeGateIndexes() {
+  return gates.filter((gate) => gate.reservedBy === null).map((gate) => gate.index);
+}
+
+function allocateHoldLevel() {
+  const used = new Set(aircraftList.filter((aircraft) => aircraft.holdLevel >= 0).map((aircraft) => aircraft.holdLevel));
+  let level = 0;
+  while (used.has(level)) level++;
+  return level;
+}
+const holdAltitude = (level) => FINAL_ALT + 5 * (level + 1);
+
+function spawnArrival(entry) {
+  const free = freeGateIndexes();
+  const aircraft = createAircraft(entry);
+  aircraft.gateIndex = pickFrom(simRandom, free);
+  gates[aircraft.gateIndex].reservedBy = aircraft.id;
+  aircraft.holdLevel = allocateHoldLevel();
+  aircraft.entryAngle = randomBetween(simRandom, Math.PI * 0.6, Math.PI * 1.35);
+  const distance = ORBIT.radius + 230;
+  aircraft.position.set(ORBIT.x + Math.cos(aircraft.entryAngle) * distance, 0, ORBIT.z + Math.sin(aircraft.entryAngle) * distance);
+  aircraft.altitude = holdAltitude(aircraft.holdLevel) + 6;
+  aircraft.speed = 4.5;
+  aircraft.yaw = Math.atan2(Math.sin(aircraft.entryAngle), -Math.cos(aircraft.entryAngle));
+  aircraft.displayYaw = aircraft.yaw;
+  setState(aircraft, 'INBOUND');
+  return aircraft;
+}
+
+function scheduleArrivals() {
+  refillSchedule();
+  const next = scheduledArrivals[0];
+  if (simTime < next.spawnAt) return;
+  const airborneArrivals = aircraftList.filter((aircraft) => ['INBOUND', 'HOLDING', 'CLEARED'].includes(aircraft.state)).length;
+  if (freeGateIndexes().length === 0 || airborneArrivals >= 4) return;
+  scheduledArrivals.shift();
+  spawnArrival(next);
+}
+
+function recordMovement(kind) {
+  movements.push({ kind, time: simTime });
+  while (movements.length && movements[0].time < simTime - 3600) movements.shift();
+}
+
+// --- Runway control -------------------------------------------------------
+function earliest(list) {
+  let best = null;
+  for (const aircraft of list) if (!best || aircraft.readySince < best.readySince) best = aircraft;
+  return best;
+}
+function waitingDeparture() {
+  return earliest(aircraftList.filter((aircraft) => aircraft.state === 'HOLD_SHORT'));
+}
+function updateRunwayController() {
+  if (!aircraftList.some((aircraft) => aircraft.state === 'CLEARED')) {
+    const next = earliest(aircraftList.filter((aircraft) => aircraft.state === 'HOLDING'));
+    if (next) {
+      setState(next, 'CLEARED');
+      next.holdLevel = -1;
+    }
+  }
+  if (runway.owner) return;
+  const departure = waitingDeparture();
+  if (!departure) return;
+  const cleared = aircraftList.find((aircraft) => aircraft.state === 'CLEARED');
+  if (cleared && cleared.readySince < departure.readySince) return;
+  runway.owner = departure;
+  startTakeoff(departure);
+}
+
+// --- Air phases -------------------------------------------------------------
+function updateInbound(aircraft, dt) {
+  const targetX = ORBIT.x + Math.cos(aircraft.entryAngle) * ORBIT.radius;
+  const targetZ = ORBIT.z + Math.sin(aircraft.entryAngle) * ORBIT.radius;
+  const deltaX = targetX - aircraft.position.x;
+  const deltaZ = targetZ - aircraft.position.z;
+  const distance = Math.hypot(deltaX, deltaZ);
+  const step = aircraft.speed * dt;
+  aircraft.altitude = lerp(aircraft.altitude, holdAltitude(aircraft.holdLevel), clamp01(dt * 0.05));
+  if (distance <= step) {
+    aircraft.position.x = targetX;
+    aircraft.position.z = targetZ;
+    aircraft.orbitAngle = aircraft.entryAngle;
+    aircraft.readySince = simTime;
+    setState(aircraft, 'HOLDING');
+    return;
+  }
+  aircraft.position.x += deltaX / distance * step;
+  aircraft.position.z += deltaZ / distance * step;
+  aircraft.yaw = Math.atan2(-deltaZ, deltaX);
+  aircraft.displayYaw = approachAngle(aircraft.displayYaw, aircraft.yaw, dt * 0.6);
+  aircraft.roll = lerp(aircraft.roll, 0, clamp01(dt));
+}
+
+function updateOrbit(aircraft, dt) {
+  const angularSpeed = aircraft.speed / ORBIT.radius;
+  const before = ((aircraft.orbitAngle + Math.PI / 2) % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2);
+  aircraft.orbitAngle += angularSpeed * dt;
+  const after = ((aircraft.orbitAngle + Math.PI / 2) % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2);
+  aircraft.position.x = ORBIT.x + Math.cos(aircraft.orbitAngle) * ORBIT.radius;
+  aircraft.position.z = ORBIT.z + Math.sin(aircraft.orbitAngle) * ORBIT.radius;
+  aircraft.yaw = Math.atan2(-Math.cos(aircraft.orbitAngle), -Math.sin(aircraft.orbitAngle));
+  aircraft.displayYaw = approachAngle(aircraft.displayYaw, aircraft.yaw, dt * 0.6);
+  aircraft.roll = lerp(aircraft.roll, 0.32, clamp01(dt));
+  const targetAltitude = aircraft.state === 'CLEARED' ? FINAL_ALT : holdAltitude(aircraft.holdLevel);
+  aircraft.altitude += clamp(targetAltitude - aircraft.altitude, -0.8 * dt, 0.8 * dt);
+  if (aircraft.state !== 'CLEARED') return;
+  const crossedFinal = after < before;
+  if (!crossedFinal || Math.abs(aircraft.altitude - FINAL_ALT) > 0.6 || runway.owner) return;
+  const departure = waitingDeparture();
+  if (departure && departure.readySince < aircraft.readySince) return;
+  runway.owner = aircraft;
+  startFinal(aircraft);
+}
+
+function startFinal(aircraft) {
+  const gateX = GATE_X[aircraft.gateIndex];
+  const standZ = NOSE_Z + aircraft.type.length / 2;
+  const exitX = aircraft.type.key === 'wide' ? EXIT_FAR : EXIT_NEAR;
+  aircraft.path = buildPath([
+    { x: ORBIT.x, z: 0 }, { x: TOUCHDOWN_X, z: 0 }, { x: exitX, z: 0 }, { x: exitX, z: TAXIWAY_Z },
+    { x: gateX, z: TAXIWAY_Z }, { x: gateX, z: LANE_Z }, { x: gateX, z: standZ },
+  ], 3);
+  aircraft.distance = 0;
+  aircraft.touchdownDistance = TOUCHDOWN_X - ORBIT.x;
+  aircraft.exitDistance = exitX - ORBIT.x - 3;
+  aircraft.reverse = false;
+  aircraft.roll = 0;
+  setState(aircraft, 'FINAL');
+}
+
+function glideAltitude(aircraft) {
+  const remaining = aircraft.touchdownDistance - aircraft.distance;
+  if (remaining <= 0) return 0;
+  const straight = FINAL_ALT * remaining / aircraft.touchdownDistance;
+  if (remaining > 8) return straight;
+  const flareStart = FINAL_ALT * 8 / aircraft.touchdownDistance;
+  return flareStart * Math.pow(remaining / 8, 1.6);
+}
+
+function moveAlongPath(aircraft, dt, targetSpeed, acceleration, deceleration) {
+  let target = targetSpeed;
+  let braking = deceleration;
+  if (aircraft.blocker) {
+    target = 0;
+    braking = Math.max(deceleration, 1.2);
+  }
+  if (aircraft.speed < target) aircraft.speed = Math.min(target, aircraft.speed + acceleration * dt);
+  else aircraft.speed = Math.max(target, aircraft.speed - braking * dt);
+  aircraft.distance = Math.min(aircraft.path.total, aircraft.distance + aircraft.speed * dt);
+  const sample = samplePath(aircraft.path, aircraft.distance);
+  aircraft.position.x = sample.x;
+  aircraft.position.z = sample.z;
+  aircraft.yaw = Math.atan2(-sample.dirZ, sample.dirX) + (aircraft.reverse ? Math.PI : 0);
+  aircraft.displayYaw = aircraft.yaw;
+}
+
+function updateArrivalPath(aircraft, dt) {
+  const distance = aircraft.distance;
+  const remaining = aircraft.path.total - distance;
+  if (aircraft.state === 'FINAL') {
+    const slowdown = clamp01((distance - (aircraft.touchdownDistance - 30)) / 30);
+    aircraft.speed = 4.5 - 0.7 * slowdown;
+    aircraft.distance += aircraft.speed * dt;
+    const sample = samplePath(aircraft.path, aircraft.distance);
+    aircraft.position.x = sample.x;
+    aircraft.position.z = sample.z;
+    aircraft.yaw = Math.atan2(-sample.dirZ, sample.dirX);
+    aircraft.displayYaw = approachAngle(aircraft.displayYaw, aircraft.yaw, dt * 0.8);
+    aircraft.altitude = glideAltitude(aircraft);
+    const flare = aircraft.touchdownDistance - aircraft.distance < 8;
+    aircraft.pitch = lerp(aircraft.pitch, flare ? 0.12 : 0.05, clamp01(dt * 2));
+    aircraft.roll = lerp(aircraft.roll, 0, clamp01(dt * 2));
+    if (aircraft.distance >= aircraft.touchdownDistance) {
+      aircraft.altitude = 0;
+      recordMovement('landing');
+      setState(aircraft, 'ROLLOUT');
+    }
+    return;
+  }
+  let target;
+  if (distance < aircraft.exitDistance) target = Math.sqrt(1.44 + 2 * 0.09 * (aircraft.exitDistance - distance));
+  else target = 1.2;
+  target = Math.min(target, Math.sqrt(2 * 0.25 * remaining) + 0.03);
+  moveAlongPath(aircraft, dt, target, 0.25, 0.4);
+  aircraft.altitude = 0;
+  aircraft.pitch = lerp(aircraft.pitch, 0, clamp01(dt * 1.5));
+  if (aircraft.state === 'ROLLOUT' && distance > aircraft.exitDistance + 8) setState(aircraft, 'TAXI_IN');
+  const clearOfRunway = aircraft.position.z < -(RUNWAY.halfWidth + aircraft.type.reach * 0.9 + 0.5);
+  if (runway.owner === aircraft && distance > aircraft.exitDistance && clearOfRunway) runway.owner = null;
+  if (aircraft.path.total - aircraft.distance < 0.02 && aircraft.speed < 0.08) dockAircraft(aircraft);
+}
+
+// --- Gate turnaround ----------------------------------------------------------
+function dockAircraft(aircraft) {
+  const gate = gates[aircraft.gateIndex];
+  if (runway.owner === aircraft) runway.owner = null;
+  aircraft.speed = 0;
+  aircraft.altitude = 0;
+  aircraft.pitch = 0;
+  aircraft.position.set(gate.x, 0, NOSE_Z + aircraft.type.length / 2);
+  aircraft.yaw = Math.PI / 2;
+  aircraft.displayYaw = aircraft.yaw;
+  aircraft.dockTime = simTime;
+  aircraft.turnaroundTime = randomBetween(simRandom, 120, 240);
+  aircraft.std = aircraft.dockTime + aircraft.turnaroundTime + 20;
+  aircraft.timeline = {};
+  gate.docked = aircraft;
+  setState(aircraft, 'DOCKED');
+}
+
+function serviceSpot(kind, aircraft) {
+  const gateX = GATE_X[aircraft.gateIndex];
+  const type = aircraft.type;
+  const standZ = NOSE_Z + type.length / 2;
+  if (kind === 'fuel') return { x: gateX + type.span * 0.3 + 0.8, z: standZ + 1.4 };
+  if (kind === 'baggage') return { x: gateX + type.radius + 1.7, z: standZ + type.length * 0.3 };
+  return { x: gateX + type.radius + 1.3, z: NOSE_Z + type.length * 0.2 };
+}
+const depotFor = (gateX) => (gateX < -4 ? DEPOTS[0] : DEPOTS[1]);
+
+function addVehicle(kind, path, gateIndex) {
+  const model = buildVehicleModel(kind);
+  scene.add(model.group);
+  const start = samplePath(path, 0);
+  const vehicle = {
+    kind, model, path, distance: 0, speed: 0, mode: 'out', gateIndex,
+    x: start.x, z: start.z, yaw: Math.atan2(-start.dirZ, start.dirX), displayYaw: 0,
+    phase: simRandom(),
+  };
+  vehicle.displayYaw = vehicle.yaw;
+  vehicles.push(vehicle);
+  return vehicle;
+}
+
+function dispatchService(kind, aircraft) {
+  const gateX = GATE_X[aircraft.gateIndex];
+  const depot = depotFor(gateX);
+  const spot = serviceSpot(kind, aircraft);
+  const path = buildPath([depot, { x: gateX + 6.5, z: ROAD_Z }, { x: gateX + 6.5, z: spot.z }, spot], 1.5);
+  return addVehicle(kind, path, aircraft.gateIndex);
+}
+
+function dispatchPushTug(aircraft) {
+  const gateX = GATE_X[aircraft.gateIndex];
+  const depot = depotFor(gateX);
+  const path = buildPath([depot, { x: gateX + 2.5, z: ROAD_Z }, { x: gateX, z: ROAD_Z + 0.4 }, { x: gateX, z: NOSE_Z - 0.9 }], 1.2);
+  return addVehicle('push', path, aircraft.gateIndex);
+}
+
+function recallVehicle(vehicle) {
+  if (!vehicle || vehicle.mode === 'back') return;
+  const gateX = GATE_X[vehicle.gateIndex];
+  const depot = depotFor(gateX);
+  const here = { x: vehicle.x, z: vehicle.z };
+  let points;
+  if (vehicle.kind === 'push') {
+    points = [here, { x: here.x, z: -29 }, { x: here.x, z: ROAD_Z }, depot];
+  } else if (vehicle.mode === 'parked') {
+    points = [here, { x: here.x, z: here.z + 2.2 }, { x: gateX + 6.5, z: here.z + 2.2 }, { x: gateX + 6.5, z: ROAD_Z }, depot];
+  } else {
+    points = [here, depot];
+  }
+  vehicle.path = buildPath(points, 1.5);
+  vehicle.distance = 0;
+  vehicle.mode = 'back';
+}
+
+function updateVehicle(vehicle, dt) {
+  if (vehicle.mode === 'parked' || vehicle.mode === 'attached') return;
+  const remaining = vehicle.path.total - vehicle.distance;
+  const target = Math.min(2.4, Math.sqrt(2 * 1.2 * remaining) + 0.15);
+  vehicle.speed += clamp(target - vehicle.speed, -2 * dt, 1.2 * dt);
+  vehicle.distance = Math.min(vehicle.path.total, vehicle.distance + vehicle.speed * dt);
+  const sample = samplePath(vehicle.path, vehicle.distance);
+  vehicle.x = sample.x;
+  vehicle.z = sample.z;
+  vehicle.yaw = Math.atan2(-sample.dirZ, sample.dirX);
+  vehicle.displayYaw = approachAngle(vehicle.displayYaw, vehicle.yaw, dt * 4);
+  if (vehicle.distance >= vehicle.path.total - 1e-3) {
+    if (vehicle.mode === 'out') {
+      vehicle.mode = 'parked';
+      vehicle.speed = 0;
+    } else {
+      vehicle.mode = 'done';
+    }
+  }
+}
+
+function lanesClearForPushback(aircraft) {
+  const gateX = GATE_X[aircraft.gateIndex];
+  for (const other of aircraftList) {
+    if (other === aircraft || !isOnGround(other) || other.state === 'DOCKED') continue;
+    const deltaX = other.position.x - gateX;
+    // A plane still on the lane east of this gate will taxi west through the pushback area.
+    const onLane = Math.abs(other.position.z - LANE_Z) < 6;
+    if (onLane && deltaX > -6 && ['PUSHBACK', 'STARTUP', 'TAXI_OUT'].includes(other.state)) return false;
+    const deltaZ = other.position.z - LANE_Z;
+    if (Math.abs(deltaZ) < 6 && deltaX > -9 && deltaX < 24) return false;
+    if (Math.hypot(deltaX, other.position.z - (LANE_Z - 6)) < 9) return false;
+  }
+  return true;
+}
+
+function updateTurnaround(aircraft) {
+  const gate = gates[aircraft.gateIndex];
+  const elapsed = simTime - aircraft.dockTime;
+  const total = aircraft.turnaroundTime;
+  const timeline = aircraft.timeline;
+  gate.goal = elapsed >= 2 && elapsed < total - 14 ? 1 : 0;
+  if (elapsed >= 6 && !timeline.baggage) timeline.baggage = dispatchService('baggage', aircraft);
+  if (elapsed >= 12 && !timeline.fuel) timeline.fuel = dispatchService('fuel', aircraft);
+  if (elapsed >= total * 0.25 && !timeline.catering) timeline.catering = dispatchService('catering', aircraft);
+  if (elapsed >= total * 0.6) recallVehicle(timeline.fuel);
+  if (elapsed >= total * 0.68) recallVehicle(timeline.catering);
+  if (elapsed >= total - 30) recallVehicle(timeline.baggage);
+  if (elapsed >= total - 26 && !timeline.tug) timeline.tug = dispatchPushTug(aircraft);
+  const tugReady = timeline.tug && timeline.tug.mode === 'parked';
+  if (elapsed >= total && gate.extension <= 0.001 && tugReady && lanesClearForPushback(aircraft)) startPushback(aircraft);
+}
+
+function startPushback(aircraft) {
+  const gateX = GATE_X[aircraft.gateIndex];
+  const standZ = NOSE_Z + aircraft.type.length / 2;
+  aircraft.path = buildPath([{ x: gateX, z: standZ }, { x: gateX, z: LANE_Z }, { x: gateX + 7, z: LANE_Z }], 4);
+  aircraft.distance = 0;
+  aircraft.speed = 0;
+  aircraft.reverse = true;
+  aircraft.timeline.tug.mode = 'attached';
+  gates[aircraft.gateIndex].docked = null;
+  setState(aircraft, 'PUSHBACK');
+}
+
+function updatePushback(aircraft, dt) {
+  const remaining = aircraft.path.total - aircraft.distance;
+  moveAlongPath(aircraft, dt, Math.min(0.45, Math.sqrt(2 * 0.15 * remaining) + 0.03), 0.1, 0.3);
+  attachTug(aircraft);
+  if (remaining < 0.01) {
+    aircraft.reverse = false;
+    aircraft.speed = 0;
+    const tug = aircraft.timeline.tug;
+    tug.mode = 'parked';
+    recallVehicle(tug);
+    gates[aircraft.gateIndex].reservedBy = null;
+    setState(aircraft, 'STARTUP');
+  }
+}
+
+function attachTug(aircraft) {
+  const tug = aircraft.timeline.tug;
+  if (!tug) return;
+  const noseDirectionX = Math.cos(aircraft.yaw);
+  const noseDirectionZ = -Math.sin(aircraft.yaw);
+  const offset = aircraft.type.length / 2 + 0.7;
+  tug.x = aircraft.position.x + noseDirectionX * offset;
+  tug.z = aircraft.position.z + noseDirectionZ * offset;
+  tug.yaw = aircraft.yaw + Math.PI;
+  tug.displayYaw = tug.yaw;
+}
+
+// --- Departure ----------------------------------------------------------------
+function startTaxiOut(aircraft) {
+  const gateX = GATE_X[aircraft.gateIndex];
+  aircraft.path = buildPath([
+    { x: gateX + 7, z: LANE_Z }, { x: CONNECTOR_X, z: LANE_Z }, { x: CONNECTOR_X, z: TAXIWAY_Z },
+    { x: HOLD.x, z: TAXIWAY_Z }, { x: HOLD.x, z: HOLD.z },
+  ], 3);
+  aircraft.distance = 0;
+  setState(aircraft, 'TAXI_OUT');
+}
+
+function updateTaxiOut(aircraft, dt) {
+  const remaining = aircraft.path.total - aircraft.distance;
+  moveAlongPath(aircraft, dt, Math.min(1.2, Math.sqrt(2 * 0.25 * remaining) + 0.03), 0.2, 0.4);
+  if (remaining < 0.02 && aircraft.speed < 0.08) {
+    aircraft.speed = 0;
+    aircraft.readySince = simTime;
+    setState(aircraft, 'HOLD_SHORT');
+  }
+}
+
+function startTakeoff(aircraft) {
+  aircraft.path = buildPath([{ x: HOLD.x, z: HOLD.z }, { x: HOLD.x, z: 0 }, { x: 470, z: 0 }], 3);
+  aircraft.distance = 0;
+  aircraft.lineupDistance = 9.5;
+  aircraft.liftoffDistance = null;
+  setState(aircraft, 'TAKEOFF');
+}
+
+function updateTakeoff(aircraft, dt) {
+  if (aircraft.distance < aircraft.lineupDistance) {
+    aircraft.speed = Math.min(0.8, aircraft.speed + 0.3 * dt);
+  } else {
+    const acceleration = aircraft.liftoffDistance === null ? 0.12 : 0.08;
+    aircraft.speed = Math.min(7, aircraft.speed + acceleration * dt);
+  }
+  aircraft.distance = Math.min(aircraft.path.total, aircraft.distance + aircraft.speed * dt);
+  const sample = samplePath(aircraft.path, aircraft.distance);
+  aircraft.position.x = sample.x;
+  aircraft.position.z = sample.z;
+  aircraft.yaw = Math.atan2(-sample.dirZ, sample.dirX);
+  aircraft.displayYaw = aircraft.yaw;
+  if (aircraft.liftoffDistance === null && aircraft.speed >= 4.5) {
+    aircraft.liftoffDistance = aircraft.distance;
+    recordMovement('takeoff');
+  }
+  if (aircraft.liftoffDistance !== null) {
+    const climbed = aircraft.distance - aircraft.liftoffDistance;
+    aircraft.altitude = climbed < 10 ? 0.007 * climbed * climbed : 0.7 + (climbed - 10) * 0.14;
+    aircraft.pitch = lerp(aircraft.pitch, 0.15, clamp01(dt * 1.5));
+    if (aircraft.altitude > 0.5 && aircraft.state === 'TAKEOFF') setState(aircraft, 'CLIMB');
+  } else {
+    aircraft.pitch = aircraft.speed > 4.1 ? lerp(aircraft.pitch, 0.06, clamp01(dt * 2)) : 0;
+  }
+  if (runway.owner === aircraft && aircraft.altitude > 2.5) runway.owner = null;
+  if (aircraft.distance >= aircraft.path.total - 0.01) removeAircraft(aircraft);
+}
+
+function removeAircraft(aircraft) {
+  if (runway.owner === aircraft) runway.owner = null;
+  scene.remove(aircraft.model.root);
+  aircraft.idMaterial.dispose();
+  aircraft.model.exhausts.forEach((exhaust) => exhaust.material.dispose());
+  aircraft.state = 'GONE';
+  departedRecords.push({ flight: aircraft.departureFlight, destination: aircraft.destination, gateIndex: aircraft.gateIndex, std: aircraft.std, time: simTime });
+  const index = aircraftList.indexOf(aircraft);
+  if (index >= 0) aircraftList.splice(index, 1);
+  if (followed === aircraft) setFollowed(null);
+}
+
+// --- Separation on the ground ------------------------------------------------------
+function computeBlocking() {
+  const groundAircraft = aircraftList.filter(isOnGround);
+  for (const aircraft of aircraftList) {
+    aircraft.blocker = null;
+    aircraft.blockDistance = Infinity;
+  }
+  for (const aircraft of groundAircraft) {
+    if (!isGroundMover(aircraft)) continue;
+    const here = samplePath(aircraft.path, aircraft.distance);
+    const start = aircraft.type.reach * 0.6;
+    const end = start + 6;
+    for (let ahead = start; ahead <= end && !aircraft.blocker; ahead += 1) {
+      const along = aircraft.distance + ahead;
+      if (along > aircraft.path.total + 0.5) break;
+      const point = samplePath(aircraft.path, along);
+      for (const other of groundAircraft) {
+        if (other === aircraft) continue;
+        const deltaX = other.position.x - point.x;
+        const deltaZ = other.position.z - point.z;
+        const limit = other.type.reach + aircraft.type.reach * 0.5 + 0.4;
+        if (deltaX * deltaX + deltaZ * deltaZ >= limit * limit) continue;
+        const relativeX = other.position.x - aircraft.position.x;
+        const relativeZ = other.position.z - aircraft.position.z;
+        if (relativeX * here.dirX + relativeZ * here.dirZ <= 0) continue;
+        aircraft.blocker = other;
+        aircraft.blockDistance = ahead;
+        break;
+      }
+    }
+  }
+  for (const aircraft of groundAircraft) {
+    const other = aircraft.blocker;
+    if (!other || other.blocker !== aircraft) continue;
+    const thisProceeds = aircraft.blockDistance > other.blockDistance || (aircraft.blockDistance === other.blockDistance && aircraft.id < other.id);
+    if (thisProceeds) aircraft.blocker = null;
+    else other.blocker = null;
+  }
+}
+
+function updateAircraft(aircraft, dt) {
+  aircraft.stateTime += dt;
+  switch (aircraft.state) {
+    case 'INBOUND': updateInbound(aircraft, dt); break;
+    case 'HOLDING':
+    case 'CLEARED': updateOrbit(aircraft, dt); break;
+    case 'FINAL':
+    case 'ROLLOUT':
+    case 'TAXI_IN': updateArrivalPath(aircraft, dt); break;
+    case 'DOCKED': updateTurnaround(aircraft); break;
+    case 'PUSHBACK': updatePushback(aircraft, dt); break;
+    case 'STARTUP': if (aircraft.stateTime > 6) startTaxiOut(aircraft); break;
+    case 'TAXI_OUT': updateTaxiOut(aircraft, dt); break;
+    case 'TAKEOFF':
+    case 'CLIMB': updateTakeoff(aircraft, dt); break;
+    default: break;
+  }
+}
+
+function simulationStep(dt) {
+  simTime += dt;
+  scheduleArrivals();
+  updateRunwayController();
+  computeBlocking();
+  for (const aircraft of [...aircraftList]) updateAircraft(aircraft, dt);
+  for (const vehicle of vehicles) updateVehicle(vehicle, dt);
+  for (let index = vehicles.length - 1; index >= 0; index--) {
+    if (vehicles[index].mode === 'done') {
+      scene.remove(vehicles[index].model.group);
+      vehicles.splice(index, 1);
+    }
+  }
+  for (const gate of gates) updateBridge(gate, dt);
+  while (departedRecords.length && departedRecords[0].time < simTime - 60) departedRecords.shift();
+}
+
+// --- Opening state: a busy morning already underway ----------------------------
+function seedOpeningTraffic() {
+  refillSchedule();
+  const openingGates = [0, 1, 2, 4, 5];
+  openingGates.forEach((gateIndex, order) => {
+    const entry = makeArrivalEntry();
+    entry.sta = -randomBetween(simRandom, 60, 200);
+    const aircraft = createAircraft(entry);
+    aircraft.gateIndex = gateIndex;
+    gates[gateIndex].reservedBy = aircraft.id;
+    dockAircraft(aircraft);
+    const elapsed = [70, 25, 100, 45, 4][order];
+    aircraft.dockTime = simTime - elapsed;
+    aircraft.std = aircraft.dockTime + aircraft.turnaroundTime + 20;
+    gates[gateIndex].extension = elapsed > 10 ? 1 : 0;
+  });
+  scheduledArrivals.length = 0;
+  nextArrivalTime = 4;
+  refillSchedule();
+  for (let step = 0; step < 200; step++) simulationStep(STEP);
+}
+
+// ---------------------------------------------------------------------------
+// Day and night.
+// ---------------------------------------------------------------------------
+const colorScratch = new THREE.Color();
+const COLORS = {
+  daySkyTop: new THREE.Color(0x5d9be0), daySkyBottom: new THREE.Color(0xc4e2f2),
+  duskSkyTop: new THREE.Color(0x3a4a8f), duskSkyBottom: new THREE.Color(0xf4a462),
+  nightSkyTop: new THREE.Color(0x04060f), nightSkyBottom: new THREE.Color(0x141b38),
+  sunHigh: new THREE.Color(0xfff1d6), sunLow: new THREE.Color(0xff9447), moon: new THREE.Color(0x8fa3d9),
+  hemiDay: new THREE.Color(0xc0d8ef), hemiNight: new THREE.Color(0x2a3666), hemiDusk: new THREE.Color(0xe9a07a),
+  groundDay: new THREE.Color(0x6b7a4a), groundNight: new THREE.Color(0x0d1222),
+  windowDay: new THREE.Color(0x3a5066), windowNight: new THREE.Color(0xffc96a),
+  towerDay: new THREE.Color(0x2f4a5f), towerNight: new THREE.Color(0xc8f0ff),
+  cloudDay: new THREE.Color(0xfbf7ef), cloudNight: new THREE.Color(0x343d5c), cloudDusk: new THREE.Color(0xf6b38a),
+  shadeDay: new THREE.Color(0xb7c4d8), shadeNight: new THREE.Color(0x1d2440),
+};
+let nightAmount = 0;
+let skyPhase = 'sun';
+function updateEnvironment() {
+  const dayFraction = (DAY_START + simTime / DAY_LENGTH_SIM) % 1;
+  const sunAngle = (dayFraction - 0.25) * Math.PI * 2;
+  const elevation = Math.sin(sunAngle);
+  const dayAmount = smoothstep(-0.1, 0.3, elevation);
+  const duskAmount = clamp01(1 - Math.abs(elevation) / 0.32);
+  nightAmount = 1 - smoothstep(-0.12, 0.08, elevation);
+  skyPhase = elevation > 0.12 ? 'sun' : elevation > -0.1 ? 'dusk' : 'moon';
+
+  const target = sunLight.target.position;
+  if (elevation > 0) {
+    const direction = new THREE.Vector3(Math.cos(sunAngle), Math.max(Math.sin(sunAngle), 0.22), 0.5).normalize();
+    sunLight.position.copy(target).addScaledVector(direction, 300);
+    sunLight.color.copy(COLORS.sunLow).lerp(COLORS.sunHigh, smoothstep(0, 0.45, elevation));
+    sunLight.intensity = 2.8 * smoothstep(-0.02, 0.22, elevation);
+  } else {
+    const direction = new THREE.Vector3(-0.4, 0.85, -0.35).normalize();
+    sunLight.position.copy(target).addScaledVector(direction, 300);
+    sunLight.color.copy(COLORS.moon);
+    sunLight.intensity = 0.55 * (1 - smoothstep(-0.25, 0, elevation));
+  }
+  hemisphereLight.color.copy(COLORS.hemiNight).lerp(COLORS.hemiDay, dayAmount).lerp(COLORS.hemiDusk, duskAmount * 0.35);
+  hemisphereLight.groundColor.copy(COLORS.groundNight).lerp(COLORS.groundDay, dayAmount);
+  hemisphereLight.intensity = lerp(1.1, 1.7, dayAmount);
+
+  const skyTop = postMaterial.uniforms.skyTop.value;
+  const skyBottom = postMaterial.uniforms.skyBottom.value;
+  skyTop.copy(COLORS.nightSkyTop).lerp(COLORS.daySkyTop, dayAmount).lerp(COLORS.duskSkyTop, duskAmount * 0.6);
+  skyBottom.copy(COLORS.nightSkyBottom).lerp(COLORS.daySkyBottom, dayAmount).lerp(COLORS.duskSkyBottom, duskAmount * 0.8);
+  postMaterial.uniforms.uNight.value = nightAmount;
+
+  for (const material of windowMaterials) {
+    if (material) material.color.copy(COLORS.windowDay).lerp(COLORS.windowNight, nightAmount);
+  }
+  towerGlass.color.copy(COLORS.towerDay).lerp(COLORS.towerNight, nightAmount);
+  for (const light of apronLights) light.intensity = nightAmount * 22;
+  lightMaterial.uniforms.uNight.value = nightAmount;
+  cloudUniforms.uLit.value.copy(COLORS.cloudNight).lerp(COLORS.cloudDay, dayAmount).lerp(COLORS.cloudDusk, duskAmount * 0.55);
+  cloudUniforms.uShade.value.copy(COLORS.shadeNight).lerp(COLORS.shadeDay, dayAmount).lerp(COLORS.cloudDusk, duskAmount * 0.3);
+}
+
+// ---------------------------------------------------------------------------
+// Visual sync from the simulation.
+// ---------------------------------------------------------------------------
+const ENGINE_STATES = new Set(['STARTUP', 'TAXI_OUT', 'HOLD_SHORT', 'TAKEOFF', 'CLIMB', 'ROLLOUT', 'TAXI_IN', 'FINAL', 'INBOUND', 'HOLDING', 'CLEARED', 'PUSHBACK']);
+const vectorScratch = new THREE.Vector3();
+let dynamicCount = 0;
+function pushDynamicLight(position, hex, size) {
+  if (dynamicCount >= DYNAMIC_LIGHT_LIMIT) return;
+  const offset = dynamicCount * 3;
+  dynamicPositions[offset] = position.x;
+  dynamicPositions[offset + 1] = position.y;
+  dynamicPositions[offset + 2] = position.z;
+  colorScratch.setHex(hex);
+  dynamicColors[offset] = colorScratch.r;
+  dynamicColors[offset + 1] = colorScratch.g;
+  dynamicColors[offset + 2] = colorScratch.b;
+  dynamicSizes[dynamicCount] = size;
+  dynamicCount++;
+}
+
+function syncVisuals() {
+  dynamicCount = 0;
+  const flashClock = simTime;
+  for (const aircraft of aircraftList) {
+    const model = aircraft.model;
+    model.root.position.set(aircraft.position.x, aircraft.altitude, aircraft.position.z);
+    model.root.rotation.y = aircraft.displayYaw;
+    model.body.rotation.z = aircraft.pitch;
+    model.body.rotation.x = aircraft.roll;
+    model.root.updateMatrixWorld(true);
+    const enginesOn = ENGINE_STATES.has(aircraft.state) && !(aircraft.state === 'PUSHBACK' && aircraft.distance < 3);
+    let exhaustStrength = 0;
+    if (aircraft.state === 'TAKEOFF') exhaustStrength = aircraft.distance > aircraft.lineupDistance ? 0.95 : 0.45;
+    else if (aircraft.state === 'CLIMB') exhaustStrength = aircraft.altitude < 4 ? 0.7 : 0;
+    else if (isOnGround(aircraft) && enginesOn) exhaustStrength = 0.38;
+    for (const exhaust of model.exhausts) {
+      exhaust.visible = exhaustStrength > 0;
+      exhaust.material.uniforms.uStrength.value = exhaustStrength;
+    }
+    for (const prop of model.props) {
+      prop.disc.visible = enginesOn;
+      prop.blades.visible = !enginesOn;
+    }
+    const offsets = model.lightOffsets;
+    const beaconOn = enginesOn || aircraft.state === 'DOCKED' && simTime - aircraft.dockTime > aircraft.turnaroundTime - 4;
+    if (beaconOn && ((flashClock * 1.1 + aircraft.id * 0.37) % 1) < 0.18) {
+      pushDynamicLight(model.body.localToWorld(vectorScratch.copy(offsets.beaconTop)), 0xff3020, 3);
+      pushDynamicLight(model.body.localToWorld(vectorScratch.copy(offsets.beaconBottom)), 0xff3020, 3);
+    }
+    if (aircraft.state !== 'DOCKED') {
+      pushDynamicLight(model.body.localToWorld(vectorScratch.copy(offsets.navLeft)), 0xff3b30, 2);
+      pushDynamicLight(model.body.localToWorld(vectorScratch.copy(offsets.navRight)), 0x4cff6a, 2);
+      pushDynamicLight(model.body.localToWorld(vectorScratch.copy(offsets.tail)), 0xffffff, 2);
+    }
+    const strobing = aircraft.altitude > 0.05 || (aircraft.state === 'TAKEOFF' && aircraft.distance > aircraft.lineupDistance);
+    const strobePhase = (flashClock * 0.9 + aircraft.id * 0.21) % 1;
+    if (strobing && (strobePhase < 0.05 || (strobePhase > 0.12 && strobePhase < 0.17))) {
+      pushDynamicLight(model.body.localToWorld(vectorScratch.copy(offsets.navLeft)), 0xffffff, 4);
+      pushDynamicLight(model.body.localToWorld(vectorScratch.copy(offsets.navRight)), 0xffffff, 4);
+    }
+  }
+  for (const vehicle of vehicles) {
+    vehicle.model.group.position.set(vehicle.x, 0, vehicle.z);
+    vehicle.model.group.rotation.y = vehicle.displayYaw;
+    if (((flashClock * 1.6 + vehicle.phase) % 1) < 0.3) {
+      vectorScratch.set(vehicle.x, vehicle.model.beaconHeight, vehicle.z);
+      pushDynamicLight(vectorScratch, 0xffa420, 2);
+    }
+  }
+  if ((flashClock * 0.5) % 1 < 0.5) pushDynamicLight(vectorScratch.set(64, 18.9, -51), 0xff2a1a, 3);
+  pushDynamicLight(vectorScratch.set(-100, 6.1, -43), 0xff2a1a, nightAmount > 0.3 ? 2 : 0);
+  dynamicLightGeometry.setDrawRange(0, dynamicCount);
+  dynamicLightGeometry.attributes.position.needsUpdate = true;
+  dynamicLightGeometry.attributes.lightColor.needsUpdate = true;
+  dynamicLightGeometry.attributes.size.needsUpdate = true;
+
+  for (const cloud of clouds) {
+    cloud.position.x = ((cloud.position.x + 300 + cloud.userData.drift * 0.016 * speedMultiplier * SIM_RATE) % 600) - 300;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Rendering passes.
+// ---------------------------------------------------------------------------
+const swappedMeshes = [];
+const hiddenObjects = [];
+function renderFrame() {
+  // Pass 1: flat ids for the outline pass.
+  swappedMeshes.length = 0;
+  hiddenObjects.length = 0;
+  scene.traverse((object) => {
+    if (object.isPoints || object.userData.noId) {
+      if (object.visible) {
+        object.visible = false;
+        hiddenObjects.push(object);
+      }
+      return;
+    }
+    if (object.isMesh) {
+      swappedMeshes.push(object, object.material);
+      object.material = object.userData.idMat || ID_ZERO;
+    }
+  });
+  renderer.setClearColor(0x000000, 0);
+  renderer.setRenderTarget(idTarget);
+  renderer.render(scene, camera);
+  for (let index = 0; index < swappedMeshes.length; index += 2) swappedMeshes[index].material = swappedMeshes[index + 1];
+  for (const object of hiddenObjects) object.visible = true;
+
+  // Pass 2: lit colour at low resolution.
+  renderer.shadowMap.needsUpdate = true;
+  renderer.setRenderTarget(colorTarget);
+  renderer.render(scene, camera);
+
+  // Pass 3: nearest neighbour upscale with outline and dither.
+  renderer.setRenderTarget(null);
+  renderer.render(postScene, postCamera);
+}
+
+// ---------------------------------------------------------------------------
+// Interface.
+// ---------------------------------------------------------------------------
+const elements = {
+  clock: document.getElementById('clock'),
+  skyIcon: document.getElementById('sky-icon'),
+  ground: document.getElementById('stat-ground'),
+  air: document.getElementById('stat-air'),
+  moves: document.getElementById('stat-moves'),
+  arrivals: document.getElementById('arrivals'),
+  departures: document.getElementById('departures'),
+  board: document.getElementById('board'),
+  follow: document.getElementById('follow'),
+  followFlight: document.getElementById('follow-flight'),
+  followAirline: document.getElementById('follow-airline'),
+  followType: document.getElementById('follow-type'),
+  followGate: document.getElementById('follow-gate'),
+  followState: document.getElementById('follow-state'),
+  followAlt: document.getElementById('follow-alt'),
+  followSpeed: document.getElementById('follow-speed'),
+  followStop: document.getElementById('follow-stop'),
+  tag: document.getElementById('tag'),
+  hint: document.getElementById('hint'),
+};
+
+const STATE_LABELS = {
+  INBOUND: 'Inbound', HOLDING: 'Holding', CLEARED: 'Cleared to land', FINAL: 'On final', ROLLOUT: 'Landing roll',
+  TAXI_IN: 'Taxi to gate', DOCKED: 'At gate', PUSHBACK: 'Pushback', STARTUP: 'Engine start', TAXI_OUT: 'Taxi out',
+  HOLD_SHORT: 'Holding short', TAKEOFF: 'Takeoff roll', CLIMB: 'Climbing',
+};
+
+function formatClock(seconds) {
+  const total = Math.floor(START_CLOCK + seconds);
+  const hours = Math.floor(total / 3600) % 24;
+  const minutes = Math.floor(total / 60) % 60;
+  return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+}
+
+function arrivalStatus(aircraft) {
+  switch (aircraft.state) {
+    case 'INBOUND': return ['Inbound', 'down', 'c-blue'];
+    case 'HOLDING': return ['Holding', 'diamond', 'c-amber'];
+    case 'CLEARED': return ['Approach', 'down', 'c-blue'];
+    case 'FINAL': return ['Final', 'down', 'c-green'];
+    case 'ROLLOUT': return ['Landed', 'down', 'c-green'];
+    case 'TAXI_IN': return ['Taxi in', 'dot', 'c-green'];
+    default: return ['At gate', 'dot', 'c-green'];
+  }
+}
+function departureStatus(aircraft) {
+  switch (aircraft.state) {
+    case 'DOCKED': return simTime - aircraft.dockTime > aircraft.turnaroundTime - 20 ? ['Closing', 'ring', 'c-amber'] : ['Boarding', 'ring', 'c-text'];
+    case 'PUSHBACK':
+    case 'STARTUP': return ['Pushback', 'dot', 'c-amber'];
+    case 'TAXI_OUT': return ['Taxiing', 'up', 'c-amber'];
+    case 'HOLD_SHORT': return ['Waiting', 'diamond', 'c-amber'];
+    case 'TAKEOFF': return ['Takeoff', 'up', 'c-green'];
+    default: return ['Airborne', 'up', 'c-green'];
+  }
+}
+
+function rowHtml(row) {
+  const [label, shape, colorClass] = row.status;
+  const classes = [row.id ? 'live' : '', followed && row.id === followed.id ? 'followed' : ''].join(' ').trim();
+  return `<tr class="${classes}" data-id="${row.id || ''}"><td class="time">${row.time}</td><td>${row.flight}</td>`
+    + `<td class="city">${row.city}</td><td>${row.gate}</td>`
+    + `<td><span class="status ${colorClass}"><span class="ic ${shape}"></span>${label}</span></td></tr>`;
+}
+
+function updateBoard() {
+  const arrivals = [];
+  for (const aircraft of aircraftList) {
+    const arriving = ['INBOUND', 'HOLDING', 'CLEARED', 'FINAL', 'ROLLOUT', 'TAXI_IN'].includes(aircraft.state);
+    const justArrived = aircraft.state === 'DOCKED' && simTime - aircraft.dockTime < 40;
+    if (!arriving && !justArrived) continue;
+    arrivals.push({ sort: aircraft.sta, id: aircraft.id, time: formatClock(aircraft.sta), flight: aircraft.arrivalFlight, city: aircraft.origin, gate: GATE_NAMES[aircraft.gateIndex], status: arrivalStatus(aircraft) });
+  }
+  for (const entry of scheduledArrivals) {
+    const delayed = simTime > entry.spawnAt + 20;
+    arrivals.push({ sort: entry.sta, id: 0, time: formatClock(entry.sta), flight: entry.flight, city: entry.origin, gate: '--', status: delayed ? ['Delayed', 'square', 'c-red'] : ['Scheduled', 'square', 'c-muted'] });
+  }
+  arrivals.sort((first, second) => first.sort - second.sort);
+
+  const departures = [];
+  for (const aircraft of aircraftList) {
+    const departing = ['DOCKED', 'PUSHBACK', 'STARTUP', 'TAXI_OUT', 'HOLD_SHORT', 'TAKEOFF', 'CLIMB'].includes(aircraft.state);
+    if (!departing || aircraft.std === null) continue;
+    departures.push({ sort: aircraft.std, id: aircraft.id, time: formatClock(aircraft.std), flight: aircraft.departureFlight, city: aircraft.destination, gate: GATE_NAMES[aircraft.gateIndex], status: departureStatus(aircraft) });
+  }
+  for (const record of departedRecords) {
+    departures.push({ sort: record.std - 1e5, id: 0, time: formatClock(record.std), flight: record.flight, city: record.destination, gate: GATE_NAMES[record.gateIndex], status: ['Departed', 'up', 'c-muted'] });
+  }
+  departures.sort((first, second) => first.sort - second.sort);
+  const empty = '<tr class="empty"><td>No flights</td></tr>';
+  elements.arrivals.innerHTML = arrivals.slice(0, 5).map(rowHtml).join('') || empty;
+  elements.departures.innerHTML = departures.slice(0, 5).map(rowHtml).join('') || empty;
+}
+
+function updateStats() {
+  let onGround = 0;
+  let inAir = 0;
+  for (const aircraft of aircraftList) {
+    if (isOnGround(aircraft)) onGround++;
+    else inAir++;
+  }
+  elements.clock.textContent = formatClock(simTime);
+  elements.skyIcon.className = skyPhase;
+  elements.ground.textContent = onGround;
+  elements.air.textContent = inAir;
+  const windowSeconds = Math.max(900, Math.min(3600, simTime));
+  const recent = movements.filter((movement) => movement.time >= simTime - windowSeconds).length;
+  elements.moves.textContent = Math.round(recent / windowSeconds * 3600);
+}
+
+function updateFollowCard() {
+  if (!followed) return;
+  const aircraft = followed;
+  const afterArrival = ['DOCKED', 'PUSHBACK', 'STARTUP', 'TAXI_OUT', 'HOLD_SHORT', 'TAKEOFF', 'CLIMB'].includes(aircraft.state);
+  elements.followFlight.textContent = afterArrival ? aircraft.departureFlight : aircraft.arrivalFlight;
+  elements.followAirline.textContent = afterArrival ? `${aircraft.airline.name} to ${aircraft.destination}` : `${aircraft.airline.name} from ${aircraft.origin}`;
+  elements.followType.textContent = aircraft.type.code;
+  elements.followGate.textContent = GATE_NAMES[aircraft.gateIndex];
+  elements.followState.textContent = STATE_LABELS[aircraft.state] || aircraft.state;
+  elements.followAlt.textContent = aircraft.altitude > 0.05 ? `${Math.round(aircraft.altitude * 230 / 10) * 10} ft` : 'Ground';
+  elements.followSpeed.textContent = `${Math.round(aircraft.speed * 31)} kt`;
+}
+
+let followed = null;
+let zoomGoal = null;
+function setFollowed(aircraft) {
+  followed = aircraft;
+  elements.follow.hidden = !aircraft;
+  elements.tag.hidden = !aircraft;
+  if (aircraft) {
+    zoomGoal = Math.max(camera.zoom, 2.2);
+    updateFollowCard();
+  }
+  updateBoard();
+}
+elements.followStop.addEventListener('click', () => setFollowed(null));
+window.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') setFollowed(null);
+});
+elements.board.addEventListener('click', (event) => {
+  const row = event.target.closest('tr[data-id]');
+  if (!row || !row.dataset.id) return;
+  const aircraft = aircraftList.find((candidate) => candidate.id === Number(row.dataset.id));
+  if (aircraft) setFollowed(aircraft);
+});
+
+function selectSpeed(button) {
+  speedMultiplier = Number(button.dataset.speed);
+  for (const other of document.querySelectorAll('#speed button')) other.setAttribute('aria-pressed', String(other === button));
+}
+document.getElementById('speed').addEventListener('click', (event) => {
+  const button = event.target.closest('button[data-speed]');
+  if (button) selectSpeed(button);
+});
+{
+  const requestedSpeed = new URLSearchParams(location.search).get('speed');
+  const button = document.querySelector(`#speed button[data-speed="${requestedSpeed}"]`);
+  if (button) selectSpeed(button);
+}
+
+function projectToScreen(position) {
+  vectorScratch.copy(position).project(camera);
+  return {
+    x: (vectorScratch.x + 1) / 2 * renderWidth * pixelScale,
+    y: window.innerHeight - (vectorScratch.y + 1) / 2 * renderHeight * pixelScale,
+    visible: vectorScratch.z > -1 && vectorScratch.z < 1,
+  };
+}
+
+let pointerStart = null;
+canvas.addEventListener('pointerdown', (event) => {
+  pointerStart = { x: event.clientX, y: event.clientY, time: performance.now() };
+});
+canvas.addEventListener('pointerup', (event) => {
+  if (!pointerStart) return;
+  const moved = Math.hypot(event.clientX - pointerStart.x, event.clientY - pointerStart.y);
+  const quick = performance.now() - pointerStart.time < 500;
+  pointerStart = null;
+  if (moved > 6 || !quick) return;
+  let best = null;
+  let bestDistance = 30;
+  const point = new THREE.Vector3();
+  for (const aircraft of aircraftList) {
+    point.set(aircraft.position.x, aircraft.altitude + aircraft.type.gear + aircraft.type.radius, aircraft.position.z);
+    const screen = projectToScreen(point);
+    const distance = Math.hypot(screen.x - event.clientX, screen.y - event.clientY);
+    if (screen.visible && distance < bestDistance) {
+      best = aircraft;
+      bestDistance = distance;
+    }
+  }
+  setFollowed(best);
+});
+
+const followTarget = new THREE.Vector3();
+function updateCamera(dt) {
+  if (followed) {
+    followTarget.set(followed.position.x, followed.altitude, followed.position.z);
+    const before = controls.target.clone();
+    controls.target.lerp(followTarget, 1 - Math.exp(-dt * 4));
+    camera.position.add(controls.target.clone().sub(before));
+    const tagPoint = followTarget.clone();
+    tagPoint.y += followed.type.gear + followed.type.radius * 2 + 0.6;
+    const screen = projectToScreen(tagPoint);
+    elements.tag.style.left = `${screen.x}px`;
+    elements.tag.style.top = `${screen.y - 8}px`;
+    elements.tag.textContent = elements.followFlight.textContent;
+  }
+  if (zoomGoal !== null) {
+    camera.zoom = lerp(camera.zoom, zoomGoal, 1 - Math.exp(-dt * 3));
+    camera.updateProjectionMatrix();
+    if (Math.abs(camera.zoom - zoomGoal) < 0.01) zoomGoal = null;
+  }
+  controls.update(dt);
+  lightMaterial.uniforms.uScale.value = clamp(camera.zoom, 0.7, 2.5);
+}
+controls.addEventListener('start', () => {
+  zoomGoal = null;
+  elements.hint.style.opacity = '0';
+});
+
+// ---------------------------------------------------------------------------
+// Build and run.
+// ---------------------------------------------------------------------------
+buildGround();
+buildTerminal();
+buildTower();
+buildHangar();
+buildFuelFarm();
+buildTrees();
+buildParkingLot();
+buildWindsock();
+buildBridges();
+buildClouds();
+buildStaticLights();
+resize();
+seedOpeningTraffic();
+
+let lastTime = performance.now();
+let interfaceTimer = 0;
+let boardTimer = 0;
+const startTime = performance.now();
+function frame() {
+  const now = performance.now();
+  const dt = Math.min(0.1, (now - lastTime) / 1000);
+  lastTime = now;
+  const simDelta = dt * SIM_RATE * speedMultiplier;
+  const steps = Math.max(1, Math.ceil(simDelta / STEP));
+  for (let step = 0; step < steps; step++) simulationStep(simDelta / steps);
+  sharedTime.value = (now - startTime) / 1000;
+  postMaterial.uniforms.uTime.value = sharedTime.value;
+  updateEnvironment();
+  syncVisuals();
+  updateCamera(dt);
+  renderFrame();
+  interfaceTimer -= dt;
+  boardTimer -= dt;
+  if (interfaceTimer <= 0) {
+    interfaceTimer = 0.2;
+    updateStats();
+    updateFollowCard();
+  }
+  if (boardTimer <= 0) {
+    boardTimer = 0.5;
+    updateBoard();
+  }
+  if (!window.sceneReady) {
+    window.sceneReady = true;
+    setTimeout(() => { elements.hint.style.opacity = '0'; }, 7000);
+  }
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

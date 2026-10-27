@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<body style="margin:0;background:#fff">
+<canvas id="preview" width="1920" height="1080"></canvas>
+<script type="module">
+import { drawPart, PART_COUNT } from "./pelican.mjs";
+
+// Preview: every part on one white canvas, as the density field sees it.
+const preview = document.getElementById("preview").getContext("2d");
+preview.fillStyle = "#fff";
+preview.fillRect(0, 0, 1920, 1080);
+for (let part = 1; part < PART_COUNT; part += 1) drawPart(preview, part);
+
+// Density raster (darkness, 0..255) and part label raster at `scale` pixels per film pixel,
+// cropped to the drawing's box. Label = the part with the most ink at that pixel.
+window.buildRasters = (crop, scale) => {
+  const width = Math.round(crop.width * scale);
+  const height = Math.round(crop.height * scale);
+  const canvas = document.createElement("canvas");
+  canvas.width = width;
+  canvas.height = height;
+  const context = canvas.getContext("2d", { willReadFrequently: true });
+  const lightness = new Float32Array(width * height).fill(1);
+  const bestInk = new Float32Array(width * height);
+  const labels = new Uint8Array(width * height);
+  for (let part = 1; part < PART_COUNT; part += 1) {
+    context.setTransform(1, 0, 0, 1, 0, 0);
+    context.fillStyle = "#fff";
+    context.fillRect(0, 0, width, height);
+    context.setTransform(scale, 0, 0, scale, -crop.x * scale, -crop.y * scale);
+    drawPart(context, part);
+    const pixels = context.getImageData(0, 0, width, height).data;
+    for (let index = 0; index < width * height; index += 1) {
+      const ink = 1 - pixels[index * 4] / 255;
+      lightness[index] *= 1 - ink;
+      if (ink > bestInk[index]) {
+        bestInk[index] = ink;
+        labels[index] = part;
+      }
+    }
+  }
+  const density = new Uint8Array(width * height);
+  for (let index = 0; index < width * height; index += 1) {
+    density[index] = Math.round((1 - lightness[index]) * 255);
+  }
+  const toBase64 = (bytes) => {
+    let text = "";
+    for (let start = 0; start < bytes.length; start += 0x8000) {
+      text += String.fromCharCode.apply(null, bytes.subarray(start, start + 0x8000));
+    }
+    return btoa(text);
+  };
+  return { width, height, density: toBase64(density), labels: toBase64(labels) };
+};
+window.ready = true;
+</script>
+</body>
+</html>

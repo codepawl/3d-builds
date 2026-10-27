@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Fly study</title><style>html, body { margin: 0; background: #111; }</style></head>
+<body>
+<canvas id="film" width="1080" height="1080"></canvas>
+<script src="../src/ink.js"></script>
+<script src="../src/fly.js"></script>
+<script>
+  "use strict";
+  // Practice: Kevin Ngo's opening fly frame, redrawn to compare side by side.
+  const context = document.getElementById("film").getContext("2d");
+  window.renderAt = (seconds) => {
+    Ink.setTime(seconds);
+    Fly.frame(context);
+  };
+  window.FILM = { duration: 1, cues: [] };
+  window.renderAt(0);
+</script>
+</body>
+</html>

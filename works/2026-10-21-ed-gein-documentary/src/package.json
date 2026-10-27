@@ -1,0 +1,25 @@
+{
+  "name": "case-file-plainfield",
+  "private": true,
+  "version": "0.2.0",
+  "type": "module",
+  "scripts": {
+    "prep": "node tools/prep_map.mjs",
+    "dev": "vite --port 5432 --strictPort",
+    "build": "vite build",
+    "preview": "vite preview --port 5432 --strictPort"
+  },
+  "dependencies": {
+    "@react-three/drei": "10.7.9",
+    "@react-three/fiber": "9.8.1",
+    "@react-three/postprocessing": "3.2.0",
+    "postprocessing": "6.39.5",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "three": "0.186.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "6.1.2",
+    "vite": "8.3.4"
+  }
+}

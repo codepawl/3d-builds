@@ -1,0 +1,163 @@
+"""Reads every exported GLB and writes blender/ASSETS.md (one row per node) plus facing checks.
+
+Sizes are measured from the glTF accessors (not typed in): length along Blender X, width along Blender Y,
+height along Blender Z. glTF axes: X = Blender X, Y = Blender Z, Z = -Blender Y.
+Run with: uv run --no-project python gen_assets.py
+"""
+import json
+import os
+import struct
+import sys
+
+sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+ROOT = "<your folder>/viz-baggage"
+ASSETS = ROOT + "/app/public/assets"
+
+FAMILIES = ["bags", "conveyors", "sorter", "screening", "logistics", "ramp"]
+
+# root-node prefix -> (facing / flow, where it goes in the app)
+WHERE = {
+    "bag_": ("lies on its back, long axis X (travel), handle at +X end, wheels at -X end", "Bags on every belt, tray, chute, cart and container; recolour or pick by variant."),
+    "conv_straight": ("flow +X, entry at x=0, exit x=2.0", "Belts everywhere: collectors, induction, reject line. One module = 2.0 m."),
+    "conv_curve90": ("flow +X, entry at origin, exit at (1.5, 1.5) (left turn); for a right turn rotate the module 180 deg about X and Z by placement (negative scale breaks back-face culling)", "Corners of belt lines, radius 1.5 m."),
+    "conv_incline": ("flow +X, rises 0.5 m over 2.0 m", "Collector belts down through the floor (run backwards for declines), screening level links."),
+    "conv_merge": ("flow +X; feeder joins from +Y side at 45 degrees", "Merge points ahead of the sorter induction."),
+    "diverter_paddle": ("post at origin, arm along +X when stowed", "Reject diverter next to a belt (post beside the belt, arm swings across it)."),
+    "read_arch": ("flow +X through the arch, 1.5 m clear width", "ATR barcode / RFID read arch over a belt; three lamp states."),
+    "checkin_desk": ("agent side at +Y, bag belt flows +X", "Check-in hall counters."),
+    "tilt_": ("travel +X, tilts about X", "Sorter loop trays, one every 1.30 m."),
+    "sorter_track": ("travel +X", "Sorter loop track; trays ride on the rails."),
+    "chute_slide": ("head at the sorter edge (y=0), slopes down toward +Y; rotate 180 deg about Z for the other side", "Make-up chutes beside the sorter."),
+    "ct_scanner": ("flow +X through the tunnel; operator panel on -Y side", "Hold baggage screening, one per screening line."),
+    "search_table": ("long axis X, agent side +Y", "Manual search room."),
+    "search_room": ("open front (door gap) at -Y", "Manual search room shell."),
+    "review_desk": ("operator chair at +Y, screens face -Y... chair side +Y", "Image review (level 3) workstation."),
+    "bag_flag_marker": ("symmetric", "Floats above a flagged bag."),
+    "uld_ld3": ("door/curtain on the -Y face", "Make-up area and ramp, loaded from carousel/chutes."),
+    "bag_cart": ("drawbar at -Y", "Make-up area, loose bag carts."),
+    "ebs_rack": ("tote fronts at -Y; bays tile along X every 2.0 m", "Early bag store."),
+    "ebs_crane": ("travels along X in the aisle; carriage lifts along Z", "Early bag store."),
+    "carousel_makeup": ("long axis X, belt runs counter-clockwise seen from above", "One per flight in the make-up area."),
+    "baggage_tug": ("front (hood, headlamps) at -Y", "Ramp tug trains."),
+    "dolly_": ("drawbar at -Y", "Behind the tug, carries containers or loose bags."),
+    "belt_loader": ("boom points toward -Y, operator platform at +Y", "Aircraft hold door."),
+    "handler_": ("faces -Y", "Handlers loading containers at the ramp."),
+    "aircraft_narrowbody": ("nose toward -Y, hold door on the -X side", "Stand on the ramp."),
+}
+MOVERS = ("_deck", "_boom", "_gantry", "_arm", "_door", "_carriage", "_wheel_")
+LAMPS = ("_lamp_", "headlamp", "beacon", "_sign")
+
+
+def read_glb(path):
+    with open(path, "rb") as handle:
+        data = handle.read()
+    json_length = struct.unpack_from("<I", data, 12)[0]
+    return json.loads(data[20:20 + json_length])
+
+
+def node_world_bounds(gltf, index, offset, bounds):
+    node = gltf["nodes"][index]
+    translation = node.get("translation", [0, 0, 0])
+    here = [offset[k] + translation[k] for k in range(3)]
+    if "mesh" in node:
+        for primitive in gltf["meshes"][node["mesh"]]["primitives"]:
+            accessor = gltf["accessors"][primitive["attributes"]["POSITION"]]
+            for corner_selector in range(8):
+                point = [here[k] + (accessor["max"][k] if corner_selector >> k & 1 else accessor["min"][k]) for k in range(3)]
+                for k in range(3):
+                    bounds[0][k] = min(bounds[0][k], point[k])
+                    bounds[1][k] = max(bounds[1][k], point[k])
+    for child in node.get("children", []):
+        node_world_bounds(gltf, child, here, bounds)
+
+
+def lookup_where(name):
+    for prefix in sorted(WHERE, key=len, reverse=True):
+        if name.startswith(prefix):
+            return WHERE[prefix]
+    return ("", "")
+
+
+def main():
+    lines = ["# ASSETS", "",
+             "Generated by `blender/gen_assets.py` from the exported GLBs (sizes measured from the files).",
+             "Axes in the table are Blender axes: X, Y, Z in metres (size is the bounding box of the node and its children, including protruding motors and the sorter-side lamp posts). In the GLB (glTF, Y up) Blender -Y becomes +Z, so a vehicle facing Blender -Y faces +Z there.",
+             "Flow of every belt, sorter and scanner is +X (same in glTF). Floor level is z = 0 (glTF y = 0). Single-sided materials (back-face culling on).",
+             "Clips are NLA tracks exported as glTF animations; clips with the same name (`wheel_roll`, `door_open`...) are one animation that drives every node that has it.",
+             "Pivot column: `asset origin` means the node origin is at the asset origin; otherwise the node origin is on its axis at the given asset-space point.", ""]
+    checks = []
+    for family in FAMILIES:
+        path = f"{ASSETS}/{family}.glb"
+        gltf = read_glb(path)
+        size_kb = os.path.getsize(path) // 1024
+        node_clips = {}
+        for animation in gltf.get("animations", []):
+            for channel in animation["channels"]:
+                node_clips.setdefault(channel["target"]["node"], set()).add(animation["name"])
+        parents = {}
+        for index, node in enumerate(gltf["nodes"]):
+            for child in node.get("children", []):
+                parents[child] = index
+        lines += [f"## {family}.glb ({size_kb} KB, {len(gltf['nodes'])} nodes, {len(gltf.get('materials', []))} materials, {len(gltf.get('images', []))} images)", "",
+                  "| node | pivot (asset space) | facing / flow | clips | size X x Y x Z (m) | where it goes |", "|---|---|---|---|---|---|"]
+        for index, node in enumerate(gltf["nodes"]):
+            name = node.get("name", f"node{index}")
+            bounds = [[1e9] * 3, [-1e9] * 3]
+            parent_offset = [0, 0, 0]
+            ancestor = parents.get(index)
+            chain = []
+            while ancestor is not None:
+                chain.append(ancestor)
+                ancestor = parents.get(ancestor)
+            for ancestor_index in chain:
+                translation = gltf["nodes"][ancestor_index].get("translation", [0, 0, 0])
+                parent_offset = [parent_offset[k] + translation[k] for k in range(3)]
+            node_world_bounds(gltf, index, parent_offset, bounds)
+            if bounds[0][0] > bounds[1][0]:
+                size = "(empty)"
+            else:
+                extent = [bounds[1][k] - bounds[0][k] for k in range(3)]
+                size = f"{extent[0]:.2f} x {extent[2]:.2f} x {extent[1]:.2f}"
+            translation = node.get("translation", [0, 0, 0])
+            world = [parent_offset[k] + translation[k] for k in range(3)]
+            blender_pivot = (round(world[0], 3), round(-world[2], 3), round(world[1], 3))
+            is_root = index not in parents
+            moving = any(token in name for token in MOVERS)
+            lamp = any(token in name for token in LAMPS)
+            pivot = "asset origin" if (is_root or not (moving or lamp)) else f"({blender_pivot[0]}, {blender_pivot[1]}, {blender_pivot[2]})"
+            facing, where = lookup_where(name)
+            clips = ", ".join(sorted(node_clips.get(index, []))) or "-"
+            if lamp:
+                where = "state lamp: own emissive material, app toggles emissive strength / visibility"
+            elif moving:
+                where = "moving part of its parent"
+            elif not is_root:
+                where = "part of its parent"
+            lines.append(f"| {name} | {pivot} | {facing if is_root else ''} | {clips} | {size} | {where} |")
+            if "headlamp_l" in name or name == "uld_ld3_grey_door" or name == "belt_loader_boom":
+                checks.append((name, bounds[1][2]))
+        lines.append("")
+    lines += ["## Facing check (measured in the exported files)", ""]
+    for name, z in checks:
+        lines.append(f"- `{name}` reaches to glTF z = {z:+.2f} (front is +Z in glTF = -Y in Blender): {'ok' if z > 0.05 else 'CHECK'}")
+    rotated = []
+    for family in FAMILIES:
+        gltf = read_glb(f"{ASSETS}/{family}.glb")
+        for node in gltf["nodes"]:
+            rotation = node.get("rotation", [0, 0, 0, 1])
+            if max(abs(rotation[0]), abs(rotation[1]), abs(rotation[2])) > 1e-4:
+                rotated.append(node["name"])
+    lines.append(f"- Nodes with a non-identity rest rotation (should be none, so every clip starts from rest): {rotated or 'none'}")
+    lines += ["", "## Modules and conventions", "",
+              "- Belt module length 2.0 m, belt 0.80 m, frame 0.96 m, belt top 0.80 m. Curve 90 degrees: centre-line radius 1.5 m (sorter track curve: 2.0 m). Incline: 2.0 m plan, 0.5 m rise.",
+              "- Belts (`*_belt`) are separate objects with UVs in metres along the path: scroll the texture U offset by belt speed to animate; the texture is a packed 64 px ribbed rubber tile.",
+              "- State lamps (`arch_lamp_*`, `chute_lamp_*`, `ct_lamp_*`, `printer_lamp_ready`, `tug_*`) each own an emissive material with the same name; the off state is a low emissive strength.",
+              "- Variants: bags 6, trays 2 (blue, grey), LD3 2 (grey, blue), bag carts 2, tugs 2, dollies 2, handlers 2.",
+              "- Reference sheets in `blender/refs/*.md` were written from knowledge, numbers marked verify; no reference images were downloaded, so the compare sheets use a dimension blockout drawn from the sheet.",
+              "- Pass 1 was built with `blender/build_*.py` (shared helpers in `blender/lib.py`), previews with `blender/preview.py`, this file with `blender/gen_assets.py`."]
+    with open(ROOT + "/blender/ASSETS.md", "w", encoding="utf-8") as handle:
+        handle.write("\n".join(lines) + "\n")
+    print("written", len(lines), "lines")
+
+
+main()

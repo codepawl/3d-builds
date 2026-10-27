@@ -1,0 +1,439 @@
+@font-face {
+  font-family: Inter;
+  src: url("/assets/inter.ttf");
+  font-weight: 100 900;
+  font-display: swap;
+}
+:root {
+  font-family: Inter, system-ui, sans-serif;
+  color: #263c36;
+  background: #e8f5ef;
+  font-synthesis: none;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+button:focus-visible,
+canvas:focus-visible,
+a:focus-visible {
+  outline: 3px solid #527e6b;
+  outline-offset: 5px;
+}
+main {
+  height: 100svh;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  background: radial-gradient(
+    ellipse at 50% 45%,
+    #f5fbf7 0%,
+    #e8f5ef 60%,
+    #deeee5 100%
+  );
+  overflow: hidden;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 42px;
+  gap: 20px;
+  z-index: 2;
+}
+.wordmark {
+  text-decoration: none;
+  color: #31493f;
+  font-size: 19px;
+  font-weight: 650;
+  letter-spacing: -0.7px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.seal-mark {
+  font-size: 29px;
+  line-height: 1;
+  transform: rotate(-15deg);
+}
+.controls {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+}
+.coming-soon {
+  color: #526d60;
+  font-size: 11px;
+  padding: 8px;
+  white-space: nowrap;
+}
+#song-title {
+  max-width: min(330px, 44vw);
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 550;
+  padding: 7px 2px;
+  cursor: pointer;
+}
+button {
+  border: 0;
+  background: rgba(255, 255, 255, 0.72);
+  border-radius: 18px;
+  min-height: 46px;
+  padding: 11px 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  box-shadow: 0 4px 20px #6585750a;
+  transition:
+    background 0.16s,
+    transform 0.16s;
+}
+button:hover {
+  background: #fff;
+  transform: translateY(-1px);
+}
+button:active {
+  transform: translateY(1px);
+}
+#horn-toggle {
+  font-size: 13px;
+  font-weight: 550;
+}
+.sound-button {
+  width: 46px;
+  padding: 12px;
+}
+.sound-button svg {
+  width: 21px;
+  height: 21px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.sound-button[aria-pressed="true"] {
+  color: #8a9892;
+}
+.sound-button[aria-pressed="true"] svg {
+  opacity: 0.45;
+}
+.stage {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+}
+.intro {
+  position: absolute;
+  top: 5px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  pointer-events: none;
+  z-index: 1;
+}
+h1 {
+  font-size: clamp(25px, 3.2vw, 42px);
+  font-weight: 550;
+  letter-spacing: -1.6px;
+  line-height: 1.2;
+  margin: 8px 20px 12px;
+}
+.intro p {
+  font-size: 14px;
+  color: #6f857b;
+  margin: 0 20px;
+}
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  cursor: grab;
+}
+canvas.dragging {
+  cursor: grabbing;
+}
+.gesture-hint {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  color: #7a9486;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.gesture-hint svg {
+  height: 16px;
+  width: 33px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.gesture-hint.used {
+  opacity: 0;
+}
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin: 0 42px 26px;
+  padding: 18px 22px;
+  border-radius: 24px;
+  background: #ffffff80;
+  backdrop-filter: blur(12px);
+}
+.song {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.music-icon {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: #e4f0e8;
+  color: #66806f;
+  font-size: 26px;
+}
+.song p {
+  font-size: 13px;
+  font-weight: 550;
+  margin: 0 0 6px;
+}
+.song span:not(.music-icon) {
+  font-size: 11px;
+  color: #809187;
+}
+.song-progress {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+#note-number {
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  color: #7a8d81;
+  min-width: 42px;
+}
+.progress-track {
+  height: 5px;
+  width: 115px;
+  border-radius: 5px;
+  background: #dce8df;
+  overflow: hidden;
+}
+#progress-fill {
+  height: 100%;
+  width: 0%;
+  background: #82a98f;
+  border-radius: 5px;
+  transition: width 0.15s;
+}
+.restart {
+  background: transparent;
+  box-shadow: none;
+  font-size: 23px;
+  padding: 4px;
+  width: 35px;
+  min-height: 35px;
+  color: #799584;
+}
+#scene-error {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  max-width: 280px;
+  color: #986850;
+}
+@media (max-width: 600px) {
+  main {
+    min-height: 500px;
+  }
+  header {
+    padding: 20px;
+    gap: 12px;
+  }
+  .wordmark {
+    font-size: 16px;
+    gap: 6px;
+  }
+  .seal-mark {
+    font-size: 24px;
+  }
+  button {
+    min-height: 42px;
+    padding: 10px 12px;
+    border-radius: 15px;
+  }
+  #horn-toggle {
+    font-size: 11px;
+    gap: 6px;
+  }
+  .sound-button {
+    width: 42px;
+    padding: 11px;
+  }
+  .controls {
+    gap: 6px;
+  }
+  .intro {
+    top: 16px;
+  }
+  h1 {
+    letter-spacing: -0.9px;
+    font-size: 26px;
+  }
+  .intro p {
+    font-size: 12px;
+  }
+  footer {
+    margin: 0 16px 16px;
+    padding: 15px;
+    gap: 10px;
+    border-radius: 21px;
+  }
+  .song {
+    gap: 9px;
+  }
+  .music-icon {
+    width: 32px;
+    height: 36px;
+    font-size: 24px;
+    border-radius: 12px;
+  }
+  .song p {
+    font-size: 11px;
+  }
+  .song span:not(.music-icon) {
+    font-size: 10px;
+  }
+  .progress-track {
+    display: none;
+  }
+  .song-progress {
+    gap: 2px;
+  }
+  #note-number {
+    font-size: 10px;
+    min-width: 35px;
+  }
+  .restart {
+    width: 30px;
+  }
+  .gesture-hint {
+    bottom: 16px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  button,
+  #progress-fill,
+  .gesture-hint {
+    transition: none;
+  }
+}
+.engine-choice {
+  display: flex;
+  gap: 4px;
+  margin-inline-end: 12px;
+}
+.engine-choice a {
+  font-size: 12px;
+  text-decoration: none;
+  color: #60766b;
+  padding: 10px 12px;
+  border-radius: 12px;
+}
+.engine-choice a[aria-current="page"] {
+  background: #ffffff80;
+  color: #263c36;
+}
+button[aria-pressed="true"]#sound-toggle::after {
+  content: "×";
+  position: absolute;
+  font-size: 17px;
+}
+.song span:not(.music-icon),
+#note-number,
+.intro p {
+  color: #526d60;
+}
+@media (max-width: 600px) {
+  header {
+    flex-wrap: wrap;
+    padding: 18px 16px;
+    gap: 10px;
+  }
+  .controls {
+    flex-wrap: wrap;
+  }
+  .engine-choice {
+    margin-inline-end: 0;
+  }
+  .engine-choice a {
+    padding: 10px 8px;
+    font-size: 11px;
+  }
+  footer {
+    flex-wrap: wrap;
+  }
+  .song {
+    flex: 1;
+    min-width: 185px;
+  }
+  .intro {
+    top: 6px;
+  }
+}
+:root {
+  --text-muted: #526d60;
+}
+.gesture-hint,
+.restart,
+.engine-choice a,
+.sound-button[aria-pressed="true"] {
+  color: var(--text-muted);
+}
+h1 {
+  text-wrap: balance;
+}
+header,
+.controls,
+footer {
+  flex-wrap: wrap;
+}
+@media (prefers-reduced-motion: reduce) {
+  button:hover,
+  button:active {
+    transform: none;
+  }
+}
+canvas.pointer-input:focus-visible { outline: none; }

@@ -1,0 +1,16 @@
+// Quick single view check: node tools/one.mjs whole|county
+import { createRequire } from 'node:module'
+const require = createRequire(import.meta.url)
+const { chromium } = require('<your folder>/orglet/node_modules/playwright')
+const browser = await chromium.launch({ headless: true, args: ['--use-angle=d3d11', '--enable-gpu', '--ignore-gpu-blocklist'] })
+const page = await browser.newPage({ viewport: { width: 1920, height: 1080 } })
+page.on('pageerror', (error) => console.log('pageerror', error.message))
+await page.goto('http://localhost:5432/')
+await page.waitForSelector('canvas')
+await page.waitForTimeout(1000)
+await page.getByRole('button', { name: 'Open the case file' }).click()
+await page.waitForTimeout(2500)
+await page.getByRole('button', { name: 'Whole case' }).click()
+await page.waitForTimeout(3500)
+await page.screenshot({ path: 'shots/07-whole-case.png' })
+await browser.close()

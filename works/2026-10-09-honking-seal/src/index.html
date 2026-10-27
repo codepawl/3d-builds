@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#e8f5ef" />
+    <title>Honking Seal</title>
+    <meta
+      name="description"
+      content="Stretch a squishy seal and give him a trumpet. Pull down to honk."
+    />
+    <link rel="canonical" href="https://honkingseal.codepawl.com/" />
+    <meta property="og:title" content="Honking Seal" />
+    <meta
+      property="og:description"
+      content="A squishy seal with a tiny trumpet. Pull to honk."
+    />
+    <meta property="og:url" content="https://honkingseal.codepawl.com/" />
+    <meta
+      property="og:image"
+      content="https://honkingseal.codepawl.com/assets/card.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="stylesheet" href="style.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "/vendor/three/build/three.module.js",
+          "gl-matrix": "/vendor/gl-matrix/index.js"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <main>
+      <header>
+        <a class="wordmark" href="./" aria-label="Honking Seal home"
+          ><svg class="seal-mark" viewBox="0 0 40 32" width="32" height="28" aria-hidden="true">
+            <path fill="#52616a" d="M8 22 1 27Q7 29 12 25M32 22l7 5q-6 2-11-2"/>
+            <ellipse cx="20" cy="17" rx="16" ry="13" fill="#c7d3d5"/>
+            <path fill="#65717a" d="M4 15C5-1 35-1 36 15Q27 8 20 10Q12 8 4 15"/>
+            <ellipse cx="14" cy="17" rx="1.8" ry="2" fill="#17262b"/>
+            <ellipse cx="26" cy="17" rx="1.8" ry="2" fill="#17262b"/>
+            <ellipse cx="17" cy="23" rx="3.5" ry="3" fill="#9eafb5"/>
+            <ellipse cx="23" cy="23" rx="3.5" ry="3" fill="#9eafb5"/>
+            <path fill="#17262b" d="M17.8 20q2.2-1.8 4.4 0L20 22z"/>
+          </svg> honking seal</a
+        >
+        <div class="controls">
+          <nav class="engine-choice" aria-label="Renderer">
+            <a href="?engine=three" data-engine="three">three.js</a
+            ><span class="coming-soon" aria-disabled="true">67.js · coming soon</span>
+          </nav>
+          <button id="horn-toggle" type="button" aria-pressed="true">
+            <span aria-hidden="true">♫</span
+            ><span id="horn-label">Put trumpet away</span>
+          </button>
+          <button
+            id="sound-toggle"
+            class="sound-button"
+            type="button"
+            aria-pressed="false"
+            aria-label="Mute sound"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M11 5 6 9H3v6h3l5 4V5Zm4 3a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"
+              />
+            </svg>
+          </button>
+        </div>
+      </header>
+      <section class="stage" aria-labelledby="title">
+        <div class="intro">
+          <h1 id="title">A very squishy musician.</h1>
+        </div>
+        <canvas
+          id="seal-canvas"
+          tabindex="0"
+          aria-label="Squishy seal. Drag to stretch and play. Arrow keys also squeeze it."
+        ></canvas>
+        <div id="scene-error" hidden role="alert">
+          ⚠ This little seal needs WebGL. Try another browser.
+        </div>
+      </section>
+      <footer>
+        <div class="song">
+          <span class="music-icon" aria-hidden="true">♪</span>
+          <div>
+            <select id="song-title" aria-label="Choose melody">
+              <option value="twinkle">Twinkle, Twinkle, Little Star</option>
+            </select>
+          </div>
+        </div>
+        <div class="song-progress">
+          <span id="note-number">0 / 28</span>
+          <div
+            class="progress-track"
+            role="progressbar"
+            aria-label="Song progress"
+            aria-valuemin="0"
+            aria-valuemax="28"
+            aria-valuenow="0"
+          >
+            <div id="progress-fill"></div>
+          </div>
+          <button
+            id="restart"
+            class="restart"
+            type="button"
+            aria-label="Restart melody"
+          >
+            ↺
+          </button>
+        </div>
+      </footer>
+    </main>
+    <script type="module" src="main.js"></script>
+  </body>
+</html>
+

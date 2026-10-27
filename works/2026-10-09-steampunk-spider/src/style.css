@@ -1,0 +1,251 @@
+@font-face {
+  font-family: Inter;
+  src: url("./assets/inter.ttf") format("truetype");
+  font-display: swap;
+}
+:root {
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  color: #e3e8e4;
+  background: #d8dcd9;
+  font-synthesis: none;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  overflow: hidden;
+}
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+  min-height: 44px;
+  border-radius: 5px;
+  padding: 0 18px;
+  transition:
+    background 0.18s,
+    transform 0.18s;
+}
+button:hover {
+  background: #cbd2ce;
+  color: #26322f;
+}
+button:active {
+  transform: scale(0.97);
+}
+button:focus-visible,
+a:focus-visible,
+canvas:focus-visible {
+  outline: 3px solid #8e6fc0;
+  outline-offset: 4px;
+}
+button[aria-pressed="true"] {
+  background: #c3cdc7;
+  color: #263c31;
+}
+header {
+  position: absolute;
+  inset: 22px 30px auto;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  pointer-events: none;
+}
+header > * {
+  pointer-events: auto;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  text-decoration: none;
+  color: #e3e8e4;
+  font-size: 27px;
+  font-weight: 750;
+  letter-spacing: -1px;
+}
+.brand svg {
+  width: 35px;
+  height: 35px;
+}
+.brand span {
+  color: #d88837;
+  margin-left: -8px;
+}
+.moods {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+}
+.quiet {
+  font-size: 26px;
+  padding: 0;
+  width: 44px;
+}
+main,
+canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+canvas {
+  touch-action: none;
+  cursor: crosshair;
+}
+footer {
+  position: absolute;
+  bottom: 22px;
+  left: 26px;
+  right: 26px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  pointer-events: none;
+}
+footer > * {
+  pointer-events: auto;
+}
+.hint {
+  font-size: 12px;
+  color: #e0e6e0;
+  margin: 0;
+}
+.actions {
+  display: flex;
+  gap: 3px;
+  padding: 8px;
+  border-radius: 8px;
+  background: #ffffffce;
+  box-shadow: 0 8px 35px #4e416510;
+  backdrop-filter: blur(14px);
+}
+.actions button {
+  color: #26322f;
+  font-size: 13px;
+  padding: 0 14px;
+}
+.primary {
+  background: #354e40;
+  color: white;
+}
+.actions .primary {
+  color: white;
+}
+.primary:hover {
+  background: #46614f;
+}
+kbd {
+  font-family: inherit;
+  font-size: 10px;
+  opacity: 0.7;
+  margin-left: 9px;
+}
+.source {
+  color: #d1dad2;
+  font-size: 10px;
+  text-decoration: none;
+}
+.source:hover {
+  text-decoration: underline;
+}
+#loading {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+}
+.loader {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #c5b7d8;
+  border-top-color: #685087;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+[hidden] {
+  display: none !important;
+}
+@media (max-width: 600px) {
+  header {
+    inset: 15px 16px auto;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .brand {
+    font-size: 25px;
+  }
+  .brand svg {
+    width: 29px;
+  }
+  .moods {
+    order: 3;
+    margin: auto;
+    justify-content: center;
+    width: 100%;
+  }
+  .moods button {
+    font-size: 12px;
+    min-height: 40px;
+    padding: 0 16px;
+  }
+  .quiet {
+    margin-left: auto;
+  }
+  .hint {
+    font-size: 10px;
+    max-width: 310px;
+    text-align: center;
+  }
+  .actions {
+    gap: 2px;
+    padding: 6px;
+    max-width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .actions button {
+    font-size: 11px;
+    padding: 0 10px;
+    min-height: 38px;
+  }
+  footer {
+    bottom: 18px;
+    left: 12px;
+    right: 12px;
+    gap: 11px;
+  }
+  kbd {
+    display: none;
+  }
+  .source {
+    font-size: 9px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  button {
+    transition: none;
+  }
+  .loader {
+    animation: none;
+  }
+}

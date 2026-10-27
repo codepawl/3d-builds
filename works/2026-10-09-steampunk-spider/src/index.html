@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#edf0f8" />
+    <title>SPDR · procedural motion playground</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23252d31'/%3E%3Cpath d='M5 6l7 8-9 2m2 10l7-8M27 6l-7 8 9 2m-2 10l-7-8' fill='none' stroke='%23c1c8c1' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23c1c8c1'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23e8a54c'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="./style.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "/vendor/three/build/three.module.js",
+          "three/addons/": "/vendor/three/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <header>
+      <a class="brand" href="./" aria-label="SPDR home"
+        ><svg viewBox="0 0 40 36" aria-hidden="true">
+          <g
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.6"
+            stroke-linecap="round"
+          >
+            <path
+              d="M13 12 6 5M11 17 3 14M11 22 3 26M14 26 8 33M27 12 34 5M29 17 37 14M29 22 37 26M26 26 32 33"
+            />
+          </g>
+          <ellipse cx="20" cy="20" rx="11" ry="12" fill="currentColor" />
+          <circle cx="20" cy="19" r="4" fill="#e6a43b" /></svg
+        >spdr<span>.</span></a
+      >
+      <div class="moods" role="group" aria-label="Drive mode">
+        <button data-mood="curious" aria-pressed="true">March</button>
+        <button data-mood="sleepy" aria-pressed="false">Creep</button>
+        <button data-mood="bouncy" aria-pressed="false">Drive</button>
+      </div>
+      <button
+        id="reset"
+        class="quiet"
+        aria-label="Reset spider and camera"
+        title="Reset"
+      >
+        ↺
+      </button>
+    </header>
+    <main>
+      <canvas
+        id="world"
+        tabindex="0"
+        aria-label="Interactive spider. Move your pointer to lead it, use arrow keys to walk, Space to vent steam, right drag to orbit, and scroll to zoom."
+      ></canvas>
+      <div id="loading" role="status">
+        <span class="loader"></span>Booting SPDR…
+      </div>
+    </main>
+    <footer>
+      <p class="hint">Move to lead · Right drag to orbit · Scroll to zoom</p>
+      <div class="actions">
+        <button id="wander" aria-pressed="false">Roam</button>
+        <button id="terrain" aria-pressed="false">Terrain</button>
+        <button id="side" aria-pressed="false">Side view</button>
+        <button id="pixel" aria-pressed="true">Pixel</button>
+        <button id="hop" class="primary">Vent <kbd>space</kbd></button>
+      </div>
+      <a
+        class="source"
+        href="https://www.youtube.com/watch?v=KPoeNZZ6H4s"
+        target="_blank"
+        rel="noreferrer"
+        >Motion inspired by t3ssel8r ↗</a
+      >
+    </footer>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

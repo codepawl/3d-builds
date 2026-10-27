@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Rebirth study</title><style>html, body { margin: 0; background: #111; }</style></head>
+<body>
+<canvas id="film" width="1080" height="1080"></canvas>
+<script src="../src/ink.js"></script>
+<script src="../src/fly.js"></script>
+<script src="../src/larva.js"></script>
+<script src="../src/metamorphosis.js"></script>
+<script src="../src/opening.js"></script>
+<script src="../src/rebirth.js"></script>
+<script>
+  "use strict";
+  // Beat 6: the children's life at speed, back to the opening frame.
+  const context = document.getElementById("film").getContext("2d");
+  window.renderAt = (seconds) => Rebirth.renderAt(context, seconds);
+  window.FILM = { duration: Rebirth.DURATION, cues: [] };
+  window.renderAt(0);
+</script>
+</body>
+</html>

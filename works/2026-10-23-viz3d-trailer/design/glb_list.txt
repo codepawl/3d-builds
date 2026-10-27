@@ -1,0 +1,57 @@
+## <your folder>/game-launchsite\app\public\assets\rocket.glb
+booster_a	EMPTY	meshes=5	children=5
+booster_b	EMPTY	meshes=4	children=4
+ship_cargo	EMPTY	meshes=5	children=5
+ship_crew	EMPTY	meshes=5	children=5
+ship_tanker	EMPTY	meshes=5	children=5
+## <your folder>/game-port\app\public\assets\sts_cranes.glb
+sts_a	EMPTY	meshes=30	children=28
+sts_b	EMPTY	meshes=30	children=28
+sts_feeder	EMPTY	meshes=30	children=28
+## <your folder>/game-airport\public\assets\aircraft.glb
+jet_a	EMPTY	meshes=16	children=19
+jet_b	EMPTY	meshes=16	children=19
+jet_c	EMPTY	meshes=16	children=19
+## <your folder>/game-er\app\public\assets\vehicles.glb
+amb_type3_a	EMPTY	meshes=10	children=10
+amb_type3_b	EMPTY	meshes=10	children=10
+amb_van	EMPTY	meshes=9	children=9
+## <your folder>/game-datacenter\public\assets\units.glb
+robot	EMPTY	meshes=9	children=8
+tech_a	EMPTY	meshes=5	children=3
+tech_b	EMPTY	meshes=5	children=3
+tech_c	EMPTY	meshes=5	children=3
+## <your folder>/game-themepark\app\public\assets\coaster.glb
+coaster_brakes	EMPTY	meshes=1	children=1
+coaster_lift	EMPTY	meshes=3	children=3
+coaster_station	EMPTY	meshes=5	children=5
+coaster_supports	EMPTY	meshes=2	children=2
+coaster_track	EMPTY	meshes=2	children=2
+coaster_train_a	EMPTY	meshes=5	children=5
+coaster_train_b	EMPTY	meshes=5	children=5
+## <your folder>/game-pitlane\app\public\assets\cars.glb
+car_halvard_07	EMPTY	meshes=6	children=9
+car_halvard_22	EMPTY	meshes=6	children=9
+car_kestrel_31	EMPTY	meshes=6	children=9
+car_ostrava_11	EMPTY	meshes=6	children=9
+car_sable_44	EMPTY	meshes=6	children=9
+## <your folder>/game-fulfillment\app\public\assets\drive_units.glb
+du_charger	EMPTY	meshes=1	children=1
+du_gen1	EMPTY	meshes=4	children=4
+du_heavy	EMPTY	meshes=4	children=4
+du_standard	EMPTY	meshes=4	children=4
+## <your folder>/game-fulfillment\app\public\assets\drone.glb
+drone_hex	EMPTY	meshes=9	children=9
+drone_pad	EMPTY	meshes=2	children=2
+drone_quad	EMPTY	meshes=7	children=7
+## <your folder>/game-agent-office\public\assets\orglet.glb
+orglet	EMPTY	meshes=20	children=1
+## <your folder>/game-launchsite\app\public\assets\vehicles.glb
+crawler_crane	EMPTY	meshes=4	children=2
+crew_van	EMPTY	meshes=5	children=5
+pickup_crew	EMPTY	meshes=5	children=5
+pickup_single	EMPTY	meshes=5	children=5
+spmt_flat	EMPTY	meshes=13	children=13
+spmt_short	EMPTY	meshes=25	children=26
+spmt_stand	EMPTY	meshes=33	children=34
+tanker_truck	EMPTY	meshes=19	children=19

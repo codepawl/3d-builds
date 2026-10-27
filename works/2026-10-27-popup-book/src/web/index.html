@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>How Big Things Work - a pop-up book</title>
+<link rel="stylesheet" href="vendor/fonts.css">
+<link rel="stylesheet" href="style.css">
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.js" } }
+</script>
+</head>
+<body>
+<canvas id="stage"></canvas>
+<div id="vignette"></div>
+<aside id="note"></aside>
+<nav id="dock">
+  <button id="prev" type="button">Back</button>
+  <span id="page-label">Cover</span>
+  <button id="next" type="button">Next</button>
+</nav>
+<p id="hint"></p>
+<script type="module" src="main.js"></script>
+</body>
+</html>

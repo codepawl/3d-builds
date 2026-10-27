@@ -1,0 +1,2429 @@
+{
+ "main_street": [
+  {
+   "name": "bank_1923",
+   "parent": "main_street",
+   "pivot_world_m": [
+    -15.24,
+    -14.758,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    19.3,
+    10.1,
+    10.93
+   ],
+   "triangles": 432,
+   "materials": [
+    "stone_dark",
+    "trim_dark",
+    "glass_dark",
+    "window_warm"
+   ]
+  },
+  {
+   "name": "hardware_store",
+   "parent": "main_street",
+   "pivot_world_m": [
+    15.24,
+    -44.124,
+    0.0
+   ],
+   "type": "EMPTY"
+  },
+  {
+   "name": "hardware_store_body",
+   "parent": "hardware_store",
+   "pivot_world_m": [
+    15.24,
+    -44.124,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    16.17,
+    13.79,
+    8.9
+   ],
+   "triangles": 276,
+   "materials": [
+    "brick_dark",
+    "trim_dark",
+    "window_warm",
+    "glass_dark"
+   ]
+  },
+  {
+   "name": "hardware_store_door",
+   "parent": "hardware_store",
+   "pivot_world_m": [
+    15.24,
+    -43.574,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    0.07,
+    1.1,
+    2.28
+   ],
+   "triangles": 24,
+   "materials": [
+    "wood_dark",
+    "window_warm"
+   ]
+  },
+  {
+   "name": "hardware_store_label_anchor",
+   "parent": "hardware_store",
+   "pivot_world_m": [
+    23.19,
+    -44.124,
+    11.0
+   ],
+   "type": "EMPTY"
+  },
+  {
+   "name": "hardware_store_light_pool",
+   "parent": "hardware_store",
+   "pivot_world_m": [
+    22.395,
+    -44.924,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    5.2,
+    5.2,
+    0.02
+   ],
+   "triangles": 92,
+   "materials": [
+    "red_glow"
+   ]
+  },
+  {
+   "name": "hardware_store_outline",
+   "parent": "hardware_store",
+   "pivot_world_m": [
+    15.24,
+    -44.124,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    16.14,
+    13.79,
+    8.96
+   ],
+   "triangles": 144,
+   "materials": [
+    "red_glow"
+   ]
+  },
+  {
+   "name": "hardware_store_rear_door",
+   "parent": "hardware_store",
+   "pivot_world_m": [
+    15.24,
+    -43.174,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    0.06,
+    1.9,
+    2.33
+   ],
+   "triangles": 12,
+   "materials": [
+    "wood_dark"
+   ]
+  },
+  {
+   "name": "hardware_store_rear_lot",
+   "parent": "hardware_store",
+   "pivot_world_m": [
+    37.14,
+    -44.124,
+    0.0
+   ],
+   "type": "EMPTY"
+  },
+  {
+   "name": "main_street",
+   "parent": null,
+   "pivot_world_m": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "type": "EMPTY"
+  },
+  {
+   "name": "ne_house_0",
+   "parent": "main_street",
+   "pivot_world_m": [
+    45.24,
+    16.058,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    7.65,
+    11.0,
+    7.72
+   ],
+   "triangles": 180,
+   "materials": [
+    "frame_dark",
+    "roof_dark",
+    "stone_dark",
+    "glass_dark",
+    "window_warm",
+    "brick_dark",
+    "wood_dark",
+    "trim_dark"
+   ]
+  },
+  {
+   "name": "ne_house_1",
+   "parent": "main_street",
+   "pivot_world_m": [
+    60.24,
+    16.058,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    7.65,
+    11.0,
+    9.12
+   ],
+   "triangles": 204,
+   "materials": [
+    "frame_dark",
+    "roof_dark",
+    "stone_dark",
+    "glass_dark",
+    "window_warm",
+    "brick_dark",
+    "wood_dark",
+    "trim_dark"
+   ]
+  },
+  {
+   "name": "ne_house_2",
+   "parent": "main_street",
+   "pivot_world_m": [
+    75.24,
+    16.058,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    7.65,
+    11.0,
+    7.72
+   ],
+   "triangles": 180,
+   "materials": [
+    "frame_dark",
+    "roof_dark",
+    "stone_dark",
+    "glass_dark",
+    "window_warm",
+    "brick_dark",
+    "wood_dark",
+    "trim_dark"
+   ]
+  },
+  {
+   "name": "ne_lot118_tin_shop",
+   "parent": "main_street",
+   "pivot_world_m": [
+    18.29,
+    10.058,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    6.55,
+    18.43,
+    9.37
+   ],
+   "triangles": 156,
+   "materials": [
+    "frame_dark",
+    "roof_dark",
+    "trim_dark",
+    "glass_dark",
+    "window_warm"
+   ]
+  },
+  {
+   "name": "ne_lot119_implements",
+   "parent": "main_street",
+   "pivot_world_m": [
+    28.04,
+    10.058,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    12.85,
+    12.42,
+    8.76
+   ],
+   "triangles": 96,
+   "materials": [
+    "frame_dark",
+    "roof_dark",
+    "trim_dark",
+    "glass_dark",
+    "window_warm"
+   ]
+  },
+  {
+   "name": "nn_lot105_general",
+   "parent": "main_street",
+   "pivot_world_m": [
+    -103.44,
+    10.058,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    9.24,
+    22.25,
+    8.9
+   ],
+   "triangles": 228,
+   "materials": [
+    "brick_dark",
+    "trim_dark",
+    "glass_dark",
+    "window_warm"
+   ]
+  },
+  {
+   "name": "nn_lot106_post_office",
+   "parent": "main_street",
+   "pivot_world_m": [
+    -94.99,
+    10.058,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    7.54,
+    18.25,
+    8.9
+   ],
+   "triangles": 228,
+   "materials": [
+    "brick_dark",
+    "trim_dark",
+    "glass_dark"
+   ]
+  },
+  {
+   "name": "nn_lot107_shoes",
+   "parent": "main_street",
+   "pivot_world_m": [
+    -87.39,
+    10.058,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    7.54,
+    20.25,
+    8.9
+   ],
+   "triangles": 228,
+   "materials": [
+    "brick_dark",
+    "trim_dark",
+    "glass_dark",
+    "window_warm"
+   ]
+  },
+  {
+   "name": "nn_lot108_saloon",
+   "parent": "main_street",
+   "pivot_world_m": [
+    -79.79,
+    10.058,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    7.54,
+    20.25,
+    8.9
+   ],
+   "triangles": 228,
+   "materials": [
+    "brick_dark",
+    "trim_dark",
+    "glass_dark",
+    "window_warm"
+   ]
+  },
+  {
+   "name": "nn_lot109_meat",
+   "parent": "main_street",
+   "pivot_world_m": [
+    -72.34,
+    10.058,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    7.45,
+    18.43,
+    9.71
+   ],
+   "triangles": 156,
+   "materials": [
+    "frame_dark",
+    "roof_dark",
+    "trim_dark",
+    "glass_dark",
+    "window_warm"
+   ]
+  },
+  {
+   "name": "nn_lot112_barber",
+   "parent": "main_street",
+   "pivot_world_m": [
+    -56.04,
+    10.058,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    5.45,
+    12.42,
+    5.95
+   ],
+   "triangles": 96,
+   "materials": [
+    "frame_dark",
+    "roof_dark",
+    "trim_dark",
+    "glass_dark"
+   ]
+  },
+  {
+   "name": "nn_lot113_drugs",
+   "parent": "main_street",
+   "pivot_world_m": [
+    -49.44,
+    10.058,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    7.84,
+    24.25,
+    8.9
+   ],
+   "triangles": 240,
+   "materials": [
+    "brick_dark",
+    "trim_dark",
+    "glass_dark",
+    "window_warm"
+   ]
+  },
+  {
+   "name": "nn_lot114_saloon",
+   "parent": "main_street",
+   "pivot_world_m": [
+    -41.69,
+    10.058,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    7.54,
+    21.25,
+    8.9
+   ],
+   "triangles": 228,
+   "materials": [
+    "brick_dark",
+    "trim_dark",
+    "glass_dark",
+    "window_warm"
+   ]
+  },
+  {
+   "name": "nn_lot115_shop",
+   "parent": "main_street",
+   "pivot_world_m": [
+    -34.74,
+    10.058,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    6.45,
+    12.42,
+    6.33
+   ],
+   "triangles": 96,
+   "materials": [
+    "frame_dark",
+    "roof_dark",
+    "trim_dark",
+    "glass_dark"
+   ]
+  },
+  {
+   "name": "nn_walker_block",
+   "parent": "main_street",
+   "pivot_world_m": [
+    -23.34,
+    10.058,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    16.44,
+    31.25,
+    8.9
+   ],
+   "triangles": 336,
+   "materials": [
+    "brick_dark",
+    "trim_dark",
+    "glass_dark",
+    "window_warm"
+   ]
+  },
+  {
+   "name": "sm_east_house_0",
+   "parent": "main_street",
+   "pivot_world_m": [
+    21.24,
+    -82.274,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    11.5,
+    7.95,
+    7.84
+   ],
+   "triangles": 180,
+   "materials": [
+    "frame_dark",
+    "roof_dark",
+    "stone_dark",
+    "glass_dark",
+    "window_warm",
+    "brick_dark",
+    "wood_dark",
+    "trim_dark"
+   ]
+  },
+  {
+   "name": "sm_east_house_1",
+   "parent": "main_street",
+   "pivot_world_m": [
+    21.24,
+    -100.203,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    11.5,
+    7.95,
+    9.24
+   ],
+   "triangles": 204,
+   "materials": [
+    "frame_dark",
+    "roof_dark",
+    "stone_dark",
+    "glass_dark",
+    "window_warm",
+    "brick_dark",
+    "wood_dark",
+    "trim_dark"
+   ]
+  },
+  {
+   "name": "sm_east_house_2",
+   "parent": "main_street",
+   "pivot_world_m": [
+    21.24,
+    -116.639,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    11.5,
+    7.95,
+    7.84
+   ],
+   "triangles": 180,
+   "materials": [
+    "frame_dark",
+    "roof_dark",
+    "stone_dark",
+    "glass_dark",
+    "window_warm",
+    "brick_dark",
+    "wood_dark",
+    "trim_dark"
+   ]
+  },
+  {
+   "name": "sm_lot604_shed",
+   "parent": "main_street",
+   "pivot_world_m": [
+    -15.24,
+    -129.09,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    12.42,
+    9.42,
+    7.46
+   ],
+   "triangles": 96,
+   "materials": [
+    "frame_dark",
+    "roof_dark",
+    "trim_dark",
+    "glass_dark"
+   ]
+  },
+  {
+   "name": "sm_lot605_livery",
+   "parent": "main_street",
+   "pivot_world_m": [
+    -15.24,
+    -114.647,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    15.42,
+    16.39,
+    10.11
+   ],
+   "triangles": 108,
+   "materials": [
+    "frame_dark",
+    "roof_dark",
+    "trim_dark",
+    "glass_dark",
+    "window_warm"
+   ]
+  },
+  {
+   "name": "sm_lot609_opera_house",
+   "parent": "main_street",
+   "pivot_world_m": [
+    -15.24,
+    -66.038,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    27.25,
+    14.58,
+    8.9
+   ],
+   "triangles": 312,
+   "materials": [
+    "brick_dark",
+    "trim_dark",
+    "glass_dark",
+    "window_warm"
+   ]
+  },
+  {
+   "name": "sm_lot611_shop",
+   "parent": "main_street",
+   "pivot_world_m": [
+    -15.24,
+    -54.583,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    13.25,
+    5.62,
+    5.2
+   ],
+   "triangles": 144,
+   "materials": [
+    "brick_dark",
+    "trim_dark",
+    "glass_dark",
+    "window_warm"
+   ]
+  },
+  {
+   "name": "sm_lot628_village_hall",
+   "parent": "main_street",
+   "pivot_world_m": [
+    15.24,
+    -66.337,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    18.25,
+    10.0,
+    8.9
+   ],
+   "triangles": 252,
+   "materials": [
+    "brick_dark",
+    "trim_dark",
+    "glass_dark",
+    "window_warm"
+   ]
+  },
+  {
+   "name": "sm_lot629_bottling",
+   "parent": "main_street",
+   "pivot_world_m": [
+    15.24,
+    -55.28,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    17.42,
+    8.42,
+    7.08
+   ],
+   "triangles": 108,
+   "materials": [
+    "frame_dark",
+    "roof_dark",
+    "trim_dark",
+    "glass_dark"
+   ]
+  },
+  {
+   "name": "sm_lot631_shop",
+   "parent": "main_street",
+   "pivot_world_m": [
+    15.24,
+    -30.578,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    12.25,
+    7.81,
+    5.2
+   ],
+   "triangles": 144,
+   "materials": [
+    "brick_dark",
+    "trim_dark",
+    "glass_dark",
+    "window_warm"
+   ]
+  },
+  {
+   "name": "sm_lot632_furniture",
+   "parent": "main_street",
+   "pivot_world_m": [
+    15.24,
+    -22.011,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    24.25,
+    8.61,
+    8.9
+   ],
+   "triangles": 240,
+   "materials": [
+    "brick_dark",
+    "trim_dark",
+    "glass_dark"
+   ]
+  },
+  {
+   "name": "sm_lot633_saloon",
+   "parent": "main_street",
+   "pivot_world_m": [
+    15.24,
+    -13.744,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    25.25,
+    7.61,
+    8.9
+   ],
+   "triangles": 240,
+   "materials": [
+    "brick_dark",
+    "trim_dark",
+    "glass_dark",
+    "window_warm"
+   ]
+  },
+  {
+   "name": "sm_stark_block",
+   "parent": "main_street",
+   "pivot_world_m": [
+    -15.24,
+    -24.203,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    34.25,
+    6.61,
+    8.9
+   ],
+   "triangles": 228,
+   "materials": [
+    "brick_dark",
+    "trim_dark",
+    "glass_dark",
+    "window_warm"
+   ]
+  },
+  {
+   "name": "street_ground",
+   "parent": "main_street",
+   "pivot_world_m": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    260.0,
+    246.79,
+    0.35
+   ],
+   "triangles": 96,
+   "materials": [
+    "ground_dark",
+    "road_dark",
+    "sidewalk"
+   ]
+  }
+ ],
+ "farm": [
+  {
+   "name": "barn",
+   "parent": "farm",
+   "pivot_world_m": [
+    14.0,
+    26.0,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    9.67,
+    12.9,
+    10.15
+   ],
+   "triangles": 128,
+   "materials": [
+    "frame_dark",
+    "roof_dark",
+    "stone_dark",
+    "wood_dark",
+    "metal_dark"
+   ]
+  },
+  {
+   "name": "farm",
+   "parent": null,
+   "pivot_world_m": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "type": "EMPTY"
+  },
+  {
+   "name": "farm_label_anchor",
+   "parent": "farm",
+   "pivot_world_m": [
+    0.0,
+    5.0,
+    14.0
+   ],
+   "type": "EMPTY"
+  },
+  {
+   "name": "farmhouse",
+   "parent": "farm",
+   "pivot_world_m": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "type": "EMPTY"
+  },
+  {
+   "name": "farmhouse_body",
+   "parent": "farmhouse",
+   "pivot_world_m": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    14.38,
+    12.91,
+    10.0
+   ],
+   "triangles": 252,
+   "materials": [
+    "frame_dark",
+    "roof_dark",
+    "stone_dark",
+    "glass_dark",
+    "brick_dark",
+    "wood_dark",
+    "trim_dark"
+   ]
+  },
+  {
+   "name": "machine_shed",
+   "parent": "farm",
+   "pivot_world_m": [
+    -14.0,
+    24.0,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    9.6,
+    6.6,
+    3.37
+   ],
+   "triangles": 36,
+   "materials": [
+    "frame_dark",
+    "roof_dark",
+    "glass_dark"
+   ]
+  },
+  {
+   "name": "privy",
+   "parent": "farm",
+   "pivot_world_m": [
+    -6.0,
+    30.0,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    1.88,
+    1.9,
+    2.62
+   ],
+   "triangles": 96,
+   "materials": [
+    "frame_dark",
+    "roof_dark",
+    "stone_dark",
+    "glass_dark"
+   ]
+  },
+  {
+   "name": "pump",
+   "parent": "farm",
+   "pivot_world_m": [
+    3.0,
+    12.0,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    1.0,
+    1.0,
+    1.41
+   ],
+   "triangles": 80,
+   "materials": [
+    "metal_dark",
+    "stone_dark"
+   ]
+  },
+  {
+   "name": "summer_kitchen_door",
+   "parent": "farm",
+   "pivot_world_m": [
+    -1.58,
+    16.5,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    0.05,
+    0.85,
+    1.98
+   ],
+   "triangles": 12,
+   "materials": [
+    "wood_dark"
+   ]
+  },
+  {
+   "name": "summer_kitchen_shed",
+   "parent": "farm",
+   "pivot_world_m": [
+    -2.0,
+    16.5,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    5.5,
+    4.36,
+    4.01
+   ],
+   "triangles": 108,
+   "materials": [
+    "frame_dark",
+    "roof_dark",
+    "stone_dark",
+    "glass_dark",
+    "metal_dark"
+   ]
+  },
+  {
+   "name": "woodshed",
+   "parent": "farm",
+   "pivot_world_m": [
+    6.0,
+    14.0,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    3.6,
+    4.6,
+    2.57
+   ],
+   "triangles": 36,
+   "materials": [
+    "frame_dark",
+    "roof_dark",
+    "glass_dark"
+   ]
+  }
+ ],
+ "tavern": [
+  {
+   "name": "tavern_body",
+   "parent": "tavern_generic",
+   "pivot_world_m": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    7.95,
+    13.8,
+    7.16
+   ],
+   "triangles": 176,
+   "materials": [
+    "frame_dark",
+    "roof_dark",
+    "stone_dark",
+    "glass_dark",
+    "window_warm",
+    "brick_dark",
+    "wood_dark"
+   ]
+  },
+  {
+   "name": "tavern_door",
+   "parent": "tavern_generic",
+   "pivot_world_m": [
+    -1.606,
+    0.0,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    0.95,
+    0.05,
+    2.08
+   ],
+   "triangles": 12,
+   "materials": [
+    "wood_dark"
+   ]
+  },
+  {
+   "name": "tavern_generic",
+   "parent": null,
+   "pivot_world_m": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "type": "EMPTY"
+  },
+  {
+   "name": "tavern_label_anchor",
+   "parent": "tavern_generic",
+   "pivot_world_m": [
+    0.0,
+    6.0,
+    9.0
+   ],
+   "type": "EMPTY"
+  },
+  {
+   "name": "tavern_light_pool",
+   "parent": "tavern_generic",
+   "pivot_world_m": [
+    0.5,
+    4.5,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    4.4,
+    4.4,
+    0.02
+   ],
+   "triangles": 92,
+   "materials": [
+    "red_glow"
+   ]
+  },
+  {
+   "name": "tavern_rear_shed",
+   "parent": "tavern_generic",
+   "pivot_world_m": [
+    0.0,
+    12.2,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    5.1,
+    4.6,
+    3.17
+   ],
+   "triangles": 36,
+   "materials": [
+    "frame_dark",
+    "roof_dark",
+    "glass_dark"
+   ]
+  }
+ ],
+ "grocery": [
+  {
+   "name": "grocery_body",
+   "parent": "grocery_generic",
+   "pivot_world_m": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    8.2,
+    15.1,
+    6.82
+   ],
+   "triangles": 168,
+   "materials": [
+    "frame_dark",
+    "roof_dark",
+    "trim_dark",
+    "glass_dark",
+    "window_warm",
+    "wood_dark"
+   ]
+  },
+  {
+   "name": "grocery_door",
+   "parent": "grocery_generic",
+   "pivot_world_m": [
+    -0.5,
+    0.0,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    1.0,
+    0.07,
+    2.18
+   ],
+   "triangles": 24,
+   "materials": [
+    "wood_dark",
+    "window_warm"
+   ]
+  },
+  {
+   "name": "grocery_generic",
+   "parent": null,
+   "pivot_world_m": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "type": "EMPTY"
+  },
+  {
+   "name": "grocery_label_anchor",
+   "parent": "grocery_generic",
+   "pivot_world_m": [
+    0.0,
+    6.0,
+    9.824
+   ],
+   "type": "EMPTY"
+  },
+  {
+   "name": "grocery_side_shed",
+   "parent": "grocery_generic",
+   "pivot_world_m": [
+    5.4,
+    4.0,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    6.6,
+    4.1,
+    3.17
+   ],
+   "triangles": 36,
+   "materials": [
+    "frame_dark",
+    "roof_dark",
+    "glass_dark"
+   ]
+  }
+ ],
+ "cemetery": [
+  {
+   "name": "cemetery_fence_segment",
+   "parent": "cemetery_props",
+   "pivot_world_m": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    2.47,
+    0.12,
+    1.3
+   ],
+   "triangles": 540,
+   "materials": [
+    "metal_dark"
+   ]
+  },
+  {
+   "name": "cemetery_gate",
+   "parent": "cemetery_props",
+   "pivot_world_m": [
+    0.0,
+    -4.0,
+    0.0
+   ],
+   "type": "EMPTY"
+  },
+  {
+   "name": "cemetery_gate_leaf_left",
+   "parent": "cemetery_gate",
+   "pivot_world_m": [
+    -1.5,
+    -4.0,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    1.48,
+    0.05,
+    1.44
+   ],
+   "triangles": 168,
+   "materials": [
+    "metal_dark"
+   ]
+  },
+  {
+   "name": "cemetery_gate_leaf_right",
+   "parent": "cemetery_gate",
+   "pivot_world_m": [
+    1.5,
+    -4.0,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    1.48,
+    0.05,
+    1.44
+   ],
+   "triangles": 168,
+   "materials": [
+    "metal_dark"
+   ]
+  },
+  {
+   "name": "cemetery_gate_pier_left",
+   "parent": "cemetery_gate",
+   "pivot_world_m": [
+    -1.72,
+    -4.0,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    0.56,
+    0.56,
+    2.13
+   ],
+   "triangles": 88,
+   "materials": [
+    "stone_dark"
+   ]
+  },
+  {
+   "name": "cemetery_gate_pier_right",
+   "parent": "cemetery_gate",
+   "pivot_world_m": [
+    1.72,
+    -4.0,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    0.56,
+    0.56,
+    2.13
+   ],
+   "triangles": 88,
+   "materials": [
+    "stone_dark"
+   ]
+  },
+  {
+   "name": "cemetery_props",
+   "parent": null,
+   "pivot_world_m": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "type": "EMPTY"
+  },
+  {
+   "name": "stone_flat_marker",
+   "parent": "cemetery_props",
+   "pivot_world_m": [
+    7.8,
+    0.0,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    0.6,
+    0.3,
+    0.1
+   ],
+   "triangles": 12,
+   "materials": [
+    "stone_dark"
+   ]
+  },
+  {
+   "name": "stone_low_family",
+   "parent": "cemetery_props",
+   "pivot_world_m": [
+    9.4,
+    0.0,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    1.42,
+    0.32,
+    0.72
+   ],
+   "triangles": 24,
+   "materials": [
+    "stone_dark"
+   ]
+  },
+  {
+   "name": "stone_obelisk",
+   "parent": "cemetery_props",
+   "pivot_world_m": [
+    6.2,
+    0.0,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    0.64,
+    0.64,
+    1.9
+   ],
+   "triangles": 46,
+   "materials": [
+    "stone_dark"
+   ]
+  },
+  {
+   "name": "stone_slab_round",
+   "parent": "cemetery_props",
+   "pivot_world_m": [
+    3.0,
+    0.0,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    0.76,
+    0.28,
+    1.05
+   ],
+   "triangles": 68,
+   "materials": [
+    "stone_dark"
+   ]
+  },
+  {
+   "name": "stone_slab_square",
+   "parent": "cemetery_props",
+   "pivot_world_m": [
+    4.6,
+    0.0,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    0.66,
+    0.32,
+    1.02
+   ],
+   "triangles": 36,
+   "materials": [
+    "stone_dark"
+   ]
+  }
+ ],
+ "vehicles": [
+  {
+   "name": "ford49_body",
+   "parent": "ford49_sedan",
+   "pivot_world_m": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    5.36,
+    1.82,
+    1.26
+   ],
+   "triangles": 652,
+   "materials": [
+    "car_maroon",
+    "glass_dark",
+    "chrome_dim",
+    "lamp_off",
+    "tail_lamp"
+   ]
+  },
+  {
+   "name": "ford49_door_left",
+   "parent": "ford49_sedan",
+   "pivot_world_m": [
+    0.58,
+    0.911,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    1.12,
+    0.03,
+    0.61
+   ],
+   "triangles": 24,
+   "materials": [
+    "car_maroon",
+    "chrome_dim"
+   ]
+  },
+  {
+   "name": "ford49_door_right",
+   "parent": "ford49_sedan",
+   "pivot_world_m": [
+    0.58,
+    -0.911,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    1.12,
+    0.03,
+    0.61
+   ],
+   "triangles": 24,
+   "materials": [
+    "car_maroon",
+    "chrome_dim"
+   ]
+  },
+  {
+   "name": "ford49_sedan",
+   "parent": "vehicles",
+   "pivot_world_m": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "type": "EMPTY"
+  },
+  {
+   "name": "ford49_wheel_front_left",
+   "parent": "ford49_sedan",
+   "pivot_world_m": [
+    1.448,
+    0.75,
+    0.35
+   ],
+   "type": "MESH",
+   "size_m": [
+    0.7,
+    0.21,
+    0.7
+   ],
+   "triangles": 104,
+   "materials": [
+    "rubber",
+    "chrome_dim"
+   ]
+  },
+  {
+   "name": "ford49_wheel_front_right",
+   "parent": "ford49_sedan",
+   "pivot_world_m": [
+    1.448,
+    -0.75,
+    0.35
+   ],
+   "type": "MESH",
+   "size_m": [
+    0.7,
+    0.21,
+    0.7
+   ],
+   "triangles": 104,
+   "materials": [
+    "rubber",
+    "chrome_dim"
+   ]
+  },
+  {
+   "name": "ford49_wheel_rear_left",
+   "parent": "ford49_sedan",
+   "pivot_world_m": [
+    -1.448,
+    0.75,
+    0.35
+   ],
+   "type": "MESH",
+   "size_m": [
+    0.7,
+    0.21,
+    0.7
+   ],
+   "triangles": 104,
+   "materials": [
+    "rubber",
+    "chrome_dim"
+   ]
+  },
+  {
+   "name": "ford49_wheel_rear_right",
+   "parent": "ford49_sedan",
+   "pivot_world_m": [
+    -1.448,
+    -0.75,
+    0.35
+   ],
+   "type": "MESH",
+   "size_m": [
+    0.7,
+    0.21,
+    0.7
+   ],
+   "triangles": 104,
+   "materials": [
+    "rubber",
+    "chrome_dim"
+   ]
+  },
+  {
+   "name": "pickup_body",
+   "parent": "pickup_generic",
+   "pivot_world_m": [
+    0.0,
+    4.0,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    5.04,
+    1.9,
+    1.53
+   ],
+   "triangles": 576,
+   "materials": [
+    "car_dark",
+    "glass_dark",
+    "metal_dark",
+    "chrome_dim",
+    "lamp_off",
+    "tail_lamp"
+   ]
+  },
+  {
+   "name": "pickup_door_left",
+   "parent": "pickup_generic",
+   "pivot_world_m": [
+    0.6,
+    4.905,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    1.15,
+    0.02,
+    0.65
+   ],
+   "triangles": 12,
+   "materials": [
+    "car_dark"
+   ]
+  },
+  {
+   "name": "pickup_door_right",
+   "parent": "pickup_generic",
+   "pivot_world_m": [
+    0.6,
+    3.095,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    1.15,
+    0.02,
+    0.65
+   ],
+   "triangles": 12,
+   "materials": [
+    "car_dark"
+   ]
+  },
+  {
+   "name": "pickup_generic",
+   "parent": "vehicles",
+   "pivot_world_m": [
+    0.0,
+    4.0,
+    0.0
+   ],
+   "type": "EMPTY"
+  },
+  {
+   "name": "pickup_tailgate",
+   "parent": "pickup_generic",
+   "pivot_world_m": [
+    -2.62,
+    4.0,
+    0.72
+   ],
+   "type": "MESH",
+   "size_m": [
+    0.04,
+    1.32,
+    0.48
+   ],
+   "triangles": 12,
+   "materials": [
+    "car_dark"
+   ]
+  },
+  {
+   "name": "pickup_wheel_front_left",
+   "parent": "pickup_generic",
+   "pivot_world_m": [
+    1.397,
+    4.79,
+    0.37
+   ],
+   "type": "MESH",
+   "size_m": [
+    0.74,
+    0.2,
+    0.74
+   ],
+   "triangles": 104,
+   "materials": [
+    "rubber",
+    "chrome_dim"
+   ]
+  },
+  {
+   "name": "pickup_wheel_front_right",
+   "parent": "pickup_generic",
+   "pivot_world_m": [
+    1.397,
+    3.21,
+    0.37
+   ],
+   "type": "MESH",
+   "size_m": [
+    0.74,
+    0.19,
+    0.74
+   ],
+   "triangles": 104,
+   "materials": [
+    "rubber",
+    "chrome_dim"
+   ]
+  },
+  {
+   "name": "pickup_wheel_rear_left",
+   "parent": "pickup_generic",
+   "pivot_world_m": [
+    -1.397,
+    4.79,
+    0.37
+   ],
+   "type": "MESH",
+   "size_m": [
+    0.74,
+    0.2,
+    0.74
+   ],
+   "triangles": 104,
+   "materials": [
+    "rubber",
+    "chrome_dim"
+   ]
+  },
+  {
+   "name": "pickup_wheel_rear_right",
+   "parent": "pickup_generic",
+   "pivot_world_m": [
+    -1.397,
+    3.21,
+    0.37
+   ],
+   "type": "MESH",
+   "size_m": [
+    0.74,
+    0.19,
+    0.74
+   ],
+   "triangles": 104,
+   "materials": [
+    "rubber",
+    "chrome_dim"
+   ]
+  },
+  {
+   "name": "police_car_body",
+   "parent": "police_car_generic",
+   "pivot_world_m": [
+    0.0,
+    -4.0,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    5.36,
+    1.93,
+    1.28
+   ],
+   "triangles": 580,
+   "materials": [
+    "car_black",
+    "glass_dark",
+    "chrome_dim",
+    "metal_dark",
+    "lamp_off",
+    "tail_lamp"
+   ]
+  },
+  {
+   "name": "police_car_door_front_left",
+   "parent": "police_car_generic",
+   "pivot_world_m": [
+    0.72,
+    -3.032,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    1.1,
+    0.02,
+    0.58
+   ],
+   "triangles": 12,
+   "materials": [
+    "car_light"
+   ]
+  },
+  {
+   "name": "police_car_door_front_right",
+   "parent": "police_car_generic",
+   "pivot_world_m": [
+    0.72,
+    -4.968,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    1.1,
+    0.02,
+    0.58
+   ],
+   "triangles": 12,
+   "materials": [
+    "car_light"
+   ]
+  },
+  {
+   "name": "police_car_door_rear_left",
+   "parent": "police_car_generic",
+   "pivot_world_m": [
+    -0.42,
+    -3.032,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    1.0,
+    0.02,
+    0.58
+   ],
+   "triangles": 12,
+   "materials": [
+    "car_light"
+   ]
+  },
+  {
+   "name": "police_car_door_rear_right",
+   "parent": "police_car_generic",
+   "pivot_world_m": [
+    -0.42,
+    -4.968,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    1.0,
+    0.02,
+    0.58
+   ],
+   "triangles": 12,
+   "materials": [
+    "car_light"
+   ]
+  },
+  {
+   "name": "police_car_generic",
+   "parent": "vehicles",
+   "pivot_world_m": [
+    0.0,
+    -4.0,
+    0.0
+   ],
+   "type": "EMPTY"
+  },
+  {
+   "name": "police_car_roof_lamp",
+   "parent": "police_car_generic",
+   "pivot_world_m": [
+    -0.35,
+    -4.0,
+    1.6
+   ],
+   "type": "MESH",
+   "size_m": [
+    0.19,
+    0.2,
+    0.21
+   ],
+   "triangles": 116,
+   "materials": [
+    "police_blue",
+    "metal_dark"
+   ]
+  },
+  {
+   "name": "police_car_wheel_front_left",
+   "parent": "police_car_generic",
+   "pivot_world_m": [
+    1.467,
+    -3.2,
+    0.35
+   ],
+   "type": "MESH",
+   "size_m": [
+    0.7,
+    0.2,
+    0.7
+   ],
+   "triangles": 104,
+   "materials": [
+    "rubber",
+    "chrome_dim"
+   ]
+  },
+  {
+   "name": "police_car_wheel_front_right",
+   "parent": "police_car_generic",
+   "pivot_world_m": [
+    1.467,
+    -4.8,
+    0.35
+   ],
+   "type": "MESH",
+   "size_m": [
+    0.7,
+    0.2,
+    0.7
+   ],
+   "triangles": 104,
+   "materials": [
+    "rubber",
+    "chrome_dim"
+   ]
+  },
+  {
+   "name": "police_car_wheel_rear_left",
+   "parent": "police_car_generic",
+   "pivot_world_m": [
+    -1.467,
+    -3.2,
+    0.35
+   ],
+   "type": "MESH",
+   "size_m": [
+    0.7,
+    0.2,
+    0.7
+   ],
+   "triangles": 104,
+   "materials": [
+    "rubber",
+    "chrome_dim"
+   ]
+  },
+  {
+   "name": "police_car_wheel_rear_right",
+   "parent": "police_car_generic",
+   "pivot_world_m": [
+    -1.467,
+    -4.8,
+    0.35
+   ],
+   "type": "MESH",
+   "size_m": [
+    0.7,
+    0.2,
+    0.7
+   ],
+   "triangles": 104,
+   "materials": [
+    "rubber",
+    "chrome_dim"
+   ]
+  },
+  {
+   "name": "vehicles",
+   "parent": null,
+   "pivot_world_m": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "type": "EMPTY"
+  }
+ ],
+ "lights": [
+  {
+   "name": "flood_lamp",
+   "parent": "lights",
+   "pivot_world_m": [
+    2.0,
+    0.0,
+    0.0
+   ],
+   "type": "EMPTY"
+  },
+  {
+   "name": "flood_lamp_head",
+   "parent": "flood_lamp",
+   "pivot_world_m": [
+    2.0,
+    0.0,
+    2.5
+   ],
+   "type": "MESH",
+   "size_m": [
+    0.24,
+    0.42,
+    0.34
+   ],
+   "triangles": 100,
+   "materials": [
+    "metal_dark",
+    "lamp_warm"
+   ]
+  },
+  {
+   "name": "flood_lamp_stand",
+   "parent": "flood_lamp",
+   "pivot_world_m": [
+    2.0,
+    0.0,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    1.08,
+    1.24,
+    2.38
+   ],
+   "triangles": 80,
+   "materials": [
+    "metal_dark"
+   ]
+  },
+  {
+   "name": "generator",
+   "parent": "lights",
+   "pivot_world_m": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    1.5,
+    0.8,
+    1.05
+   ],
+   "triangles": 136,
+   "materials": [
+    "metal_dark"
+   ]
+  },
+  {
+   "name": "lights",
+   "parent": null,
+   "pivot_world_m": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "type": "EMPTY"
+  }
+ ],
+ "props": [
+  {
+   "name": "board_fence_segment",
+   "parent": "props",
+   "pivot_world_m": [
+    5.0,
+    6.0,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    2.55,
+    0.13,
+    1.3
+   ],
+   "triangles": 60,
+   "materials": [
+    "wood_dark"
+   ]
+  },
+  {
+   "name": "farm_wire_fence_segment",
+   "parent": "props",
+   "pivot_world_m": [
+    0.0,
+    6.0,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    3.1,
+    0.12,
+    1.25
+   ],
+   "triangles": 76,
+   "materials": [
+    "wood_dark",
+    "metal_dark"
+   ]
+  },
+  {
+   "name": "props",
+   "parent": null,
+   "pivot_world_m": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "type": "EMPTY"
+  },
+  {
+   "name": "tree_bare_elm",
+   "parent": "props",
+   "pivot_world_m": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    5.58,
+    3.53,
+    14.84
+   ],
+   "triangles": 820,
+   "materials": [
+    "bark"
+   ]
+  },
+  {
+   "name": "tree_bare_oak",
+   "parent": "props",
+   "pivot_world_m": [
+    10.0,
+    0.0,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    5.94,
+    4.76,
+    12.2
+   ],
+   "triangles": 820,
+   "materials": [
+    "bark"
+   ]
+  },
+  {
+   "name": "tree_bare_small",
+   "parent": "props",
+   "pivot_world_m": [
+    18.0,
+    0.0,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    2.74,
+    2.0,
+    6.56
+   ],
+   "triangles": 820,
+   "materials": [
+    "bark"
+   ]
+  },
+  {
+   "name": "utility_pole",
+   "parent": "props",
+   "pivot_world_m": [
+    25.0,
+    0.0,
+    0.0
+   ],
+   "type": "EMPTY"
+  },
+  {
+   "name": "utility_pole_body",
+   "parent": "utility_pole",
+   "pivot_world_m": [
+    25.0,
+    0.0,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    2.4,
+    0.3,
+    9.1
+   ],
+   "triangles": 144,
+   "materials": [
+    "wood_dark",
+    "metal_dark",
+    "lamp_off"
+   ]
+  },
+  {
+   "name": "utility_pole_wire_0",
+   "parent": "utility_pole",
+   "pivot_world_m": [
+    23.95,
+    0.0,
+    8.78
+   ],
+   "type": "EMPTY"
+  },
+  {
+   "name": "utility_pole_wire_1",
+   "parent": "utility_pole",
+   "pivot_world_m": [
+    24.55,
+    0.0,
+    8.78
+   ],
+   "type": "EMPTY"
+  },
+  {
+   "name": "utility_pole_wire_2",
+   "parent": "utility_pole",
+   "pivot_world_m": [
+    25.45,
+    0.0,
+    8.78
+   ],
+   "type": "EMPTY"
+  },
+  {
+   "name": "utility_pole_wire_3",
+   "parent": "utility_pole",
+   "pivot_world_m": [
+    26.05,
+    0.0,
+    8.78
+   ],
+   "type": "EMPTY"
+  }
+ ],
+ "people": [
+  {
+   "name": "man_entering_doorway",
+   "parent": "people",
+   "pivot_world_m": [
+    0.0,
+    4.8,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    1.13,
+    0.55,
+    1.78
+   ],
+   "triangles": 368,
+   "materials": [
+    "silhouette"
+   ]
+  },
+  {
+   "name": "people",
+   "parent": null,
+   "pivot_world_m": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "type": "EMPTY"
+  },
+  {
+   "name": "police_flashlight",
+   "parent": "people",
+   "pivot_world_m": [
+    0.0,
+    1.2,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    0.94,
+    0.55,
+    1.8
+   ],
+   "triangles": 380,
+   "materials": [
+    "silhouette"
+   ]
+  },
+  {
+   "name": "police_hands_on_hips",
+   "parent": "people",
+   "pivot_world_m": [
+    0.0,
+    3.6,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    0.39,
+    0.8,
+    1.8
+   ],
+   "triangles": 360,
+   "materials": [
+    "silhouette"
+   ]
+  },
+  {
+   "name": "police_standing",
+   "parent": "people",
+   "pivot_world_m": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    0.39,
+    0.55,
+    1.8
+   ],
+   "triangles": 360,
+   "materials": [
+    "silhouette"
+   ]
+  },
+  {
+   "name": "police_walking",
+   "parent": "people",
+   "pivot_world_m": [
+    0.0,
+    2.4,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    0.91,
+    0.55,
+    1.78
+   ],
+   "triangles": 360,
+   "materials": [
+    "silhouette"
+   ]
+  },
+  {
+   "name": "townsperson_pointing",
+   "parent": "people",
+   "pivot_world_m": [
+    0.0,
+    8.4,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    0.75,
+    0.55,
+    1.82
+   ],
+   "triangles": 368,
+   "materials": [
+    "silhouette"
+   ]
+  },
+  {
+   "name": "townsperson_standing",
+   "parent": "people",
+   "pivot_world_m": [
+    0.0,
+    6.0,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    0.44,
+    0.55,
+    1.82
+   ],
+   "triangles": 368,
+   "materials": [
+    "silhouette"
+   ]
+  },
+  {
+   "name": "townsperson_walking",
+   "parent": "people",
+   "pivot_world_m": [
+    0.0,
+    7.2,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    0.91,
+    0.55,
+    1.81
+   ],
+   "triangles": 368,
+   "materials": [
+    "silhouette"
+   ]
+  }
+ ],
+ "terrain": [
+  {
+   "name": "terrain",
+   "parent": null,
+   "pivot_world_m": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "type": "MESH",
+   "size_m": [
+    39869.37,
+    55566.0,
+    29.99
+   ],
+   "triangles": 45056,
+   "materials": [
+    "terrain_dark"
+   ]
+  }
+ ]
+}

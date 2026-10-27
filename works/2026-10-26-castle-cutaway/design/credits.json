@@ -1,0 +1,299 @@
+{
+ "note": "Built with CC0 assets from Poly Haven (models, textures, HDRIs) and CC0 Freesound recordings. Nothing here is hand-modelled except the castle architecture.",
+ "polyhaven": [
+  {
+   "kind": "model",
+   "id": "fir_tree_01",
+   "source": "https://polyhaven.com/a/fir_tree_01",
+   "license": "CC0"
+  },
+  {
+   "kind": "model",
+   "id": "island_tree_01",
+   "source": "https://polyhaven.com/a/island_tree_01",
+   "license": "CC0"
+  },
+  {
+   "kind": "model",
+   "id": "shrub_01",
+   "source": "https://polyhaven.com/a/shrub_01",
+   "license": "CC0"
+  },
+  {
+   "kind": "model",
+   "id": "shrub_02",
+   "source": "https://polyhaven.com/a/shrub_02",
+   "license": "CC0"
+  },
+  {
+   "kind": "model",
+   "id": "grass_medium_01",
+   "source": "https://polyhaven.com/a/grass_medium_01",
+   "license": "CC0"
+  },
+  {
+   "kind": "model",
+   "id": "boulder_01",
+   "source": "https://polyhaven.com/a/boulder_01",
+   "license": "CC0"
+  },
+  {
+   "kind": "model",
+   "id": "coast_land_rocks_02",
+   "source": "https://polyhaven.com/a/coast_land_rocks_02",
+   "license": "CC0"
+  },
+  {
+   "kind": "model",
+   "id": "barrel_03",
+   "source": "https://polyhaven.com/a/barrel_03",
+   "license": "CC0"
+  },
+  {
+   "kind": "model",
+   "id": "wooden_crate_01",
+   "source": "https://polyhaven.com/a/wooden_crate_01",
+   "license": "CC0"
+  },
+  {
+   "kind": "model",
+   "id": "wooden_crate_02",
+   "source": "https://polyhaven.com/a/wooden_crate_02",
+   "license": "CC0"
+  },
+  {
+   "kind": "model",
+   "id": "wooden_bucket_01",
+   "source": "https://polyhaven.com/a/wooden_bucket_01",
+   "license": "CC0"
+  },
+  {
+   "kind": "model",
+   "id": "wooden_bucket_02",
+   "source": "https://polyhaven.com/a/wooden_bucket_02",
+   "license": "CC0"
+  },
+  {
+   "kind": "texture",
+   "id": "thatch_roof_angled",
+   "source": "https://polyhaven.com/a/thatch_roof_angled",
+   "license": "CC0"
+  },
+  {
+   "kind": "texture",
+   "id": "wood_planks_dirt",
+   "source": "https://polyhaven.com/a/wood_planks_dirt",
+   "license": "CC0"
+  },
+  {
+   "kind": "texture",
+   "id": "weathered_planks",
+   "source": "https://polyhaven.com/a/weathered_planks",
+   "license": "CC0"
+  },
+  {
+   "kind": "texture",
+   "id": "weathered_brown_planks",
+   "source": "https://polyhaven.com/a/weathered_brown_planks",
+   "license": "CC0"
+  },
+  {
+   "kind": "texture",
+   "id": "cobblestone_floor_04",
+   "source": "https://polyhaven.com/a/cobblestone_floor_04",
+   "license": "CC0"
+  },
+  {
+   "kind": "texture",
+   "id": "rustic_stone_wall_02",
+   "source": "https://polyhaven.com/a/rustic_stone_wall_02",
+   "license": "CC0"
+  },
+  {
+   "kind": "texture",
+   "id": "castle_wall_slates",
+   "source": "https://polyhaven.com/a/castle_wall_slates",
+   "license": "CC0"
+  },
+  {
+   "kind": "texture",
+   "id": "painted_plaster_wall",
+   "source": "https://polyhaven.com/a/painted_plaster_wall",
+   "license": "CC0"
+  },
+  {
+   "kind": "texture",
+   "id": "white_plaster_02",
+   "source": "https://polyhaven.com/a/white_plaster_02",
+   "license": "CC0"
+  },
+  {
+   "kind": "texture",
+   "id": "brown_mud_leaves_01",
+   "source": "https://polyhaven.com/a/brown_mud_leaves_01",
+   "license": "CC0"
+  },
+  {
+   "kind": "texture",
+   "id": "rock_face_03",
+   "source": "https://polyhaven.com/a/rock_face_03",
+   "license": "CC0"
+  },
+  {
+   "kind": "texture",
+   "id": "leafy_grass",
+   "source": "https://polyhaven.com/a/leafy_grass",
+   "license": "CC0"
+  },
+  {
+   "kind": "model",
+   "id": "GothicBed_01",
+   "source": "https://polyhaven.com/a/GothicBed_01",
+   "license": "CC0"
+  },
+  {
+   "kind": "model",
+   "id": "GothicCabinet_01",
+   "source": "https://polyhaven.com/a/GothicCabinet_01",
+   "license": "CC0"
+  },
+  {
+   "kind": "model",
+   "id": "wooden_stool_01",
+   "source": "https://polyhaven.com/a/wooden_stool_01",
+   "license": "CC0"
+  },
+  {
+   "kind": "model",
+   "id": "lantern_chandelier_01",
+   "source": "https://polyhaven.com/a/lantern_chandelier_01",
+   "license": "CC0"
+  },
+  {
+   "kind": "model",
+   "id": "treasure_chest",
+   "source": "https://polyhaven.com/a/treasure_chest",
+   "license": "CC0"
+  },
+  {
+   "kind": "model",
+   "id": "jug_01",
+   "source": "https://polyhaven.com/a/jug_01",
+   "license": "CC0"
+  },
+  {
+   "kind": "model",
+   "id": "carved_wooden_plate",
+   "source": "https://polyhaven.com/a/carved_wooden_plate",
+   "license": "CC0"
+  },
+  {
+   "kind": "model",
+   "id": "wooden_candlestick",
+   "source": "https://polyhaven.com/a/wooden_candlestick",
+   "license": "CC0"
+  },
+  {
+   "kind": "texture",
+   "id": "roof_slates_03",
+   "source": "https://polyhaven.com/a/roof_slates_03",
+   "license": "CC0"
+  },
+  {
+   "kind": "texture",
+   "id": "monastery_stone_floor",
+   "source": "https://polyhaven.com/a/monastery_stone_floor",
+   "license": "CC0"
+  },
+  {
+   "kind": "texture",
+   "id": "hessian_230",
+   "source": "https://polyhaven.com/a/hessian_230",
+   "license": "CC0"
+  },
+  {
+   "kind": "hdri",
+   "id": "belfast_sunset_puresky",
+   "source": "https://polyhaven.com/a/belfast_sunset_puresky",
+   "license": "CC0"
+  },
+  {
+   "kind": "hdri",
+   "id": "overcast_soil_puresky",
+   "source": "https://polyhaven.com/a/overcast_soil_puresky",
+   "license": "CC0"
+  }
+ ],
+ "sound": [
+  {
+   "role": "chain",
+   "file": "199282_qubodup.ogg",
+   "page": "https://freesound.org/people/qubodup/sounds/199282/",
+   "author": "qubodup",
+   "license": "Creative Commons 0"
+  },
+  {
+   "role": "bell",
+   "file": "266525_ivolipa.ogg",
+   "page": "https://freesound.org/people/ivolipa/sounds/266525/",
+   "author": "ivolipa",
+   "license": "Creative Commons 0"
+  },
+  {
+   "role": "thud",
+   "file": "216872_CastIronCarousel.ogg",
+   "page": "https://freesound.org/people/CastIronCarousel/sounds/216872/",
+   "author": "CastIronCarousel",
+   "license": "Creative Commons 0"
+  },
+  {
+   "role": "gate",
+   "file": "767058_ThabzMalik.ogg",
+   "page": "https://freesound.org/people/ThabzMalik/sounds/767058/",
+   "author": "ThabzMalik",
+   "license": "Creative Commons 0"
+  },
+  {
+   "role": "birds",
+   "file": "548489_joakgust.ogg",
+   "page": "https://freesound.org/people/joakgust/sounds/548489/",
+   "author": "joakgust",
+   "license": "CC0-1.0"
+  },
+  {
+   "role": "wind",
+   "file": "459977_florianreichelt.ogg",
+   "page": "https://freesound.org/people/florianreichelt/sounds/459977/",
+   "author": "florianreichelt",
+   "license": "CC0-1.0"
+  },
+  {
+   "role": "fire",
+   "file": "387924_Aegersum.ogg",
+   "page": "https://freesound.org/people/Aegersum/sounds/387924/",
+   "author": "Aegersum",
+   "license": "CC0-1.0"
+  },
+  {
+   "role": "fire",
+   "file": "186374_samararaine.ogg",
+   "page": "https://freesound.org/people/samararaine/sounds/186374/",
+   "author": "samararaine",
+   "license": "CC0-1.0"
+  },
+  {
+   "role": "water",
+   "file": "789505_YouMightLikeThis.ogg",
+   "page": "https://freesound.org/people/YouMightLikeThis/sounds/789505/",
+   "author": "YouMightLikeThis",
+   "license": "CC0-1.0"
+  },
+  {
+   "role": "water",
+   "file": "423959_pillwave.ogg",
+   "page": "https://freesound.org/people/pillwave/sounds/423959/",
+   "author": "pillwave",
+   "license": "CC0-1.0"
+  }
+ ]
+}

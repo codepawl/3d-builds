@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Shirayu Onsen</title>
+    <link rel="icon" href="data:," />
+    <style>
+      :root {
+        --ink: rgba(255, 255, 255, 0.94);
+        --ink-soft: rgba(255, 255, 255, 0.68);
+        --glass: rgba(18, 22, 30, 0.38);
+        --glass-strong: rgba(18, 22, 30, 0.55);
+        --pressed: rgba(255, 255, 255, 0.18);
+        --hover: rgba(255, 255, 255, 0.1);
+        --background: #0d1016;
+        color-scheme: dark;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+        background: var(--background);
+        font-family: "Hiragino Mincho ProN", "Yu Mincho", Georgia, "Times New Roman", serif;
+        color: var(--ink);
+      }
+      #scene-canvas {
+        position: fixed;
+        inset: 0;
+        display: block;
+        touch-action: none;
+        cursor: grab;
+      }
+      #scene-canvas:active {
+        cursor: grabbing;
+      }
+      .place-title {
+        position: fixed;
+        top: max(18px, env(safe-area-inset-top));
+        left: max(20px, env(safe-area-inset-left));
+        pointer-events: none;
+        user-select: none;
+        text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
+      }
+      .place-title h1 {
+        margin: 0;
+        font-size: 22px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+      }
+      .place-title p {
+        margin: 4px 0 0;
+        font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+        font-size: 13px;
+        color: var(--ink-soft);
+      }
+      .toolbar {
+        position: fixed;
+        top: max(16px, env(safe-area-inset-top));
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        padding: 4px;
+        border-radius: 999px;
+        background: var(--glass);
+        backdrop-filter: blur(14px) saturate(1.2);
+        -webkit-backdrop-filter: blur(14px) saturate(1.2);
+        font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+        user-select: none;
+      }
+      .toolbar-group {
+        display: flex;
+        gap: 2px;
+      }
+      .toolbar-group + .toolbar-group {
+        margin-left: 10px;
+      }
+      .toolbar button {
+        appearance: none;
+        border: 0;
+        margin: 0;
+        padding: 7px 13px;
+        border-radius: 999px;
+        background: transparent;
+        color: var(--ink-soft);
+        font: inherit;
+        font-size: 13px;
+        line-height: 1;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: background-color 160ms ease, color 160ms ease;
+      }
+      .toolbar button:hover {
+        background: var(--hover);
+        color: var(--ink);
+      }
+      .toolbar button[aria-pressed="true"] {
+        background: var(--pressed);
+        color: var(--ink);
+      }
+      .toolbar button:focus-visible {
+        outline: 2px solid rgba(255, 255, 255, 0.7);
+        outline-offset: 1px;
+      }
+      .hint {
+        position: fixed;
+        bottom: max(16px, env(safe-area-inset-bottom));
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+        font-size: 12px;
+        color: var(--ink-soft);
+        text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+        pointer-events: none;
+        user-select: none;
+        white-space: nowrap;
+        transition: opacity 600ms ease;
+      }
+      .loading {
+        position: fixed;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        background: var(--background);
+        transition: opacity 700ms ease;
+        pointer-events: none;
+      }
+      .loading p {
+        margin: 0;
+        font-size: 15px;
+        color: var(--ink-soft);
+        letter-spacing: 0.04em;
+      }
+      body.is-capture *,
+      body.is-capture *::before {
+        transition: none !important;
+      }
+      body.is-loaded .loading {
+        opacity: 0;
+      }
+      @media (max-width: 720px) {
+        .place-title {
+          top: auto;
+          bottom: max(18px, env(safe-area-inset-bottom));
+          left: 16px;
+        }
+        .place-title h1 {
+          font-size: 19px;
+        }
+        .place-title p {
+          font-size: 12px;
+        }
+        .toolbar {
+          top: max(12px, env(safe-area-inset-top));
+          left: 16px;
+          right: 16px;
+          transform: none;
+          justify-content: center;
+          flex-wrap: wrap;
+          border-radius: 20px;
+        }
+        .toolbar-group + .toolbar-group {
+          margin-left: 0;
+        }
+        .toolbar button {
+          padding: 8px 11px;
+          font-size: 13px;
+        }
+        .hint {
+          display: none;
+        }
+      }
+    </style>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "./node_modules/three/build/three.module.js",
+          "three/addons/": "./node_modules/three/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <canvas id="scene-canvas" aria-label="Outdoor hot spring beside a ryokan in the snow"></canvas>
+    <header class="place-title">
+      <h1>Shirayu Onsen</h1>
+      <p>Rotenburo behind a nine-room ryokan, Okuhida, 1,180 m</p>
+    </header>
+    <nav class="toolbar" aria-label="View">
+      <div class="toolbar-group">
+        <button id="btn-dslr" type="button" aria-pressed="true" title="DSLR look (C)">DSLR</button>
+        <button id="btn-dof" type="button" aria-pressed="true" title="Depth of field (F)">DOF</button>
+      </div>
+      <div class="toolbar-group">
+        <button type="button" data-preset="morning" aria-pressed="true" title="Morning (1)">Morning</button>
+        <button type="button" data-preset="golden" aria-pressed="false" title="Golden hour (2)">Golden</button>
+        <button type="button" data-preset="blue" aria-pressed="false" title="Blue hour (3)">Blue hour</button>
+        <button type="button" data-preset="night" aria-pressed="false" title="Night (4)">Night</button>
+      </div>
+    </nav>
+    <p class="hint">Drag to look · scroll to walk the path · WASD to wander</p>
+    <div class="loading"><p id="loading-label">Warming the water…</p></div>
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

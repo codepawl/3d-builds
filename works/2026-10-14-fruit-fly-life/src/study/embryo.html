@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Embryo study</title><style>html, body { margin: 0; background: #111; }</style></head>
+<body>
+<canvas id="film" width="1080" height="1080"></canvas>
+<script src="../src/ink.js"></script>
+<script src="../src/embryo.js"></script>
+<script>
+  "use strict";
+  // Piece 2: the egg blueprint beat on its own, 5 seconds.
+  const context = document.getElementById("film").getContext("2d");
+  window.renderAt = (seconds) => Embryo.renderAt(context, seconds);
+  window.FILM = { duration: Embryo.DURATION, cues: [] };
+  window.renderAt(0);
+</script>
+</body>
+</html>

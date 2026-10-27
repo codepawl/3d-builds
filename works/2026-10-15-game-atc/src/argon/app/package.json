@@ -1,0 +1,22 @@
+{
+  "name": "aerogrid-atc-argon",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 5424 --host",
+    "build": "vite build",
+    "preview": "vite preview --port 5424 --host"
+  },
+  "dependencies": {
+    "@react-three/drei": "9.114.3",
+    "@react-three/fiber": "8.17.10",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "three": "0.169.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "4.3.3",
+    "vite": "5.4.10"
+  }
+}

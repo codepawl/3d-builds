@@ -1,0 +1,6 @@
+{
+ "metro": {"dir":"viz-metro/app","shots":{"v3":{"warmup":0,"seconds":4.5,"orbit":[0,60],"wheel":-420,
+  "setup":"(async()=>{const adv=()=>window.advanceVirtualFrame(1000/30);const wait=()=>new Promise(r=>setTimeout(r,40));for(let i=0;i<400&&window.__appReady!==true;i++){adv();await wait()}for(let i=0;i<20;i++)adv();window.__bus.push({type:'look',yaw:0.12,pitch:0.34,distance:175,target:[-215,-10,6]});for(let i=0;i<150;i++)adv();const extra=283-window.__sim.time;window.__sim.runFor(extra-0.2);for(let i=0;i<6;i++)adv();})()"}}},
+ "toll": {"dir":"viz-toll/app","shots":{"v3":{"warmup":0,"seconds":4.5,
+  "setup":"(async()=>{const adv=()=>window.advanceVirtualFrame(1000/30);const wait=()=>new Promise(r=>setTimeout(r,40));for(let i=0;i<400&&!document.querySelector('.lane-pin');i++){adv();await wait()}for(let i=0;i<30;i++)adv();const click=(s)=>document.querySelector(s)&&document.querySelector(s).click();click('[data-site-id=\"gantry\"]');for(let i=0;i<60;i++)adv();click('[data-tab=\"vehicles\"]');for(let i=0;i<400&&window.__toll.sim.time<120.2;i++)adv();click('[data-row-id=\"hero-truck\"]');for(let i=0;i<20;i++)adv();return JSON.stringify([window.__toll.sim.time, window.__toll.screenPositionOfVehicle('hero-truck')]);})()"}}}
+}

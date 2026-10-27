@@ -1,0 +1,13 @@
+{
+  "name": "machine-anatomy",
+  "version": "0.1.0",
+  "description": "Agent skill and kit for interactive isometric anatomy figures of real machines, with fact-checked text and a recorded 30 s film.",
+  "type": "module",
+  "license": "MIT",
+  "private": true,
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "test": "node --test test/motion.test.mjs test/kit.test.mjs",
+    "example": "node cli.mjs build examples/edison-light-bulb && node cli.mjs test examples/edison-light-bulb && node cli.mjs audit examples/edison-light-bulb"
+  }
+}

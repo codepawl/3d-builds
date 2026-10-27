@@ -1,0 +1,13 @@
+{
+ "office": {"dir":"game-agent-office","shots":{"m":{"warmup":8,"seconds":5,"orbit":[130,-10],"wheel":-700}}},
+ "airport": {"dir":"game-airport","shots":{"m":{"warmup":8,"seconds":5,"orbit":[-140,10],"wheel":-700}}},
+ "atc": {"dir":"game-atc-argon/app","shots":{"m":{"warmup":8,"seconds":5,"orbit":[120,0],"wheel":-500}}},
+ "chipfab": {"dir":"game-chipfab-argon/app","shots":{"m":{"warmup":8,"seconds":5,"orbit":[-140,0],"wheel":-700}}},
+ "datacenter": {"dir":"game-datacenter","shots":{"m":{"warmup":8,"seconds":5,"orbit":[140,20],"wheel":-900}}},
+ "er": {"dir":"game-er/app","shots":{"m":{"warmup":8,"seconds":5,"orbit":[-120,0],"wheel":-700}}},
+ "fulfillment": {"dir":"game-fulfillment/app","shots":{"m":{"warmup":8,"seconds":5,"orbit":[120,0],"wheel":-700}}},
+ "launchsite": {"dir":"game-launchsite/app","shots":{"m":{"warmup":8,"seconds":5,"orbit":[120,30],"wheel":-400},"close":{"warmup":8,"seconds":5,"orbit":[100,8],"wheel":-110}}},
+ "pitlane": {"dir":"game-pitlane/app","shots":{"m":{"warmup":8,"seconds":5,"orbit":[-130,0],"wheel":-700}}},
+ "port": {"dir":"game-port/app","shots":{"m":{"warmup":8,"seconds":5,"orbit":[-150,20],"wheel":-600},"close":{"warmup":24,"seconds":5,"orbit":[210,-60],"wheel":-950}}},
+ "themepark": {"dir":"game-themepark/app","shots":{"m":{"warmup":8,"seconds":5,"orbit":[140,-20],"wheel":-800}}}
+}

@@ -1,0 +1,1715 @@
+<title>Tessellation Morph</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Figtree:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  /* Layout: the main tiling fills the window, the tiles under the pointer turn over to the lens tiling, one small card sits bottom-left. Single light look, set explicitly. */
+  :root {
+    --paper: #EFE7D6;
+    --ink: #1F1A22;
+    --muted: #5B534C;
+    --panel: rgba(248, 243, 233, 0.9);
+    --accent: #2B4A98;
+    --font-display: "Gloock", Georgia, "Times New Roman", serif;
+    --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+    color-scheme: light;
+  }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    overflow: hidden;
+  }
+  #stage {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    touch-action: none;
+  }
+  .panel {
+    position: fixed;
+    left: 16px;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    width: min(320px, calc(100vw - 32px));
+    display: grid;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: var(--panel);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(31, 26, 34, 0.18);
+    user-select: none;
+  }
+  h1 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 1.45rem;
+    line-height: 1.05;
+  }
+  .names { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; margin: 0; font-size: 0.88rem; }
+  .names dt { color: var(--muted); }
+  .names dd { margin: 0; font-weight: 600; }
+  .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  button {
+    font: 600 0.88rem var(--font-body);
+    color: var(--paper);
+    background: var(--ink);
+    border: 0;
+    border-radius: 8px;
+    padding: 8px 14px;
+    cursor: pointer;
+    transition: transform 120ms ease;
+  }
+  button.quiet { color: var(--ink); background: rgba(31, 26, 34, 0.08); }
+  button.quiet[aria-pressed="false"] { color: var(--muted); }
+  button:active { transform: scale(0.97); }
+  button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+</style>
+
+<canvas id="stage" aria-label="Interactive tiling. The tiles under the pointer turn over to show a different tiling."></canvas>
+<section class="panel">
+  <h1>Tessellation Morph</h1>
+  <dl class="names" aria-live="polite">
+    <dt>Main</dt><dd id="baseName">Hexagons</dd>
+    <dt>Lens</dt><dd id="lensName">Hexagram rosettes</dd>
+  </dl>
+  <div class="actions">
+    <button type="button" id="scrambleButton">Scramble</button>
+    <button type="button" class="quiet" id="lensButton" aria-pressed="false">Hover lens off</button>
+    <button type="button" class="quiet" id="sketchButton" aria-pressed="false">Sketch off</button>
+    <button type="button" class="quiet" id="soundButton" aria-pressed="true">Sound on</button>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(() => {
+  // One hexagon vertex graph carries every tiling. Each vertex reads a "clock" from a smooth
+  // field and moves along the morph chain at that clock, so neighbouring tiles always share
+  // their edges even when different parts of the screen show different tilings.
+  const SQRT3 = Math.sqrt(3);
+  const LOOP = 48;
+  const TRUNCATED_HEXAGON_CUT = 1 / (2 + SQRT3);
+  const CUT = TRUNCATED_HEXAGON_CUT;
+
+  // Keyframes on the morph clock. Each station holds still for a moment; between stations only a
+  // few parameters move at once, and Hankin straps always fade out before the geometry they sit on
+  // changes shape, so lines never stretch across a moving edge.
+  const ALPHA_A = [[0, 1], [3.8, 1], [5.6, 0.5], [11.4, 0.5], [12.8, 0], [35.4, 0], [37, CUT], [39.8, CUT], [42, 1]];
+  const ALPHA_B = [[0, 0], [3.8, 0], [5.6, 0.5], [11.4, 0.5], [12.8, 0], [35.4, 0], [37, CUT], [39.8, CUT], [42, 0]];
+  const BRICK = [[15.8, 0], [17.2, 1], [30.6, 1], [32.4, 0]];
+  const SLIDE = [[18.8, 0], [21.4, 1], [27.8, 1], [30, 0]];
+  const STAR_ANGLE = [
+    [8.6, 0], [9.8, 60], [10.6, 60], [11.4, 0],
+    [13.6, 0], [15.4, 60], [17.6, 60], [18.6, 0],
+    [22, 0], [23.6, 67.5], [24.6, 67.5], [25.6, 0],
+    [37, 0], [38, 62], [39, 62], [39.8, 0],
+    [42, 0], [43.4, 40], [44.4, 40], [45.4, 0],
+  ];
+  const STRAP_WIDTH = [
+    [8.6, 0], [9.4, 0.1], [10.6, 0.1], [11.2, 0],
+    [13.4, 0], [14.2, 0.1], [17.8, 0.1], [18.6, 0],
+    [22, 0], [22.8, 0.1], [24.6, 0.1], [25.4, 0],
+    [36.6, 0], [37.4, 0.09], [39, 0.09], [39.6, 0],
+    [42, 0], [42.8, 0.08], [44.4, 0.08], [45.2, 0],
+  ];
+  const CURVE = [[6.3, 0], [7.3, 1], [7.8, 1], [8.6, 0], [25.4, 0], [27, 1], [33, 1], [34.6, 0]];
+  const STAGE = [
+    [1.2, 0], [2.8, 1], [3.8, 1], [5.4, 2], [11.4, 2], [12.8, 3], [19.4, 3], [21.6, 4],
+    [22, 4], [23.8, 5], [25.4, 5], [27, 6], [27.8, 6], [30, 7], [33, 7], [34.8, 8],
+    [40, 8], [42.4, 9], [45, 9], [47.4, 10],
+  ];
+
+  const STATIONS = [
+    { clock: 0, name: "Triangles", note: "3.3.3.3.3.3" },
+    { clock: 3, name: "Tumbling blocks", note: "triangles shaded as cubes" },
+    { clock: 6, name: "Trihexagonal", note: "3.6.3.6, kagome" },
+    { clock: 7.5, name: "Curled trihexagonal", note: "3.6.3.6 with Escher edges" },
+    { clock: 10, name: "Kagome stars", note: "Hankin stars on 3.6.3.6" },
+    { clock: 13, name: "Hexagons", note: "6.6.6" },
+    { clock: 15.4, name: "Hexagram rosettes", note: "Hankin stars, 60° contact" },
+    { clock: 17.4, name: "Brick rosettes", note: "Hankin stars on a brick wall" },
+    { clock: 21.6, name: "Squares", note: "4.4.4.4" },
+    { clock: 24, name: "Star and cross", note: "Hankin stars on 4.4.4.4" },
+    { clock: 27.2, name: "Escher squares", note: "4.4.4.4 with curved edges" },
+    { clock: 30.2, name: "Curled bricks", note: "a brick wall with Escher edges" },
+    { clock: 32.6, name: "Curled hexagons", note: "6.6.6 with Escher edges" },
+    { clock: 35, name: "Glazed hexagons", note: "6.6.6" },
+    { clock: 38.4, name: "Twelve-point stars", note: "3.12.12 with Hankin stars" },
+    { clock: 43.6, name: "Triangle stars", note: "Hankin stars on triangles" },
+  ];
+
+  // ---------- math ----------
+  const clamp = (value, low = 0, high = 1) => Math.min(high, Math.max(low, value));
+  const easeInOut = (value) => (value < 0.5 ? 4 * value * value * value : 1 - Math.pow(-2 * value + 2, 3) / 2);
+  const smoothstep = (low, high, value) => {
+    const amount = clamp((value - low) / (high - low));
+    return amount * amount * (3 - 2 * amount);
+  };
+  const lerp = (from, to, amount) => from + (to - from) * amount;
+  const modulo = (value, divisor) => ((value % divisor) + divisor) % divisor;
+
+  function track(keys, time) {
+    if (time <= keys[0][0]) return keys[0][1];
+    for (let index = 1; index < keys.length; index++) {
+      if (time < keys[index][0]) {
+        const [startTime, startValue] = keys[index - 1];
+        const [endTime, endValue] = keys[index];
+        return lerp(startValue, endValue, easeInOut((time - startTime) / (endTime - startTime)));
+      }
+    }
+    return keys[keys.length - 1][1];
+  }
+
+  function hashIntegers(first, second, third) {
+    let hash = Math.imul(first, 374761393) ^ Math.imul(second, 668265263) ^ Math.imul(third, 1442695041);
+    hash = Math.imul(hash ^ (hash >>> 13), 1274126177);
+    return (hash ^ (hash >>> 16)) >>> 0;
+  }
+
+  // ---------- colour ----------
+  const colorCache = new Map();
+  function rgb(hex) {
+    let color = colorCache.get(hex);
+    if (!color) {
+      const value = parseInt(hex.slice(1), 16);
+      color = [((value >> 16) & 255) / 255, ((value >> 8) & 255) / 255, (value & 255) / 255];
+      colorCache.set(hex, color);
+    }
+    return color;
+  }
+  function mixRgb(first, second, amount) {
+    if (amount <= 0.001) return first;
+    if (amount >= 0.999) return second;
+    return [lerp(first[0], second[0], amount), lerp(first[1], second[1], amount), lerp(first[2], second[2], amount)];
+  }
+
+  const MOSAIC = ["#2A9D8F", "#E76F51", "#F4A261", "#E9C46A", "#D64550", "#F1EBDD", "#6D597A", "#26667F"];
+  const CUBE_FACES = ["#F7C3D0", "#E2557C", "#A3184F"];
+  const KAGOME_FACES = ["#F6DD95", "#FFF7E4", "#FFF7E4"];
+  const EARTH_STARS = ["#E6A43B", "#A9A091", "#C6873E"];
+  const SQUARE_GREENS = ["#2F8F5B", "#A9D67F"];
+  const INDIGO_TILES = ["#2E3A87", "#E9DFC8"];
+  const ESCHER_TILES = ["#6E95C8", "#F2EBDC"];
+  const CORAL_FACES = ["#E07A5F", "#3D405B", "#F2CC8F"];
+  const ZELLIGE_FACES = ["#E09A35", "#2D7A55", "#2B4A98"];
+  const SUNSET_FACES = ["#E76F51", "#2A9D8F", "#E9C46A"];
+  const STAGE_COUNT = 10;
+  // Per colour stage: the fill between Hankin straps (kites) and the dark outline of the straps.
+  const KITE_COLORS = ["#26667F", "#A3184F", "#2D5AD4", "#6B6259", "#1F5C3B", "#C9A227", "#1E2A44", "#3D405B", "#2A2136", "#264653"];
+  const STRAP_EDGE_COLORS = ["#1E1A22", "#5A1030", "#1B2F7A", "#5A4A3B", "#163F29", "#1A2155", "#1E1A22", "#2A2C40", "#1E1A22", "#1B3038"];
+
+  function mosaicColor(seed) {
+    return rgb(MOSAIC[seed % MOSAIC.length]);
+  }
+
+  function stageColor(stage, item, time) {
+    const isFace = item.role === 0;
+    const isTypeA = item.role === 1;
+    switch (modulo(stage, STAGE_COUNT)) {
+      case 0: return mosaicColor(item.seed);
+      case 1: return rgb(item.role === 2 ? CUBE_FACES[0] : CUBE_FACES[item.shade]);
+      case 2: return rgb(isFace ? KAGOME_FACES[item.colorIndex] : isTypeA ? "#F5A3D3" : "#7AD3D9");
+      case 3: return rgb(isFace ? EARTH_STARS[item.colorIndex] : KITE_COLORS[3]);
+      case 4: return rgb(isFace ? SQUARE_GREENS[item.parity] : "#F3E9D2");
+      case 5: return rgb(isFace ? INDIGO_TILES[item.parity] : "#E9DFC8");
+      case 6: return rgb(isFace ? ESCHER_TILES[item.parity] : "#1E2A44");
+      case 7: return rgb(isFace ? CORAL_FACES[item.colorIndex] : "#F4F1DE");
+      case 8: return rgb(isFace ? ZELLIGE_FACES[item.colorIndex] : KITE_COLORS[8]);
+      default: return rgb(isFace ? SUNSET_FACES[item.colorIndex] : isTypeA ? "#F4F1DE" : "#264653");
+    }
+  }
+
+  function stagePaletteColor(palette, stage) {
+    const lower = Math.floor(stage);
+    const from = rgb(palette[modulo(lower, STAGE_COUNT)]);
+    return mixRgb(from, rgb(palette[modulo(lower + 1, STAGE_COUNT)]), stage - lower);
+  }
+
+  function itemColor(item, stage, time) {
+    const lower = Math.floor(stage);
+    const amount = stage - lower;
+    const from = stageColor(lower, item, time);
+    return amount < 0.001 ? from : mixRgb(from, stageColor(lower + 1, item, time), amount);
+  }
+
+  // ---------- graph ----------
+  function cubeShade(corners, center) {
+    const hub = corners.find((point) => {
+      const row = Math.round((point[1] - 0.5) / 1.5);
+      const column = Math.round((point[0] - SQRT3 / 2 - (row * SQRT3) / 2) / SQRT3);
+      return modulo(column - row, 3) === 0;
+    }) || corners[0];
+    const angle = modulo((Math.atan2(center[1] - hub[1], center[0] - hub[0]) * 180) / Math.PI, 360);
+    return Math.floor(modulo(angle + 30, 360) / 120);
+  }
+
+  function deformVertex(vertex, brickAmount, slideAmount) {
+    const lift = brickAmount * 0.25;
+    const rowDirection = modulo(vertex.owner, 2) === 0 ? 1 : -1;
+    const shift = (slideAmount * (SQRT3 / 2) * rowDirection) / 2;
+    return [vertex.base[0] + shift, vertex.base[1] + (vertex.isTypeA ? -lift : lift)];
+  }
+
+  function buildGraph(radius) {
+    const vertexIndex = new Map();
+    const vertices = [];
+    const faces = [];
+    const cornerAngles = [30, 90, 150, 210, 270, 330];
+    const rowLimit = Math.ceil(radius / 1.5) + 1;
+    const columnLimit = Math.ceil(radius / SQRT3) + rowLimit;
+    for (let row = -rowLimit; row <= rowLimit; row++) {
+      for (let column = -columnLimit; column <= columnLimit; column++) {
+        const center = [SQRT3 * (column + row / 2), 1.5 * row];
+        if (Math.hypot(center[0], center[1]) > radius) continue;
+        const vertexIds = cornerAngles.map((angle) => {
+          const radians = (angle * Math.PI) / 180;
+          const point = [center[0] + Math.cos(radians), center[1] + Math.sin(radians)];
+          const key = `${Math.round(point[0] * 1000)},${Math.round(point[1] * 1000)}`;
+          const existing = vertexIndex.get(key);
+          if (existing !== undefined) return existing;
+          const isTypeA = angle === 90 || angle === 210 || angle === 330;
+          vertices.push({
+            base: point,
+            isTypeA,
+            owner: Math.round((point[1] + (isTypeA ? 0.5 : -0.5)) / 1.5),
+            neighbours: [],
+            seed: hashIntegers(Math.round(point[0] * 10), Math.round(point[1] * 10), isTypeA ? 2 : 3),
+            shade: 0,
+          });
+          vertexIndex.set(key, vertices.length - 1);
+          return vertices.length - 1;
+        });
+        faces.push({ vertexIds, anchor: center, colorIndex: modulo(column - row, 3), parity: 0, seed: hashIntegers(column, row, 1), shade: 0 });
+      }
+    }
+    const originFace = faces.reduce((best, face) => (Math.hypot(...face.anchor) < Math.hypot(...best.anchor) ? face : best));
+    const finalCenter = (face) => {
+      const points = face.vertexIds.map((id) => deformVertex(vertices[id], 1, 1));
+      return [points.reduce((sum, point) => sum + point[0], 0) / 6, points.reduce((sum, point) => sum + point[1], 0) / 6];
+    };
+    const originCenter = finalCenter(originFace);
+    faces.forEach((face) => {
+      face.vertexIds.forEach((vertexId, corner) => vertices[vertexId].neighbours.push(face.vertexIds[(corner + 1) % 6]));
+      face.shade = cubeShade(face.vertexIds.filter((id) => !vertices[id].isTypeA).map((id) => vertices[id].base), face.anchor);
+      const center = finalCenter(face);
+      face.parity = modulo(Math.round((center[0] - originCenter[0]) / SQRT3) + Math.round((center[1] - originCenter[1]) / 1.5), 2);
+    });
+    vertices.forEach((vertex) => {
+      vertex.neighbours.sort((first, second) => {
+        const a = vertices[first].base;
+        const b = vertices[second].base;
+        return Math.atan2(a[1] - vertex.base[1], a[0] - vertex.base[0]) - Math.atan2(b[1] - vertex.base[1], b[0] - vertex.base[0]);
+      });
+      if (vertex.isTypeA) vertex.shade = cubeShade(vertex.neighbours.map((id) => vertices[id].base), vertex.base);
+    });
+    return { vertices, faces };
+  }
+
+  // ---------- clock field ----------
+  // The screen shows one main tiling (the base clock). A lens follows the pointer: inside its
+  // circle the clock is the lens clock, so that spot shows another tiling, and across the soft rim
+  // the tiles morph between the two through the chain, so edges stay joined. Scramble steps the base
+  // forward one station at a time, all tiles together. Clocks only grow; callers take them modulo LOOP.
+  const FIELD_CELL = 1.1;
+  const START_CLOCK = 13;
+  const LENS_START_RADIUS = 4.2;
+  const LENS_MIN_RADIUS = 1.6;
+  const LENS_MAX_RADIUS = 14;
+  // Width of the band of tiles that are part way through turning over at the lens edge.
+  const LENS_RIM = 2.4;
+  // Lens travel in pixels that morphs the lens one whole station further.
+  const LENS_STATION_PIXELS = 260;
+  // The rim morphs through every tiling between main and lens; past three steps it crosses the
+  // brick-to-square slide and the rim turns to noise, so the lens swings between one and three
+  // stations ahead instead of running on forever.
+  const LENS_MAX_STEPS = 3;
+  const field = { columns: 0, rows: 0, originX: 0, originY: 0, values: null, baseClock: START_CLOCK, targetClock: START_CLOCK, steps: [] };
+  const lens = { x: 0, y: 0, goalX: 0, goalY: 0, strength: 0, goalStrength: 0, position: 1, distance: 0, clock: START_CLOCK, radius: LENS_START_RADIUS, goalRadius: LENS_START_RADIUS, flapClock: 0 };
+
+  function stationIndex(clock) {
+    const local = modulo(clock, LOOP);
+    let best = 0;
+    for (let index = 0; index < STATIONS.length; index++) {
+      if (Math.abs(STATIONS[index].clock - local) < Math.abs(STATIONS[best].clock - local)) best = index;
+    }
+    return best;
+  }
+
+  // The clock of the station `steps` stations after `clock`, always ahead of it.
+  function stationAfter(clock, steps) {
+    const index = stationIndex(clock);
+    const targetIndex = index + steps;
+    const wraps = Math.floor(targetIndex / STATIONS.length);
+    const loopStart = clock - modulo(clock, LOOP);
+    return loopStart + wraps * LOOP + STATIONS[modulo(targetIndex, STATIONS.length)].clock;
+  }
+
+  function setupField(halfWidth, halfHeight) {
+    field.originX = -halfWidth - 4;
+    field.originY = -halfHeight - 4;
+    field.columns = Math.ceil((2 * halfWidth + 8) / FIELD_CELL) + 1;
+    field.rows = Math.ceil((2 * halfHeight + 8) / FIELD_CELL) + 1;
+    field.values = new Float32Array(field.columns * field.rows);
+    settleMorphs(Infinity);
+    lens.clock = lensClockAt(field.targetClock, lens.position);
+  }
+
+  // Every clock span where some track actually changes value (holds between equal keys are left out).
+  const MOVING_SEGMENTS = [ALPHA_A, ALPHA_B, BRICK, SLIDE, STAR_ANGLE, STRAP_WIDTH, CURVE, STAGE].flatMap((keys) =>
+    keys.slice(1)
+      .map((key, index) => [keys[index], key])
+      .filter(([start, end]) => start[1] !== end[1])
+      .map(([start, end]) => [start[0], end[0]]));
+
+  // The moving part of the chain between two clocks, so a timed morph spends all of its time
+  // visibly changing instead of sitting on a hold and then rushing or snapping at the landing.
+  function activeRange(fromClock, toClock) {
+    const loopStart = fromClock - modulo(fromClock, LOOP);
+    let first = Infinity;
+    let last = -Infinity;
+    for (const wrap of [-LOOP, 0, LOOP, 2 * LOOP]) {
+      for (const [segmentStart, segmentEnd] of MOVING_SEGMENTS) {
+        const start = Math.max(fromClock, loopStart + wrap + segmentStart);
+        const end = Math.min(toClock, loopStart + wrap + segmentEnd);
+        if (end - start < 1e-6) continue;
+        first = Math.min(first, start);
+        last = Math.max(last, end);
+      }
+    }
+    if (first === Infinity) return [fromClock, toClock];
+    return [first, last];
+  }
+
+  // One scramble flips the board through several tilings in a row and stops on the last, like a
+  // departures board running through the letters: slow off the start, quick in the middle, and
+  // slowing again into the tiling it settles on. Each flip sweeps across from its own direction.
+  const SWEEPS = [[1, 0, 0], [0, 0, 1], [0, 1, 0], [-0.7, 0.7, 0], [-1, 0, 0], [0.7, 0.7, 0], [0, -1, 0]];
+  let sweepIndex = 0;
+  function scramble(now, jump = 4 + Math.floor(Math.random() * 4)) {
+    let startTime = Math.max(now, field.steps.length ? field.steps[field.steps.length - 1].endTime : now);
+    for (let count = 0; count < jump; count++) {
+      const along = jump > 1 ? count / (jump - 1) : 1;
+      const duration = 0.3 + 0.32 * Math.pow(2 * along - 1, 2) + (count === jump - 1 ? 0.18 : 0);
+      const landing = stationAfter(field.targetClock, 1);
+      field.steps.push({
+        startTime,
+        endTime: startTime + duration,
+        stagger: duration * 0.55,
+        flipSeconds: duration * 0.45,
+        sweep: SWEEPS[sweepIndex++ % SWEEPS.length],
+        from: field.targetClock,
+        landing,
+        tiles: null,
+      });
+      field.targetClock = landing;
+      startTime += duration;
+    }
+  }
+
+  function settleMorphs(now) {
+    while (field.steps.length && now >= field.steps[0].endTime) {
+      field.baseClock = field.steps.shift().landing;
+    }
+    if (field.steps.length === 0 && field.baseClock >= LOOP) {
+      const shift = Math.floor(field.baseClock / LOOP) * LOOP;
+      field.baseClock -= shift;
+      field.targetClock = field.baseClock;
+      lens.clock -= shift;
+    }
+  }
+
+  // The board flip running now, if any.
+  function activeFlip(now) {
+    const step = field.steps[0];
+    if (step && now >= step.startTime && now < step.endTime) return step;
+    return null;
+  }
+
+  // The station the main tiling shows now (or is morphing into), which the lens counts from.
+  function shownBaseStation(now) {
+    for (const step of field.steps) {
+      if (now < step.endTime) return now >= step.startTime ? step.landing : field.baseClock;
+    }
+    return field.baseClock;
+  }
+
+  // How far ahead the lens shows, in stations: it swings from one to LENS_MAX_STEPS and back as
+  // the lens travels, so the tiling inside keeps changing for as long as the lens moves.
+  function lensPositionAt(distance) {
+    const span = LENS_MAX_STEPS - 1;
+    const phase = modulo(distance / LENS_STATION_PIXELS, 2 * span);
+    return 1 + (phase <= span ? phase : 2 * span - phase);
+  }
+
+  // The clock at a fractional station position past baseStation, spread over the moving part of
+  // each station-to-station stretch so every bit of travel visibly changes the tiles.
+  function lensClockAt(baseStation, position) {
+    const index = Math.floor(position);
+    const fraction = position - index;
+    const from = stationAfter(baseStation, index);
+    if (fraction < 1e-6) return from;
+    const [rangeStart, rangeEnd] = activeRange(from, stationAfter(baseStation, index + 1));
+    return lerp(rangeStart, rangeEnd, fraction);
+  }
+
+  // The lens clock glides after its goal, so a scramble of the base under it morphs instead of
+  // jumping. Flaps tick as the lens clock passes each small stretch of the morph.
+  const LENS_FLAP_CLOCK = 0.12;
+  function updateLensClock(now, deltaSeconds, audible) {
+    lens.position = lensPositionAt(lens.distance);
+    const goal = lensClockAt(shownBaseStation(now), lens.position);
+    const change = (goal - lens.clock) * (1 - Math.exp(-deltaSeconds * 10));
+    lens.clock += change;
+    lens.flapClock = audible ? lens.flapClock + Math.abs(change) : 0;
+    if (lens.flapClock < LENS_FLAP_CLOCK) return;
+    lens.flapClock = Math.min(lens.flapClock - LENS_FLAP_CLOCK, LENS_FLAP_CLOCK);
+    playSound("flap", now);
+  }
+
+  function updateLens(now, deltaSeconds) {
+    const follow = 1 - Math.exp(-deltaSeconds * 14);
+    lens.x += (lens.goalX - lens.x) * follow;
+    lens.y += (lens.goalY - lens.y) * follow;
+    lens.strength += (lens.goalStrength - lens.strength) * (1 - Math.exp(-deltaSeconds * 5));
+    lens.radius += (lens.goalRadius - lens.radius) * (1 - Math.exp(-deltaSeconds * 10));
+    const idle = !pointer.inside || now - pointer.lastMoveTime > IDLE_SECONDS;
+    const audible = lens.strength > 0.5 && !idle;
+    updateLensClock(now, deltaSeconds, audible);
+  }
+
+  function updateField(now, deltaSeconds) {
+    settleMorphs(now);
+    updateLens(now, deltaSeconds);
+  }
+
+  function fillField(clock) {
+    field.values.fill(clock);
+  }
+
+  function sampleField(worldX, worldY) {
+    const gridX = clamp((worldX - field.originX) / FIELD_CELL, 0, field.columns - 1.001);
+    const gridY = clamp((worldY - field.originY) / FIELD_CELL, 0, field.rows - 1.001);
+    const column = Math.floor(gridX);
+    const row = Math.floor(gridY);
+    const fractionX = gridX - column;
+    const fractionY = gridY - row;
+    const index = row * field.columns + column;
+    const top = lerp(field.values[index], field.values[index + 1], fractionX);
+    const bottom = lerp(field.values[index + field.columns], field.values[index + field.columns + 1], fractionX);
+    return lerp(top, bottom, fractionY);
+  }
+
+  // ---------- geometry helpers ----------
+  const towards = (from, to, amount) => [from[0] + (to[0] - from[0]) * amount, from[1] + (to[1] - from[1]) * amount];
+  const curveProfile = (position) => 0.26 * Math.sin(2 * Math.PI * position) - 0.05 * Math.sin(4 * Math.PI * position);
+  const CURVE_SAMPLES = 10;
+
+  function polygonArea(points) {
+    let area = 0;
+    for (let index = 0; index < points.length; index++) {
+      const next = points[(index + 1) % points.length];
+      area += points[index][0] * next[1] - next[0] * points[index][1];
+    }
+    return area / 2;
+  }
+
+  function removeRepeatedPoints(polygon) {
+    const result = [];
+    for (const point of polygon) {
+      const last = result[result.length - 1];
+      if (!last || Math.abs(last[0] - point[0]) + Math.abs(last[1] - point[1]) > 1e-6) result.push(point);
+    }
+    while (result.length > 1) {
+      const first = result[0];
+      const last = result[result.length - 1];
+      if (Math.abs(last[0] - first[0]) + Math.abs(last[1] - first[1]) > 1e-6) break;
+      result.pop();
+    }
+    return result;
+  }
+
+  function removeStraightCorners(polygon) {
+    return polygon.filter((corner, index) => {
+      const previous = polygon[(index + polygon.length - 1) % polygon.length];
+      const next = polygon[(index + 1) % polygon.length];
+      const cross = (corner[0] - previous[0]) * (next[1] - corner[1]) - (corner[1] - previous[1]) * (next[0] - corner[0]);
+      const span = Math.hypot(corner[0] - previous[0], corner[1] - previous[1]) * Math.hypot(next[0] - corner[0], next[1] - corner[1]);
+      return Math.abs(cross) > span * 0.02;
+    });
+  }
+
+  // Hankin's polygons-in-contact. The angle fades out on tiles whose edges are collapsing.
+  function hankinGeometry(polygon, strapAt) {
+    const corners = removeStraightCorners(removeRepeatedPoints(polygon));
+    const count = corners.length;
+    if (count < 3) return null;
+    let shortest = Infinity;
+    let longest = 0;
+    for (let index = 0; index < count; index++) {
+      const next = corners[(index + 1) % count];
+      const edgeLength = Math.hypot(next[0] - corners[index][0], next[1] - corners[index][1]);
+      shortest = Math.min(shortest, edgeLength);
+      longest = Math.max(longest, edgeLength);
+    }
+    const collapseFade = smoothstep(0.05, 0.3, shortest / longest);
+    const midpoints = corners.map((corner, index) => {
+      const next = corners[(index + 1) % count];
+      return [(corner[0] + next[0]) / 2, (corner[1] + next[1]) / 2];
+    });
+    // Angle and width are read at each edge midpoint, not once per tile, so the two tiles that share
+    // an edge send their straps through it at the same angle and width. Per-tile values put kinks and
+    // width steps at every midpoint wherever neighbours sat at different clocks (the lens rim).
+    const straps = midpoints.map(strapAt);
+    let widest = 0;
+    for (const strap of straps) widest = Math.max(widest, strap.width);
+    if (widest < 0.0005) return null;
+    const meets = [];
+    for (let index = 0; index < count; index++) {
+      const corner = corners[(index + 1) % count];
+      const previous = corners[index];
+      const after = corners[(index + 2) % count];
+      let incomingX = corner[0] - previous[0];
+      let incomingY = corner[1] - previous[1];
+      const incomingLength = Math.hypot(incomingX, incomingY);
+      incomingX /= incomingLength;
+      incomingY /= incomingLength;
+      let outgoingX = after[0] - corner[0];
+      let outgoingY = after[1] - corner[1];
+      const outgoingLength = Math.hypot(outgoingX, outgoingY);
+      outgoingX /= outgoingLength;
+      outgoingY /= outgoingLength;
+      const firstAngle = straps[index].angle * collapseFade;
+      const secondAngle = straps[(index + 1) % count].angle * collapseFade;
+      const firstX = incomingX * Math.cos(firstAngle) - incomingY * Math.sin(firstAngle);
+      const firstY = incomingX * Math.sin(firstAngle) + incomingY * Math.cos(firstAngle);
+      const secondX = -outgoingX * Math.cos(secondAngle) - outgoingY * Math.sin(secondAngle);
+      const secondY = outgoingX * Math.sin(secondAngle) - outgoingY * Math.cos(secondAngle);
+      const denominator = firstX * secondY - firstY * secondX;
+      const start = midpoints[index];
+      const other = midpoints[(index + 1) % count];
+      // Every station meets within 1.42x the midpoint-to-corner distance (3.12.12 at 62°); farther
+      // crossings only happen on squashed tiles in mid-morph and would throw long spikes.
+      const maximumDistance = 1.6 * Math.hypot(corner[0] - start[0], corner[1] - start[1]);
+      let distance = maximumDistance;
+      if (Math.abs(denominator) > 1e-9) {
+        const crossing = ((other[0] - start[0]) * secondY - (other[1] - start[1]) * secondX) / denominator;
+        if (crossing >= 0) distance = Math.min(crossing, maximumDistance);
+      }
+      meets.push([start[0] + firstX * distance, start[1] + firstY * distance]);
+    }
+    return { midpoints, meets, corners, widths: straps.map((strap) => strap.width), visibility: smoothstep(0, 0.07, widest) };
+  }
+
+  // ---------- three.js mesh buffer ----------
+  class TriangleBuffer {
+    constructor(capacity) {
+      this.geometry = new THREE.BufferGeometry();
+      this.allocate(capacity);
+    }
+    allocate(capacity) {
+      this.capacity = capacity;
+      this.positions = new Float32Array(capacity * 3);
+      this.colors = new Float32Array(capacity * 4);
+      this.geometry.setAttribute("position", new THREE.BufferAttribute(this.positions, 3).setUsage(THREE.DynamicDrawUsage));
+      this.geometry.setAttribute("color", new THREE.BufferAttribute(this.colors, 4).setUsage(THREE.DynamicDrawUsage));
+      this.count = 0;
+    }
+    reset() {
+      this.count = 0;
+      this.overflowed = false;
+    }
+    vertex(x, y, color, alpha) {
+      if (this.count >= this.capacity) {
+        this.overflowed = true;
+        return;
+      }
+      const positionIndex = this.count * 3;
+      const colorIndex = this.count * 4;
+      this.positions[positionIndex] = x;
+      this.positions[positionIndex + 1] = y;
+      this.positions[positionIndex + 2] = 0;
+      this.colors[colorIndex] = color[0];
+      this.colors[colorIndex + 1] = color[1];
+      this.colors[colorIndex + 2] = color[2];
+      this.colors[colorIndex + 3] = alpha;
+      this.count++;
+    }
+    triangle(ax, ay, bx, by, cx, cy, color, alpha = 1) {
+      this.vertex(ax, ay, color, alpha);
+      this.vertex(bx, by, color, alpha);
+      this.vertex(cx, cy, color, alpha);
+    }
+    fan(flatPoints, color, alpha = 1) {
+      const pointCount = flatPoints.length / 2;
+      let centerX = 0;
+      let centerY = 0;
+      for (let index = 0; index < pointCount; index++) {
+        centerX += flatPoints[index * 2];
+        centerY += flatPoints[index * 2 + 1];
+      }
+      centerX /= pointCount;
+      centerY /= pointCount;
+      for (let index = 0; index < pointCount; index++) {
+        const next = (index + 1) % pointCount;
+        this.triangle(centerX, centerY, flatPoints[index * 2], flatPoints[index * 2 + 1], flatPoints[next * 2], flatPoints[next * 2 + 1], color, alpha);
+      }
+    }
+    // A thick segment with square caps, so joints between segments stay covered.
+    segment(ax, ay, bx, by, width, color, alpha = 1) {
+      let directionX = bx - ax;
+      let directionY = by - ay;
+      const size = Math.hypot(directionX, directionY);
+      if (size < 1e-6) return;
+      directionX /= size;
+      directionY /= size;
+      const half = width / 2;
+      const startX = ax - directionX * half;
+      const startY = ay - directionY * half;
+      const endX = bx + directionX * half;
+      const endY = by + directionY * half;
+      const normalX = -directionY * half;
+      const normalY = directionX * half;
+      this.triangle(startX + normalX, startY + normalY, endX + normalX, endY + normalY, endX - normalX, endY - normalY, color, alpha);
+      this.triangle(startX + normalX, startY + normalY, endX - normalX, endY - normalY, startX - normalX, startY - normalY, color, alpha);
+    }
+    // One Hankin strap: midpoint -> meet -> midpoint, with its own width at each midpoint. The ends
+    // are cut square at the edge midpoints, where the neighbouring tile's strap carries on at the same
+    // angle and width, and the bend at the meet is mitred (bevelled when very sharp).
+    strap(ax, ay, mx, my, bx, by, widthA, widthB, color, alpha = 1) {
+      const firstLength = Math.hypot(mx - ax, my - ay);
+      const secondLength = Math.hypot(bx - mx, by - my);
+      if (firstLength < 1e-6 || secondLength < 1e-6) return;
+      const halfA = widthA / 2;
+      const halfB = widthB / 2;
+      const halfMeet = (halfA + halfB) / 2;
+      if (halfMeet < 0.05) return;
+      const firstNormalX = -(my - ay) / firstLength;
+      const firstNormalY = (mx - ax) / firstLength;
+      const secondNormalX = -(by - my) / secondLength;
+      const secondNormalY = (bx - mx) / secondLength;
+      let miterX = firstNormalX + secondNormalX;
+      let miterY = firstNormalY + secondNormalY;
+      const miterSize = Math.hypot(miterX, miterY);
+      const cosine = miterSize / 2;
+      if (miterSize > 1e-6 && cosine > 0.34) {
+        miterX /= miterSize;
+        miterY /= miterSize;
+        const reach = halfMeet / cosine;
+        const leftX = mx + miterX * reach;
+        const leftY = my + miterY * reach;
+        const rightX = mx - miterX * reach;
+        const rightY = my - miterY * reach;
+        this.quad(ax + firstNormalX * halfA, ay + firstNormalY * halfA, leftX, leftY, rightX, rightY, ax - firstNormalX * halfA, ay - firstNormalY * halfA, color, alpha);
+        this.quad(leftX, leftY, bx + secondNormalX * halfB, by + secondNormalY * halfB, bx - secondNormalX * halfB, by - secondNormalY * halfB, rightX, rightY, color, alpha);
+        return;
+      }
+      this.quad(ax + firstNormalX * halfA, ay + firstNormalY * halfA, mx + firstNormalX * halfMeet, my + firstNormalY * halfMeet, mx - firstNormalX * halfMeet, my - firstNormalY * halfMeet, ax - firstNormalX * halfA, ay - firstNormalY * halfA, color, alpha);
+      this.quad(mx + secondNormalX * halfMeet, my + secondNormalY * halfMeet, bx + secondNormalX * halfB, by + secondNormalY * halfB, bx - secondNormalX * halfB, by - secondNormalY * halfB, mx - secondNormalX * halfMeet, my - secondNormalY * halfMeet, color, alpha);
+      this.triangle(mx, my, mx + firstNormalX * halfMeet, my + firstNormalY * halfMeet, mx + secondNormalX * halfMeet, my + secondNormalY * halfMeet, color, alpha);
+      this.triangle(mx, my, mx - firstNormalX * halfMeet, my - firstNormalY * halfMeet, mx - secondNormalX * halfMeet, my - secondNormalY * halfMeet, color, alpha);
+    }
+    quad(ax, ay, bx, by, cx, cy, dx, dy, color, alpha = 1) {
+      this.triangle(ax, ay, bx, by, cx, cy, color, alpha);
+      this.triangle(ax, ay, cx, cy, dx, dy, color, alpha);
+    }
+    commit() {
+      if (this.overflowed) {
+        this.allocate(this.capacity * 2);
+        return false;
+      }
+      this.geometry.attributes.position.needsUpdate = true;
+      this.geometry.attributes.color.needsUpdate = true;
+      this.geometry.setDrawRange(0, this.count);
+      return true;
+    }
+  }
+
+  // ---------- scene ----------
+  const canvas = document.getElementById("stage");
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+  renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
+  renderer.setClearColor(0xefe7d6, 1);
+  const scene = new THREE.Scene();
+  const camera = new THREE.OrthographicCamera(0, 1, 0, 1, -1, 1);
+  const buffer = new TriangleBuffer(400000);
+  const material = new THREE.MeshBasicMaterial({ vertexColors: true, transparent: true, side: THREE.DoubleSide, depthTest: false, depthWrite: false });
+  const mesh = new THREE.Mesh(buffer.geometry, material);
+  mesh.frustumCulled = false;
+  scene.add(mesh);
+
+  const view = { width: 0, height: 0, scale: 34, squash: 1, graph: null };
+
+  // ---------- flipping tiles ----------
+  // A scramble flips every tile of the current tiling over like a card. Both sides are drawn live
+  // into two textures, and a third texture marks which tile owns each pixel by storing that tile's
+  // centre as its colour. A full-screen shader then turns each tile about its own axis through its
+  // centre: the front shows the old tiling, the back the new one, and the space a narrowing tile
+  // leaves shows the new tiling in shadow underneath.
+  const flip = { targets: [], idTarget: null };
+  const idMaterial = new THREE.MeshBasicMaterial({ vertexColors: true, transparent: false, side: THREE.DoubleSide, depthTest: false, depthWrite: false });
+  const flipUniforms = {
+    fromTexture: { value: null },
+    toTexture: { value: null },
+    idTexture: { value: null },
+    resolution: { value: new THREE.Vector2(1, 1) },
+    elapsed: { value: 0 },
+    stagger: { value: 0.3 },
+    flipSeconds: { value: 0.25 },
+    sweep: { value: new THREE.Vector3(1, 0, 0) },
+  };
+  // Shared with the sound code, so each clack lands with its tile. Coordinates are drawing-buffer
+  // pixels from the top left.
+  function tileHash(centerX, centerY) {
+    const value = centerX * 0.0617 + centerY * 0.1347 + centerX * centerY * 0.000131;
+    return value - Math.floor(value);
+  }
+  function tileDelay(centerX, centerY, sweep, size) {
+    const relativeX = centerX / size.x - 0.5;
+    const relativeY = centerY / size.y - 0.5;
+    const front = sweep[2] > 0.5
+      ? Math.hypot(relativeX, relativeY) / 0.7071
+      : clamp((relativeX * sweep[0] + relativeY * sweep[1]) / (0.5 * (Math.abs(sweep[0]) + Math.abs(sweep[1]))) * 0.5 + 0.5);
+    return clamp(0.78 * front + 0.22 * tileHash(centerX, centerY));
+  }
+  const flipScene = new THREE.Scene();
+  const flipMesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.ShaderMaterial({
+    uniforms: flipUniforms,
+    depthTest: false,
+    depthWrite: false,
+    vertexShader: "void main() { gl_Position = vec4(position.xy, 0.0, 1.0); }",
+    fragmentShader: `
+      precision highp float;
+      uniform sampler2D fromTexture;
+      uniform sampler2D toTexture;
+      uniform sampler2D idTexture;
+      uniform vec2 resolution;
+      uniform float elapsed;
+      uniform float stagger;
+      uniform float flipSeconds;
+      uniform vec3 sweep;
+      const float PI = 3.14159265;
+
+      vec2 toUv(vec2 fromTop) {
+        return vec2(fromTop.x, resolution.y - fromTop.y) / resolution;
+      }
+
+      // The tile centre stored at a pixel: x in 12 bits over red and half of green, y in the rest.
+      vec2 tileCenter(vec2 fromTop) {
+        vec3 bytes = floor(texture2D(idTexture, toUv(fromTop)).rgb * 255.0 + 0.5);
+        return vec2(bytes.r * 16.0 + floor(bytes.g / 16.0), mod(bytes.g, 16.0) * 256.0 + bytes.b);
+      }
+
+      float tileHash(vec2 center) {
+        return fract(center.x * 0.0617 + center.y * 0.1347 + center.x * center.y * 0.000131);
+      }
+
+      float tileDelay(vec2 center) {
+        vec2 relative = center / resolution - 0.5;
+        float front = sweep.z > 0.5
+          ? length(relative) / 0.7071
+          : clamp(dot(relative, sweep.xy) / (0.5 * (abs(sweep.x) + abs(sweep.y))) * 0.5 + 0.5, 0.0, 1.0);
+        return clamp(0.78 * front + 0.22 * tileHash(center), 0.0, 1.0);
+      }
+
+      void main() {
+        vec2 fromTop = vec2(gl_FragCoord.x, resolution.y - gl_FragCoord.y);
+        vec2 center = tileCenter(fromTop);
+        float progress = clamp((elapsed - tileDelay(center) * stagger) / flipSeconds, 0.0, 1.0);
+        vec3 underneath = texture2D(toTexture, toUv(fromTop)).rgb;
+        if (progress <= 0.0) {
+          gl_FragColor = vec4(texture2D(fromTexture, toUv(fromTop)).rgb, 1.0);
+          return;
+        }
+        if (progress >= 1.0) {
+          gl_FragColor = vec4(underneath, 1.0);
+          return;
+        }
+        // Each tile turns about its own axis, picked from four directions.
+        float axisAngle = floor(fract(tileHash(center) * 7.31) * 4.0) * PI * 0.25;
+        vec2 axis = vec2(cos(axisAngle), sin(axisAngle));
+        vec2 normal = vec2(-axis.y, axis.x);
+        float eased = progress * progress * (3.0 - 2.0 * progress);
+        float turn = PI * eased;
+        float fold = cos(turn);
+        vec2 offset = fromTop - center;
+        vec2 source = center + axis * dot(offset, axis) + normal * dot(offset, normal) / max(abs(fold), 0.001);
+        vec2 sourceCenter = tileCenter(source);
+        bool onTile = abs(fold) > 0.02 && distance(sourceCenter, center) < 0.5;
+        vec3 face = fold > 0.0 ? texture2D(fromTexture, toUv(source)).rgb : texture2D(toTexture, toUv(source)).rgb;
+        vec3 shadow = underneath * (0.74 + 0.26 * (1.0 - sin(turn)));
+        vec3 color = onTile ? face * (1.0 - 0.2 * sin(turn)) : shadow;
+        gl_FragColor = vec4(color, 1.0);
+      }
+    `,
+  }));
+  flipMesh.frustumCulled = false;
+  flipScene.add(flipMesh);
+
+  // ---------- sketch style ----------
+  // Turns the finished frame into a pencil drawing: wobbly graphite outlines found from colour
+  // edges, diagonal hatching that thickens in the darker tones, and the tile colours kept only as a
+  // light coloured-pencil wash on grainy paper. The wobble redraws a few times a second, like the
+  // boiling lines of hand-drawn animation.
+  const sketch = { enabled: false, target: null };
+  const sketchUniforms = {
+    sceneTexture: { value: null },
+    resolution: { value: new THREE.Vector2(1, 1) },
+    pixelRatio: { value: 1 },
+    time: { value: 0 },
+  };
+  const sketchScene = new THREE.Scene();
+  const sketchMesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.ShaderMaterial({
+    uniforms: sketchUniforms,
+    depthTest: false,
+    depthWrite: false,
+    vertexShader: "void main() { gl_Position = vec4(position.xy, 0.0, 1.0); }",
+    fragmentShader: `
+      precision highp float;
+      uniform sampler2D sceneTexture;
+      uniform vec2 resolution;
+      uniform float pixelRatio;
+      uniform float time;
+
+      float hash(vec2 point) {
+        return fract(sin(dot(point, vec2(127.1, 311.7))) * 43758.5453);
+      }
+
+      float noise(vec2 point) {
+        vec2 cell = floor(point);
+        vec2 local = fract(point);
+        vec2 blend = local * local * (3.0 - 2.0 * local);
+        float bottom = mix(hash(cell), hash(cell + vec2(1.0, 0.0)), blend.x);
+        float top = mix(hash(cell + vec2(0.0, 1.0)), hash(cell + vec2(1.0, 1.0)), blend.x);
+        return mix(bottom, top, blend.y);
+      }
+
+      vec3 sceneAt(vec2 pixel) {
+        return texture2D(sceneTexture, pixel / resolution).rgb;
+      }
+
+      // One pencil stroke family: thin lines across the page at a given slant, broken into dashes.
+      float hatch(vec2 point, vec2 direction, float spacing, float redraw) {
+        float along = dot(point, direction) / spacing + noise(point / 16.0 + redraw) * 0.35;
+        float stroke = 1.0 - smoothstep(0.1, 0.28, abs(fract(along) - 0.5) * 2.0);
+        float dash = smoothstep(0.28, 0.5, noise(point * vec2(0.09, 0.05) + redraw * 3.1));
+        return stroke * dash;
+      }
+
+      void main() {
+        vec2 pixel = gl_FragCoord.xy;
+        vec2 page = pixel / pixelRatio;
+        float redraw = floor(time * 6.0);
+
+        vec2 wobble = vec2(noise(page / 34.0 + redraw * 1.7), noise(page / 34.0 + 9.1 + redraw * 1.3)) - 0.5;
+        vec2 drawn = pixel + wobble * 3.2 * pixelRatio;
+        float reach = 1.3 * pixelRatio;
+        vec3 left = sceneAt(drawn - vec2(reach, 0.0));
+        vec3 right = sceneAt(drawn + vec2(reach, 0.0));
+        vec3 below = sceneAt(drawn - vec2(0.0, reach));
+        vec3 above = sceneAt(drawn + vec2(0.0, reach));
+        float edge = length(right - left) + length(above - below);
+        float pressure = 0.6 + 0.4 * noise(page / 7.0 + redraw);
+        float outline = smoothstep(0.1, 0.42, edge) * pressure;
+
+        vec3 color = sceneAt(drawn);
+        float tone = dot(color, vec3(0.299, 0.587, 0.114));
+        float shading = hatch(page, vec2(0.7071, 0.7071), 6.5, redraw) * smoothstep(0.78, 0.48, tone) * 0.32
+          + hatch(page, vec2(0.7071, -0.7071), 5.5, redraw) * smoothstep(0.5, 0.22, tone) * 0.34;
+
+        float grain = noise(page * 0.85) * 0.6 + noise(page * 0.23) * 0.4;
+        vec3 paper = vec3(0.965, 0.945, 0.9) * (0.955 + 0.06 * grain);
+        vec3 wash = mix(paper, color, 0.4 * (0.7 + 0.3 * grain));
+        vec3 graphite = vec3(0.22, 0.2, 0.19);
+        gl_FragColor = vec4(mix(wash, graphite, clamp(outline * 0.88 + shading, 0.0, 1.0)), 1.0);
+      }
+    `,
+  }));
+  sketchMesh.frustumCulled = false;
+  sketchScene.add(sketchMesh);
+
+  // ---------- tile-shaped lens ----------
+  // The main tiling is drawn once into a texture (again only when it changes) together with its
+  // tile map, and the lens tiling is drawn whole into a second texture. Every main tile whose centre
+  // lies inside the lens turns over to show the lens tiling, so the lens edge follows the tiles of
+  // the pattern; tiles in a band at the edge are part way round, turning as the lens moves.
+  const compose = { baseTarget: null, lensTarget: null, baseClock: null };
+  const composeUniforms = {
+    baseTexture: { value: null },
+    lensTexture: { value: null },
+    idTexture: { value: null },
+    resolution: { value: new THREE.Vector2(1, 1) },
+    lensCenter: { value: new THREE.Vector2(0, 0) },
+    lensRadius: { value: new THREE.Vector2(1, 1) },
+    band: { value: 0.3 },
+    strength: { value: 0 },
+  };
+  const composeScene = new THREE.Scene();
+  const composeMesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.ShaderMaterial({
+    uniforms: composeUniforms,
+    depthTest: false,
+    depthWrite: false,
+    vertexShader: "void main() { gl_Position = vec4(position.xy, 0.0, 1.0); }",
+    fragmentShader: `
+      precision highp float;
+      uniform sampler2D baseTexture;
+      uniform sampler2D lensTexture;
+      uniform sampler2D idTexture;
+      uniform vec2 resolution;
+      uniform vec2 lensCenter;
+      uniform vec2 lensRadius;
+      uniform float band;
+      uniform float strength;
+      const float PI = 3.14159265;
+
+      vec2 toUv(vec2 fromTop) {
+        return vec2(fromTop.x, resolution.y - fromTop.y) / resolution;
+      }
+
+      vec2 tileCenter(vec2 fromTop) {
+        vec3 bytes = floor(texture2D(idTexture, toUv(fromTop)).rgb * 255.0 + 0.5);
+        return vec2(bytes.r * 16.0 + floor(bytes.g / 16.0), mod(bytes.g, 16.0) * 256.0 + bytes.b);
+      }
+
+      float tileHash(vec2 center) {
+        return fract(center.x * 0.0617 + center.y * 0.1347 + center.x * center.y * 0.000131);
+      }
+
+      void main() {
+        vec2 fromTop = vec2(gl_FragCoord.x, resolution.y - gl_FragCoord.y);
+        vec3 base = texture2D(baseTexture, toUv(fromTop)).rgb;
+        if (strength < 0.001) {
+          gl_FragColor = vec4(base, 1.0);
+          return;
+        }
+        vec2 center = tileCenter(fromTop);
+        float reach = length((center - lensCenter) / lensRadius);
+        float progress = clamp((1.0 - reach) / band, 0.0, 1.0) * strength;
+        vec3 lensColor = texture2D(lensTexture, toUv(fromTop)).rgb;
+        if (progress <= 0.0 || center == vec2(0.0)) {
+          gl_FragColor = vec4(base, 1.0);
+          return;
+        }
+        if (progress >= 1.0) {
+          gl_FragColor = vec4(lensColor, 1.0);
+          return;
+        }
+        float axisAngle = floor(fract(tileHash(center) * 7.31) * 4.0) * PI * 0.25;
+        vec2 axis = vec2(cos(axisAngle), sin(axisAngle));
+        vec2 normal = vec2(-axis.y, axis.x);
+        float eased = progress * progress * (3.0 - 2.0 * progress);
+        float turn = PI * eased;
+        float fold = cos(turn);
+        vec2 offset = fromTop - center;
+        vec2 source = center + axis * dot(offset, axis) + normal * dot(offset, normal) / max(abs(fold), 0.001);
+        bool onTile = abs(fold) > 0.02 && distance(tileCenter(source), center) < 0.5;
+        vec3 face = fold > 0.0 ? texture2D(baseTexture, toUv(source)).rgb : texture2D(lensTexture, toUv(source)).rgb;
+        vec3 shadow = mix(base, lensColor, eased) * (0.74 + 0.26 * (1.0 - sin(turn)));
+        gl_FragColor = vec4(onTile ? face * (1.0 - 0.2 * sin(turn)) : shadow, 1.0);
+      }
+    `,
+  }));
+  composeMesh.frustumCulled = false;
+  composeScene.add(composeMesh);
+
+  function setupFlip() {
+    const size = renderer.getDrawingBufferSize(new THREE.Vector2());
+    for (const target of flip.targets) target.dispose();
+    flip.targets = [0, 1].map(() => {
+      const target = new THREE.WebGLMultisampleRenderTarget(size.x, size.y);
+      target.samples = 4;
+      return target;
+    });
+    if (flip.idTarget) flip.idTarget.dispose();
+    flip.idTarget = new THREE.WebGLRenderTarget(size.x, size.y, { minFilter: THREE.NearestFilter, magFilter: THREE.NearestFilter });
+    flipUniforms.fromTexture.value = flip.targets[0].texture;
+    flipUniforms.toTexture.value = flip.targets[1].texture;
+    flipUniforms.idTexture.value = flip.idTarget.texture;
+    flipUniforms.resolution.value.set(size.x, size.y);
+    for (const step of field.steps) step.tiles = null;
+    for (const target of [compose.baseTarget, compose.lensTarget]) if (target) target.dispose();
+    compose.baseTarget = new THREE.WebGLMultisampleRenderTarget(size.x, size.y);
+    compose.baseTarget.samples = 4;
+    compose.lensTarget = new THREE.WebGLMultisampleRenderTarget(size.x, size.y);
+    compose.lensTarget.samples = 4;
+    compose.baseClock = null;
+    composeUniforms.baseTexture.value = compose.baseTarget.texture;
+    composeUniforms.lensTexture.value = compose.lensTarget.texture;
+    composeUniforms.idTexture.value = flip.idTarget.texture;
+    composeUniforms.resolution.value.set(size.x, size.y);
+    if (sketch.target) sketch.target.dispose();
+    sketch.target = new THREE.WebGLMultisampleRenderTarget(size.x, size.y);
+    sketch.target.samples = 4;
+    sketchUniforms.sceneTexture.value = sketch.target.texture;
+    sketchUniforms.resolution.value.set(size.x, size.y);
+    sketchUniforms.pixelRatio.value = renderer.getPixelRatio();
+  }
+
+  // Draws the tile map of the tiling at clock and returns the tile centres.
+  function drawTileMap(clock, seconds) {
+    fillField(clock);
+    updateCameraSquash(clock);
+    let centers = [];
+    if (!buildFrame(seconds, centers)) {
+      centers = [];
+      buildFrame(seconds, centers);
+    }
+    mesh.material = idMaterial;
+    renderer.setRenderTarget(flip.idTarget);
+    renderer.setClearColor(0x000000, 1);
+    renderer.clear();
+    renderer.render(scene, camera);
+    renderer.setClearColor(0xefe7d6, 1);
+    mesh.material = material;
+    return centers;
+  }
+
+  // Draws the tile map for a step once, as it starts, and schedules one clack per landing tile,
+  // thinned to a handful spread over the sweep.
+  const TILE_SOUNDS_PER_STEP = 24;
+  function prepareStep(step, seconds) {
+    const size = renderer.getDrawingBufferSize(new THREE.Vector2());
+    step.tiles = drawTileMap(step.from, seconds);
+    const landings = step.tiles
+      .filter(([centerX, centerY]) => centerX >= 0 && centerY >= 0 && centerX < size.x && centerY < size.y)
+      .map(([centerX, centerY]) => ({
+        time: step.startTime + tileDelay(centerX, centerY, step.sweep, size) * step.stagger + step.flipSeconds,
+        pan: (centerX / size.x) * 1.4 - 0.7,
+      }))
+      .sort((first, second) => first.time - second.time);
+    const count = Math.min(TILE_SOUNDS_PER_STEP, landings.length);
+    for (let index = 0; index < count; index++) {
+      const landing = landings[Math.floor(((index + 0.5) / count) * landings.length)];
+      playSound("card", landing.time, seconds, landing.pan);
+    }
+  }
+
+  function resize() {
+    view.width = window.innerWidth;
+    view.height = window.innerHeight;
+    view.scale = view.width < 520 ? 26 : 34;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setSize(view.width, view.height, false);
+    camera.left = 0;
+    camera.right = view.width;
+    camera.top = 0;
+    camera.bottom = view.height;
+    camera.updateProjectionMatrix();
+    const halfWidth = view.width / 2 / (view.scale * (1.5 / SQRT3));
+    const halfHeight = view.height / 2 / view.scale;
+    view.graph = buildGraph(Math.hypot(halfWidth, halfHeight) + 4);
+    setupField(halfWidth, halfHeight);
+    setupFlip();
+  }
+
+  // The slide leaves sqrt(3) x 1.5 rectangles; squeezing x turns them into squares. Doing that in the
+  // camera, from the main tiling at the screen centre, keeps it uniform: as a per-vertex deformation it
+  // scaled about the origin and stretched tiles wherever neighbouring clocks differed (the lens rim).
+  function updateCameraSquash(baseClock) {
+    view.squash = lerp(1, 1.5 / SQRT3, track(SLIDE, modulo(baseClock, LOOP)));
+  }
+  const toScreenX = (worldX) => view.width / 2 + worldX * view.scale * view.squash;
+  const toScreenY = (worldY) => view.height / 2 + worldY * view.scale;
+
+  function screenPath(polygon) {
+    const flat = [];
+    const count = polygon.length;
+    for (let index = 0; index < count; index++) {
+      const start = polygon[index];
+      const end = polygon[(index + 1) % count];
+      const edgeX = end[0] - start[0];
+      const edgeY = end[1] - start[1];
+      if (Math.abs(edgeX) + Math.abs(edgeY) < 1e-6) continue;
+      const clock = modulo(sampleField((start[0] + end[0]) / 2, (start[1] + end[1]) / 2), LOOP);
+      const amplitude = track(CURVE, clock);
+      flat.push(toScreenX(start[0]), toScreenY(start[1]));
+      if (amplitude < 0.001) continue;
+      for (let sample = 1; sample < CURVE_SAMPLES; sample++) {
+        const along = sample / CURVE_SAMPLES;
+        const offset = amplitude * curveProfile(along - 0.5);
+        flat.push(toScreenX(start[0] + edgeX * along - edgeY * offset), toScreenY(start[1] + edgeY * along + edgeX * offset));
+      }
+    }
+    return flat;
+  }
+
+  // With tileCenters, draws the tile map instead: every tile and vertex polygon filled with its
+  // centre packed into the colour, and the centres collected for the sound.
+  function buildFrame(seconds, tileCenters = null) {
+    const { vertices, faces } = view.graph;
+    const positions = new Array(vertices.length);
+    const alphas = new Float32Array(vertices.length);
+    for (let id = 0; id < vertices.length; id++) {
+      const vertex = vertices[id];
+      const clock = modulo(sampleField(vertex.base[0], vertex.base[1]), LOOP);
+      positions[id] = deformVertex(vertex, track(BRICK, clock), track(SLIDE, clock));
+      alphas[id] = track(vertex.isTypeA ? ALPHA_A : ALPHA_B, clock);
+    }
+
+    const items = [];
+    for (const face of faces) {
+      const polygon = [];
+      for (let corner = 0; corner < 6; corner++) {
+        const id = face.vertexIds[corner];
+        polygon.push(towards(positions[id], positions[face.vertexIds[(corner + 5) % 6]], alphas[id]));
+        polygon.push(towards(positions[id], positions[face.vertexIds[(corner + 1) % 6]], alphas[id]));
+      }
+      items.push({ polygon, anchor: face.anchor, role: 0, colorIndex: face.colorIndex, parity: face.parity, seed: face.seed, shade: face.shade });
+    }
+    for (let id = 0; id < vertices.length; id++) {
+      const vertex = vertices[id];
+      if (alphas[id] < 0.0005 || vertex.neighbours.length < 3) continue;
+      const polygon = vertex.neighbours.map((neighbour) => towards(positions[id], positions[neighbour], alphas[id]));
+      items.push({ polygon, anchor: vertex.base, role: vertex.isTypeA ? 1 : 2, colorIndex: 0, parity: 0, seed: vertex.seed, shade: vertex.shade });
+    }
+
+    const margin = 3 * view.scale;
+    const prepared = [];
+    // A strap only shows once its star has opened: at a small contact angle it would lie along the
+    // tile edges and draw stray outlines.
+    const strapAtPoint = (point) => {
+      const clock = modulo(sampleField(point[0], point[1]), LOOP);
+      const angle = track(STAR_ANGLE, clock);
+      return { angle: (angle * Math.PI) / 180, width: track(STRAP_WIDTH, clock) * smoothstep(4, 28, angle) };
+    };
+    for (const item of items) {
+      if (Math.abs(polygonArea(item.polygon)) < 1e-5) continue;
+      let centerX = 0;
+      let centerY = 0;
+      for (const point of item.polygon) {
+        centerX += point[0];
+        centerY += point[1];
+      }
+      const screenX = toScreenX(centerX / item.polygon.length);
+      const screenY = toScreenY(centerY / item.polygon.length);
+      if (screenX < -margin || screenX > view.width + margin || screenY < -margin || screenY > view.height + margin) continue;
+      const clock = modulo(sampleField(item.anchor[0], item.anchor[1]), LOOP);
+      const stage = track(STAGE, clock);
+      prepared.push({
+        path: screenPath(item.polygon),
+        color: itemColor(item, stage, seconds),
+        stage,
+        curve: track(CURVE, clock),
+        hankin: tileCenters ? null : hankinGeometry(item.polygon, strapAtPoint),
+        screenX,
+        screenY,
+      });
+    }
+
+    buffer.reset();
+    if (tileCenters) {
+      const ratio = renderer.getPixelRatio();
+      for (const entry of prepared) {
+        if (entry.path.length < 6) continue;
+        const centerX = clamp(Math.round(entry.screenX * ratio), 0, 4095);
+        const centerY = clamp(Math.round(entry.screenY * ratio), 0, 4095);
+        tileCenters.push([centerX, centerY]);
+        const packed = [Math.floor(centerX / 16) / 255, ((centerX % 16) * 16 + Math.floor(centerY / 256)) / 255, (centerY % 256) / 255];
+        buffer.fan(entry.path, packed);
+      }
+      return buffer.commit();
+    }
+    for (const entry of prepared) {
+      if (entry.path.length >= 6) buffer.fan(entry.path, entry.color);
+    }
+    for (const entry of prepared) {
+      if (!entry.hankin) continue;
+      const { midpoints, meets, corners } = entry.hankin;
+      const kite = stagePaletteColor(KITE_COLORS, entry.stage);
+      const kiteAlpha = entry.hankin.visibility;
+      const count = corners.length;
+      for (let index = 0; index < count; index++) {
+        const start = midpoints[index];
+        const corner = corners[(index + 1) % count];
+        const end = midpoints[(index + 1) % count];
+        const meet = meets[index];
+        buffer.triangle(toScreenX(start[0]), toScreenY(start[1]), toScreenX(corner[0]), toScreenY(corner[1]), toScreenX(meet[0]), toScreenY(meet[1]), kite, kiteAlpha);
+        buffer.triangle(toScreenX(corner[0]), toScreenY(corner[1]), toScreenX(end[0]), toScreenY(end[1]), toScreenX(meet[0]), toScreenY(meet[1]), kite, kiteAlpha);
+      }
+    }
+    for (const entry of prepared) {
+      const kagome = clamp(1 - Math.abs(entry.stage - 2));
+      const ink = Math.max(kagome, entry.curve);
+      if (ink < 0.01) continue;
+      const color = stagePaletteColor(STRAP_EDGE_COLORS, entry.stage);
+      const path = entry.path;
+      const pointCount = path.length / 2;
+      for (let index = 0; index < pointCount; index++) {
+        const next = (index + 1) % pointCount;
+        buffer.segment(path[index * 2], path[index * 2 + 1], path[next * 2], path[next * 2 + 1], 2.4, color, ink);
+      }
+    }
+    for (const pass of [0, 1]) {
+      for (const entry of prepared) {
+        if (!entry.hankin) continue;
+        const { midpoints, meets, widths } = entry.hankin;
+        const outline = pass === 0 ? 2.4 : 0;
+        const pixelWidth = (width) => (width < 0.0005 ? 0 : width * view.scale + outline * smoothstep(0, 0.03, width));
+        const color = pass === 0 ? stagePaletteColor(STRAP_EDGE_COLORS, entry.stage) : rgb("#F6F0E2");
+        const count = midpoints.length;
+        for (let index = 0; index < count; index++) {
+          const start = midpoints[index];
+          const meet = meets[index];
+          const end = midpoints[(index + 1) % count];
+          const startWidth = pixelWidth(widths[index]);
+          const endWidth = pixelWidth(widths[(index + 1) % count]);
+          buffer.strap(toScreenX(start[0]), toScreenY(start[1]), toScreenX(meet[0]), toScreenY(meet[1]), toScreenX(end[0]), toScreenY(end[1]), startWidth, endWidth, color);
+        }
+      }
+    }
+    return buffer.commit();
+  }
+
+  // ---------- sound: soft split-flap clicks ----------
+  // Each pattern change rattles a few flaps, like the small cards of an airport departures board.
+  // Everything is synthesised: a short band-passed noise click, a small wooden body and a lighter
+  // second tick as the card lands. The same code renders the video soundtrack offline.
+  const SOUND_MASTER_GAIN = 1.9;
+
+  function seededRandom(seed) {
+    let state = seed >>> 0;
+    return () => {
+      state = (state + 0x6d2b79f5) >>> 0;
+      let value = state;
+      value = Math.imul(value ^ (value >>> 15), value | 1);
+      value ^= value + Math.imul(value ^ (value >>> 7), value | 61);
+      return ((value ^ (value >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  function makeNoiseBuffer(context, seconds = 0.25) {
+    const random = seededRandom(7);
+    const buffer = context.createBuffer(1, Math.floor(context.sampleRate * seconds), context.sampleRate);
+    const samples = buffer.getChannelData(0);
+    for (let index = 0; index < samples.length; index++) samples[index] = random() * 2 - 1;
+    return buffer;
+  }
+
+  function scheduleFlap(audio, time, intensity, pan, random) {
+    const { context, output, noise } = audio;
+    const panner = context.createStereoPanner();
+    panner.pan.value = pan;
+    panner.connect(output);
+    const clicks = [
+      { delay: 0, gain: 0.32, frequency: 2600 + random() * 1400, length: 0.014 },
+      { delay: 0.016 + random() * 0.012, gain: 0.15, frequency: 4200 + random() * 1500, length: 0.009 },
+    ];
+    for (const click of clicks) {
+      const start = time + click.delay;
+      const source = context.createBufferSource();
+      source.buffer = noise;
+      const filter = context.createBiquadFilter();
+      filter.type = "bandpass";
+      filter.frequency.value = click.frequency;
+      filter.Q.value = 1.4;
+      const envelope = context.createGain();
+      envelope.gain.setValueAtTime(0, start);
+      envelope.gain.linearRampToValueAtTime(click.gain * intensity, start + 0.0008);
+      envelope.gain.exponentialRampToValueAtTime(0.0001, start + click.length);
+      source.connect(filter).connect(envelope).connect(panner);
+      source.start(start, random() * 0.2, click.length + 0.01);
+    }
+    const body = context.createOscillator();
+    body.type = "sine";
+    body.frequency.value = 900 + random() * 500;
+    const bodyEnvelope = context.createGain();
+    bodyEnvelope.gain.setValueAtTime(0, time);
+    bodyEnvelope.gain.linearRampToValueAtTime(0.07 * intensity, time + 0.001);
+    bodyEnvelope.gain.exponentialRampToValueAtTime(0.0001, time + 0.03);
+    body.connect(bodyEnvelope).connect(panner);
+    body.start(time);
+    body.stop(time + 0.04);
+  }
+
+  // Inverse of easeInOut: the moment a morph reaches a given share of its change.
+  function easeInOutInverse(amount) {
+    if (amount < 0.5) return Math.cbrt(amount / 4);
+    return 1 - Math.cbrt(2 * (1 - amount)) / 2;
+  }
+
+  // A rattle of `count` flaps over one morph step. Each flap sits where the morph passes the next
+  // equal share of its change, so the flaps are densest exactly when the tiles move fastest.
+  function scheduleRattle(audio, time, count, duration, loudness, seed) {
+    const random = seededRandom(seed);
+    for (let index = 0; index < count; index++) {
+      const progress = index / Math.max(1, count - 1);
+      const offset = duration * easeInOutInverse((index + 0.5) / count) + (random() - 0.5) * 0.01;
+      const intensity = loudness * (0.55 + 0.45 * random()) * (1 - 0.35 * progress);
+      scheduleFlap(audio, time + offset, intensity, (random() * 2 - 1) * 0.6, random);
+    }
+  }
+
+  function connectAudio(context) {
+    const lowpass = context.createBiquadFilter();
+    lowpass.type = "lowpass";
+    lowpass.frequency.value = 7500;
+    const master = context.createGain();
+    master.gain.value = SOUND_MASTER_GAIN;
+    lowpass.connect(master).connect(context.destination);
+    return { context, output: lowpass, noise: makeNoiseBuffer(context) };
+  }
+
+  function scheduleEvent(audio, time, kind, seed, pan = 0) {
+    if (kind === "card") {
+      const random = seededRandom(seed);
+      scheduleFlap(audio, time, 0.8 + 0.25 * random(), pan, random);
+      return;
+    }
+    const shape = SOUND_SHAPES[kind];
+    scheduleRattle(audio, time, shape.count, shape.duration, shape.loudness, seed);
+  }
+
+  const SOUND_SHAPES = {
+    flap: { count: 1, duration: 0, loudness: 1 },
+    lensStation: { count: 6, duration: 0.35, loudness: 0.9 },
+    lensToggle: { count: 4, duration: 0.3, loudness: 0.55 },
+  };
+
+  const sound = { enabled: true, audio: null, events: [], seed: 1 };
+
+  // eventTime is when the morph starts (it may be queued after the current one); now is the clock time.
+  function playSound(kind, eventTime, now = eventTime, pan = 0) {
+    sound.seed++;
+    sound.events.push({ kind, time: eventTime, seed: sound.seed, pan });
+    if (!sound.enabled || !sound.audio || sound.audio.context.state !== "running") return;
+    const delay = Math.max(0, eventTime - now);
+    scheduleEvent(sound.audio, sound.audio.context.currentTime + delay, kind, sound.seed, pan);
+  }
+
+  // Browsers only start audio after a click or key press, so the context is made on the first one.
+  function unlockAudio() {
+    if (!sound.audio) sound.audio = connectAudio(new (window.AudioContext || window.webkitAudioContext)());
+    if (sound.audio.context.state === "suspended") sound.audio.context.resume();
+  }
+  window.addEventListener("pointerdown", unlockAudio);
+  window.addEventListener("keydown", unlockAudio);
+
+  // Renders the logged events to a 16-bit stereo WAV (base64) for the recorded video.
+  async function renderSoundtrack(events, durationSeconds) {
+    const sampleRate = 48000;
+    const context = new OfflineAudioContext(2, Math.ceil(durationSeconds * sampleRate), sampleRate);
+    const audio = connectAudio(context);
+    for (const event of events) scheduleEvent(audio, event.time, event.kind, event.seed, event.pan);
+    const rendered = await context.startRendering();
+    const left = rendered.getChannelData(0);
+    const right = rendered.getChannelData(1);
+    const bytes = new DataView(new ArrayBuffer(44 + left.length * 4));
+    const writeText = (offset, value) => {
+      for (let index = 0; index < value.length; index++) bytes.setUint8(offset + index, value.charCodeAt(index));
+    };
+    writeText(0, "RIFF");
+    bytes.setUint32(4, 36 + left.length * 4, true);
+    writeText(8, "WAVEfmt ");
+    bytes.setUint32(16, 16, true);
+    bytes.setUint16(20, 1, true);
+    bytes.setUint16(22, 2, true);
+    bytes.setUint32(24, sampleRate, true);
+    bytes.setUint32(28, sampleRate * 4, true);
+    bytes.setUint16(32, 4, true);
+    bytes.setUint16(34, 16, true);
+    writeText(36, "data");
+    bytes.setUint32(40, left.length * 4, true);
+    for (let index = 0; index < left.length; index++) {
+      bytes.setInt16(44 + index * 4, clamp(left[index], -1, 1) * 32767, true);
+      bytes.setInt16(46 + index * 4, clamp(right[index], -1, 1) * 32767, true);
+    }
+    let binary = "";
+    const raw = new Uint8Array(bytes.buffer);
+    for (let index = 0; index < raw.length; index += 32768) binary += String.fromCharCode(...raw.subarray(index, index + 32768));
+    return btoa(binary);
+  }
+
+  // ---------- pointer, idle lens, readout ----------
+  const baseName = document.getElementById("baseName");
+  const lensName = document.getElementById("lensName");
+  const pointer = { x: 0, y: 0, inside: false, lastMoveTime: -100, previousX: null, previousY: null };
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const IDLE_SECONDS = 5;
+
+  function toWorld(screenX, screenY) {
+    return [(screenX - view.width / 2) / (view.scale * view.squash), (screenY - view.height / 2) / view.scale];
+  }
+
+  // The distance the lens travels drives how far ahead its tiling morphs.
+  function trackTravel(screenX, screenY) {
+    if (pointer.previousX !== null) {
+      lens.distance += Math.hypot(screenX - pointer.previousX, screenY - pointer.previousY);
+    }
+    pointer.previousX = screenX;
+    pointer.previousY = screenY;
+  }
+
+  function movePointer(screenX, screenY, now) {
+    pointer.x = screenX;
+    pointer.y = screenY;
+    pointer.inside = true;
+    pointer.lastMoveTime = now;
+    if (lensEnabled) trackTravel(screenX, screenY);
+  }
+
+  function zoomLens(wheelDelta) {
+    const factor = Math.exp(-wheelDelta * 0.0012);
+    lens.goalRadius = clamp(lens.goalRadius * factor, LENS_MIN_RADIUS, LENS_MAX_RADIUS);
+  }
+
+  canvas.addEventListener("pointermove", (event) => movePointer(event.clientX, event.clientY, performance.now() / 1000));
+  canvas.addEventListener("pointerdown", (event) => {
+    movePointer(event.clientX, event.clientY, performance.now() / 1000);
+    if (lensEnabled) lens.distance += LENS_STATION_PIXELS;
+  });
+  // The wheel grows or shrinks the lens; each notch scales it by about 12%.
+  canvas.addEventListener("wheel", (event) => {
+    if (!lensEnabled) return;
+    event.preventDefault();
+    zoomLens(event.deltaY);
+  }, { passive: false });
+  canvas.addEventListener("pointerleave", () => {
+    pointer.inside = false;
+    pointer.previousX = null;
+  });
+
+  function pressScramble(now, jump) {
+    scramble(now, jump);
+  }
+
+  const lensButton = document.getElementById("lensButton");
+  const soundButton = document.getElementById("soundButton");
+  let lensEnabled = false;
+  function setLensEnabled(enabled, now) {
+    lensEnabled = enabled;
+    lensButton.setAttribute("aria-pressed", String(enabled));
+    lensButton.textContent = enabled ? "Hover lens on" : "Hover lens off";
+    if (enabled && now !== undefined) playSound("lensToggle", now);
+  }
+  function setSoundEnabled(enabled) {
+    sound.enabled = enabled;
+    soundButton.setAttribute("aria-pressed", String(enabled));
+    soundButton.textContent = enabled ? "Sound on" : "Sound off";
+  }
+  document.getElementById("scrambleButton").addEventListener("click", () => pressScramble(performance.now() / 1000));
+  lensButton.addEventListener("click", () => setLensEnabled(!lensEnabled, performance.now() / 1000));
+  soundButton.addEventListener("click", () => setSoundEnabled(!sound.enabled));
+  const sketchButton = document.getElementById("sketchButton");
+  function setSketchEnabled(enabled) {
+    sketch.enabled = enabled;
+    sketchButton.setAttribute("aria-pressed", String(enabled));
+    sketchButton.textContent = enabled ? "Sketch on" : "Sketch off";
+  }
+  sketchButton.addEventListener("click", () => setSketchEnabled(!sketch.enabled));
+
+  // Inspection hook: shows one clock on the whole screen with the lens off.
+  window.tessellationDebug = {
+    show(clock) {
+      setLensEnabled(false);
+      field.steps = [];
+      field.baseClock = clock;
+      field.targetClock = clock;
+    },
+    pinLens(screenX, screenY) {
+      setLensEnabled(true);
+      pointer.x = screenX;
+      pointer.y = screenY;
+      pointer.inside = true;
+      pointer.lastMoveTime = Infinity;
+    },
+  };
+
+  let lastReadout = "";
+  let lastLensStep = 1;
+
+  function renderTiling(baseClock, seconds, target) {
+    fillField(baseClock);
+    updateCameraSquash(baseClock);
+    if (!buildFrame(seconds)) buildFrame(seconds);
+    renderer.setRenderTarget(target);
+    renderer.render(scene, camera);
+  }
+
+  function renderAt(seconds, deltaSeconds) {
+    const idle = !pointer.inside || seconds - pointer.lastMoveTime > IDLE_SECONDS;
+    let lensScreenX = pointer.x;
+    let lensScreenY = pointer.y;
+    if (idle && lensEnabled) {
+      lensScreenX = view.width * (0.5 + 0.3 * Math.sin(seconds * 0.21));
+      lensScreenY = view.height * (0.5 + 0.28 * Math.sin(seconds * 0.29 + 1.2));
+      trackTravel(lensScreenX, lensScreenY);
+    }
+    const [goalX, goalY] = toWorld(lensScreenX, lensScreenY);
+    lens.goalX = goalX;
+    lens.goalY = goalY;
+    lens.goalStrength = !lensEnabled || (idle && reducedMotion) ? 0 : 1;
+    if (lens.strength < 0.02 && lens.goalStrength > 0) {
+      lens.x = goalX;
+      lens.y = goalY;
+    }
+
+    updateField(seconds, deltaSeconds);
+    const output = sketch.enabled ? sketch.target : null;
+    const step = activeFlip(seconds);
+    if (step) {
+      if (!step.tiles) prepareStep(step, seconds);
+      renderTiling(step.from, seconds, flip.targets[0]);
+      renderTiling(step.landing, seconds, flip.targets[1]);
+      flipUniforms.elapsed.value = seconds - step.startTime;
+      flipUniforms.stagger.value = step.stagger;
+      flipUniforms.flipSeconds.value = step.flipSeconds;
+      flipUniforms.sweep.value.set(step.sweep[0], step.sweep[1], step.sweep[2]);
+      renderer.setRenderTarget(compose.baseTarget);
+      renderer.render(flipScene, camera);
+      compose.baseClock = null;
+    } else if (compose.baseClock !== field.baseClock) {
+      renderTiling(field.baseClock, seconds, compose.baseTarget);
+      drawTileMap(field.baseClock, seconds);
+      compose.baseClock = field.baseClock;
+    }
+    // The tile map belongs to the flip's old tiling during a scramble, else to the main tiling.
+    updateCameraSquash(step ? step.from : field.baseClock);
+    const baseSquash = view.squash;
+    if (lens.strength > 0.001) renderTiling(lens.clock, seconds, compose.lensTarget);
+    view.squash = baseSquash;
+    const ratio = renderer.getPixelRatio();
+    const rim = Math.min(LENS_RIM, lens.radius * 0.6);
+    composeUniforms.lensCenter.value.set(toScreenX(lens.x) * ratio, toScreenY(lens.y) * ratio);
+    composeUniforms.lensRadius.value.set(lens.radius * view.scale * view.squash * ratio, lens.radius * view.scale * ratio);
+    composeUniforms.band.value = rim / lens.radius;
+    composeUniforms.strength.value = lens.strength;
+    renderer.setRenderTarget(output);
+    renderer.render(composeScene, camera);
+    if (sketch.enabled) {
+      sketchUniforms.time.value = seconds;
+      renderer.setRenderTarget(null);
+      renderer.render(sketchScene, camera);
+    }
+
+    // A fuller rattle each time the lens settles past the middle of a stretch into the next tiling.
+    const lensStep = Math.round(lens.position);
+    if (lensStep !== lastLensStep && lens.strength > 0.5 && !idle) playSound("lensStation", seconds);
+    lastLensStep = lensStep;
+    const lensStation = stationIndex(stationAfter(field.targetClock, lensStep));
+
+    const text = STATIONS[stationIndex(field.targetClock)].name + "|" + STATIONS[lensStation].name;
+    if (text !== lastReadout) {
+      const [base, lensText] = text.split("|");
+      baseName.textContent = base;
+      lensName.textContent = lensText;
+      lastReadout = text;
+    }
+  }
+
+  let previousSeconds = performance.now() / 1000;
+  function loop() {
+    const seconds = performance.now() / 1000;
+    const deltaSeconds = Math.min(0.05, seconds - previousSeconds);
+    previousSeconds = seconds;
+    renderAt(seconds, deltaSeconds);
+    requestAnimationFrame(loop);
+  }
+
+  window.addEventListener("resize", resize);
+  resize();
+
+  // ---------- scripted recording (#record) ----------
+  // A headless browser calls frame(t) for every video frame, so the run is deterministic: a drawn
+  // cursor presses Scramble several times, then turns the lens on, wanders and zooms it.
+  function startRecording(startClock, jump) {
+    field.baseClock = startClock;
+    field.targetClock = startClock;
+    lens.clock = lensClockAt(startClock, lens.position);
+    const FRAME_SECONDS = 1 / 30;
+    const DURATION = 15;
+    // One press runs through several tilings (by default hexagons to Escher squares), then the lens comes on.
+    const SCRAMBLE_JUMPS = [jump];
+    const SCRAMBLE_TIMES = [1.2];
+    const LENS_CLICK_TIME = 5.4;
+    const LENS_START = LENS_CLICK_TIME + 0.2;
+    const WANDER_START = LENS_START + 0.9;
+    const cursor = document.createElement("div");
+    cursor.innerHTML = '<svg width="26" height="30" viewBox="0 0 26 30"><path d="M2 2 L2 24 L8 18.5 L12.5 28 L16.5 26.2 L12 17 L20 17 Z" fill="#1F1A22" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round"/></svg>';
+    cursor.style.cssText = "position:fixed;left:0;top:0;pointer-events:none;z-index:10;transform-origin:2px 2px;";
+    document.body.appendChild(cursor);
+    const centerOf = (element) => {
+      const box = element.getBoundingClientRect();
+      return [box.left + box.width / 2, box.top + box.height / 2];
+    };
+    const scramblePoint = centerOf(document.getElementById("scrambleButton"));
+    const lensPoint = centerOf(lensButton);
+    const wanderPoint = (time) => [
+      view.width * (0.52 + 0.3 * Math.sin((time - LENS_START) * 0.55)),
+      view.height * (0.4 + 0.22 * Math.sin((time - LENS_START) * 0.83 + 0.4)),
+    ];
+    const waypoints = [
+      [0, [view.width * 0.6, view.height * 0.35]],
+      [0.4, [view.width * 0.6, view.height * 0.35]],
+      [1.15, scramblePoint],
+      [LENS_CLICK_TIME - 0.9, scramblePoint],
+      [LENS_CLICK_TIME - 0.2, lensPoint],
+      [LENS_START, lensPoint],
+      [WANDER_START, wanderPoint(WANDER_START)],
+    ];
+    const RADIUS_KEYS = [[0, LENS_START_RADIUS], [9.2, LENS_START_RADIUS], [10.6, 7.5], [12.2, 7.5], [13.4, LENS_START_RADIUS]];
+    const done = new Set();
+
+    function cursorAt(time) {
+      if (time >= WANDER_START) return wanderPoint(time);
+      for (let index = 1; index < waypoints.length; index++) {
+        const [endTime, endPoint] = waypoints[index];
+        if (time > endTime) continue;
+        const [startTime, startPoint] = waypoints[index - 1];
+        const amount = easeInOut(clamp((time - startTime) / Math.max(0.001, endTime - startTime)));
+        return [lerp(startPoint[0], endPoint[0], amount), lerp(startPoint[1], endPoint[1], amount)];
+      }
+      return waypoints[waypoints.length - 1][1];
+    }
+
+    let lastPress = { button: null, time: -1 };
+    window.tessellationRecorder = {
+      duration: DURATION,
+      frameSeconds: FRAME_SECONDS,
+      frame(time) {
+        for (let index = 0; index < SCRAMBLE_TIMES.length; index++) {
+          const pressTime = SCRAMBLE_TIMES[index];
+          if (time >= pressTime && !done.has(pressTime)) {
+            done.add(pressTime);
+            pressScramble(time, SCRAMBLE_JUMPS[index]);
+            lastPress = { button: document.getElementById("scrambleButton"), time };
+          }
+        }
+        if (time >= LENS_CLICK_TIME && !done.has("lens")) {
+          done.add("lens");
+          setLensEnabled(true, time);
+          lastPress = { button: lensButton, time };
+        }
+        for (const button of [document.getElementById("scrambleButton"), lensButton]) {
+          const pressed = button === lastPress.button && time - lastPress.time < 0.14;
+          button.style.transform = pressed ? "scale(0.94)" : "";
+        }
+        const [cursorX, cursorY] = cursorAt(time);
+        const cursorPressed = time - lastPress.time < 0.14;
+        cursor.style.transform = `translate(${cursorX}px, ${cursorY}px) scale(${cursorPressed ? 0.86 : 1})`;
+        if (time >= LENS_START) movePointer(cursorX, cursorY, time);
+        lens.goalRadius = track(RADIUS_KEYS, time);
+        renderAt(time, FRAME_SECONDS);
+      },
+      soundtrack() {
+        return renderSoundtrack(sound.events, DURATION + 1.5);
+      },
+    };
+  }
+
+  // #record or #record-sketch, optionally ?start=<station clock>&jump=<stations> for another run.
+  if (location.hash.startsWith("#record")) {
+    const [mode, query] = location.hash.split("?");
+    const options = new URLSearchParams(query ?? "");
+    if (mode === "#record-sketch") setSketchEnabled(true);
+    startRecording(Number(options.get("start") ?? START_CLOCK), Number(options.get("jump") ?? 5));
+  } else {
+    requestAnimationFrame(loop);
+  }
+})();
+</script>

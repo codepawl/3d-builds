@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Hakugin Onsen · Snow Mountain Rotenburo</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='14' fill='%2328594e'/></svg>" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./node_modules/three/build/three.module.js",
+        "three/addons/": "./node_modules/three/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <canvas id="scene-canvas"></canvas>
+
+  <header class="place-header" aria-label="Scene Title">
+    <h1 class="place-title">白銀の湯 · HAKUGIN ONSEN</h1>
+    <p class="place-subtitle">Mountain rotenburo beside a winter ryokan</p>
+  </header>
+
+  <nav class="pill-toolbar" aria-label="Camera and Lighting Controls">
+    <div class="toolbar-group">
+      <button id="btn-dslr" class="pill-button active" type="button" title="Toggle DSLR Look (Key: C)">DSLR</button>
+      <button id="btn-dof" class="pill-button active" type="button" title="Toggle Depth of Field (Key: F)">DOF</button>
+    </div>
+    <span class="toolbar-divider" aria-hidden="true"></span>
+    <div class="toolbar-group">
+      <button class="pill-button preset-button" type="button" data-preset="morning" title="Morning Light (Key: 1)">Morning</button>
+      <button class="pill-button preset-button" type="button" data-preset="golden" title="Golden Hour (Key: 2)">Golden</button>
+      <button class="pill-button preset-button active" type="button" data-preset="blue" title="Blue Hour (Key: 3)">Blue</button>
+      <button class="pill-button preset-button" type="button" data-preset="night" title="Night (Key: 4)">Night</button>
+    </div>
+  </nav>
+
+  <footer class="controls-hint" aria-hidden="true">
+    <span>Drag: Look</span>
+    <span>Wheel: Path</span>
+    <span>WASD / Arrows: Walk</span>
+    <span>1–4: Time</span>
+    <span>F: DOF</span>
+    <span>C: DSLR</span>
+  </footer>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

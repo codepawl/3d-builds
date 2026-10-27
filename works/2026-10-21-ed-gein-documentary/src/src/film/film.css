@@ -1,0 +1,135 @@
+/* The documentary page: the scene fills the frame; type is letter-spaced, light, and fades in and out.
+   Sizes in vmin so the 960 x 540 and 540 x 960 recordings (at 2x) carry the same type size. */
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+  background: #000;
+  overflow: hidden;
+}
+
+.film {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  font-family: 'Bahnschrift', 'DIN Alternate', 'Segoe UI', sans-serif;
+  color: #ececec;
+  user-select: none;
+  cursor: none;
+}
+
+.film canvas {
+  display: block;
+}
+
+.film-dip {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  pointer-events: none;
+}
+
+.film-lower,
+.film-card,
+.film-names {
+  position: absolute;
+  pointer-events: none;
+  text-shadow: 0 0 2.4vmin rgba(0, 0, 0, 0.85), 0 0 0.6vmin rgba(0, 0, 0, 0.9);
+}
+
+.film-lower {
+  left: 7vw;
+  right: 7vw;
+  bottom: 11vh;
+}
+
+.film-date {
+  font-size: 8.4vmin;
+  font-weight: 300;
+  letter-spacing: 0.16em;
+  line-height: 1.05;
+  opacity: 0;
+}
+
+.film-line {
+  margin-top: 1.6vmin;
+  max-width: 58vw;
+  font-size: 3.8vmin;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1.35;
+  color: #d4d6da;
+  opacity: 0;
+}
+
+.film-card {
+  top: 16vh;
+  left: 0;
+  right: 0;
+  text-align: center;
+  opacity: 0;
+}
+
+.film-card-name {
+  font-size: 6.2vmin;
+  font-weight: 300;
+  letter-spacing: 0.26em;
+}
+
+.film-card-detail {
+  margin-top: 1.4vmin;
+  font-size: 2.7vmin;
+  letter-spacing: 0.34em;
+  color: #b9bbc0;
+}
+
+.film-names {
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Below the pulled-back map of the end shot, which fills the upper part of the frame. */
+  justify-content: flex-end;
+  padding-bottom: 17vh;
+  gap: 2.4vmin;
+}
+
+.film-name {
+  font-size: 5vmin;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  opacity: 0;
+}
+
+/* Vertical: type a little higher and wider, the card in the upper third. */
+.film.portrait .film-lower {
+  left: 8vw;
+  right: 8vw;
+  bottom: 13vh;
+}
+
+.film.portrait .film-line {
+  max-width: none;
+  font-size: 4.4vmin;
+}
+
+.film.portrait .film-date {
+  font-size: 9.6vmin;
+}
+
+.film.portrait .film-card {
+  top: 15vh;
+}
+
+.film.portrait .film-card-name {
+  font-size: 7.4vmin;
+}
+
+.film.portrait .film-card-detail {
+  font-size: 3.4vmin;
+}
+
+.film.portrait .film-name {
+  font-size: 6.4vmin;
+}

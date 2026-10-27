@@ -1,0 +1,5301 @@
+{
+ "duration": 20,
+ "events": [
+  {
+   "t": 0.08928926215112006,
+   "kind": "hoof",
+   "position": [
+    -43.59,
+    0,
+    30.68
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": -0.41111426368353576,
+   "distance": 127.9,
+   "onScreen": true
+  },
+  {
+   "t": 0.1923076923076923,
+   "kind": "hoof",
+   "position": [
+    -4.95,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": -0.03454391398378469,
+   "distance": 155.8,
+   "onScreen": true
+  },
+  {
+   "t": 0.3392892621511201,
+   "kind": "hoof",
+   "position": [
+    -42.49,
+    0,
+    30.35
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": -0.3923027840050381,
+   "distance": 121.6,
+   "onScreen": true
+  },
+  {
+   "t": 0.39130434782608703,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 0.3001886844259929,
+   "distance": 154.3,
+   "onScreen": true
+  },
+  {
+   "t": 0.5892892621511202,
+   "kind": "hoof",
+   "position": [
+    -41.39,
+    0,
+    30.02
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": -0.37129718820772817,
+   "distance": 115.2,
+   "onScreen": true
+  },
+  {
+   "t": 0.6923076923076924,
+   "kind": "hoof",
+   "position": [
+    -5.6,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": -0.011841813875298013,
+   "distance": 142.9,
+   "onScreen": true
+  },
+  {
+   "t": 0.7272727272727273,
+   "kind": "hammer",
+   "position": [
+    -30.3,
+    1,
+    -10.4
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": -0.3689443847108451,
+   "distance": 142,
+   "onScreen": true
+  },
+  {
+   "t": 0.8260869565217391,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 0.3501682237351699,
+   "distance": 144,
+   "onScreen": true
+  },
+  {
+   "t": 0.8392892621511199,
+   "kind": "hoof",
+   "position": [
+    -40.29,
+    0,
+    29.69
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": -0.34788752364844294,
+   "distance": 108.8,
+   "onScreen": true
+  },
+  {
+   "t": 1.08928926215112,
+   "kind": "hoof",
+   "position": [
+    -39.19,
+    0,
+    29.36
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": -0.3220124402030771,
+   "distance": 102.4,
+   "onScreen": true
+  },
+  {
+   "t": 1.1,
+   "kind": "clatter",
+   "position": [
+    10.5,
+    1.1,
+    9.4
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 0.30694703583374083,
+   "distance": 130.5,
+   "onScreen": true
+  },
+  {
+   "t": 1.192307692307692,
+   "kind": "hoof",
+   "position": [
+    -6.25,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": 0.014148458545553043,
+   "distance": 130.2,
+   "onScreen": true
+  },
+  {
+   "t": 1.2608695652173914,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 0.40603556371175253,
+   "distance": 134,
+   "onScreen": true
+  },
+  {
+   "t": 1.33928926215112,
+   "kind": "hoof",
+   "position": [
+    -38.09,
+    0,
+    29.03
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": -0.29381214126303,
+   "distance": 96,
+   "onScreen": true
+  },
+  {
+   "t": 1.5892892621511197,
+   "kind": "hoof",
+   "position": [
+    -37.01,
+    0,
+    28.62
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": -0.26474023336578767,
+   "distance": 89.8,
+   "onScreen": true
+  },
+  {
+   "t": 1.6363636363636362,
+   "kind": "hammer",
+   "position": [
+    -30.3,
+    1,
+    -10.4
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": -0.3660341712574109,
+   "distance": 118.5,
+   "onScreen": true
+  },
+  {
+   "t": 1.6923076923076925,
+   "kind": "hoof",
+   "position": [
+    -6.9,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": 0.04040877769638609,
+   "distance": 117.7,
+   "onScreen": true
+  },
+  {
+   "t": 1.6956521739130437,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 0.4651384730887958,
+   "distance": 124.3,
+   "onScreen": true
+  },
+  {
+   "t": 1.83928926215112,
+   "kind": "hoof",
+   "position": [
+    -35.94,
+    0,
+    28.2
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": -0.23438791581895083,
+   "distance": 83.7,
+   "onScreen": true
+  },
+  {
+   "t": 2.0892892621511203,
+   "kind": "hoof",
+   "position": [
+    -34.87,
+    0,
+    27.78
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": -0.20312379584508947,
+   "distance": 77.7,
+   "onScreen": true
+  },
+  {
+   "t": 2.1304347826086962,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 0.524269947192602,
+   "distance": 114.9,
+   "onScreen": true
+  },
+  {
+   "t": 2.1923076923076925,
+   "kind": "hoof",
+   "position": [
+    -7.55,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": 0.06287796827199314,
+   "distance": 105.4,
+   "onScreen": true
+  },
+  {
+   "t": 2.3392892621511203,
+   "kind": "hoof",
+   "position": [
+    -33.8,
+    0,
+    27.37
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": -0.1714000857537795,
+   "distance": 71.7,
+   "onScreen": true
+  },
+  {
+   "t": 2.545454545454545,
+   "kind": "hammer",
+   "position": [
+    -30.3,
+    1,
+    -10.4
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": -0.3845592662621605,
+   "distance": 95.9,
+   "onScreen": true
+  },
+  {
+   "t": 2.565217391304348,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 0.578054315634804,
+   "distance": 105.7,
+   "onScreen": true
+  },
+  {
+   "t": 2.58928926215112,
+   "kind": "hoof",
+   "position": [
+    -32.73,
+    0,
+    26.95
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": -0.14027181024482552,
+   "distance": 65.8,
+   "onScreen": true
+  },
+  {
+   "t": 2.6923076923076925,
+   "kind": "hoof",
+   "position": [
+    -8.2,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": 0.07505200995118988,
+   "distance": 93.2,
+   "onScreen": true
+  },
+  {
+   "t": 2.83928926215112,
+   "kind": "hoof",
+   "position": [
+    -31.65,
+    0,
+    26.53
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": -0.11082773077340512,
+   "distance": 59.8,
+   "onScreen": true
+  },
+  {
+   "t": 3,
+   "kind": "chain",
+   "end": 5.2,
+   "position": [
+    -22,
+    5,
+    12
+   ],
+   "surface": "iron",
+   "gain": 1,
+   "pan": -0.04229587764100659,
+   "distance": 66.6,
+   "onScreen": true
+  },
+  {
+   "t": 3.0000000000000004,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 0.6200475972258318,
+   "distance": 96.4,
+   "onScreen": true
+  },
+  {
+   "t": 3.0892892621511194,
+   "kind": "hoof",
+   "position": [
+    -30.58,
+    0,
+    26.12
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": -0.08223102815602096,
+   "distance": 53.8,
+   "onScreen": true
+  },
+  {
+   "t": 3.1923076923076925,
+   "kind": "hoof",
+   "position": [
+    -8.85,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": 0.07206671443988405,
+   "distance": 81,
+   "onScreen": true
+  },
+  {
+   "t": 3.3392892621511203,
+   "kind": "hoof",
+   "position": [
+    -29.51,
+    0,
+    25.7
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": -0.05345409129252783,
+   "distance": 48,
+   "onScreen": true
+  },
+  {
+   "t": 3.4347826086956528,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 0.6541145180869667,
+   "distance": 87.4,
+   "onScreen": true
+  },
+  {
+   "t": 3.454545454545454,
+   "kind": "hammer",
+   "position": [
+    -30.3,
+    1,
+    -10.4
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": -0.4555608784012856,
+   "distance": 74.2,
+   "onScreen": true
+  },
+  {
+   "t": 3.5892892621511203,
+   "kind": "hoof",
+   "position": [
+    -28.46,
+    0,
+    25.24
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": -0.02469022499931796,
+   "distance": 42.5,
+   "onScreen": true
+  },
+  {
+   "t": 3.6923076923076925,
+   "kind": "hoof",
+   "position": [
+    -9.5,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": 0.0588356356293383,
+   "distance": 69.4,
+   "onScreen": true
+  },
+  {
+   "t": 3.8333333333333335,
+   "kind": "clatter",
+   "position": [
+    10.5,
+    1.1,
+    9.4
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 0.6222933818524796,
+   "distance": 70.6,
+   "onScreen": true
+  },
+  {
+   "t": 3.83928926215112,
+   "kind": "hoof",
+   "position": [
+    -27.42,
+    0,
+    24.74
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": 0.005450245727767415,
+   "distance": 37.3,
+   "onScreen": true
+  },
+  {
+   "t": 3.8695652173913047,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 0.6878919607292027,
+   "distance": 79.2,
+   "onScreen": true
+  },
+  {
+   "t": 4.08928926215112,
+   "kind": "hoof",
+   "position": [
+    -26.39,
+    0,
+    24.23
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": 0.04044993584377007,
+   "distance": 32.6,
+   "onScreen": true
+  },
+  {
+   "t": 4.192307692307692,
+   "kind": "hoof",
+   "position": [
+    -10.15,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": 0.0399385164747007,
+   "distance": 59.1,
+   "onScreen": true
+  },
+  {
+   "t": 4.304347826086956,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 0.7243748624372661,
+   "distance": 72.1,
+   "onScreen": true
+  },
+  {
+   "t": 4.33928926215112,
+   "kind": "hoof",
+   "position": [
+    -25.35,
+    0,
+    23.73
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": 0.08021531900918988,
+   "distance": 28.6,
+   "onScreen": true
+  },
+  {
+   "t": 4.363636363636363,
+   "kind": "hammer",
+   "position": [
+    -30.3,
+    1,
+    -10.4
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": -0.5853099174389361,
+   "distance": 56.5,
+   "onScreen": true
+  },
+  {
+   "t": 4.58928926215112,
+   "kind": "hoof",
+   "position": [
+    -24.32,
+    0,
+    23.23
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": 0.1137897711645848,
+   "distance": 25.2,
+   "onScreen": true
+  },
+  {
+   "t": 4.692307692307692,
+   "kind": "hoof",
+   "position": [
+    -10.8,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": -0.000037362212906053816,
+   "distance": 50.6,
+   "onScreen": true
+  },
+  {
+   "t": 4.739130434782609,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 0.7486982759556345,
+   "distance": 65.9,
+   "onScreen": true
+  },
+  {
+   "t": 4.839289262151119,
+   "kind": "hoof",
+   "position": [
+    -23.28,
+    0,
+    22.73
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": 0.14300882435167733,
+   "distance": 22.3,
+   "onScreen": true
+  },
+  {
+   "t": 5,
+   "kind": "portcullis",
+   "end": 6.4,
+   "position": [
+    -22,
+    5,
+    12
+   ],
+   "surface": "iron",
+   "gain": 1,
+   "pan": -0.14693217682374357,
+   "distance": 27.8,
+   "onScreen": true
+  },
+  {
+   "t": 5.089289262151119,
+   "kind": "hoof",
+   "position": [
+    -22.45,
+    0.11,
+    22.06
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": 0.15452636323141392,
+   "distance": 19.8,
+   "onScreen": true
+  },
+  {
+   "t": 5.173913043478262,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 0.7709730723486102,
+   "distance": 60.6,
+   "onScreen": true
+  },
+  {
+   "t": 5.192307692307692,
+   "kind": "hoof",
+   "position": [
+    -11.45,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": -0.059401020948407816,
+   "distance": 43.5,
+   "onScreen": true
+  },
+  {
+   "t": 5.2,
+   "kind": "bridgeThud",
+   "position": [
+    -22,
+    0.5,
+    19
+   ],
+   "surface": "wood",
+   "gain": 1,
+   "pan": 0.04618748467007258,
+   "distance": 20.7,
+   "onScreen": true
+  },
+  {
+   "t": 5.272727272727272,
+   "kind": "hammer",
+   "position": [
+    -30.3,
+    1,
+    -10.4
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": -0.8170923550514373,
+   "distance": 45,
+   "onScreen": true
+  },
+  {
+   "t": 5.339289262151119,
+   "kind": "hoof",
+   "position": [
+    -22.02,
+    0.45,
+    21.04
+   ],
+   "surface": "bridge",
+   "gain": 1,
+   "pan": 0.13308623071307213,
+   "distance": 17.5,
+   "onScreen": true
+  },
+  {
+   "t": 5.589289262151119,
+   "kind": "hoof",
+   "position": [
+    -22,
+    0.46,
+    19.9
+   ],
+   "surface": "bridge",
+   "gain": 1,
+   "pan": 0.09122913442494351,
+   "distance": 15.3,
+   "onScreen": true
+  },
+  {
+   "t": 5.608695652173914,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 0.8435735223802425,
+   "distance": 55.8,
+   "onScreen": true
+  },
+  {
+   "t": 5.692307692307692,
+   "kind": "hoof",
+   "position": [
+    -12.1,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": -0.06810782817210112,
+   "distance": 37.2,
+   "onScreen": true
+  },
+  {
+   "t": 5.839289262151119,
+   "kind": "hoof",
+   "position": [
+    -22,
+    0.46,
+    18.75
+   ],
+   "surface": "bridge",
+   "gain": 1,
+   "pan": 0.07215681120533919,
+   "distance": 13.4,
+   "onScreen": true
+  },
+  {
+   "t": 6.043478260869565,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 1,
+   "distance": 51.8,
+   "onScreen": false
+  },
+  {
+   "t": 6.08928926215112,
+   "kind": "hoof",
+   "position": [
+    -22,
+    0.46,
+    17.6
+   ],
+   "surface": "bridge",
+   "gain": 1,
+   "pan": 0.07256799376080353,
+   "distance": 11.8,
+   "onScreen": true
+  },
+  {
+   "t": 6.181818181818181,
+   "kind": "hammer",
+   "position": [
+    -30.3,
+    1,
+    -10.4
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": -0.6997458028395545,
+   "distance": 37.2,
+   "onScreen": true
+  },
+  {
+   "t": 6.192307692307692,
+   "kind": "hoof",
+   "position": [
+    -12.75,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": 0.07920575733874136,
+   "distance": 32.1,
+   "onScreen": true
+  },
+  {
+   "t": 6.33928926215112,
+   "kind": "hoof",
+   "position": [
+    -22,
+    0.46,
+    16.45
+   ],
+   "surface": "bridge",
+   "gain": 1,
+   "pan": 0.07744979672867004,
+   "distance": 10.6,
+   "onScreen": true
+  },
+  {
+   "t": 6.478260869565218,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 1,
+   "distance": 48.5,
+   "onScreen": false
+  },
+  {
+   "t": 6.58928926215112,
+   "kind": "hoof",
+   "position": [
+    -22,
+    0.46,
+    15.3
+   ],
+   "surface": "bridge",
+   "gain": 1,
+   "pan": 0.07333494472090306,
+   "distance": 9.8,
+   "onScreen": true
+  },
+  {
+   "t": 6.6923076923076925,
+   "kind": "hoof",
+   "position": [
+    -13.4,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": 0.2619407783121227,
+   "distance": 27.9,
+   "onScreen": true
+  },
+  {
+   "t": 6.83928926215112,
+   "kind": "hoof",
+   "position": [
+    -22,
+    0.46,
+    14.15
+   ],
+   "surface": "bridge",
+   "gain": 1,
+   "pan": 0.058179583530724076,
+   "distance": 9.1,
+   "onScreen": true
+  },
+  {
+   "t": 6.91304347826087,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 1,
+   "distance": 45.9,
+   "onScreen": false
+  },
+  {
+   "t": 7.08928926215112,
+   "kind": "hoof",
+   "position": [
+    -22,
+    0.46,
+    13
+   ],
+   "surface": "bridge",
+   "gain": 1,
+   "pan": 0.0392351837618623,
+   "distance": 8.6,
+   "onScreen": true
+  },
+  {
+   "t": 7.09090909090909,
+   "kind": "hammer",
+   "position": [
+    -30.3,
+    1,
+    -10.4
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": -0.3826882205179363,
+   "distance": 32.2,
+   "onScreen": true
+  },
+  {
+   "t": 7.1,
+   "kind": "clatter",
+   "position": [
+    10.5,
+    1.1,
+    9.4
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 1,
+   "distance": 35.3,
+   "onScreen": false
+  },
+  {
+   "t": 7.1923076923076925,
+   "kind": "hoof",
+   "position": [
+    -14.05,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": 0.3741125018468606,
+   "distance": 24.3,
+   "onScreen": true
+  },
+  {
+   "t": 7.339289262151119,
+   "kind": "hoof",
+   "position": [
+    -22,
+    0.35,
+    11.86
+   ],
+   "surface": "stone",
+   "gain": 1,
+   "pan": 0.023529806369699667,
+   "distance": 8.3,
+   "onScreen": true
+  },
+  {
+   "t": 7.347826086956522,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 1,
+   "distance": 44.2,
+   "onScreen": false
+  },
+  {
+   "t": 7.58928926215112,
+   "kind": "hoof",
+   "position": [
+    -22,
+    0.11,
+    10.74
+   ],
+   "surface": "stone",
+   "gain": 1,
+   "pan": 0.011234306992208728,
+   "distance": 8.2,
+   "onScreen": true
+  },
+  {
+   "t": 7.6923076923076925,
+   "kind": "hoof",
+   "position": [
+    -14.7,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": 0.4377604757689268,
+   "distance": 21.3,
+   "onScreen": true
+  },
+  {
+   "t": 7.782608695652174,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 1,
+   "distance": 43,
+   "onScreen": false
+  },
+  {
+   "t": 7.83928926215112,
+   "kind": "hoof",
+   "position": [
+    -22,
+    0,
+    9.6
+   ],
+   "surface": "stone",
+   "gain": 1,
+   "pan": 0.0008860088023968656,
+   "distance": 8.1,
+   "onScreen": true
+  },
+  {
+   "t": 8,
+   "kind": "hammer",
+   "position": [
+    -30.3,
+    1,
+    -10.4
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": -0.3230571803238237,
+   "distance": 27.8,
+   "onScreen": true
+  },
+  {
+   "t": 8.08928926215112,
+   "kind": "hoof",
+   "position": [
+    -22,
+    0,
+    8.45
+   ],
+   "surface": "stone",
+   "gain": 1,
+   "pan": -0.008937355747607255,
+   "distance": 7.9,
+   "onScreen": true
+  },
+  {
+   "t": 8.192307692307692,
+   "kind": "hoof",
+   "position": [
+    -15.35,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": 0.48291767476578834,
+   "distance": 18.6,
+   "onScreen": true
+  },
+  {
+   "t": 8.217391304347826,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 1,
+   "distance": 42.1,
+   "onScreen": false
+  },
+  {
+   "t": 8.33928926215112,
+   "kind": "hoof",
+   "position": [
+    -22,
+    0,
+    7.3
+   ],
+   "surface": "stone",
+   "gain": 1,
+   "pan": -0.005639343595499415,
+   "distance": 7.8,
+   "onScreen": true
+  },
+  {
+   "t": 8.58928926215112,
+   "kind": "hoof",
+   "position": [
+    -22,
+    0,
+    6.15
+   ],
+   "surface": "stone",
+   "gain": 1,
+   "pan": 0.011857670899022529,
+   "distance": 7.7,
+   "onScreen": true
+  },
+  {
+   "t": 8.652173913043478,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 1,
+   "distance": 42,
+   "onScreen": false
+  },
+  {
+   "t": 8.692307692307692,
+   "kind": "hoof",
+   "position": [
+    -16,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": 0.48939581144514765,
+   "distance": 16.2,
+   "onScreen": true
+  },
+  {
+   "t": 8.83928926215112,
+   "kind": "hoof",
+   "position": [
+    -22,
+    0,
+    5
+   ],
+   "surface": "stone",
+   "gain": 1,
+   "pan": 0.020622363642429524,
+   "distance": 7.6,
+   "onScreen": true
+  },
+  {
+   "t": 8.909090909090908,
+   "kind": "hammer",
+   "position": [
+    -30.3,
+    1,
+    -10.4
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": -0.4259487383508049,
+   "distance": 23.4,
+   "onScreen": true
+  },
+  {
+   "t": 9.08695652173913,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 1,
+   "distance": 41.9,
+   "onScreen": false
+  },
+  {
+   "t": 9.08928926215112,
+   "kind": "hoof",
+   "position": [
+    -22,
+    0,
+    3.85
+   ],
+   "surface": "stone",
+   "gain": 1,
+   "pan": 0.002528908059641099,
+   "distance": 7.3,
+   "onScreen": true
+  },
+  {
+   "t": 9.192307692307692,
+   "kind": "hoof",
+   "position": [
+    -16.65,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": 0.4897341974108724,
+   "distance": 13.4,
+   "onScreen": true
+  },
+  {
+   "t": 9.33928926215112,
+   "kind": "hoof",
+   "position": [
+    -22,
+    0,
+    2.7
+   ],
+   "surface": "stone",
+   "gain": 1,
+   "pan": -0.03899608957969636,
+   "distance": 6.9,
+   "onScreen": true
+  },
+  {
+   "t": 9.521739130434783,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 1,
+   "distance": 41.3,
+   "onScreen": false
+  },
+  {
+   "t": 9.58928926215112,
+   "kind": "hoof",
+   "position": [
+    -22,
+    0,
+    1.55
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": -0.11096266477067265,
+   "distance": 6.6,
+   "onScreen": false
+  },
+  {
+   "t": 9.692307692307692,
+   "kind": "hoof",
+   "position": [
+    -17.3,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": 0.521592310832689,
+   "distance": 10.1,
+   "onScreen": true
+  },
+  {
+   "t": 9.818181818181818,
+   "kind": "hammer",
+   "position": [
+    -30.3,
+    1,
+    -10.4
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": -0.7704942924817013,
+   "distance": 18.1,
+   "onScreen": true
+  },
+  {
+   "t": 9.83928926215112,
+   "kind": "hoof",
+   "position": [
+    -22,
+    0,
+    0.4
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": -0.21370127077349338,
+   "distance": 6.6,
+   "onScreen": false
+  },
+  {
+   "t": 9.956521739130435,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 1,
+   "distance": 40.8,
+   "onScreen": false
+  },
+  {
+   "t": 10.08928926215112,
+   "kind": "hoof",
+   "position": [
+    -22,
+    0,
+    -0.75
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": -0.31666901603279873,
+   "distance": 6.9,
+   "onScreen": false
+  },
+  {
+   "t": 10.133333333333333,
+   "kind": "clatter",
+   "position": [
+    10.5,
+    1.1,
+    9.4
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": -1,
+   "distance": 32.6,
+   "onScreen": false
+  },
+  {
+   "t": 10.192307692307692,
+   "kind": "hoof",
+   "position": [
+    -17.95,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": 0.46579132187735717,
+   "distance": 8,
+   "onScreen": false
+  },
+  {
+   "t": 10.33928926215112,
+   "kind": "hoof",
+   "position": [
+    -22,
+    0,
+    -1.9
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": -0.40315940631351005,
+   "distance": 7.2,
+   "onScreen": false
+  },
+  {
+   "t": 10.391304347826086,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 1,
+   "distance": 40.9,
+   "onScreen": false
+  },
+  {
+   "t": 10.58928926215112,
+   "kind": "hoof",
+   "position": [
+    -21.61,
+    0,
+    -2.98
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": -0.40789081919550413,
+   "distance": 7.8,
+   "onScreen": false
+  },
+  {
+   "t": 10.692307692307692,
+   "kind": "hoof",
+   "position": [
+    -18.6,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": 0.2673085081459101,
+   "distance": 7.9,
+   "onScreen": false
+  },
+  {
+   "t": 10.727272727272727,
+   "kind": "hammer",
+   "position": [
+    -30.3,
+    1,
+    -10.4
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": -1,
+   "distance": 15.6,
+   "onScreen": false
+  },
+  {
+   "t": 10.82608695652174,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 1,
+   "distance": 40.3,
+   "onScreen": false
+  },
+  {
+   "t": 10.83928926215112,
+   "kind": "hoof",
+   "position": [
+    -21.18,
+    0,
+    -4.05
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": -0.4534668204216207,
+   "distance": 8.8,
+   "onScreen": false
+  },
+  {
+   "t": 11.08928926215112,
+   "kind": "hoof",
+   "position": [
+    -20.75,
+    0,
+    -5.11
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": -0.49540521039571217,
+   "distance": 9.8,
+   "onScreen": false
+  },
+  {
+   "t": 11.192307692307692,
+   "kind": "hoof",
+   "position": [
+    -19.25,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": -0.2523788632085134,
+   "distance": 9.2,
+   "onScreen": false
+  },
+  {
+   "t": 11.260869565217392,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 1,
+   "distance": 38.9,
+   "onScreen": false
+  },
+  {
+   "t": 11.33928926215112,
+   "kind": "hoof",
+   "position": [
+    -20.33,
+    0,
+    -6.18
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": -0.616957063643659,
+   "distance": 11.6,
+   "onScreen": false
+  },
+  {
+   "t": 11.58928926215112,
+   "kind": "hoof",
+   "position": [
+    -19.92,
+    0,
+    -7.26
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": -0.8933172262380273,
+   "distance": 15.1,
+   "onScreen": false
+  },
+  {
+   "t": 11.636363636363637,
+   "kind": "hammer",
+   "position": [
+    -30.3,
+    1,
+    -10.4
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": -1,
+   "distance": 23.1,
+   "onScreen": false
+  },
+  {
+   "t": 11.692307692307692,
+   "kind": "hoof",
+   "position": [
+    -19.9,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": -1,
+   "distance": 15,
+   "onScreen": false
+  },
+  {
+   "t": 11.695652173913043,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 1,
+   "distance": 34.6,
+   "onScreen": false
+  },
+  {
+   "t": 11.83928926215112,
+   "kind": "hoof",
+   "position": [
+    -19.57,
+    0,
+    -8.35
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": -1,
+   "distance": 21.5,
+   "onScreen": false
+  },
+  {
+   "t": 12.08928926215112,
+   "kind": "hoof",
+   "position": [
+    -19.22,
+    0,
+    -9.45
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": -1,
+   "distance": 28.9,
+   "onScreen": false
+  },
+  {
+   "t": 12.130434782608695,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 0.694569957756715,
+   "distance": 29.8,
+   "onScreen": true
+  },
+  {
+   "t": 12.192307692307692,
+   "kind": "hoof",
+   "position": [
+    -20.55,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": -1,
+   "distance": 28.1,
+   "onScreen": false
+  },
+  {
+   "t": 12.33928926215112,
+   "kind": "hoof",
+   "position": [
+    -18.87,
+    0,
+    -10.54
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": -1,
+   "distance": 36.1,
+   "onScreen": false
+  },
+  {
+   "t": 12.545454545454545,
+   "kind": "hammer",
+   "position": [
+    -30.3,
+    1,
+    -10.4
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": -1,
+   "distance": 49.4,
+   "onScreen": false
+  },
+  {
+   "t": 12.565217391304348,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 0.3331644151690769,
+   "distance": 29.9,
+   "onScreen": true
+  },
+  {
+   "t": 12.58928926215112,
+   "kind": "hoof",
+   "position": [
+    -18.52,
+    0,
+    -11.64
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": -1,
+   "distance": 46.1,
+   "onScreen": false
+  },
+  {
+   "t": 12.692307692307692,
+   "kind": "hoof",
+   "position": [
+    -21.2,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": -1,
+   "distance": 44.4,
+   "onScreen": false
+  },
+  {
+   "t": 12.83928926215112,
+   "kind": "hoof",
+   "position": [
+    -18.26,
+    0,
+    -12.76
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": -1,
+   "distance": 60.1,
+   "onScreen": false
+  },
+  {
+   "t": 12.966666666666667,
+   "kind": "clatter",
+   "position": [
+    10.5,
+    1.1,
+    9.4
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": -0.15703685806737472,
+   "distance": 40.6,
+   "onScreen": true
+  },
+  {
+   "t": 13,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 0.14658561876477527,
+   "distance": 47.9,
+   "onScreen": true
+  },
+  {
+   "t": 13.093191823555255,
+   "kind": "hoof",
+   "position": [
+    -18.06,
+    0,
+    -13.89
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": -0.9845061369086461,
+   "distance": 73.5,
+   "onScreen": true
+  },
+  {
+   "t": 13.192307692307692,
+   "kind": "hoof",
+   "position": [
+    -21.85,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": -1,
+   "distance": 67.5,
+   "onScreen": false
+  },
+  {
+   "t": 13.40437901750614,
+   "kind": "hoof",
+   "position": [
+    -17.85,
+    0,
+    -15.02
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": -0.8890809727267003,
+   "distance": 81.1,
+   "onScreen": true
+  },
+  {
+   "t": 13.434782608695652,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 0.0938150759566639,
+   "distance": 57.7,
+   "onScreen": true
+  },
+  {
+   "t": 13.454545454545453,
+   "kind": "hammer",
+   "position": [
+    -30.3,
+    1,
+    -10.4
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": -1,
+   "distance": 82.5,
+   "onScreen": false
+  },
+  {
+   "t": 13.692307692307692,
+   "kind": "hoof",
+   "position": [
+    -22.5,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": -1,
+   "distance": 71.5,
+   "onScreen": false
+  },
+  {
+   "t": 13.869565217391305,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 0.10374559536939724,
+   "distance": 55.4,
+   "onScreen": true
+  },
+  {
+   "t": 13.917198481403126,
+   "kind": "hoof",
+   "position": [
+    -17.65,
+    0,
+    -16.15
+   ],
+   "surface": "dirt",
+   "gain": 1,
+   "pan": -0.8549262933935395,
+   "distance": 80.9,
+   "onScreen": true
+  },
+  {
+   "t": 14.192307692307692,
+   "kind": "hoof",
+   "position": [
+    -23.15,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": -1,
+   "distance": 69.7,
+   "onScreen": false
+  },
+  {
+   "t": 14.304347826086955,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 0.11431939903937816,
+   "distance": 53.3,
+   "onScreen": true
+  },
+  {
+   "t": 14.363636363636363,
+   "kind": "hammer",
+   "position": [
+    -30.3,
+    1,
+    -10.4
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": -1,
+   "distance": 80.8,
+   "onScreen": false
+  },
+  {
+   "t": 14.692307692307692,
+   "kind": "hoof",
+   "position": [
+    -23.8,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": -1,
+   "distance": 70.9,
+   "onScreen": false
+  },
+  {
+   "t": 14.73913043478261,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 0.11356972881600182,
+   "distance": 53,
+   "onScreen": true
+  },
+  {
+   "t": 15.173913043478262,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 0.11218174250270763,
+   "distance": 52.9,
+   "onScreen": true
+  },
+  {
+   "t": 15.192307692307692,
+   "kind": "hoof",
+   "position": [
+    -24.45,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": -1,
+   "distance": 72.1,
+   "onScreen": false
+  },
+  {
+   "t": 15.272727272727272,
+   "kind": "hammer",
+   "position": [
+    -30.3,
+    1,
+    -10.4
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": -1,
+   "distance": 82.3,
+   "onScreen": false
+  },
+  {
+   "t": 15.608695652173912,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 0.11054581259651437,
+   "distance": 53,
+   "onScreen": true
+  },
+  {
+   "t": 15.692307692307692,
+   "kind": "hoof",
+   "position": [
+    -25.1,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": -1,
+   "distance": 73.4,
+   "onScreen": false
+  },
+  {
+   "t": 16.043478260869566,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 0.10910466446791775,
+   "distance": 53.4,
+   "onScreen": true
+  },
+  {
+   "t": 16.18181818181818,
+   "kind": "hammer",
+   "position": [
+    -30.3,
+    1,
+    -10.4
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": -1,
+   "distance": 83.8,
+   "onScreen": false
+  },
+  {
+   "t": 16.192307692307693,
+   "kind": "hoof",
+   "position": [
+    -25.75,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": -1,
+   "distance": 74.7,
+   "onScreen": false
+  },
+  {
+   "t": 16.266666666666666,
+   "kind": "clatter",
+   "position": [
+    10.5,
+    1.1,
+    9.4
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": -0.20218303514860578,
+   "distance": 50,
+   "onScreen": true
+  },
+  {
+   "t": 16.47826086956522,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 0.10828778419016348,
+   "distance": 53.9,
+   "onScreen": true
+  },
+  {
+   "t": 16.6,
+   "kind": "bell",
+   "position": [
+    16,
+    29,
+    4
+   ],
+   "surface": "bronze",
+   "gain": 1,
+   "pan": -0.0019105093699007898,
+   "distance": 56.2,
+   "onScreen": true
+  },
+  {
+   "t": 16.692307692307693,
+   "kind": "hoof",
+   "position": [
+    -26.4,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": -1,
+   "distance": 76.2,
+   "onScreen": false
+  },
+  {
+   "t": 16.91304347826087,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 0.10798276643282285,
+   "distance": 54.8,
+   "onScreen": true
+  },
+  {
+   "t": 17.09090909090909,
+   "kind": "hammer",
+   "position": [
+    -30.3,
+    1,
+    -10.4
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": -1,
+   "distance": 85,
+   "onScreen": false
+  },
+  {
+   "t": 17.192307692307693,
+   "kind": "hoof",
+   "position": [
+    -27.05,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": -1,
+   "distance": 76.6,
+   "onScreen": false
+  },
+  {
+   "t": 17.347826086956523,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 0.09007804904384567,
+   "distance": 54.7,
+   "onScreen": false
+  },
+  {
+   "t": 17.692307692307693,
+   "kind": "hoof",
+   "position": [
+    -27.7,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": -1,
+   "distance": 77.4,
+   "onScreen": false
+  },
+  {
+   "t": 17.782608695652176,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 0.1212142491041219,
+   "distance": 60.3,
+   "onScreen": false
+  },
+  {
+   "t": 17.999999999999996,
+   "kind": "hammer",
+   "position": [
+    -30.3,
+    1,
+    -10.4
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": -1,
+   "distance": 88.6,
+   "onScreen": false
+  },
+  {
+   "t": 18.192307692307693,
+   "kind": "hoof",
+   "position": [
+    -28.35,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": -0.9749755107739103,
+   "distance": 85.1,
+   "onScreen": true
+  },
+  {
+   "t": 18.217391304347828,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 0.205456739608453,
+   "distance": 75.1,
+   "onScreen": true
+  },
+  {
+   "t": 18.4,
+   "kind": "bell",
+   "position": [
+    16,
+    29,
+    4
+   ],
+   "surface": "bronze",
+   "gain": 1,
+   "pan": 0.1782292359223786,
+   "distance": 73.1,
+   "onScreen": true
+  },
+  {
+   "t": 18.652173913043477,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 0.26884922717216503,
+   "distance": 94.8,
+   "onScreen": true
+  },
+  {
+   "t": 18.692307692307693,
+   "kind": "hoof",
+   "position": [
+    -29,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": -0.67856209003431,
+   "distance": 99.9,
+   "onScreen": true
+  },
+  {
+   "t": 18.7,
+   "kind": "clatter",
+   "position": [
+    10.5,
+    1.1,
+    9.4
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 0.13181952690128496,
+   "distance": 91.3,
+   "onScreen": true
+  },
+  {
+   "t": 18.90909090909091,
+   "kind": "hammer",
+   "position": [
+    -30.3,
+    1,
+    -10.4
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": -0.6069258270470613,
+   "distance": 114.1,
+   "onScreen": true
+  },
+  {
+   "t": 19.086956521739133,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 0.2867092063819084,
+   "distance": 116.3,
+   "onScreen": true
+  },
+  {
+   "t": 19.192307692307693,
+   "kind": "hoof",
+   "position": [
+    -29.65,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": -0.5009711033845062,
+   "distance": 119.2,
+   "onScreen": true
+  },
+  {
+   "t": 19.52173913043478,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 0.27302940397116515,
+   "distance": 140.4,
+   "onScreen": true
+  },
+  {
+   "t": 19.692307692307693,
+   "kind": "hoof",
+   "position": [
+    -30.3,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": -0.3902058997533926,
+   "distance": 142.8,
+   "onScreen": true
+  },
+  {
+   "t": 19.818181818181817,
+   "kind": "hammer",
+   "position": [
+    -30.3,
+    1,
+    -10.4
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": -0.3943133639096341,
+   "distance": 155,
+   "onScreen": true
+  },
+  {
+   "t": 19.956521739130434,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 0.2573678857881141,
+   "distance": 165.3,
+   "onScreen": true
+  },
+  {
+   "t": 20.192307692307693,
+   "kind": "hoof",
+   "position": [
+    -30.95,
+    0,
+    -2.2
+   ],
+   "surface": "dirt",
+   "gain": 0.45,
+   "pan": -0.34255765416105594,
+   "distance": 158.2,
+   "onScreen": true
+  },
+  {
+   "t": 20.39130434782609,
+   "kind": "chop",
+   "position": [
+    19.4,
+    1,
+    5.3
+   ],
+   "surface": "metal",
+   "gain": 1,
+   "pan": 0.25632336742643574,
+   "distance": 167.7,
+   "onScreen": true
+  }
+ ],
+ "camera": [
+  {
+   "t": 0,
+   "position": [
+    -52,
+    98.1178059378731,
+    116
+   ],
+   "target": [
+    -1.9090702573174319,
+    2,
+    0
+   ],
+   "fov": 32
+  },
+  {
+   "t": 0.1,
+   "position": [
+    -51.87700901394207,
+    96.1487005545745,
+    114.2466724537037
+   ],
+   "target": [
+    -2.675121583438636,
+    2.0570130601430936,
+    0.5923652447089949
+   ],
+   "fov": 32.0790550595238
+  },
+  {
+   "t": 0.2,
+   "position": [
+    -51.77149533331907,
+    94.16946997825988,
+    112.48726851851852
+   ],
+   "target": [
+    -3.462175463358402,
+    2.1139163624207633,
+    1.201223544973545
+   ],
+   "fov": 32.15029761904762
+  },
+  {
+   "t": 0.3,
+   "position": [
+    -51.68384274000713,
+    92.17785826729046,
+    110.72265625
+   ],
+   "target": [
+    -4.267305311253318,
+    2.1701236888987174,
+    1.8242187500000002
+   ],
+   "fov": 32.21484375
+  },
+  {
+   "t": 0.4,
+   "position": [
+    -51.613999384332686,
+    90.17246387252497,
+    108.9537037037037
+   ],
+   "target": [
+    -5.0875729022829645,
+    2.2250872605823893,
+    2.4589947089947093
+   ],
+   "fov": 32.273809523809526
+  },
+  {
+   "t": 0.5,
+   "position": [
+    -51.561311093715965,
+    88.15298586070088,
+    107.18127893518518
+   ],
+   "target": [
+    -5.920029412652393,
+    2.278315221203256,
+    3.1031952711640214
+   ],
+   "fov": 32.32831101190476
+  },
+  {
+   "t": 0.6,
+   "position": [
+    -51.52441057332618,
+    86.1203335465759,
+    105.40625
+   ],
+   "target": [
+    -6.76171658779268,
+    2.329387108260699,
+    3.7544642857142856
+   ],
+   "fov": 32.379464285714285
+  },
+  {
+   "t": 0.7,
+   "position": [
+    -51.501172592222176,
+    84.0765846447001,
+    103.6294849537037
+   ],
+   "target": [
+    -7.609668024538842,
+    2.377966754492943,
+    4.410445601851853
+   ],
+   "fov": 32.42838541666667
+  },
+  {
+   "t": 0.8,
+   "position": [
+    -51.488738991593436,
+    82.0247971986254,
+    101.85185185185185
+   ],
+   "target": [
+    -8.460910551806377,
+    2.4238121554333905,
+    5.068783068783069
+   ],
+   "fov": 32.476190476190474
+  },
+  {
+   "t": 0.9,
+   "position": [
+    -51.4836107364554,
+    79.96869999238564,
+    100.07421875
+   ],
+   "target": [
+    -9.31246569307708,
+    2.466781947903921,
+    5.727120535714286
+   ],
+   "fov": 32.523995535714285
+  },
+  {
+   "t": 1,
+   "position": [
+    -51.48179788844505,
+    77.91230227403747,
+    98.2974537037037
+   ],
+   "target": [
+    -10.16135119301593,
+    2.5068382662742525,
+    6.383101851851853
+   ],
+   "fov": 32.572916666666664
+  },
+  {
+   "t": 1.1,
+   "position": [
+    -51.47901290916884,
+    75.85947425078162,
+    96.52242476851852
+   ],
+   "target": [
+    -11.004582589765546,
+    2.5440458736862315,
+    7.034370866402117
+   ],
+   "fov": 32.6240699404762
+  },
+  {
+   "t": 1.2,
+   "position": [
+    -51.470888631267,
+    73.81355351939278,
+    94.75
+   ],
+   "target": [
+    -11.839174813912658,
+    2.5785675995116164,
+    7.678571428571429
+   ],
+   "fov": 32.67857142857143
+  },
+  {
+   "t": 1.3,
+   "position": [
+    -51.45319994521351,
+    71.77702888028473,
+    92.9810474537037
+   ],
+   "target": [
+    -12.662143794798622,
+    2.6106562472562325,
+    8.313347387566138
+   ],
+   "fov": 32.737537202380956
+  },
+  {
+   "t": 1.4,
+   "position": [
+    -51.422067961042515,
+    69.7513423572997,
+    91.21643518518518
+   ],
+   "target": [
+    -13.470508054757135,
+    2.6406432641573905,
+    8.936342592592592
+   ],
+   "fov": 32.802083333333336
+  },
+  {
+   "t": 1.5,
+   "position": [
+    -51.3741271421143,
+    67.73683415085767,
+    89.45703125
+   ],
+   "target": [
+    -14.261290272008427,
+    2.668924580273118,
+    9.545200892857142
+   ],
+   "fov": 32.873325892857146
+  },
+  {
+   "t": 1.6,
+   "position": [
+    -51.30663950588834,
+    65.73283587049886,
+    87.7037037037037
+   ],
+   "target": [
+    -15.031518793317845,
+    2.6959441267360162,
+    10.13756613756614
+   ],
+   "fov": 32.952380952380956
+  },
+  {
+   "t": 1.7,
+   "position": [
+    -51.21754510032109,
+    63.73789734835889,
+    85.95732060185185
+   ],
+   "target": [
+    -15.778229078134244,
+    2.722175626375021,
+    10.711082175925927
+   ],
+   "fov": 33.040364583333336
+  },
+  {
+   "t": 1.8,
+   "position": [
+    -51.105444105313765,
+    61.750114339954024,
+    84.21875
+   ],
+   "target": [
+    -16.49846505675157,
+    2.7481033120884355,
+    11.263392857142858
+   ],
+   "fov": 33.138392857142854
+  },
+  {
+   "t": 1.9,
+   "position": [
+    -50.9695124900707,
+    59.76751090594929,
+    82.48885995370371
+   ],
+   "target": [
+    -17.18928038607663,
+    2.774202266943488,
+    11.792142030423278
+   ],
+   "fov": 33.247581845238095
+  },
+  {
+   "t": 2,
+   "position": [
+    -50.80935955080018,
+    57.78842306312904,
+    80.76851851851852
+   ],
+   "target": [
+    -17.847739587823366,
+    2.8009190935923076,
+    12.294973544973544
+   ],
+   "fov": 33.36904761904761
+  },
+  {
+   "t": 2.1,
+   "position": [
+    -50.62484124837964,
+    55.81183036417413,
+    79.05859374999999
+   ],
+   "target": [
+    -18.470919055375568,
+    2.828653608741607,
+    12.769531250000005
+   ],
+   "fov": 33.50390625
+  },
+  {
+   "t": 2.2,
+   "position": [
+    -50.41584752809044,
+    53.837589397405125,
+    77.3599537037037
+   ],
+   "target": [
+    -19.05590791714705,
+    2.8577422215201143,
+    13.213458994708999
+   ],
+   "fov": 33.65327380952381
+  },
+  {
+   "t": 2.3,
+   "position": [
+    -50.18208432612723,
+    51.86653678889488,
+    75.67346643518518
+   ],
+   "target": [
+    -19.599808746003408,
+    2.888443593981735,
+    13.624400628306878
+   ],
+   "fov": 33.81826636904762
+  },
+  {
+   "t": 2.4,
+   "position": [
+    -49.92287150910281,
+    49.90044729165124,
+    74
+   ],
+   "target": [
+    -20.09973810616981,
+    2.9209270998448695,
+    14
+   ],
+   "fov": 34
+  },
+  {
+   "t": 2.5,
+   "position": [
+    -49.62868710626826,
+    47.91530308800508,
+    72.33446877143346
+   ],
+   "target": [
+    -20.539232752344528,
+    2.9572564164371333,
+    14.321166241059181
+   ],
+   "fov": 34.20700139623751
+  },
+  {
+   "t": 2.6,
+   "position": [
+    -49.2932218478825,
+    45.89334039117965,
+    70.67239368998628
+   ],
+   "target": [
+    -20.907652482967546,
+    2.9989808395218676,
+    14.574902018420538
+   ],
+   "fov": 34.445032333921226
+  },
+  {
+   "t": 2.7,
+   "position": [
+    -48.91967799336469,
+    43.84633252933836,
+    69.01555266203702
+   ],
+   "target": [
+    -21.210870111569353,
+    3.0453482117011665,
+    14.767991484788359
+   ],
+   "fov": 34.711061507936506
+  },
+  {
+   "t": 2.8,
+   "position": [
+    -48.51055821552949,
+    41.7857511926446,
+    67.36572359396433
+   ],
+   "target": [
+    -21.45477290428496,
+    3.095505417190398,
+    14.90721879286694
+   ],
+   "fov": 35.00205761316872
+  },
+  {
+   "t": 2.9,
+   "position": [
+    -48.06775125205301,
+    39.72240503133602,
+    65.72468439214677
+   ],
+   "target": [
+    -21.64526225659079,
+    3.1485046150063054,
+    14.999368095360571
+   ],
+   "fov": 35.31498934450323
+  },
+  {
+   "t": 3,
+   "position": [
+    -47.59267753360853,
+    37.66616007294565,
+    64.09421296296296
+   ],
+   "target": [
+    -21.788253199248842,
+    3.203312881459914,
+    15.051223544973546
+   ],
+   "fov": 35.6468253968254
+  },
+  {
+   "t": 3.1,
+   "position": [
+    -47.08648137971904,
+    35.625781526094634,
+    62.476087212791505
+   ],
+   "target": [
+    -21.88967373943027,
+    3.2588249149061808,
+    15.069569294410151
+   ],
+   "fov": 35.99453446502058
+  },
+  {
+   "t": 3.2,
+   "position": [
+    -46.550251881491846,
+    33.6089202877254,
+    60.87208504801097
+   ],
+   "target": [
+    -21.955464044982563,
+    3.313878345486992,
+    15.06118949637468
+   ],
+   "fov": 36.35508524397414
+  },
+  {
+   "t": 3.3,
+   "position": [
+    -45.98525181569635,
+    31.622248009314962,
+    59.28398437500001
+   ],
+   "target": [
+    -21.991575481700966,
+    3.367271098846461,
+    15.03286830357143
+   ],
+   "fov": 36.72544642857143
+  },
+  {
+   "t": 3.4,
+   "position": [
+    -45.39313312231069,
+    29.671724535942865,
+    57.71356310013718
+   ],
+   "target": [
+    -22.003969515241234,
+    3.4177801888718355,
+    14.991389868704681
+   ],
+   "fov": 37.10258671369782
+  },
+  {
+   "t": 3.5,
+   "position": [
+    -44.7761187059283,
+    27.762963620755052,
+    56.162599129801094
+   ],
+   "target": [
+    -21.998616490947224,
+    3.464181263080521,
+    14.943538344478737
+   ],
+   "fov": 37.48347479423868
+  },
+  {
+   "t": 3.6,
+   "position": [
+    -44.13713347407569,
+    25.901649460442602,
+    54.63287037037037
+   ],
+   "target": [
+    -21.98149430634265,
+    3.5052681971848525,
+    14.896097883597884
+   ],
+   "fov": 37.86507936507936
+  },
+  {
+   "t": 3.7,
+   "position": [
+    -43.47987230297124,
+    24.09394960424947,
+    53.1261547282236
+   ],
+   "target": [
+    -21.958586992333498,
+    3.5398720335962373,
+    14.855852638766413
+   ],
+   "fov": 38.24436912110524
+  },
+  {
+   "t": 3.8,
+   "position": [
+    -42.80879856914503,
+    22.346870109526492,
+    51.644230109739375
+   ],
+   "target": [
+    -21.935883220271318,
+    3.566878582242951,
+    14.829586762688614
+   ],
+   "fov": 38.61831275720165
+  },
+  {
+   "t": 3.9,
+   "position": [
+    -42.12907343771054,
+    20.66850641249181,
+    50.1888744212963
+   ],
+   "target": [
+    -21.91937475292374,
+    3.5852440502212106,
+    14.824084408068783
+   ],
+   "fov": 38.98387896825397
+  },
+  {
+   "t": 4,
+   "position": [
+    -41.44642263140314,
+    19.068157231979523,
+    48.761865569272985
+   ],
+   "target": [
+    -21.91505485807658,
+    3.5940081377444906,
+    14.846129727611208
+   ],
+   "fov": 39.33803644914756
+  },
+  {
+   "t": 4.1,
+   "position": [
+    -40.766953297082836,
+    17.556287059792023,
+    47.364981460048014
+   ],
+   "target": [
+    -21.92891670394353,
+    3.592304129047819,
+    14.902506874020185
+   ],
+   "fov": 39.677753894767775
+  },
+  {
+   "t": 4.2,
+   "position": [
+    -40.09693827762366,
+    16.144342954392812,
+    46
+   ],
+   "target": [
+    -21.96695175577947,
+    3.579365615059976,
+    15
+   ],
+   "fov": 40
+  },
+  {
+   "t": 4.3,
+   "position": [
+    -39.415551723712106,
+    14.871757072019225,
+    44.67574743042058
+   ],
+   "target": [
+    -22.01068079295008,
+    3.5493738051748758,
+    15.155429531435589
+   ],
+   "fov": 40.30319518680488
+  },
+  {
+   "t": 4.4,
+   "position": [
+    -38.703140482578796,
+    13.761027309871372,
+    43.39827583414318
+   ],
+   "target": [
+    -22.038988260699586,
+    3.4988164239309065,
+    15.37211775186265
+   ],
+   "fov": 40.59005506964691
+  },
+  {
+   "t": 4.5,
+   "position": [
+    -37.967344637552145,
+    12.79861432331596,
+    42.16520187985909
+   ],
+   "target": [
+    -22.053903938204105,
+    3.4305373488662108,
+    15.63660160046161
+   ],
+   "fov": 40.86399113216716
+  },
+  {
+   "t": 4.6,
+   "position": [
+    -37.215192594062934,
+    11.97047807437569,
+    40.97414223625959
+   ],
+   "target": [
+    -22.057449882684605,
+    3.347471101809575,
+    15.935418016412912
+   ],
+   "fov": 41.12841485800669
+  },
+  {
+   "t": 4.7,
+   "position": [
+    -36.45301990648035,
+    11.261771024274033,
+    39.82271357203596
+   ],
+   "target": [
+    -22.0516391143515,
+    3.2526317313057356,
+    16.255103938896987
+   ],
+   "fov": 41.38673773080661
+  },
+  {
+   "t": 4.8,
+   "position": [
+    -35.68645584475181,
+    10.656649288338844,
+    38.70853255587949
+   ],
+   "target": [
+    -22.03847441058694,
+    3.1490988327525495,
+    16.582196307094264
+   ],
+   "fov": 41.64237123420797
+  },
+  {
+   "t": 4.9,
+   "position": [
+    -34.92047849400024,
+    10.138225689109154,
+    37.62921585648148
+   ],
+   "target": [
+    -22.01994722394036,
+    3.040001209406632,
+    16.903232060185186
+   ],
+   "fov": 41.898726851851855
+  },
+  {
+   "t": 5,
+   "position": [
+    -34.15953262652406,
+    9.688669235052114,
+    36.582380142533204
+   ],
+   "target": [
+    -21.998036737016402,
+    2.928498762322887,
+    17.204748137350176
+   ],
+   "fov": 42.15921606737933
+  },
+  {
+   "t": 5.1,
+   "position": [
+    -33.407698589675434,
+    9.289435583758454,
+    35.56564208272595
+   ],
+   "target": [
+    -21.974709065679537,
+    2.817763261036701,
+    17.473281477769678
+   ],
+   "fov": 42.42725036443149
+  },
+  {
+   "t": 5.2,
+   "position": [
+    -32.668895586672654,
+    8.92159522683382,
+    34.576618345750994
+   ],
+   "target": [
+    -21.951916620206834,
+    2.7109586870813756,
+    17.695369020624124
+   ],
+   "fov": 42.70624122664939
+  },
+  {
+   "t": 5.3,
+   "position": [
+    -31.947099454510774,
+    8.56621287371197,
+    33.61292560029964
+   ],
+   "target": [
+    -21.931597632111277,
+    2.6112218578076654,
+    17.857547705093943
+   ],
+   "fov": 42.999600137674115
+  },
+  {
+   "t": 5.4,
+   "position": [
+    -31.246553675687004,
+    8.204724608937108,
+    32.67218051506316
+   ],
+   "target": [
+    -21.915675852355093,
+    2.521644027883793,
+    17.946354470359573
+   ],
+   "fov": 43.31073858114675
+  },
+  {
+   "t": 5.5,
+   "position": [
+    -30.571953028568785,
+    7.819259785567603,
+    31.75199975873285
+   ],
+   "target": [
+    -21.906060424601225,
+    2.445254130666124,
+    17.948326255601444
+   ],
+   "fov": 43.64306804070834
+  },
+  {
+   "t": 5.6,
+   "position": [
+    -29.928581920821546,
+    7.392862241212252,
+    30.849999999999998
+   ],
+   "target": [
+    -21.904645935034942,
+    2.3850042626091765,
+    17.849999999999998
+   ],
+   "fov": 44
+  },
+  {
+   "t": 5.7,
+   "position": [
+    -29.305654720594937,
+    6.9601065603236405,
+    29.981156026161983
+   ],
+   "target": [
+    -21.90852947488808,
+    2.340468267738544,
+    17.63748131822693
+   ],
+   "fov": 44.39390684266424
+  },
+  {
+   "t": 5.8,
+   "position": [
+    -28.690202113984917,
+    6.565326253915927,
+    29.15894838345744
+   ],
+   "target": [
+    -21.913518692528477,
+    2.3083888324962047,
+    17.3158579739765
+   ],
+   "fov": 44.82937878251488
+  },
+  {
+   "t": 5.9,
+   "position": [
+    -28.085187058124724,
+    6.207484409988172,
+    28.378752378989432
+   ],
+   "target": [
+    -21.91955327927074,
+    2.287329090376612,
+    16.900140129962985
+   ],
+   "fov": 45.29815404844991
+  },
+  {
+   "t": 6,
+   "position": [
+    -27.49407926236913,
+    5.88598553805337,
+    27.635943319861074
+   ],
+   "target": [
+    -21.92656029021259,
+    2.275748574569493,
+    16.405337948900677
+   ],
+   "fov": 45.791970869367326
+  },
+  {
+   "t": 6.1,
+   "position": [
+    -26.920683971163612,
+    5.600294202149052,
+    26.925896513175452
+   ],
+   "target": [
+    -21.934455025978526,
+    2.2720055603311864,
+    15.846461593503848
+   ],
+   "fov": 46.3025674741651
+  },
+  {
+   "t": 6.2,
+   "position": [
+    -26.368934805180217,
+    5.349533138237538,
+    26.24398726603565
+   ],
+   "target": [
+    -21.94314205654929,
+    2.2743630517839204,
+    15.238521226486771
+   ],
+   "fov": 46.821682091741266
+  },
+  {
+   "t": 6.3,
+   "position": [
+    -25.8426703477453,
+    5.13211549966532,
+    25.58559088554477
+   ],
+   "target": [
+    -21.952516374801263,
+    2.280998197668946,
+    14.596527010563737
+   ],
+   "fov": 47.34105295099378
+  },
+  {
+   "t": 6.4,
+   "position": [
+    -25.345415780970892,
+    4.945461605187152,
+    24.946082678805904
+   ],
+   "target": [
+    -21.962464665811954,
+    2.2900147971661675,
+    13.93548910844902
+   ],
+   "fov": 47.85241828082065
+  },
+  {
+   "t": 6.5,
+   "position": [
+    -24.88019046228075,
+    4.785839459626218,
+    24.320837952922137
+   ],
+   "target": [
+    -21.972866676588637,
+    2.299458445676696,
+    13.2704176828569
+   ],
+   "fov": 48.347516310119865
+  },
+  {
+   "t": 6.6,
+   "position": [
+    -24.449359925492132,
+    4.648351870881697,
+    23.705232014996582
+   ],
+   "target": [
+    -21.983596669662933,
+    2.3073337754484395,
+    12.616322896501664
+   ],
+   "fov": 48.81808526778941
+  },
+  {
+   "t": 6.7,
+   "position": [
+    -24.054546619576243,
+    4.527073415833856,
+    23.0946401721323
+   ],
+   "target": [
+    -21.994524942980714,
+    2.311623170528241,
+    11.988214912097572
+   ],
+   "fov": 49.25586338272729
+  },
+  {
+   "t": 6.8,
+   "position": [
+    -23.696608159228788,
+    4.41532045281596,
+    22.48443773143241
+   ],
+   "target": [
+    -22.00551939771511,
+    2.3103062824608043,
+    11.401103892358927
+   ],
+   "fov": 49.65258888383149
+  },
+  {
+   "t": 6.9,
+   "position": [
+    -23.375685481462252,
+    4.306019547526749,
+    21.869999999999994
+   ],
+   "target": [
+    -22.016447135051244,
+    2.30137964433456,
+    10.869999999999994
+   ],
+   "fov": 50
+  },
+  {
+   "t": 7,
+   "position": [
+    -23.094679431877246,
+    4.207899608452719,
+    21.26333436891203
+   ],
+   "target": [
+    -22.027176062641093,
+    2.2840046021397495,
+    10.378751035578693
+   ],
+   "fov": 50.30096560846561
+  },
+  {
+   "t": 7.1,
+   "position": [
+    -22.853177195333362,
+    4.130056494077974,
+    20.677760224319012
+   ],
+   "target": [
+    -22.037576491309895,
+    2.25916752575872,
+    9.89998244654124
+   ],
+   "fov": 50.56613756613757
+  },
+  {
+   "t": 7.2,
+   "position": [
+    -22.645738188521783,
+    4.066575379867466,
+    20.11062086593435
+   ],
+   "target": [
+    -22.04752270271348,
+    2.2276809590513253,
+    9.43187086593435
+   ],
+   "fov": 50.79892857142857
+  },
+  {
+   "t": 7.3,
+   "position": [
+    -22.466925611287344,
+    4.012595019276493,
+    19.55925959347144
+   ],
+   "target": [
+    -22.056894468996994,
+    2.19044012235783,
+    8.972592926804772
+   ],
+   "fov": 51.00275132275132
+  },
+  {
+   "t": 7.4,
+   "position": [
+    -22.311534156181374,
+    3.9644236422108485,
+    19.02101970664367
+   ],
+   "target": [
+    -22.065578506085664,
+    2.148433224996856,
+    8.52032526219923
+   ],
+   "fov": 51.18101851851852
+  },
+  {
+   "t": 7.5,
+   "position": [
+    -22.174795388791853,
+    3.9195043025777245,
+    18.493244505164455
+   ],
+   "target": [
+    -22.07346984304048,
+    2.102748430947764,
+    8.073244505164453
+   ],
+   "fov": 51.33714285714286
+  },
+  {
+   "t": 7.6,
+   "position": [
+    -22.05254174186066,
+    3.8762358924416196,
+    17.973277288747177
+   ],
+   "target": [
+    -22.080473090926347,
+    2.0545772270118667,
+    7.629527288747177
+   ],
+   "fov": 51.47453703703704
+  },
+  {
+   "t": 7.7,
+   "position": [
+    -21.941314007239747,
+    3.833675308185644,
+    17.458461357105236
+   ],
+   "target": [
+    -22.086503595854854,
+    2.0052140722272367,
+    7.187350245994124
+   ],
+   "fov": 51.596613756613756
+  },
+  {
+   "t": 7.8,
+   "position": [
+    -21.83840258308358,
+    3.7911620362944403,
+    16.946140009952032
+   ],
+   "target": [
+    -22.09148846226388,
+    1.9560523411551867,
+    6.744890009952034
+   ],
+   "fov": 51.706785714285715
+  },
+  {
+   "t": 7.9,
+   "position": [
+    -21.741819027289637,
+    3.7479165956158256,
+    16.433656547000965
+   ],
+   "target": [
+    -22.095367434064872,
+    1.9085767070457407,
+    6.300323213667631
+   ],
+   "fov": 51.80846560846561
+  },
+  {
+   "t": 8,
+   "position": [
+    -21.650201082460306,
+    3.7026674624052816,
+    15.918354267965432
+   ],
+   "target": [
+    -22.098093623006648,
+    1.864352239023648,
+    5.851826490187655
+   ],
+   "fov": 51.90506613756614
+  },
+  {
+   "t": 8.1,
+   "position": [
+    -21.562660642515013,
+    3.653356892494264,
+    15.397576472558828
+   ],
+   "target": [
+    -22.099634075451377,
+    1.8250106057038677,
+    5.397576472558828
+   ],
+   "fov": 52
+  },
+  {
+   "t": 8.2,
+   "position": [
+    -21.512530026789968,
+    3.5953595006487356,
+    14.888982865653666
+   ],
+   "target": [
+    -22.108200623386594,
+    1.7918042864534474,
+    4.967446514487683
+   ],
+   "fov": 52.086223789927494
+  },
+  {
+   "t": 8.3,
+   "position": [
+    -21.52436096080861,
+    3.530534810317262,
+    14.405209233139473
+   ],
+   "target": [
+    -22.127904430496088,
+    1.7646973086532198,
+    4.578597436157308
+   ],
+   "fov": 52.15363511659808
+  },
+  {
+   "t": 8.4,
+   "position": [
+    -21.58418561112839,
+    3.4652022700713028,
+    13.936062996255211
+   ],
+   "target": [
+    -22.152583201762287,
+    1.7434360946083127,
+    4.210137070329289
+   ],
+   "fov": 52.2010582010582
+  },
+  {
+   "t": 8.5,
+   "position": [
+    -21.677677442860965,
+    3.4050338086978056,
+    13.471351576239824
+   ],
+   "target": [
+    -22.176089121850147,
+    1.727760641804697,
+    3.841173249765199
+   ],
+   "fov": 52.2273172643543
+  },
+  {
+   "t": 8.6,
+   "position": [
+    -21.789988242181813,
+    3.3553873374590557,
+    13.000882394332237
+   ],
+   "target": [
+    -22.192288552619917,
+    1.7173851045008313,
+    3.450813807226613
+   ],
+   "fov": 52.23123652753282
+  },
+  {
+   "t": 8.7,
+   "position": [
+    -21.90563888259851,
+    3.3216878972474984,
+    12.514462871771403
+   ],
+   "target": [
+    -22.195061559268648,
+    1.7119793054565988,
+    3.018166575475107
+   ],
+   "fov": 52.21164021164021
+  },
+  {
+   "t": 8.8,
+   "position": [
+    -22.008474254066684,
+    3.309802882133421,
+    12.001900429796255
+   ],
+   "target": [
+    -22.178301270828552,
+    1.7111518432206931,
+    2.5223393872722486
+   ],
+   "fov": 52.167352537722905
+  },
+  {
+   "t": 8.9,
+   "position": [
+    -22.081686589437773,
+    3.32635848137177,
+    11.45300248964575
+   ],
+   "target": [
+    -22.135913082752207,
+    1.7144354029710245,
+    1.9424400753796327
+   ],
+   "fov": 52.09719772682735
+  },
+  {
+   "t": 9,
+   "position": [
+    -22.107904835482817,
+    3.378952406347058,
+    10.857576472558826
+   ],
+   "target": [
+    -22.061813711223703,
+    1.7212747995934685,
+    1.2575764725588252
+   ],
+   "fov": 52
+  },
+  {
+   "t": 9.1,
+   "position": [
+    -22.08824603618211,
+    3.4736545436631983,
+    10.203722999155676
+   ],
+   "target": [
+    -21.96457547494559,
+    1.731576101987557,
+    0.42902760659536016
+   ],
+   "fov": 51.84362139917696
+  },
+  {
+   "t": 9.2,
+   "position": [
+    -22.038133994343077,
+    3.6073050751295113,
+    9.495684958507457
+   ],
+   "target": [
+    -21.854716301631285,
+    1.746063734410825,
+    -0.5416748413795738
+   ],
+   "fov": 51.61316872427983
+  },
+  {
+   "t": 9.3,
+   "position": [
+    -21.961342293575,
+    3.774988510356328,
+    8.747483174529536
+   ],
+   "target": [
+    -21.72908475967153,
+    1.7652607454157137,
+    -1.615044058585934
+   ],
+   "fov": 51.33333333333333
+  },
+  {
+   "t": 9.4,
+   "position": [
+    -21.861850557777693,
+    3.972239688626462,
+    7.973138471137324
+   ],
+   "target": [
+    -21.58453572516316,
+    1.7895886436782935,
+    -2.751593232243618
+   ],
+   "fov": 51.02880658436214
+  },
+  {
+   "t": 9.5,
+   "position": [
+    -21.74404545417528,
+    4.194651185517234,
+    7.186671672246186
+   ],
+   "target": [
+    -21.41792889692292,
+    1.8193731373679067,
+    -3.911835549572582
+   ],
+   "fov": 50.724279835390945
+  },
+  {
+   "t": 9.6,
+   "position": [
+    -21.612884736104636,
+    4.437461847370581,
+    6.402103601771505
+   ],
+   "target": [
+    -21.2261272532052,
+    1.8548533215235963,
+    -5.056284197792763
+   ],
+   "fov": 50.44444444444444
+  },
+  {
+   "t": 9.7,
+   "position": [
+    -21.47400820797681,
+    4.69518135556291,
+    5.63345508362866
+   ],
+   "target": [
+    -21.005995468778593,
+    1.896193982769592,
+    -6.1454523641241
+   ],
+   "fov": 50.21399176954733
+  },
+  {
+   "t": 9.8,
+   "position": [
+    -21.333784531847026,
+    4.961301187581549,
+    4.8947469417330245
+   ],
+   "target": [
+    -20.754398311495294,
+    1.9435005785043218,
+    -7.1398532357865445
+   ],
+   "fov": 50.05761316872428
+  },
+  {
+   "t": 9.9,
+   "position": [
+    -21.19928889685992,
+    5.228131002903624,
+    4.2
+   ],
+   "target": [
+    -20.468199037735353,
+    1.9968363514390144,
+    -8
+   ],
+   "fov": 50
+  },
+  {
+   "t": 10,
+   "position": [
+    -21.09460654793823,
+    5.496271326494664,
+    3.511831344526305
+   ],
+   "target": [
+    -20.147350254037928,
+    2.0684182558171536,
+    -8.741609602164871
+   ],
+   "fov": 50.08593750000001
+  },
+  {
+   "t": 10.1,
+   "position": [
+    -21.025527191183475,
+    5.772542447190636,
+    2.8007394246100823
+   ],
+   "target": [
+    -19.793174341640626,
+    2.162879736714602,
+    -9.408589619507566
+   ],
+   "fov": 50.3125
+  },
+  {
+   "t": 10.2,
+   "position": [
+    -20.972337935779684,
+    6.0571227651668735,
+    2.0925671089688365
+   ],
+   "target": [
+    -19.404582305241572,
+    2.2689027733511042,
+    -10.003739186987048
+   ],
+   "fov": 50.6328125
+  },
+  {
+   "t": 10.3,
+   "position": [
+    -20.91537537397992,
+    6.349762317348083,
+    1.4131572663200633
+   ],
+   "target": [
+    -18.98047759180506,
+    2.375203948002208,
+    -10.529857439562289
+   ],
+   "fov": 51
+  },
+  {
+   "t": 10.4,
+   "position": [
+    -20.834795974936775,
+    6.650199305542727,
+    0.7883527653812943
+   ],
+   "target": [
+    -18.519754763455175,
+    2.4705522716804897,
+    -10.989743512192234
+   ],
+   "fov": 51.3671875
+  },
+  {
+   "t": 10.5,
+   "position": [
+    -20.710361078729143,
+    6.958572180322525,
+    0.24399647487002368
+   ],
+   "target": [
+    -18.021298277767535,
+    2.5437851228263377,
+    -11.386196539835856
+   ],
+   "fov": 51.6875
+  },
+  {
+   "t": 10.6,
+   "position": [
+    -20.52125660849699,
+    7.275773424774474,
+    -0.19406873649624404
+   ],
+   "target": [
+    -17.483981390202892,
+    2.5838217253504068,
+    -11.722015657452127
+   ],
+   "fov": 51.9140625
+  },
+  {
+   "t": 10.7,
+   "position": [
+    -20.245964358615343,
+    7.603699191923531,
+    -0.5
+   ],
+   "target": [
+    -16.90666519194969,
+    2.579673680932409,
+    -12
+   ],
+   "fov": 52
+  },
+  {
+   "t": 10.8,
+   "position": [
+    -19.934663537288422,
+    7.922678133215436,
+    -0.7400390625000034
+   ],
+   "target": [
+    -16.37545652642359,
+    2.5297984540761953,
+    -12.287109375000002
+   ],
+   "fov": 51.982421875
+  },
+  {
+   "t": 10.9,
+   "position": [
+    -19.62939259432514,
+    8.22209437541944,
+    -0.9671875000000021
+   ],
+   "target": [
+    -15.928424702365279,
+    2.4438550633805187,
+    -12.609375000000002
+   ],
+   "fov": 51.921875
+  },
+  {
+   "t": 11,
+   "position": [
+    -19.29534392314703,
+    8.518908156678927,
+    -1.1357421875000009
+   ],
+   "target": [
+    -15.492354217375206,
+    2.327808539795387,
+    -12.908203125000002
+   ],
+   "fov": 51.806640625
+  },
+  {
+   "t": 11.1,
+   "position": [
+    -18.89715383819956,
+    8.830690158148256,
+    -1.2000000000000002
+   ],
+   "target": [
+    -14.994015115496444,
+    2.1877232286822097,
+    -13.125
+   ],
+   "fov": 51.625
+  },
+  {
+   "t": 11.2,
+   "position": [
+    -18.39908690349221,
+    9.175252658330777,
+    -1.1142578125000009
+   ],
+   "target": [
+    -14.360162839362163,
+    2.029755412616931,
+    -13.201171875000002
+   ],
+   "fov": 51.365234375
+  },
+  {
+   "t": 11.3,
+   "position": [
+    -17.76525173228122,
+    9.570257303993527,
+    -0.8328124999999966
+   ],
+   "target": [
+    -13.517538258842103,
+    1.8601426252321724,
+    -13.078124999999998
+   ],
+   "fov": 51.015625
+  },
+  {
+   "t": 11.4,
+   "position": [
+    -16.959827803110542,
+    10.032853833016912,
+    -0.3099609374999968
+   ],
+   "target": [
+    -12.39286787584184,
+    1.68519004070956,
+    -12.697265624999998
+   ],
+   "fov": 50.564453125
+  },
+  {
+   "t": 11.5,
+   "position": [
+    -15.947281852193623,
+    10.579399590755312,
+    0.5
+   ],
+   "target": [
+    -10.912864202779025,
+    1.5112544287851966,
+    -12
+   ],
+   "fov": 50
+  },
+  {
+   "t": 11.6,
+   "position": [
+    -14.640715222441697,
+    11.437482467959306,
+    1.4948012408088185
+   ],
+   "target": [
+    -8.898154389206066,
+    1.3795665560610402,
+    -10.837890625000005
+   ],
+   "fov": 49.26780790441176
+  },
+  {
+   "t": 11.7,
+   "position": [
+    -13.03435419129001,
+    12.689254853492976,
+    2.587086397058812
+   ],
+   "target": [
+    -6.341572521945356,
+    1.302534451839503,
+    -9.203125000000016
+   ],
+   "fov": 48.355698529411775
+  },
+  {
+   "t": 11.8,
+   "position": [
+    -11.215207299895354,
+    14.131605068268822,
+    3.844927619485297
+   ],
+   "target": [
+    -3.428122575448009,
+    1.2433021235066661,
+    -7.248046874999992
+   ],
+   "fov": 47.31537224264706
+  },
+  {
+   "t": 11.9,
+   "position": [
+    -9.27097838603594,
+    15.560823637100633,
+    5.336397058823525
+   ],
+   "target": [
+    -0.34279766369785614,
+    1.164989060668979,
+    -5.125000000000002
+   ],
+   "fov": 46.19852941176471
+  },
+  {
+   "t": 12,
+   "position": [
+    -7.290006999529067,
+    16.772946310894614,
+    7.129566865808811
+   ],
+   "target": [
+    2.729418821091248,
+    1.0306716603252857,
+    -2.9863281250000098
+   ],
+   "fov": 45.056870404411775
+  },
+  {
+   "t": 12.1,
+   "position": [
+    -5.361146766591425,
+    17.564141515761843,
+    9.292509191176448
+   ],
+   "target": [
+    5.6035519522627055,
+    0.8033662030077316,
+    -0.9843750000000164
+   ],
+   "fov": 43.9420955882353
+  },
+  {
+   "t": 12.2,
+   "position": [
+    -3.5735937977224936,
+    17.73108839456004,
+    11.893296185661722
+   ],
+   "target": [
+    8.094633910174723,
+    0.44601399260626434,
+    0.7285156249999755
+   ],
+   "fov": 42.90590533088237
+  },
+  {
+   "t": 12.3,
+   "position": [
+    -2.016682012186323,
+    17.071292633159477,
+    15
+   ],
+   "target": [
+    10.017702537749688,
+    -0.07853080528282877,
+    2
+   ],
+   "fov": 42
+  },
+  {
+   "t": 12.4,
+   "position": [
+    -0.6324608667569153,
+    15.388719161375302,
+    18.923577401504232
+   ],
+   "target": [
+    11.436265289793713,
+    -0.8610647112865161,
+    2.8774095733160037
+   ],
+   "fov": 41.17473786135636
+  },
+  {
+   "t": 12.5,
+   "position": [
+    0.6919233464003268,
+    12.796447262017777,
+    23.736515095533534
+   ],
+   "target": [
+    12.565406044897307,
+    -1.9070878360730703,
+    3.5338964695689805
+   ],
+   "fov": 40.35559122934424
+  },
+  {
+   "t": 12.6,
+   "position": [
+    1.9498968639999334,
+    9.557166528612584,
+    29.149180139892174
+   ],
+   "target": [
+    13.447531130302451,
+    -3.1259503298155376,
+    4.005847953216371
+   ],
+   "fov": 39.556931544547645
+  },
+  {
+   "t": 12.7,
+   "position": [
+    3.135490473003223,
+    5.93437959334737,
+    34.87193959238445
+   ],
+   "target": [
+    14.125046259212276,
+    -4.427104146853632,
+    4.329651288715613
+   ],
+   "fov": 38.79313024755062
+  },
+  {
+   "t": 12.8,
+   "position": [
+    4.243414152866245,
+    2.192071384842038,
+    40.61516051081472
+   ],
+   "target": [
+    14.64035493189352,
+    -5.720097554751533,
+    4.54169374052415
+   ],
+   "fov": 38.078558778937165
+  },
+  {
+   "t": 12.9,
+   "position": [
+    5.269064464344571,
+    -1.4056920447500414,
+    46.08920995298707
+   ],
+   "target": [
+    15.03585686352856,
+    -6.914566176895297,
+    4.678362573099415
+   ],
+   "fov": 37.42758857929136
+  },
+  {
+   "t": 13,
+   "position": [
+    6.2084635935641215,
+    -4.5951826592390335,
+    51.00445497670589
+   ],
+   "target": [
+    15.353946457820806,
+    -7.92022089102083,
+    4.776045050898853
+   ],
+   "fov": 36.85459108919721
+  },
+  {
+   "t": 13.1,
+   "position": [
+    7.058135524354261,
+    -7.113392447290063,
+    55.071262639775426
+   ],
+   "target": [
+    15.637011344804197,
+    -8.64683301922245,
+    4.8711284383799
+   ],
+   "fov": 36.37393774923875
+  },
+  {
+   "t": 13.2,
+   "position": [
+    7.814930860077322,
+    -8.698327980492198,
+    58
+   ],
+   "target": [
+    15.927431000531481,
+    -9.004217342476652,
+    5
+   ],
+   "fov": 36
+  },
+  {
+   "t": 13.3,
+   "position": [
+    8.466990538308961,
+    -9.415525613272775,
+    59.833157894736864
+   ],
+   "target": [
+    16.176106087451622,
+    -9.002948482023623,
+    5.127894736842107
+   ],
+   "fov": 35.74421052631578
+  },
+  {
+   "t": 13.4,
+   "position": [
+    9.0174560128411,
+    -9.57028865175324,
+    60.896842105263175
+   ],
+   "target": [
+    16.318375950480863,
+    -8.744389383500394,
+    5.202105263157895
+   ],
+   "fov": 35.59578947368421
+  },
+  {
+   "t": 13.5,
+   "position": [
+    9.485522265515414,
+    -9.261928105365687,
+    61.32684210526317
+   ],
+   "target": [
+    16.37326231241508,
+    -8.274545312509519,
+    5.232105263157895
+   ],
+   "fov": 35.53578947368421
+  },
+  {
+   "t": 13.6,
+   "position": [
+    9.889865525083307,
+    -8.590564377584283,
+    61.258947368421055
+   ],
+   "target": [
+    16.359774354330423,
+    -7.639388222554661,
+    5.227368421052632
+   ],
+   "fov": 35.54526315789474
+  },
+  {
+   "t": 13.7,
+   "position": [
+    10.248497197366085,
+    -7.656766610776671,
+    60.828947368421055
+   ],
+   "target": [
+    16.296907968404096,
+    -6.884838821566523,
+    5.197368421052632
+   ],
+   "fov": 35.60526315789474
+  },
+  {
+   "t": 13.8,
+   "position": [
+    10.578677299843042,
+    -6.561142769609556,
+    60.17263157894736
+   ],
+   "target": [
+    16.20364517136866,
+    -6.056750482835284,
+    5.151578947368421
+   ],
+   "fov": 35.69684210526316
+  },
+  {
+   "t": 13.9,
+   "position": [
+    10.896895825591011,
+    -5.403934984428971,
+    59.425789473684205
+   ],
+   "target": [
+    16.098953685690056,
+    -5.200895579419865,
+    5.099473684210526
+   ],
+   "fov": 35.80105263157895
+  },
+  {
+   "t": 14,
+   "position": [
+    11.218924048086254,
+    -4.28467366098767,
+    58.72421052631579
+   ],
+   "target": [
+    16.001786693531884,
+    -4.36295473387924,
+    5.050526315789473
+   ],
+   "fov": 35.898947368421055
+  },
+  {
+   "t": 14.1,
+   "position": [
+    11.55993116923973,
+    -3.3019356423926975,
+    58.20368421052632
+   ],
+   "target": [
+    15.931082766480037,
+    -3.5885093702447923,
+    5.0142105263157895
+   ],
+   "fov": 35.97157894736842
+  },
+  {
+   "t": 14.2,
+   "position": [
+    11.934655537250844,
+    -2.5532374034895904,
+    58
+   ],
+   "target": [
+    15.905765971877104,
+    -2.9230378362993092,
+    5
+   ],
+   "fov": 36
+  },
+  {
+   "t": 14.3,
+   "position": [
+    12.32487766417806,
+    -1.9604442307644832,
+    58
+   ],
+   "target": [
+    15.910009312375992,
+    -2.3313889199384104,
+    5
+   ],
+   "fov": 36
+  },
+  {
+   "t": 14.4,
+   "position": [
+    12.701438630344036,
+    -1.3780562519641824,
+    58.00000000000001
+   ],
+   "target": [
+    15.915340442676499,
+    -1.7467327656555525,
+    5
+   ],
+   "fov": 36
+  },
+  {
+   "t": 14.5,
+   "position": [
+    13.062677257244088,
+    -0.8013973828877968,
+    58.00000000000001
+   ],
+   "target": [
+    15.92169492111999,
+    -1.1668838002923347,
+    5
+   ],
+   "fov": 36
+  },
+  {
+   "t": 14.6,
+   "position": [
+    13.407370200473194,
+    -0.22561264419599014,
+    58
+   ],
+   "target": [
+    15.92899593601597,
+    -0.5895743585772115,
+    5
+   ],
+   "fov": 36
+  },
+  {
+   "t": 14.7,
+   "position": [
+    13.734892940941199,
+    0.35394610634534407,
+    58
+   ],
+   "target": [
+    15.93715523412674,
+    -0.012468105390149052,
+    5
+   ],
+   "fov": 36
+  },
+  {
+   "t": 14.8,
+   "position": [
+    14.04532369014404,
+    0.9413685653020816,
+    58
+   ],
+   "target": [
+    15.946074187455256,
+    0.5668240704398189,
+    5
+   ],
+   "fov": 36
+  },
+  {
+   "t": 14.9,
+   "position": [
+    14.339480825289936,
+    1.5399178215627567,
+    58
+   ],
+   "target": [
+    15.955644985441024,
+    1.1507262628461774,
+    5
+   ],
+   "fov": 36
+  },
+  {
+   "t": 15,
+   "position": [
+    14.618890798039434,
+    2.1518834429473293,
+    58
+   ],
+   "target": [
+    15.965751938153039,
+    1.7416784961534832,
+    5
+   ],
+   "fov": 36
+  },
+  {
+   "t": 15.1,
+   "position": [
+    14.885690071287994,
+    2.778576932891264,
+    58
+   ],
+   "target": [
+    15.976272874727005,
+    2.342117099346664,
+    5
+   ],
+   "fov": 36
+  },
+  {
+   "t": 15.2,
+   "position": [
+    15.142470901881326,
+    3.4204711036910496,
+    58
+   ],
+   "target": [
+    15.98708062014281,
+    2.954455213341303,
+    5
+   ],
+   "fov": 36
+  },
+  {
+   "t": 15.3,
+   "position": [
+    15.390250191291994,
+    4.071587001117511,
+    58
+   ],
+   "target": [
+    15.998044532491251,
+    3.5750186232661605,
+    5
+   ],
+   "fov": 36
+  },
+  {
+   "t": 15.4,
+   "position": [
+    15.629324016110314,
+    4.725203765587757,
+    58
+   ],
+   "target": [
+    16.009032082147833,
+    4.20046724113028,
+    5
+   ],
+   "fov": 36
+  },
+  {
+   "t": 15.5,
+   "position": [
+    15.861267417206658,
+    5.380395303907583,
+    58
+   ],
+   "target": [
+    16.01991045376492,
+    4.8336290242013,
+    5
+   ],
+   "fov": 36
+  },
+  {
+   "t": 15.6,
+   "position": [
+    16.087282499467175,
+    6.036798443369573,
+    58
+   ],
+   "target": [
+    16.03054815171762,
+    5.4772455386005605,
+    5
+   ],
+   "fov": 36
+  },
+  {
+   "t": 15.7,
+   "position": [
+    16.308039633537994,
+    6.694932364394054,
+    58
+   ],
+   "target": [
+    16.04081658959715,
+    6.133962704385284,
+    5
+   ],
+   "fov": 36
+  },
+  {
+   "t": 15.8,
+   "position": [
+    16.523573225314593,
+    7.35640850463189,
+    58
+   ],
+   "target": [
+    16.050591644538144,
+    6.806324983078918,
+    5
+   ],
+   "fov": 36
+  },
+  {
+   "t": 15.9,
+   "position": [
+    16.733242096313713,
+    8.024001119214823,
+    58
+   ],
+   "target": [
+    16.059755157591546,
+    7.496773216849258,
+    5
+   ],
+   "fov": 36
+  },
+  {
+   "t": 16,
+   "position": [
+    16.93575829131511,
+    8.701567296661894,
+    58
+   ],
+   "target": [
+    16.068196362006812,
+    8.207646197105804,
+    5
+   ],
+   "fov": 36
+  },
+  {
+   "t": 16.1,
+   "position": [
+    17.12928153841858,
+    9.393825408291113,
+    58
+   ],
+   "target": [
+    16.075813222158725,
+    8.941185906059927,
+    5
+   ],
+   "fov": 36
+  },
+  {
+   "t": 16.2,
+   "position": [
+    17.33936460685163,
+    10.111005523532802,
+    57.9931640625
+   ],
+   "target": [
+    16.082513666934005,
+    9.702457422576384,
+    5
+   ],
+   "fov": 36
+  },
+  {
+   "t": 16.3,
+   "position": [
+    17.575275452253326,
+    10.859009770345166,
+    57.9765625
+   ],
+   "target": [
+    16.088216702668923,
+    10.491921112625155,
+    5
+   ],
+   "fov": 36
+  },
+  {
+   "t": 16.4,
+   "position": [
+    17.810457500269244,
+    11.636228198485338,
+    57.9560546875
+   ],
+   "target": [
+    16.09285339218481,
+    11.30480035036649,
+    5
+   ],
+   "fov": 36
+  },
+  {
+   "t": 16.5,
+   "position": [
+    18.01858108031237,
+    12.440363365547109,
+    57.9375
+   ],
+   "target": [
+    16.09636768808719,
+    12.136273814438914,
+    5
+   ],
+   "fov": 36
+  },
+  {
+   "t": 16.6,
+   "position": [
+    18.173743513526002,
+    13.268132859974218,
+    57.9267578125
+   ],
+   "target": [
+    16.098717110255695,
+    12.981493950080251,
+    5
+   ],
+   "fov": 36
+  },
+  {
+   "t": 16.7,
+   "position": [
+    18.250630995687153,
+    14.115098078514059,
+    57.9296875
+   ],
+   "target": [
+    16.099873259335432,
+    13.835606375429094,
+    5
+   ],
+   "fov": 36
+  },
+  {
+   "t": 16.8,
+   "position": [
+    18.22462641287107,
+    14.975640810016756,
+    57.9521484375
+   ],
+   "target": [
+    16.099822160022832,
+    14.693769533544119,
+    5
+   ],
+   "fov": 36
+  },
+  {
+   "t": 16.9,
+   "position": [
+    18.071852347116963,
+    15.843089422802118,
+    58
+   ],
+   "target": [
+    16.098564429996372,
+    15.551173882834503,
+    5
+   ],
+   "fov": 36
+  },
+  {
+   "t": 17,
+   "position": [
+    17.91385975425856,
+    16.575233847388148,
+    57.9376953125
+   ],
+   "target": [
+    16.161740272450213,
+    16.53872169991531,
+    5.027343750000001
+   ],
+   "fov": 36.0109375
+  },
+  {
+   "t": 17.1,
+   "position": [
+    17.827414687598406,
+    17.113980488995658,
+    57.70156249999999
+   ],
+   "target": [
+    16.317504292320944,
+    17.716425669195665,
+    5.093750000000002
+   ],
+   "fov": 36.0375
+  },
+  {
+   "t": 17.2,
+   "position": [
+    17.722332664697195,
+    17.57821646179732,
+    57.4052734375
+   ],
+   "target": [
+    16.509650138428924,
+    18.97323891011278,
+    5.175781250000001
+   ],
+   "fov": 36.0703125
+  },
+  {
+   "t": 17.3,
+   "position": [
+    17.508698248266263,
+    18.087181749357693,
+    57.162499999999994
+   ],
+   "target": [
+    16.681984975859905,
+    20.198205649383933,
+    5.250000000000002
+   ],
+   "fov": 36.1
+  },
+  {
+   "t": 17.4,
+   "position": [
+    17.096640747230232,
+    18.76080358188703,
+    57.0869140625
+   ],
+   "target": [
+    16.778328794964644,
+    21.280468908285215,
+    5.29296875
+   ],
+   "fov": 36.1171875
+  },
+  {
+   "t": 17.5,
+   "position": [
+    16.39610420186172,
+    19.71992635685521,
+    57.292187500000004
+   ],
+   "target": [
+    16.74251356532928,
+    22.109274634163583,
+    5.28125
+   ],
+   "fov": 36.1125
+  },
+  {
+   "t": 17.6,
+   "position": [
+    15.316633106867526,
+    21.086406955900973,
+    57.891992187500016
+   ],
+   "target": [
+    16.518382244943023,
+    22.573972127481635,
+    5.191406249999997
+   ],
+   "fov": 36.0765625
+  },
+  {
+   "t": 17.7,
+   "position": [
+    13.767193858435062,
+    22.983063830791092,
+    59
+   ],
+   "target": [
+    16.049787656540218,
+    22.56401074902602,
+    5
+   ],
+   "fov": 36
+  },
+  {
+   "t": 17.8,
+   "position": [
+    11.84777402608304,
+    25.30593444337531,
+    60.51168478260872
+   ],
+   "target": [
+    15.35947107561708,
+    22.141535336832185,
+    4.708157206119157
+   ],
+   "fov": 35.88990539452496
+  },
+  {
+   "t": 17.9,
+   "position": [
+    9.732920519785752,
+    27.853089878339592,
+    62.23188405797101
+   ],
+   "target": [
+    14.524830810847819,
+    21.469282529677326,
+    4.342793880837362
+   ],
+   "fov": 35.76127214170693
+  },
+  {
+   "t": 18,
+   "position": [
+    7.442358651388824,
+    30.601041406638696,
+    64.13831521739132
+   ],
+   "target": [
+    13.571716058883883,
+    20.587710783429568,
+    3.919157608695649
+   ],
+   "fov": 35.61657608695652
+  },
+  {
+   "t": 18.1,
+   "position": [
+    4.995130848843444,
+    33.526023040916684,
+    66.20869565217397
+   ],
+   "target": [
+    12.525980350400506,
+    19.53733250132935,
+    3.452495974235093
+   ],
+   "fov": 35.458293075684374
+  },
+  {
+   "t": 18.2,
+   "position": [
+    2.4097340569093966,
+    36.60364562752669,
+    68.4207427536232
+   ],
+   "target": [
+    11.413479992063412,
+    18.358696352503443,
+    2.9580565619967776
+   ],
+   "fov": 35.28889895330113
+  },
+  {
+   "t": 18.3,
+   "position": [
+    -0.2956948291364451,
+    39.8086375498864,
+    70.75217391304352
+   ],
+   "target": [
+    10.26007247493976,
+    17.092368285214175,
+    2.45108695652173
+   ],
+   "fov": 35.110869565217385
+  },
+  {
+   "t": 18.4,
+   "position": [
+    -3.103163225285713,
+    43.114709166613515,
+    73.18070652173913
+   ],
+   "target": [
+    9.091614868592742,
+    15.778911918206504,
+    1.9468347423510484
+   ],
+   "fov": 34.9266807568438
+  },
+  {
+   "t": 18.5,
+   "position": [
+    -5.994597365753268,
+    46.49456123706663,
+    75.68405797101452
+   ],
+   "target": [
+    7.933962220270607,
+    14.458869015897392,
+    1.4605475040257594
+   ],
+   "fov": 34.738808373590985
+  },
+  {
+   "t": 18.6,
+   "position": [
+    -8.95162846717532,
+    49.92003792006948,
+    78.23994565217399
+   ],
+   "target": [
+    6.812965978541652,
+    13.172740750136525,
+    1.007472826086945
+   ],
+   "fov": 34.54972826086956
+  },
+  {
+   "t": 18.7,
+   "position": [
+    -11.955410784691765,
+    53.36240513571336,
+    80.82608695652176
+   ],
+   "target": [
+    5.754472460428935,
+    11.96097042295518,
+    0.6028582930756818
+   ],
+   "fov": 34.36191626409017
+  },
+  {
+   "t": 18.8,
+   "position": [
+    -14.986488690632756,
+    56.79271784106208,
+    83.42019927536238
+   ],
+   "target": [
+    4.784321380574121,
+    10.863928272138384,
+    0.26195148953300595
+   ],
+   "fov": 34.17784822866344
+  },
+  {
+   "t": 18.9,
+   "position": [
+    -18.024725173111722,
+    60.18222742940203,
+    86
+   ],
+   "target": [
+    3.9283444602099715,
+    9.921898906491485,
+    0
+   ],
+   "fov": 34
+  },
+  {
+   "t": 19,
+   "position": [
+    -21.13346254259051,
+    63.58667795286776,
+    88.62489791918469
+   ],
+   "target": [
+    3.1796704604953177,
+    9.108906076370241,
+    -0.1796622349982054
+   ],
+   "fov": 33.82471499036356
+  },
+  {
+   "t": 19.1,
+   "position": [
+    -24.37544049253852,
+    67.07038003846252,
+    91.35778917453376
+   ],
+   "target": [
+    2.5064281075671206,
+    8.36520110965993,
+    -0.2910528206970919
+   ],
+   "fov": 33.64694737529807
+  },
+  {
+   "t": 19.2,
+   "position": [
+    -27.728748348601496,
+    70.6186958552297,
+    94.18162218665275
+   ],
+   "target": [
+    1.896933491759257,
+    7.680261865684717,
+    -0.344951491196551
+   ],
+   "fov": 33.467089145134416
+  },
+  {
+   "t": 19.3,
+   "position": [
+    -31.171154807565745,
+    74.21818957622621,
+    97.07934537614743
+   ],
+   "target": [
+    1.3394902616200794,
+    7.043463924160197,
+    -0.3521379805964788
+   ],
+   "fov": 33.285532290203506
+  },
+  {
+   "t": 19.4,
+   "position": [
+    -34.68031418411377,
+    77.8565486683014,
+    100.03390716362328
+   ],
+   "target": [
+    0.8223888580477196,
+    6.444085576460514,
+    -0.3233920229967668
+   ],
+   "fov": 33.10266880083625
+  },
+  {
+   "t": 19.5,
+   "position": [
+    -38.23398425328612,
+    81.52236299204138,
+    103.02825596968611
+   ],
+   "target": [
+    0.3339059080765784,
+    5.8713163184413375,
+    -0.26949335249730505
+   ],
+   "fov": 32.91889066736354
+  },
+  {
+   "t": 19.6,
+   "position": [
+    -41.81023440162642,
+    85.20479019324203,
+    106.04534021494143
+   ],
+   "target": [
+    -0.13769621435660886,
+    5.3142685391497455,
+    -0.20122170319798652
+   ],
+   "fov": 32.73458988011629
+  },
+  {
+   "t": 19.7,
+   "position": [
+    -45.38762372099402,
+    88.8931510142554,
+    109.06810831999476
+   ],
+   "target": [
+    -0.6041696553582588,
+    4.7619919847258565,
+    -0.1293568091987066
+   ],
+   "fov": 32.5501584294254
+  },
+  {
+   "t": 19.8,
+   "position": [
+    -48.94533155039126,
+    92.57650744347144,
+    112.07950870545197
+   ],
+   "target": [
+    -1.077281172507968,
+    4.203490476918545,
+    -0.06467840459935291
+   ],
+   "fov": 32.36598830562179
+  },
+  {
+   "t": 19.9,
+   "position": [
+    -52.46322751905,
+    96.24327880234634,
+    115.06248979191842
+   ],
+   "target": [
+    -1.568812049667743,
+    3.6277402844904443,
+    -0.01796622349982071
+   ],
+   "fov": 32.18247149903635
+  },
+  {
+   "t": 20,
+   "position": [
+    -55.92187393464561,
+    99.88094565064245,
+    118
+   ],
+   "target": [
+    -2.0905578362006625,
+    3.0237094862967506,
+    0
+   ],
+   "fov": 32
+  }
+ ]
+}

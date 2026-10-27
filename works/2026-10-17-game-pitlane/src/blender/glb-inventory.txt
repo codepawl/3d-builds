@@ -1,0 +1,95 @@
+
+## <project folder>\app\public\assets\cars.glb  3859 KB, 121050 triangles, 31 materials
+- car_halvard_07: car_halvard_07_body, car_halvard_07_drs_flap, car_halvard_07_jack_front, car_halvard_07_jack_rear, car_halvard_07_number, car_halvard_07_steer_fl, car_halvard_07_steer_fr, car_halvard_07_wheel_rl, car_halvard_07_wheel_rr
+- car_halvard_22: car_halvard_22_body, car_halvard_22_drs_flap, car_halvard_22_jack_front, car_halvard_22_jack_rear, car_halvard_22_number, car_halvard_22_steer_fl, car_halvard_22_steer_fr, car_halvard_22_wheel_rl, car_halvard_22_wheel_rr
+- car_kestrel_31: car_kestrel_31_body, car_kestrel_31_drs_flap, car_kestrel_31_jack_front, car_kestrel_31_jack_rear, car_kestrel_31_number, car_kestrel_31_steer_fl, car_kestrel_31_steer_fr, car_kestrel_31_wheel_rl, car_kestrel_31_wheel_rr
+- car_ostrava_11: car_ostrava_11_body, car_ostrava_11_drs_flap, car_ostrava_11_jack_front, car_ostrava_11_jack_rear, car_ostrava_11_number, car_ostrava_11_steer_fl, car_ostrava_11_steer_fr, car_ostrava_11_wheel_rl, car_ostrava_11_wheel_rr
+- car_sable_44: car_sable_44_body, car_sable_44_drs_flap, car_sable_44_jack_front, car_sable_44_jack_rear, car_sable_44_number, car_sable_44_steer_fl, car_sable_44_steer_fr, car_sable_44_wheel_rl, car_sable_44_wheel_rr
+
+## <project folder>\app\public\assets\crew.glb  1207 KB, 32866 triangles, 18 materials
+- crew_halvard_a: crew_halvard_a_rig
+- crew_halvard_b: crew_halvard_b_rig
+- crew_kestrel: crew_kestrel_rig
+- crew_ostrava: crew_ostrava_rig
+- marshal: marshal_rig
+- mechanic_halvard: mechanic_halvard_rig
+- clips: crew_halvard_a_carry_tyre, crew_halvard_a_gun, crew_halvard_a_idle, crew_halvard_a_jack_up, crew_halvard_a_run, crew_halvard_a_work, crew_halvard_b_carry_tyre, crew_halvard_b_gun, crew_halvard_b_idle, crew_halvard_b_jack_up, crew_halvard_b_run, crew_halvard_b_work, crew_kestrel_carry_tyre, crew_kestrel_gun, crew_kestrel_idle, crew_kestrel_jack_up, crew_kestrel_run, crew_kestrel_work, crew_ostrava_carry_tyre, crew_ostrava_gun, crew_ostrava_idle, crew_ostrava_jack_up, crew_ostrava_run, crew_ostrava_work, marshal_carry_tyre, marshal_gun, marshal_idle, marshal_jack_up, marshal_run, marshal_work, mechanic_halvard_carry_tyre, mechanic_halvard_gun, mechanic_halvard_idle, mechanic_halvard_jack_up, mechanic_halvard_run, mechanic_halvard_work
+
+## <project folder>\app\public\assets\paddock.glb  3168 KB, 107436 triangles, 24 materials
+- hospitality_halvard: hospitality_halvard_body
+- hospitality_kestrel: hospitality_kestrel_body
+- hospitality_ostrava: hospitality_ostrava_body
+- truck_halvard: truck_halvard_body, truck_halvard_wheel_0, truck_halvard_wheel_1, truck_halvard_wheel_2, truck_halvard_wheel_3, truck_halvard_wheel_4, truck_halvard_wheel_5, truck_halvard_wheel_6, truck_halvard_wheel_7, truck_halvard_wheel_8, truck_halvard_wheel_9
+- truck_kestrel: truck_kestrel_body, truck_kestrel_wheel_0, truck_kestrel_wheel_1, truck_kestrel_wheel_2, truck_kestrel_wheel_3, truck_kestrel_wheel_4, truck_kestrel_wheel_5, truck_kestrel_wheel_6, truck_kestrel_wheel_7, truck_kestrel_wheel_8, truck_kestrel_wheel_9
+- truck_ostrava: truck_ostrava_body, truck_ostrava_wheel_0, truck_ostrava_wheel_1, truck_ostrava_wheel_2, truck_ostrava_wheel_3, truck_ostrava_wheel_4, truck_ostrava_wheel_5, truck_ostrava_wheel_6, truck_ostrava_wheel_7, truck_ostrava_wheel_8, truck_ostrava_wheel_9
+- truck_sable: truck_sable_body, truck_sable_wheel_0, truck_sable_wheel_1, truck_sable_wheel_2, truck_sable_wheel_3, truck_sable_wheel_4, truck_sable_wheel_5, truck_sable_wheel_6, truck_sable_wheel_7, truck_sable_wheel_8, truck_sable_wheel_9
+
+## <project folder>\app\public\assets\pitgear.glb  2603 KB, 81600 triangles, 18 materials
+- blanket_hard: blanket_hard_body
+- blanket_inter: blanket_inter_body
+- blanket_medium: blanket_medium_body
+- blanket_soft: blanket_soft_body
+- blanket_wet: blanket_wet_body
+- car_stand_front: car_stand_front_body
+- car_stand_rear: car_stand_rear_body
+- front_jack: front_jack_frame, front_jack_handle, front_jack_lever
+- rear_jack: rear_jack_frame, rear_jack_handle, rear_jack_lever
+- release_gantry: release_gantry_amber, release_gantry_frame, release_gantry_green, release_gantry_red
+- tool_trolley: tool_trolley_body
+- tyre_cart: tyre_cart_body
+- tyre_front_hard: tyre_front_hard_wheel
+- tyre_front_inter: tyre_front_inter_wheel
+- tyre_front_medium: tyre_front_medium_wheel
+- tyre_front_soft: tyre_front_soft_wheel
+- tyre_front_wet: tyre_front_wet_wheel
+- tyre_hard: tyre_hard_wheel
+- tyre_inter: tyre_inter_wheel
+- tyre_medium: tyre_medium_wheel
+- tyre_rack_hard: tyre_rack_hard_body
+- tyre_rack_medium: tyre_rack_medium_body
+- tyre_rack_soft: tyre_rack_soft_body
+- tyre_soft: tyre_soft_wheel
+- tyre_stack_inter: tyre_stack_inter_body
+- tyre_stack_wet: tyre_stack_wet_body
+- tyre_wet: tyre_wet_wheel
+- wheel_gun: wheel_gun_body
+
+## <project folder>\app\public\assets\pitlane.glb  2481 KB, 84532 triangles, 22 materials
+- garage_halvard: garage_halvard_bay_1, garage_halvard_bay_2, garage_halvard_door_1, garage_halvard_door_2, garage_halvard_drum_1, garage_halvard_drum_2, garage_halvard_interior, garage_halvard_shell
+- garage_kestrel: garage_kestrel_bay_1, garage_kestrel_bay_2, garage_kestrel_door_1, garage_kestrel_door_2, garage_kestrel_drum_1, garage_kestrel_drum_2, garage_kestrel_interior, garage_kestrel_shell
+- garage_ostrava: garage_ostrava_bay_1, garage_ostrava_bay_2, garage_ostrava_door_1, garage_ostrava_door_2, garage_ostrava_drum_1, garage_ostrava_drum_2, garage_ostrava_interior, garage_ostrava_shell
+- garage_plain: garage_plain_bay_1, garage_plain_bay_2, garage_plain_door_1, garage_plain_door_2, garage_plain_drum_1, garage_plain_drum_2, garage_plain_interior, garage_plain_shell
+- garage_sable: garage_sable_bay_1, garage_sable_bay_2, garage_sable_door_1, garage_sable_door_2, garage_sable_drum_1, garage_sable_drum_2, garage_sable_interior, garage_sable_shell
+- pit_wall_section: pit_wall_body
+- stand_halvard: stand_halvard_body, stand_halvard_seat_1
+- stand_kestrel: stand_kestrel_body, stand_kestrel_seat_1
+- stand_ostrava: stand_ostrava_body, stand_ostrava_seat_1
+- stand_sable: stand_sable_body, stand_sable_seat_1
+
+## <project folder>\app\public\assets\roadcars.glb  674 KB, 20844 triangles, 14 materials
+- medical_car: medical_car_arch_fl_mesh, medical_car_arch_fr_mesh, medical_car_arch_rl_mesh, medical_car_arch_rr_mesh, medical_car_body, medical_car_lightbar_amber, medical_car_lightbar_green, medical_car_wheel_fl, medical_car_wheel_fr, medical_car_wheel_rl, medical_car_wheel_rr
+- safety_car: safety_car_arch_fl_mesh, safety_car_arch_fr_mesh, safety_car_arch_rl_mesh, safety_car_arch_rr_mesh, safety_car_body, safety_car_lightbar_amber, safety_car_lightbar_green, safety_car_wheel_fl, safety_car_wheel_fr, safety_car_wheel_rl, safety_car_wheel_rr
+
+## <project folder>\app\public\assets\track.glb  3178 KB, 93520 triangles, 38 materials
+- armco_section: armco_section_body
+- billboard: billboard_body
+- concrete_barrier: concrete_barrier_body
+- debris_fence: debris_fence_body
+- desert_shrub: desert_shrub_body
+- drs_board: drs_board_body
+- floodlight_pole: floodlight_pole_body
+- grandstand_covered: grandstand_covered_body
+- grandstand_open: grandstand_open_body
+- kerb_curve: kerb_curve_body
+- kerb_straight: kerb_straight_body
+- marshal_post: marshal_post_body, marshal_post_panel
+- palm_a: palm_a_body
+- palm_b: palm_b_body
+- rock_a: rock_a_body
+- rock_b: rock_b_body
+- start_gantry: start_gantry_frame, start_gantry_light_1, start_gantry_light_2, start_gantry_light_3, start_gantry_light_4, start_gantry_light_5
+- tree_park_a: tree_park_a_body
+- tree_park_b: tree_park_b_body
+- tyre_wall: tyre_wall_body
+
+total 16.77 MB

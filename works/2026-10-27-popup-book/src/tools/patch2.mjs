@@ -1,0 +1,12 @@
+import fs from 'node:fs';
+const file = '<your folder>/popup-book/web/main.js';
+let s = fs.readFileSync(file, 'utf8');
+const swap = (from, to) => { if (!s.includes(from)) console.log('MISSING', from.slice(0, 50)); s = s.replace(from, to); };
+swap('(open ? 1.06 : 1.12)', '(open ? 1.04 : 1.1)');
+swap('(open ? 112 : 78)', '(open ? 86 : 70)');
+swap('mix(0.95, 0.6) + view.pitch', 'mix(0.95, 0.5) + view.pitch');
+swap('mix(-0.5, 15), mix(22, 3)', 'mix(-0.5, 12), mix(22, 6)');
+swap('new THREE.SpotLight(0xffd7a0, 3.3, 0, 0.62, 0.95, 0)', 'new THREE.SpotLight(0xffd7a0, 4.6, 0, 0.62, 0.95, 0)');
+swap('0xffe8c8, 0x1c120a, 0.95', '0xffe8c8, 0x1c120a, 1.25');
+swap('lamp.shadow.radius = 5;', 'lamp.shadow.radius = 8;');
+fs.writeFileSync(file, s);

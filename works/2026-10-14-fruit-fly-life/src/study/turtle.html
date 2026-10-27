@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Turtle study</title><style>html, body { margin: 0; background: #111; }</style></head>
+<body>
+<canvas id="film" width="1080" height="1080"></canvas>
+<script src="../src/ink.js"></script>
+<script src="../src/turtle.js"></script>
+<script>
+  "use strict";
+  // Piece 1: the turtle alone on paper, to judge the drawing before it goes into a scene.
+  const context = document.getElementById("film").getContext("2d");
+  window.renderAt = (seconds) => {
+    Ink.setTime(seconds);
+    Ink.paper(context, 1080);
+    Turtle.drawTop(context, { x: 540, y: 580, size: 700, stroke: seconds * 2.2, seed: 3 });
+  };
+  window.FILM = { duration: 2, cues: [] };
+  window.renderAt(0.4);
+</script>
+</body>
+</html>
