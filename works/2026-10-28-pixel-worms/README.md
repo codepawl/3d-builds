@@ -38,7 +38,9 @@ Playwright; set `PLAYWRIGHT_FROM` to a `package.json` next to an installed `play
 
 - `src/worms.js` the swarm simulation, `src/worm-renderer.js` the worm bodies
 - `src/creatures.js`, `src/chunks.js` creatures and the pieces they break into
-- `src/hazards.js` hawk, fox, bear traps and the salt ring, plus the play-mode director that spawns them
+- `src/hazards.js` hawk, fox, bear traps and the salt ring; `src/opponents.js` the other opponents; `src/director.js` and `src/tuning.js` the difficulty
+- `src/growth.js` bellies, hunger and splitting; `src/abilities.js` lunge and dodge; `src/tutorial.js` the first-run guide
+- `tools/playtest.mjs` runs bot players to balance the game; the numbers are in `notes/game-design.md`
 - `src/chase-camera.js` the low-resolution camera, outline and dither
 - `src/main.js` the app, `src/ui.js` and `src/audio.js` the interface and sound
 

@@ -11,3 +11,7 @@ The prompts are listed in order. The owner wrote them in Vietnamese, and they ar
 7. "The worms wiggle too much and it is unnatural. Move slowly and calmly, the body flowing, sliding like a smooth-skinned creature, like a snake."
 8. "Besides crawling, they should really interact with objects: when they meet one, slowly climb over it."
 9. "Turn this into a live web game for people to try. Credit the assets. Open source and free."
+10. "Fix the worms all curling into circles. The controls are a bit hard, too many worms spawn when eating, the meat chunks and bones are not clear. When eating they should slither up onto it."
+11. "Left click makes them dash forward with a cooldown, right click dodges (parry). Add the worms' opponents over time to raise the difficulty. Change how new worms spawn so it is logical and fits the difficulty, not too easy and not too hard."
+12. "Make a favicon, icons and an initial loading screen for the web, in pixel style. Add a quick guide at the start so people understand the goal, with guiding UI inside the game world."
+13. "The favicon worm should be a bit bloody. This is a carnivorous worm."

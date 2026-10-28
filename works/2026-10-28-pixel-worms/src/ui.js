@@ -5,7 +5,7 @@ import credits from '../credits.json';
 import soundManifest from '../sound/sources/manifest.json';
 
 // The recordings that ship in public/sfx (the manifest also lists unused candidates).
-const SHIPPED_SOUNDS = ["eat_splat_a_", "eat_splat_b_", "eat_mud_splat_", "eat_gore_splat_", "eat_slimy_", "eat_mud_squelch_", "eat_squishes_", "hawk_eagle_", "hawk_calls_", "wing_whoosh_", "fox_bark_173208", "fox_scream_", "trap_snap_", "trap_bear_", "sizzle_pan_"];
+const SHIPPED_SOUNDS = ["eat_splat_a_", "eat_splat_b_", "eat_mud_splat_", "eat_gore_splat_", "eat_slimy_", "eat_mud_squelch_", "eat_squishes_", "hawk_eagle_", "hawk_calls_", "wing_whoosh_", "fox_bark_173208", "fox_scream_", "trap_snap_", "trap_bear_", "sizzle_pan_", "bed_slime_move_", "wing_flap_", "trap_shut_", "squeak_chicken_", "squeak_rat_", "squeak_pig_grunt_", "crow_caw_", "engine_lawn_mower_"];
 const KIND_ORDER = ['chicken', 'rabbit', 'pig', 'deer', 'cow', 'villager'];
 
 const byId = (id) => document.getElementById(id);
@@ -26,18 +26,21 @@ export function formatTime(seconds) {
 }
 
 export class PlayUi {
-  constructor({ onPlay, onAgain, sfx }) {
+  constructor({ onPlay, onAgain, onLunge, onDodge, onHowTo, sfx }) {
     this.sfx = sfx;
     this.root = byId('play');
     this.stats = byId('stats');
     this.countChip = byId('count-chip');
     this.timeChip = byId('time-chip');
     this.eaten = byId('eaten');
+    this.hunger = byId('hunger');
+    this.threat = byId('threat');
     this.shown = {};
     this.root.hidden = false;
     this.stats.classList.add('hidden');
     byId('credits-open').addEventListener('click', () => this.openCredits());
     byId('credits-back').addEventListener('click', () => this.closeCredits());
+    byId('howto-open').addEventListener('click', onHowTo);
     byId('play-button').addEventListener('click', onPlay);
     byId('again-button').addEventListener('click', onAgain);
     byId('sound').addEventListener('click', () => {
@@ -47,6 +50,67 @@ export class PlayUi {
     });
     this.drawSound();
     this.buildCredits();
+    this.abilities = byId('abilities');
+    this.toastElement = byId('toast');
+    this.buttons = { lunge: byId('lunge-button'), dodge: byId('dodge-button') };
+    this.buttons.lunge.append(iconElement('lunge'));
+    this.buttons.dodge.append(iconElement('dodge'));
+    this.buttons.lunge.addEventListener('pointerdown', (event) => this.press(event, 'lunge', onLunge));
+    this.buttons.dodge.addEventListener('pointerdown', (event) => this.press(event, 'dodge', onDodge));
+    // Keep the browser menu off the game, buttons included.
+    this.root.addEventListener('contextmenu', (event) => event.preventDefault());
+  }
+
+  press(event, name, handler) {
+    event.preventDefault();
+    event.stopPropagation();
+    if (!handler()) this.deny(name);
+  }
+
+  // A pulsing ring on a HUD button tells the player to press it (the tutorial turns it on and off).
+  pulse(name, on) {
+    this.buttons[name].classList.toggle('pulse', on);
+  }
+
+  deny(name) {
+    const button = this.buttons[name];
+    button.classList.remove('denied');
+    void button.offsetWidth;
+    button.classList.add('denied');
+  }
+
+  // `recharge` runs 0 (just used) to 1 (ready); the dark wedge on the button shrinks as it fills.
+  updateAbilities({ lunge, dodge }) {
+    for (const [name, recharge] of [['lunge', lunge], ['dodge', dodge]]) {
+      const cooling = Math.round((1 - recharge) * 50) / 50;
+      if (this.shown[name] === cooling) continue;
+      this.shown[name] = cooling;
+      this.buttons[name].style.setProperty('--cooling', String(cooling));
+      this.buttons[name].classList.toggle('cooling', cooling > 0);
+    }
+  }
+
+  // A new opponent shows up: a short toast, and its icon stays beside the stats as the current threat tier.
+  announceThreat(iconName, text) {
+    this.toast(iconName, text);
+    this.threat.replaceChildren(iconElement(iconName, text));
+    this.threat.title = text;
+    this.threat.hidden = false;
+  }
+
+  // The hunger icon shows only while the swarm is starving.
+  setHunger(starving) {
+    if (this.shown.hunger === starving) return;
+    this.shown.hunger = starving;
+    this.hunger.hidden = !starving;
+    if (starving) this.hunger.replaceChildren(iconElement('hunger', 'Starving'));
+  }
+
+  toast(iconName, text) {
+    this.toastElement.replaceChildren(iconElement(iconName), document.createTextNode(text));
+    this.toastElement.classList.remove('show');
+    void this.toastElement.offsetWidth;
+    this.toastElement.classList.add('show');
   }
 
   drawSound() {
@@ -57,16 +121,21 @@ export class PlayUi {
 
   showStart() {
     byId('start').hidden = false;
-    byId('credits-open').hidden = false;
+    byId('links').hidden = false;
     byId('end').hidden = true;
     this.stats.classList.add('hidden');
+    this.abilities.classList.add('hidden');
   }
 
   showPlaying() {
     byId('start').hidden = true;
-    byId('credits-open').hidden = true;
+    byId('links').hidden = true;
     byId('end').hidden = true;
     this.stats.classList.remove('hidden');
+    this.abilities.classList.remove('hidden');
+    this.threat.hidden = true;
+    this.hunger.hidden = true;
+    this.shown.hunger = false;
   }
 
   // Redraws only what changed, so the DOM stays quiet while the game runs.
@@ -93,12 +162,13 @@ export class PlayUi {
     byId('end-icon').replaceChildren(iconElement(won ? 'star' : 'skull', won ? 'Win' : 'Lost'));
     byId('end-title').textContent = won ? 'Every creature eaten' : 'Your swarm is gone';
     byId('end-stats').replaceChildren(
-      chip('worm', won ? `${wormCount.toLocaleString('en-US')} worms` : `Peak ${peak.toLocaleString("en-US")}`, 'Worms'),
-      chip('clock', formatTime(seconds), 'Time'),
+      chip('clock', formatTime(seconds), 'Survived'),
+      chip('worm', peak.toLocaleString('en-US'), 'Peak swarm'),
     );
     this.stats.classList.add('hidden');
+    this.abilities.classList.add('hidden');
     byId('end').hidden = false;
-    byId('credits-open').hidden = false;
+    byId('links').hidden = false;
   }
 
   openCredits() {

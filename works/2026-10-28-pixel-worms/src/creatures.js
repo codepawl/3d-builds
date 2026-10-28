@@ -6,8 +6,10 @@ import { clamp, createRandom } from './random.js';
 import { makeToonMaterial, addDitherDissolve } from './look.js';
 import { insideBuilding } from './terrain.js';
 
-const loader = new GLTFLoader();
+import { loadingManager } from './loading.js';
+const loader = new GLTFLoader(loadingManager);
 const DISSOLVE_SECONDS = 0.25;
+const SHADOW_MARGIN = 7; // metres around a creature that still count as on screen, so its shadow never pops in
 
 // Eating order is by distance and by how scared each kind is: villagers flee last (small radius) and live far away.
 export const KINDS = {
@@ -74,6 +76,9 @@ export class Creatures {
     this.eatenEvents = [];
     this.eatGap = 0; // seconds between two eats; the film raises it so each eat is its own moment, play keeps 0
     this.nextEatTime = 0;
+    this.viewMatrix = new THREE.Matrix4();
+    this.frustum = new THREE.Frustum();
+    this.sphere = new THREE.Sphere();
     this.fleeScale = 1; // the film lowers this at the start so the lone worm can creep up on its first meal
   }
 
@@ -153,6 +158,24 @@ export class Creatures {
     };
   }
 
+  // Play: a creature that was eaten comes back at its home, out of sight of the swarm, so the map never runs dry. Returns the kind.
+  respawnOne(front, minDistance) {
+    const random = this.random;
+    const gone = this.list.filter((creature) => creature.gone && Math.hypot(creature.home[0] - front.x, creature.home[1] - front.z) > minDistance);
+    if (gone.length === 0) return null;
+    const creature = gone[random.int(gone.length)];
+    const angle = random.range(0, Math.PI * 2);
+    const spread = random.range(0, creature.radius);
+    creature.x = clamp(creature.home[0] + Math.cos(angle) * spread, PLAY.minX + 1.5, PLAY.maxX - 1.5);
+    creature.z = clamp(creature.home[1] + Math.sin(angle) * spread, PLAY.minZ + 1.5, PLAY.maxZ - 1.5);
+    creature.eatenAt = -1;
+    creature.gone = false;
+    creature.mode = 'idle';
+    creature.pause = random.range(0.5, 2);
+    creature.dissolve.set(0);
+    return creature.kindName;
+  }
+
   blocked(x, z) {
     return insideBuilding(x, z, 0.7) || this.heightfields.isWater(x, z) || x < PLAY.minX + 1 || x > PLAY.maxX - 1 || z < PLAY.minZ + 1 || z > PLAY.maxZ - 1;
   }
@@ -179,7 +202,7 @@ export class Creatures {
         }
         continue;
       }
-      if (time >= this.nextEatTime && swarm.count > 0 && swarm.nearestHead(creature.x, creature.z, creature.kind.eatRadius * 1.7) < Infinity) {
+      if (time >= this.nextEatTime && swarm.count > 0 && swarm.nearestHead(creature.x, creature.z, creature.kind.eatRadius * (swarm.lungeLevel > 0 ? 3.2 : 1.7)) < Infinity) {
         this.nextEatTime = time + this.eatGap;
         creature.eatenAt = time;
         this.eatenEvents.push(creature);
@@ -203,7 +226,8 @@ export class Creatures {
       awayX += (0 - creature.x) * 0.012;
       awayZ += (0 - creature.z) * 0.02;
       wantedHeading = Math.atan2(awayX, awayZ);
-      speed = kind.run;
+      // A lunging swarm is too fast to outrun: the creature stumbles.
+      speed = swarm.lungeLevel > 0 ? kind.run * 0.35 : kind.run;
     } else {
       if (creature.mode === 'flee') {
         creature.mode = 'idle';
@@ -251,9 +275,17 @@ export class Creatures {
     creature.moveSpeed = speed;
   }
 
-  applyPose() {
+  // Poses only the creatures the camera can see (plus a margin for their shadows): the skinned meshes are the costly part of a frame.
+  applyPose(camera) {
+    camera.updateMatrixWorld();
+    this.viewMatrix.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);
+    this.frustum.setFromProjectionMatrix(this.viewMatrix);
     for (const creature of this.list) {
       if (creature.gone || !creature.active) continue;
+      this.sphere.center.set(creature.x, this.heightfields.groundHeight(creature.x, creature.z) + 1, creature.z);
+      this.sphere.radius = SHADOW_MARGIN;
+      creature.holder.visible = this.frustum.intersectsSphere(this.sphere);
+      if (!creature.holder.visible) continue;
       const kind = creature.kind;
       const clipFor = creature.eatenAt >= 0 ? 'run' : creature.moveSpeed > kind.walk * 1.4 ? kind.clips[2] : creature.moveSpeed > 0.05 ? 'walk' : 'idle';
       for (const [name, action] of Object.entries(creature.actions)) action.setEffectiveWeight(name === clipFor || (clipFor === 'run' && name === kind.clips[2]) ? 1 : 0);

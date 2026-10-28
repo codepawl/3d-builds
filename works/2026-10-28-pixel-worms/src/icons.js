@@ -1,7 +1,7 @@
 // Tiny pixel icons drawn from text bitmaps, so the HUD and the end screens need no image files.
 const PALETTE = {
   k: '#2a1a14', w: '#fff3d6', r: '#c0303f', d: '#8a1828', p: '#f0b8a8', y: '#e8b830', b: '#a8703c',
-  g: '#bdbdb5', o: '#e07a30', c: '#f2e6c4', n: '#5a3a24', s: '#d9a07a',
+  g: '#bdbdb5', o: '#e07a30', c: '#f2e6c4', n: '#5a3a24', s: '#d9a07a', a: '#3a3d48', e: '#4a8a3a',
 };
 
 const BITMAPS = {
@@ -15,6 +15,20 @@ const BITMAPS = {
   skull: ['..wwwwww..', '.wwwwwwww.', 'wwkkwwkkww', 'wwkkwwkkww', 'wwwwkkwwww', '.wwwwwwww.', '..wkwkwk..', '..wwwwww..'],
   star: ['....yy....', '....yy....', '...yyyy...', 'yyyyyyyyyy', '.yyyyyyyy.', '..yyyyyy..', '..yyyyyy..', '.yyy..yyy.', '.yy....yy.'],
   clock: ['..wwwwww..', '.wwwwwwww.', 'wwwwkwwwww', 'wwwwkwwwww', 'wwwwkkkwww', 'wwwwwwwwww', '.wwwwwwww.', '..wwwwww..'],
+  lunge: ['....ww....', '.....ww...', '..w...ww..', 'wwwwwwwww.', '..w...ww..', '.....ww...', '....ww....'],
+  dodge: ['wwwwwwwwwww', 'wrrrrwrrrrw', 'wrrrrwrrrrw', 'wwwwwwwwwww', 'wrrrrwrrrrw', '.wrrrrrrrw.', '..wrrrrrw..', '...wrrrw...', '....www....'],
+  bird: ['..........', '...nnn....', '..nnnnk...', '.nnnnnnyy.', 'nnnnoooo..', '.nnooooo..', '..nnooo...', '...y.y....'],
+  hen: ['...rrr....', '..rcccc...', '..ckkcyy..', '.cccccy...', '.bbbbbb...', '.bbbbbbb..', '..bbbbb...', '...y.y....'],
+  hawk: ['n........n', 'nn..bb..nn', '.nnbbbbnn.', '..bbkbby..', '..bbbbyy..', '...bccb...', '..nb..bn..', '.nn....nn.'],
+  fox: ['o........o', 'oo......oo', 'ooooooooo.', 'okoooookoo', 'oowwwwwwoo', '.owwwkwwo.', '..wwwwww..', '...wwww...'],
+  crow: ['..........', '...aaaa...', '..aaaaaaa.', '.aaakaayy.', 'aaaaaaay..', '.aaaaaa...', '..aaaa....', '...y.y....'],
+  farmer: ['...yyyy...', '.yyyyyyyy.', '..ssssss..', '..sksskss.', '..ssssss..', '.eeeeeeee.', '.eeeeeeee.', '..aa..aa..'],
+  trap: ['..........', 'g.g.g.g.g.', 'ggggggggg.', '.gnnnnng..', 'ggggggggg.', 'g.g.g.g.g.', '..........'],
+  salt: ['..........', '...w..w...', '..wwwwww..', '.wwwwwwww.', 'wwwwwwwwww', '.wgwwwgww.', '..wwwwww..'],
+  hedgehog: ['...k.k.k..', '..kkkkkkk.', '.kknkknkkk', 'kknkknkknk', 'kkkkkkkkcs', '.nnnnnncck', '..nn..nn..'],
+  badger: ['..aaaaaa..', '.aawwwwaa.', 'aaawkwwkaa', 'aaawwwwaaa', 'aaaawkkaaa', '.aaaaaaaa.', '.aa....aa.'],
+  mower: ['..rrrr....', '..rrrr.k..', 'rrrrrrrk..', 'rrrrrrrr..', 'rrrrrrrryy', '.kk..kkyyy', 'kkkk.kkkk.', '.kk..kk...'],
+  hunger: ['....rrr...', '...rrrrr..', '...rrrrr..', '....rrr...', '...dr.....', '..dd......', '.wwd......', '.ww.......'],
   soundOn: ['....w.....', '...ww..w..', 'www.w.w.w.', 'www.w..w.w', 'www.w.w.w.', '...ww..w..', '....w.....'],
   soundOff: ['....w.....', '...ww.w.w.', 'www.w..w..', 'www.w.w.w.', 'www.w.....', '...ww.....', '....w.....'],
 };

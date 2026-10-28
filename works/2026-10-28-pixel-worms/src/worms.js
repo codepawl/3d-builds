@@ -14,8 +14,9 @@ const HASH_X = Math.ceil((WORLD.maxX - WORLD.minX) / HASH_CELL) + 1;
 const HASH_Z = Math.ceil((WORLD.maxZ - WORLD.minZ) / HASH_CELL) + 1;
 export const TAKEN_X = Math.round((WORLD.maxX - WORLD.minX) / 0.5);
 export const TAKEN_Z = Math.round((WORLD.maxZ - WORLD.minZ) / 0.5);
-const PILE_HEIGHT_PER_POINT = 0.012;
-const PILE_HEIGHT_CAP = 2.2;
+// A heap is a low mound: bodies drape over each other in layers and never stack into a tower.
+const PILE_HEIGHT_PER_POINT = 0.008;
+const PILE_HEIGHT_CAP = 1.1;
 export const MAX_ATTRACTORS = 12;
 
 export class WormSwarm {
@@ -44,9 +45,17 @@ export class WormSwarm {
     this.bite = new Float32Array(MAX_WORMS); // 0..1, head dips when a chunk is within reach
     this.aimX = new Float32Array(MAX_WORMS);
     this.aimZ = new Float32Array(MAX_WORMS);
+    this.belly = new Float32Array(MAX_WORMS); // play: 0 = empty, 1 = full enough to split (src/growth.js)
+    this.cooldown = new Float32Array(MAX_WORMS); // seconds before this worm may split again
+    this.hunger = new Float32Array(MAX_WORMS); // seconds spent with an empty belly
+    this.pinch = new Float32Array(MAX_WORMS); // 0..1 while the worm pinches in two
     this.heap = new Float32Array(MAX_WORMS); // 0 = open ground, 1 = deep in a heap of worms (the renderer lays these low and coiled)
     this.limit = MAX_WORMS; // play lowers this (600 on desktop, 250 on phones); the film keeps the full cap
-    this.attractors = []; // chunks of meat near the swarm: { x, z } (set by the app before each step)
+    this.attractors = []; // chunks of meat near the swarm: { x, z, footprint, top } (set by the app before each step)
+    this.lungeLevel = 0; // 1 while a lunge is active (set by the app before each step); lungeSmooth follows it
+    this.dodgeLevel = 0; // 1 while a dodge is active
+    this.lungeSmooth = 0;
+    this.dodgeSmooth = 0;
     this.spreadScale = 1; // the film widens the mass at the end so it covers ground
     this.speedScale = 1; // the film raises this for its sweep; play keeps 1
     this.front = { x: 0, z: 0, count: 0 };
@@ -77,6 +86,10 @@ export class WormSwarm {
       const startX = clamp(centerX + offsetX, PLAY.minX + 1, PLAY.maxX - 1);
       const startZ = clamp(centerZ + offsetZ, PLAY.minZ + 1, PLAY.maxZ - 1);
       this.heap[worm] = 0;
+      this.belly[worm] = 0;
+      this.cooldown[worm] = 0;
+      this.hunger[worm] = 0;
+      this.pinch[worm] = 0;
       this.segmentLength[worm] = random.range(0.24, 0.26);
       this.leash[worm] = random.range(40, 110);
       this.orbitAngle[worm] = ringRadius > 0 ? ringAngle : random.range(0, Math.PI * 2);
@@ -105,7 +118,7 @@ export class WormSwarm {
     const headX = this.x[worm * POINTS];
     const headZ = this.z[worm * POINTS];
     if (worm !== last) {
-      const perWorm = [this.velocityX, this.velocityZ, this.segmentLength, this.phase, this.speedFactor, this.layer, this.girth, this.tint, this.leash, this.orbitAngle, this.orbitShare, this.reach, this.bite, this.aimX, this.aimZ, this.heap];
+      const perWorm = [this.velocityX, this.velocityZ, this.segmentLength, this.phase, this.speedFactor, this.layer, this.girth, this.tint, this.leash, this.orbitAngle, this.orbitShare, this.reach, this.bite, this.aimX, this.aimZ, this.heap, this.belly, this.cooldown, this.hunger, this.pinch];
       for (const array of perWorm) array[worm] = array[last];
       for (let point = 0; point < POINTS; point++) {
         const to = worm * POINTS + point;
@@ -120,6 +133,71 @@ export class WormSwarm {
     this.count = last;
     this.colorsDirty = true;
     return { x: headX, z: headZ };
+  }
+
+  // Fission: the back half of the worm becomes a new worm, and the two crawl apart. Returns the new worm or -1 at the cap.
+  split(parent) {
+    if (this.count >= this.limit) return -1;
+    const random = this.random;
+    const child = this.count++;
+    const perWorm = [this.velocityX, this.velocityZ, this.segmentLength, this.phase, this.speedFactor, this.layer, this.girth, this.tint, this.leash, this.orbitAngle, this.orbitShare, this.reach, this.bite, this.aimX, this.aimZ, this.heap];
+    for (const array of perWorm) array[child] = array[parent];
+    this.phase[child] = random.next();
+    this.orbitAngle[child] = random.range(0, Math.PI * 2);
+    this.orbitShare[child] = random.next();
+    this.layer[child] = random.next();
+    const parentBase = parent * POINTS;
+    const childBase = child * POINTS;
+    const cut = POINTS >> 1;
+    const length = this.segmentLength[parent];
+    for (let point = 0; point < POINTS; point++) {
+      const to = childBase + point;
+      const from = parentBase + Math.min(cut + point, POINTS - 1);
+      this.x[to] = this.previousX[to] = this.x[from];
+      this.y[to] = this.y[from];
+      this.z[to] = this.previousZ[to] = this.z[from];
+      if (cut + point >= POINTS) {
+        // Past the old tail: carry on straight along the body's last direction.
+        const last = to - 1;
+        const beforeLast = Math.max(childBase, to - 2);
+        const directionX = this.x[last] - this.x[beforeLast];
+        const directionZ = this.z[last] - this.z[beforeLast];
+        const norm = Math.hypot(directionX, directionZ) + 1e-5;
+        this.x[to] = this.previousX[to] = this.x[last] + (directionX / norm) * length;
+        this.z[to] = this.previousZ[to] = this.z[last] + (directionZ / norm) * length;
+      }
+    }
+    // The pieces leave at an angle either side of the way the parent was going.
+    const heading = Math.atan2(this.velocityZ[parent], this.velocityX[parent]);
+    const side = random.next() < 0.5 ? -1 : 1;
+    this.velocityX[child] = Math.cos(heading + side * 1.3) * 2.6;
+    this.velocityZ[child] = Math.sin(heading + side * 1.3) * 2.6;
+    this.velocityX[parent] += Math.cos(heading - side * 0.5) * 1.2;
+    this.velocityZ[parent] += Math.sin(heading - side * 0.5) * 1.2;
+    this.pinch[parent] = 0;
+    this.pinch[child] = 0;
+    this.colorsDirty = true;
+    return child;
+  }
+
+  // Heads within radius of the point, written into out (worm indices) up to its limit. Returns how many were found.
+  collectHeadsWithin(x, z, radius, out, limit) {
+    const reach = Math.ceil(radius / HASH_CELL);
+    const column0 = Math.floor((x - WORLD.minX) / HASH_CELL);
+    const row0 = Math.floor((z - WORLD.minZ) / HASH_CELL);
+    let found = 0;
+    for (let row = row0 - reach; row <= row0 + reach && found < limit; row++) {
+      for (let column = column0 - reach; column <= column0 + reach && found < limit; column++) {
+        if (row < 0 || column < 0 || row >= HASH_Z || column >= HASH_X) continue;
+        const cell = row * HASH_X + column;
+        for (let item = this.hashStart[cell]; item < this.hashStart[cell + 1] && found < limit; item++) {
+          const worm = this.hashItems[item];
+          const slot = worm * POINTS;
+          if (Math.hypot(this.x[slot] - x, this.z[slot] - z) <= radius) out[found++] = worm;
+        }
+      }
+    }
+    return found;
   }
 
   lengthen(amount) {
@@ -259,7 +337,12 @@ export class WormSwarm {
     let frontX = 0;
     let frontZ = 0;
     let frontCount = 0;
-    const spread = (1.6 + 0.14 * Math.sqrt(this.count)) * this.spreadScale;
+    this.lungeSmooth += (this.lungeLevel - this.lungeSmooth) * Math.min(1, dt * 14);
+    this.dodgeSmooth += (this.dodgeLevel - this.dodgeSmooth) * Math.min(1, dt * 12);
+    const lunge = this.lungeSmooth;
+    const dodge = this.dodgeSmooth;
+    // A lunge pulls the swarm into a tight line toward the cursor; a dodge lets it spread out.
+    const spread = (1.6 + 0.14 * Math.sqrt(this.count)) * this.spreadScale * (1 - 0.65 * lunge);
     const frameScale = dt * 30; // per-step constants below were tuned at 30 steps a second
     const settle = 1 - Math.pow(0.45, frameScale);
     const attractors = this.attractors;
@@ -279,17 +362,27 @@ export class WormSwarm {
 
       // Speed: arrive slowly, slow down uphill (but still climb), slow in water.
       // Worms past their leash stop following the cursor and settle where they are, writhing over the land they took.
-      const following = 1 - smoothstep(this.leash[worm], this.leash[worm] + 10, distance);
-      let speed = 5.2 * this.speedScale * this.speedFactor[worm] * smoothstep(0.3, 4.5, distance) * following;
+      const following = Math.max(lunge, 1 - smoothstep(this.leash[worm], this.leash[worm] + 10, distance));
+      const arrive = smoothstep(0.3, 4.5, distance) * (1 - lunge) + lunge;
+      let speed = 5.2 * (1 + 1.7 * lunge) * this.speedScale * this.speedFactor[worm] * arrive * following;
       const probeX = headX + directionX * 0.6;
       const probeZ = headZ + directionZ * 0.6;
       const slope =
         (heightfields.simHeight(probeX, probeZ) + this.pileAt(probeX, probeZ) - heightfields.simHeight(headX, headZ) - this.pileAt(headX, headZ)) / 0.6;
       speed /= 1 + Math.max(0, slope) * 0.9;
+      speed *= 1 - 0.5 * this.pinch[worm];
       if (heightfields.groundHeight(headX, headZ) < WATER_LEVEL) speed *= 0.55;
 
       let desiredX = directionX * speed;
       let desiredZ = directionZ * speed;
+      if (dodge > 0.01) {
+        // Dodge: flatten and scatter away from the middle of the swarm.
+        const awayX = headX - this.front.x + Math.cos(phase * 3) * 0.6;
+        const awayZ = headZ - this.front.z + Math.sin(phase * 3) * 0.6;
+        const awayLength = Math.hypot(awayX, awayZ) + 1e-4;
+        desiredX = desiredX * (1 - 0.85 * dodge) + (awayX / awayLength) * 5.5 * dodge;
+        desiredZ = desiredZ * (1 - 0.85 * dodge) + (awayZ / awayLength) * 5.5 * dodge;
+      }
 
       // Heap spreading: slide off the top of tall piles so the heap becomes a mound with tendrils, not a needle.
       const pileGradientX = this.pileAt(headX + 0.5, headZ) - this.pileAt(headX - 0.5, headZ);
@@ -344,7 +437,8 @@ export class WormSwarm {
       // Rearing: worms at the outside of the mass rear up toward the aim point; the inside coils low in the pile.
       const outside = smoothstep(spread * 0.35, spread * 1.0, fromFront);
       const nearChunk = 1 - smoothstep(1.5, 6, chunkDistance);
-      const reachGoal = Math.min(1, 0.2 + 0.55 * outside * following + 0.5 * nearChunk);
+      // Near a piece of meat a worm lies along it instead of rearing, so it can drape over it.
+      const reachGoal = Math.min(1, 0.2 + 0.55 * outside * following) * (1 - dodge) * (1 - 0.8 * nearChunk);
       this.reach[worm] += (reachGoal - this.reach[worm]) * Math.min(1, dt * 1.6);
       const biteGoal = 1 - smoothstep(0.5, 1.4, chunkDistance);
       this.bite[worm] += (biteGoal - this.bite[worm]) * Math.min(1, dt * 2.4);
@@ -364,7 +458,7 @@ export class WormSwarm {
       desiredX += Math.cos(time * 0.7 + phase * 3 + worm) * wander;
       desiredZ += Math.sin(time * 0.8 + phase * 5 + worm * 1.3) * wander;
 
-      const relax = Math.min(1, dt * 4.5);
+      const relax = Math.min(1, dt * (4.5 + 7 * lunge + 5 * dodge));
       this.velocityX[worm] += (desiredX - this.velocityX[worm]) * relax;
       this.velocityZ[worm] += (desiredZ - this.velocityZ[worm]) * relax;
       this.previousX[head] = headX;
@@ -395,8 +489,18 @@ export class WormSwarm {
         const pile = this.pileAt(this.x[slot], this.z[slot]);
         const ground = Math.max(heightfields.simHeight(this.x[slot], this.z[slot]), WATER_LEVEL);
         const radius = WORM_RADIUS * this.girth[worm];
-        const heapLift = this.layer[worm] * 0.3 * smoothstep(0.1, 0.9, pile);
-        const targetY = ground + pile * 0.92 + radius + heapLift;
+        const heapLift = this.layer[worm] * 0.22 * smoothstep(0.1, 0.9, pile);
+        // Over a piece of meat the body climbs its dome, so the front half lies on it and nothing floats or sinks in.
+        let bump = 0;
+        if (chunkDistance < 5) {
+          for (let index = 0; index < attractors.length; index++) {
+            const attractor = attractors[index];
+            if (!(attractor.footprint > 0)) continue;
+            const across = Math.hypot(attractor.x - this.x[slot], attractor.z - this.z[slot]) / attractor.footprint;
+            if (across < 1) bump = Math.max(bump, attractor.top * (1 - across * across));
+          }
+        }
+        const targetY = ground + pile * 0.92 + radius + heapLift + bump;
         this.y[slot] += (targetY - this.y[slot]) * settle;
       }
       sumX += this.x[head];

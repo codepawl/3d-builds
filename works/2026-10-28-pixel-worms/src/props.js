@@ -6,7 +6,8 @@ import { WORLD, SEED, WATER_LEVEL } from './config.js';
 import { rocks, paddock, fields, plaza, plazas, pond, woods, distanceToPaths, pondDepth, ROOF_COLORS } from './layout.js';
 import { buildings, insideBuilding } from './terrain.js';
 
-const loader = new GLTFLoader();
+import { loadingManager } from './loading.js';
+const loader = new GLTFLoader(loadingManager);
 
 // Loads a glb into baked parts: one geometry (node transforms applied) and one toon material per mesh.
 const partCache = new Map();

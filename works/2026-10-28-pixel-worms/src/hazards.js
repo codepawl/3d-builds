@@ -2,10 +2,14 @@
 // the swarm once it is big), a ring of salt, and farm bear traps. Everything is scheduled on the sim clock, so a frame
 // renders the same in any run. Early on the hazards win; later the swarm does.
 import * as THREE from 'three';
-import { SEED } from './config.js';
+import { RUN_SEED } from './config.js';
+import { box, bakeBoxes } from './blocks.js';
+import { Opponents } from './opponents.js';
 import { clamp, smoothstep, createRandom } from './random.js';
 import { makeToonMaterial, addDitherDissolve } from './look.js';
 import { insideBuilding } from './terrain.js';
+import { announce } from './events.js';
+import { PARRY_WINDOW } from './abilities.js';
 
 const WORM_RED = 0xb0283a;
 const WORM_DARK = 0x6a0d16;
@@ -27,21 +31,10 @@ const TRAPS_AT = 14.5;
 const SALT_AT = 18.5;
 const SALT_RADIUS = 3.4;
 const APPEAR_SECONDS = 0.7;
-
-const solidMaterials = new Map();
-function solid(color) {
-  if (!solidMaterials.has(color)) solidMaterials.set(color, makeToonMaterial({ color }));
-  return solidMaterials.get(color);
-}
-
-function box(width, height, depth, color, x = 0, y = 0, z = 0, materialFor = solid) {
-  const mesh = new THREE.Mesh(new THREE.BoxGeometry(width, height, depth), materialFor(color));
-  mesh.position.set(x, y, z);
-  mesh.castShadow = true;
-  mesh.receiveShadow = true;
-  mesh.frustumCulled = false;
-  return mesh;
-}
+const WARN_SECONDS = 0.9; // the hawk shadow and screech before a dive (play only)
+const FOX_CROUCH_SECONDS = 0.75; // the fox crouches this long before a bite (play only)
+const STUN_SECONDS = 2; // a parried hawk or fox is dazed this long
+const STUN_EAT_HEADS = 8; // heads on a stunned fox that make it food
 
 // A worm hanging from a beak or claws: a short chain of red cubes that writhes slowly.
 class Dangler {
@@ -117,7 +110,8 @@ function buildHawk() {
   }
   for (const side of [-1, 1]) bird.add(box(0.08, 0.22, 0.08, '#f0c030', side * 0.14, -0.4, 0.1));
   root.add(bird);
-  root.scale.setScalar(1.3);
+  root.scale.setScalar(1.7);
+  bakeBoxes(root);
   return { root, wings };
 }
 
@@ -155,7 +149,7 @@ function buildFox() {
     legs.push(pivot);
   }
   root.add(body);
-  root.scale.setScalar(2.0);
+  root.scale.setScalar(2.6);
   return { root, body, head, tail, legs, dissolve };
 }
 
@@ -165,11 +159,10 @@ export class Hazards {
   constructor(heightfields, specks, chunks, { director = false } = {}) {
     this.director = director;
     this.minWorms = director ? 0 : 2;
-    this.nextHazardAt = Infinity;
     this.heightfields = heightfields;
     this.specks = specks;
     this.chunks = chunks;
-    this.random = createRandom(SEED + 7);
+    this.random = createRandom(RUN_SEED + 7);
     this.group = new THREE.Group();
     this.predators = [];
     this.nextScheduled = 0;
@@ -178,6 +171,16 @@ export class Hazards {
     this.traps = [];
     this.salt = null;
     this.remains = this.buildRemains();
+    // Set by the app each step: is a dodge on, and how long ago did it start.
+    this.dodge = { active: false, age: 99 };
+    this.opponents = director ? new Opponents(this) : null;
+  }
+
+  // What an attack that lands now meets: a worm is taken ('hit'), the swarm is flat and it misses ('miss'), or the dodge began
+  // just before it and the attacker is knocked back ('parry').
+  attackOutcome() {
+    if (!this.dodge.active) return 'hit';
+    return this.dodge.age <= PARRY_WINDOW ? 'parry' : 'miss';
   }
 
   layTraps(time, world, amount = 4) {
@@ -280,11 +283,12 @@ export class Hazards {
   }
 
   // Takes one worm (never the last two). Returns its head position, or null.
-  killWorm(swarm, worm, time, remainsColor, shrivel, dustColor, dustAmount) {
+  killWorm(swarm, worm, time, remainsColor, shrivel, dustColor, dustAmount, cause) {
     if (worm < 0 || swarm.count <= this.minWorms) return null;
     const spot = swarm.remove(worm);
     this.leaveRemains(time, spot.x, spot.z, remainsColor, shrivel);
     this.specks.burst(spot.x, this.heightfields.groundHeight(spot.x, spot.z), spot.z, dustColor, dustAmount);
+    announce('worm-die', { x: spot.x, z: spot.z, cause });
     return spot;
   }
 
@@ -321,9 +325,11 @@ export class Hazards {
           trap.state = 'snapped';
           trap.since = time;
           let killed = 0;
-          for (let bite = 0; bite < this.trapBites(swarm); bite++) {
+          // A dodging swarm is flat and scattered: the jaws close on nothing.
+          const bites = this.dodge.active ? 0 : this.trapBites(swarm);
+          for (let bite = 0; bite < bites; bite++) {
             const victim = this.nearestWorm(swarm, trap.spot.x, trap.spot.z, 1.7);
-            if (this.killWorm(swarm, victim, time, WORM_DARK, false, WORM_DARK, 6)) killed += 1;
+            if (this.killWorm(swarm, victim, time, WORM_DARK, false, WORM_DARK, 6, 'trap')) killed += 1;
           }
           this.specks.burst(trap.spot.x, this.heightfields.groundHeight(trap.spot.x, trap.spot.z), trap.spot.z, DUST, 5);
           this.emit(time, 'bear-snap', trap.spot.x, trap.spot.z, killed);
@@ -373,7 +379,7 @@ export class Hazards {
       const slot = worm * 20;
       const fromCenter = Math.hypot(swarm.x[slot] - x, swarm.z[slot] - z);
       if (Math.abs(fromCenter - radius) > 0.45) continue;
-      const spot = this.killWorm(swarm, worm, time, ASH, true, SALT_WHITE, 7);
+      const spot = this.killWorm(swarm, worm, time, ASH, true, SALT_WHITE, 7, 'salt');
       salt.kills += 1;
       salt.lastKill = time;
       this.emit(time, 'salt-shrivel', spot.x, spot.z, 1);
@@ -391,7 +397,11 @@ export class Hazards {
   startHawk(time, entry, world) {
     const { root, wings } = buildHawk();
     this.group.add(root);
-    return { kind: 'hawk', entry, root, wings, state: 'circle', since: time, born: time, angle: -0.8, dangler: null, position: new THREE.Vector3(), velocity: new THREE.Vector3(), done: false };
+    const shadow = new THREE.Mesh(new THREE.CircleGeometry(1, 20).rotateX(-Math.PI / 2), new THREE.MeshBasicMaterial({ color: 0x1a0a10, transparent: true, opacity: 0.5, depthWrite: false, depthTest: false, fog: false }));
+    shadow.visible = false;
+    shadow.renderOrder = 3;
+    this.group.add(shadow);
+    return { kind: 'hawk', entry, root, wings, shadow, state: 'circle', since: time, born: time, angle: -0.8, dangler: null, position: new THREE.Vector3(), velocity: new THREE.Vector3(), done: false };
   }
 
   startFox(time, entry, world) {
@@ -407,17 +417,19 @@ export class Hazards {
   stepHawk(time, dt, hawk, world) {
     const swarm = world.swarm;
     const age = time - hawk.since;
-    const center = { x: world.front.x + world.forward.x * 7, z: world.front.z + world.forward.z * 7 };
+    const reachAhead = this.director ? 9 : 7;
+    const center = { x: world.front.x + world.forward.x * reachAhead, z: world.front.z + world.forward.z * reachAhead };
     const ground = this.heightfields.groundHeight(center.x, center.z);
     let flap = 0.3 * Math.sin(time * 3.2) + 0.4;
     let fold = 0;
     let pitch = 0;
-    if (hawk.state === 'circle') {
+    let roll = 0;
+    if (hawk.state === 'circle' || hawk.state === 'warn') {
       hawk.angle += dt * 1.0;
       const radius = 4.0;
       const wanted = new THREE.Vector3(
         center.x + (world.right.x * Math.cos(hawk.angle) + world.forward.x * Math.sin(hawk.angle)) * radius,
-        ground + 7.5 + 0.3 * Math.sin(time * 0.9),
+        ground + (this.director ? 5.2 : 7.5) + 0.3 * Math.sin(time * 0.9),
         center.z + (world.right.z * Math.cos(hawk.angle) + world.forward.z * Math.sin(hawk.angle)) * radius,
       );
       if (age < 0.05) hawk.position.copy(wanted);
@@ -425,14 +437,27 @@ export class Hazards {
       hawk.position.copy(wanted);
       const aheadOfSwarm = Math.sin(hawk.angle) > 0.5;
       const circled = age > (hawk.entry.outcome === 'abort' ? 3.0 : 2.4);
-      if (circled && aheadOfSwarm && hawk.entry.outcome === 'abort') {
+      if (hawk.state === 'warn') {
+        // Telegraph (play only): its shadow grows on the ground and it screeches before the dive.
+        this.placeHawkShadow(hawk, swarm, smoothstep(0, WARN_SECONDS, age), time);
+        if (age > WARN_SECONDS) {
+          hawk.state = 'dive';
+          hawk.since = time;
+          this.emit(time, 'hawk-dive', hawk.position.x, hawk.position.z, 0);
+        }
+      } else if (circled && aheadOfSwarm && hawk.entry.outcome === 'abort') {
         hawk.state = 'leave';
         hawk.since = time;
         this.emit(time, 'hawk-abort', hawk.position.x, hawk.position.z, 0);
       } else if (circled && aheadOfSwarm && swarm.count > this.minWorms) {
-        hawk.state = 'dive';
         hawk.since = time;
-        this.emit(time, 'hawk-dive', hawk.position.x, hawk.position.z, 0);
+        if (this.director) {
+          hawk.state = 'warn';
+          this.emit(time, 'hawk-warn', hawk.position.x, hawk.position.z, 0);
+        } else {
+          hawk.state = 'dive';
+          this.emit(time, 'hawk-dive', hawk.position.x, hawk.position.z, 0);
+        }
       }
     } else if (hawk.state === 'dive') {
       const victim = this.nearestWorm(swarm, hawk.position.x, hawk.position.z, 40);
@@ -447,14 +472,42 @@ export class Hazards {
       pitch = 0.9;
       flap = 0.3;
       fold = 1;
+      if (this.director) this.placeHawkShadow(hawk, swarm, 1, time);
       if (distance < 0.8 || age > 2.2) {
-        const spot = this.killWorm(swarm, victim, time, WORM_DARK, false, WORM_DARK, 4);
-        hawk.state = 'carry';
+        const outcome = this.attackOutcome();
+        hawk.shadow.visible = false;
         hawk.since = time;
+        if (outcome === 'parry') {
+          hawk.state = 'stun';
+          this.emit(time, 'parry', hawk.position.x, hawk.position.z, 0);
+          announce('parry', { attacker: 'hawk', x: hawk.position.x, z: hawk.position.z });
+          this.specks.burst(hawk.position.x, hawk.position.y - 0.5, hawk.position.z, 0xfff0b8, 10);
+        } else if (outcome === 'miss') {
+          hawk.state = 'carry';
+          this.emit(time, 'hawk-miss', hawk.position.x, hawk.position.z, 0);
+        } else {
+          hawk.state = 'carry';
+        }
+        const spot = outcome === 'hit' ? this.killWorm(swarm, victim, time, WORM_DARK, false, WORM_DARK, 4, 'hawk') : null;
         if (spot) {
           hawk.dangler = new Dangler(this.group);
           this.emit(time, 'hawk-kill', spot.x, spot.z, 1);
         }
+      }
+    } else if (hawk.state === 'stun') {
+      // Parried: thrown back and up, then it flutters low and dazed for about two seconds before it flies off.
+      const away = new THREE.Vector3(world.right.x * 0.75 + world.forward.x * 0.5, 0, world.right.z * 0.75 + world.forward.z * 0.5).normalize();
+      const thrown = 1 - smoothstep(0, 0.5, age);
+      const floor = this.heightfields.groundHeight(hawk.position.x, hawk.position.z) + 0.6;
+      hawk.velocity.set(away.x * 7 * thrown, hawk.position.y > floor ? (age < 0.25 ? 3 : -2.2) : 0, away.z * 7 * thrown);
+      hawk.position.addScaledVector(hawk.velocity, dt);
+      hawk.position.y = Math.max(hawk.position.y, floor);
+      flap = -0.5 + 0.3 * Math.sin(time * 16);
+      pitch = -0.5;
+      roll = 0.5 * Math.sin(age * 14) * (1 - smoothstep(0, 1.6, age));
+      if (age > 2.0) {
+        hawk.state = 'carry';
+        hawk.since = time;
       }
     } else {
       const away = new THREE.Vector3(world.right.x * 0.75 + world.forward.x * 0.5, 0, world.right.z * 0.75 + world.forward.z * 0.5).normalize();
@@ -469,6 +522,7 @@ export class Hazards {
     hawk.root.rotation.order = 'YXZ';
     hawk.root.rotation.y = Math.atan2(hawk.velocity.x, hawk.velocity.z);
     hawk.root.rotation.x = pitch;
+    hawk.root.rotation.z = roll;
     for (const wing of hawk.wings) {
       wing.pivot.rotation.z = wing.side * flap;
       wing.middle.rotation.z = wing.side * flap * 0.7;
@@ -484,6 +538,18 @@ export class Hazards {
       hawk.dangler.place(time, claws, -Math.sin(heading) * 0.8, -Math.cos(heading) * 0.8);
     }
     if (hawk.done && hawk.dangler) hawk.dangler.dispose(this.group);
+    if (hawk.done) this.group.remove(hawk.shadow);
+  }
+
+  // The shadow of the coming dive: a dark disc on the ground under the worm the hawk is after, growing as the dive nears.
+  placeHawkShadow(hawk, swarm, grow, time) {
+    const victim = this.nearestWorm(swarm, hawk.position.x, hawk.position.z, 40);
+    const x = victim >= 0 ? swarm.x[victim * 20] : hawk.position.x;
+    const z = victim >= 0 ? swarm.z[victim * 20] : hawk.position.z;
+    hawk.shadow.visible = true;
+    hawk.shadow.position.set(x, this.heightfields.groundHeight(x, z) + 0.12, z);
+    hawk.shadow.scale.setScalar((0.5 + 1.4 * grow) * (1 + 0.06 * Math.sin(time * 18)));
+    hawk.shadow.material.opacity = 0.3 + 0.35 * grow;
   }
 
   stepFox(time, dt, fox, world) {
@@ -492,6 +558,7 @@ export class Hazards {
     const age = time - fox.since;
     let moving = 0;
     let lunge = 0;
+    let crouch = 0;
     if (fox.state === 'run') {
       if (this.director && age > 20) fox.done = true; // lost the swarm
       const victim = this.nearestWorm(swarm, fox.x, fox.z, 60);
@@ -504,7 +571,7 @@ export class Hazards {
         if (distance < 1.6) {
           fox.state = 'snap';
           fox.since = time;
-          fox.nextSnap = time + 0.5;
+          fox.nextSnap = time + (this.director ? FOX_CROUCH_SECONDS + 0.15 : 0.5);
         }
       }
     } else if (fox.state === 'snap') {
@@ -512,32 +579,69 @@ export class Hazards {
       const victimSpot = this.nearestWorm(swarm, fox.x, fox.z, 3.0);
       if (victimSpot >= 0) fox.heading = Math.atan2(swarm.x[victimSpot * 20] - fox.x, swarm.z[victimSpot * 20] - fox.z);
       const sinceSnap = time - (fox.nextSnap - 0.9);
-      lunge = Math.sin(clamp(sinceSnap / 0.9, 0, 1) * Math.PI);
+      if (this.director) {
+        // Telegraph: the fox drops low on its front legs and growls, then springs.
+        const untilBite = fox.nextSnap - time;
+        crouch = smoothstep(FOX_CROUCH_SECONDS, 0.15, untilBite);
+        lunge = 1 - smoothstep(0, 0.25, time - (fox.lastBite ?? -10));
+        if (!fox.warned && untilBite < FOX_CROUCH_SECONDS) {
+          fox.warned = true;
+          this.emit(time, 'fox-warn', fox.x, fox.z, 0);
+        }
+      } else {
+        lunge = Math.sin(clamp(sinceSnap / 0.9, 0, 1) * Math.PI);
+      }
       if (time >= fox.nextSnap) {
-        const victim = this.nearestWorm(swarm, fox.x, fox.z, 3.0);
-        const spot = this.killWorm(swarm, victim, time, WORM_DARK, false, WORM_DARK, 5);
+        const outcome = this.attackOutcome();
         fox.nextSnap = time + 1.1;
-        if (spot) {
-          fox.snaps += 1;
-          this.emit(time, 'fox-snap', spot.x, spot.z, 1);
-          if (fox.snaps === fox.entry.snaps && fox.entry.outcome === 'win' && !fox.dangler) fox.dangler = new Dangler(this.group);
+        fox.warned = false;
+        fox.lastBite = time;
+        if (outcome === 'parry') {
+          this.stunFox(fox, time, world);
+        } else if (outcome === 'miss') {
+          this.emit(time, 'fox-miss', fox.x, fox.z, 0);
+        } else {
+          const victim = this.nearestWorm(swarm, fox.x, fox.z, 3.0);
+          const spot = this.killWorm(swarm, victim, time, WORM_DARK, false, WORM_DARK, 5, 'fox');
+          if (spot) {
+            fox.snaps += 1;
+            this.emit(time, 'fox-snap', spot.x, spot.z, 1);
+            if (fox.snaps === fox.entry.snaps && fox.entry.outcome === 'win' && !fox.dangler) fox.dangler = new Dangler(this.group);
+          }
         }
       }
-      if (victimSpot < 0) {
-        fox.state = 'run';
-        fox.since = time;
+      if (fox.state === 'snap') {
+        if (victimSpot < 0) {
+          fox.state = 'run';
+          fox.since = time;
+        }
+        if (fox.entry.outcome === 'win' && fox.snaps >= fox.entry.snaps) {
+          fox.state = 'flee';
+          fox.since = time;
+        }
+        if (fox.entry.outcome === 'lose') {
+          const crowd = swarm.headsWithin(fox.x, fox.z, 3.2);
+          if (fox.snaps >= fox.entry.snaps && (crowd >= 14 || age > 6)) {
+            fox.state = 'overwhelmed';
+            fox.since = time;
+            this.emit(time, 'fox-overwhelmed', fox.x, fox.z, 0);
+          }
+        }
       }
-      if (fox.entry.outcome === 'win' && fox.snaps >= fox.entry.snaps) {
+    } else if (fox.state === 'stunned') {
+      // Parried: thrown back, then it lies on its side for about two seconds. A medium swarm that reaches it eats it.
+      const thrown = 1 - smoothstep(0, 0.5, age);
+      fox.x += fox.knock.x * thrown * dt;
+      fox.z += fox.knock.z * thrown * dt;
+      lunge = 0;
+      if (age > 0.4 && swarm.headsWithin(fox.x, fox.z, 3.4) >= STUN_EAT_HEADS) {
+        fox.state = 'overwhelmed';
+        fox.since = time;
+        this.emit(time, 'fox-overwhelmed', fox.x, fox.z, 0);
+      } else if (age > STUN_SECONDS) {
         fox.state = 'flee';
         fox.since = time;
-      }
-      if (fox.entry.outcome === 'lose') {
-        const crowd = swarm.headsWithin(fox.x, fox.z, 3.2);
-        if (fox.snaps >= fox.entry.snaps && (crowd >= 14 || age > 6)) {
-          fox.state = 'overwhelmed';
-          fox.since = time;
-          this.emit(time, 'fox-overwhelmed', fox.x, fox.z, 0);
-        }
+        fox.lying = false;
       }
     } else if (fox.state === 'flee') {
       fox.heading = Math.atan2(world.forward.x * 0.4 + world.right.x * 0.9, world.forward.z * 0.4 + world.right.z * 0.9);
@@ -567,7 +671,13 @@ export class Hazards {
       leg.rotation.x = moving > 0 ? Math.sin(fox.gait + (index % 2 === 0 ? 0 : Math.PI)) * 0.7 : 0;
     });
     model.head.position.z = 0.75 + 0.35 * lunge;
-    model.head.rotation.x = 0.35 * lunge;
+    model.head.rotation.x = 0.35 * lunge + 0.5 * crouch;
+    model.body.position.y = -0.3 * crouch;
+    model.body.rotation.x = 0.16 * crouch;
+    // Lying on its side while stunned (and while being eaten after a parry).
+    const lying = fox.lying ? 1.35 * smoothstep(0, 0.25, time - fox.stunnedAt) : 0;
+    fox.root.rotation.z = lying;
+    fox.root.position.y += 0.5 * lying;
     model.tail.rotation.x = 0.2 * Math.sin(time * 1.6) - 0.15;
     if (fox.dangler) {
       const forwardX = Math.sin(fox.heading);
@@ -577,42 +687,50 @@ export class Hazards {
     if (fox.done && fox.dangler) fox.dangler.dispose(this.group);
   }
 
+  stunFox(fox, time, world) {
+    const awayX = fox.x - world.front.x;
+    const awayZ = fox.z - world.front.z;
+    const awayLength = Math.hypot(awayX, awayZ) + 1e-4;
+    fox.state = 'stunned';
+    fox.since = time;
+    fox.stunnedAt = time;
+    fox.lying = true;
+    fox.knock = { x: (awayX / awayLength) * 8, z: (awayZ / awayLength) * 8 };
+    this.emit(time, 'parry', fox.x, fox.z, 0);
+    announce('parry', { attacker: 'fox', x: fox.x, z: fox.z });
+    this.specks.burst(fox.x, this.heightfields.groundHeight(fox.x, fox.z) + 0.8, fox.z, 0xfff0b8, 10);
+  }
+
   trapBites(swarm) {
     return this.director ? 3 + Math.floor(swarm.count / 200) : 3;
   }
 
   // ---- Director (play) ---------------------------------------------------------------------------------------------------
+  // The director (src/director.js) decides what comes and when; these start the hawk, fox, traps and salt it asks for.
 
-  beginDirector(time) {
-    this.nextHazardAt = time + 24;
-  }
-
-  // One hazard now and then, near the swarm: the more worms, the more often and the more at once. A small swarm loses to a hawk
-  // or a fox; one of about fifty or more overwhelms the fox.
-  directHazards(time, world) {
-    this.expireTraps(time);
-    if (time < this.nextHazardAt) return;
-    const count = world.swarm.count;
-    if (count < 3) {
-      this.nextHazardAt = time + 4;
-      return;
-    }
-    const interval = clamp(26 - 3 * Math.log2(count), 9, 24);
-    this.nextHazardAt = time + interval * this.random.range(0.8, 1.2);
-    const predatorCap = 1 + Math.floor(count / 200);
-    let roll = this.random.next();
-    if (roll < 0.7 && this.predators.length >= predatorCap) roll = 0.8;
-    if (roll < 0.35) {
-      this.startPredator(time, { at: time, kind: 'hawk', outcome: this.random.next() < 0.2 ? 'abort' : 'kill' }, world);
-    } else if (roll < 0.7) {
+  spawn(kind, time, world, count) {
+    if (kind === 'hawk') this.startPredator(time, { at: time, kind: 'hawk', outcome: this.random.next() < 0.15 ? 'abort' : 'kill' }, world);
+    else if (kind === 'fox') {
       const outcome = count >= 50 ? 'lose' : 'win';
       const snaps = outcome === 'lose' ? 2 : clamp(Math.floor(count / 6), 1, 4);
       this.startPredator(time, { at: time, kind: 'fox', outcome, snaps, side: this.random.next() < 0.5 ? -1 : 1 }, world);
-    } else if (roll < 0.9 || count < 25) {
-      if (count >= 6) this.layTraps(time, world, clamp(2 + Math.floor(count / 60), 2, 6));
-    } else {
-      this.laySalt(time, world);
+    } else if (kind === 'traps') this.layTraps(time, world, clamp(2 + Math.floor(count / 60), 2, 6));
+    else if (kind === 'salt') this.laySalt(time, world);
+    else this.opponents.spawn(kind, time, world, count);
+  }
+
+  // What is about to hit, for bots and for the HUD: { kind, x, z, eta } with eta in seconds, and danger lanes.
+  incoming(time) {
+    const attacks = [];
+    for (const predator of this.predators) {
+      if (predator.kind === 'hawk' && (predator.state === 'warn' || predator.state === 'dive')) {
+        attacks.push({ kind: 'hawk', x: predator.position.x, z: predator.position.z, eta: predator.state === 'warn' ? WARN_SECONDS - (time - predator.since) : 0.3 });
+      } else if (predator.kind === 'fox' && predator.state === 'snap') {
+        attacks.push({ kind: 'fox', x: predator.x, z: predator.z, eta: predator.nextSnap - time });
+      }
     }
+    if (this.opponents) attacks.push(...this.opponents.incoming(time));
+    return attacks;
   }
 
   // Old traps and salt are taken away so the field does not fill up.
@@ -631,13 +749,15 @@ export class Hazards {
 
   // Worms are drawn to a fox that is fighting the swarm once the swarm is big enough to take it.
   attractors() {
-    return this.predators.filter((predator) => predator.kind === 'fox' && predator.state === 'snap' && predator.entry.outcome === 'lose').map((fox) => ({ x: fox.x, z: fox.z }));
+    const foxes = this.predators.filter((predator) => predator.kind === 'fox' && ((predator.state === 'snap' && predator.entry.outcome === 'lose') || predator.state === 'stunned')).map((fox) => ({ x: fox.x, z: fox.z }));
+    return this.opponents ? foxes.concat(this.opponents.attractors()) : foxes;
   }
 
   step(time, dt, world) {
     this.events.length = 0;
     if (this.director) {
-      this.directHazards(time, world);
+      this.expireTraps(time);
+      this.opponents.step(time, dt, world);
     } else {
       while (this.nextScheduled < PREDATOR_SCHEDULE.length && time >= PREDATOR_SCHEDULE[this.nextScheduled].at) {
         this.startPredator(time, PREDATOR_SCHEDULE[this.nextScheduled], world);

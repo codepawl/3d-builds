@@ -9,9 +9,17 @@ const CUES = {
   fox: ['fox-1', 'fox-2'],
   snap: ['snap-1', 'snap-2'],
   sizzle: ['sizzle'],
+  lunge: ['lunge'],
+  dodge: ['dodge'],
+  parry: ['parry'],
+  peck: ['peck'],
+  caw: ['caw-1', 'caw-2'],
+  squeal: ['squeal'],
+  grunt: ['grunt'],
+  engine: ['engine'],
 };
-const CUE_GAIN = { bite: 0.9, gore: 0.8, chunk: 0.55, hawk: 0.7, dive: 0.6, fox: 0.7, snap: 0.9, sizzle: 0.6 };
-const CUE_GAP = { bite: 0.07, gore: 0.3, chunk: 0.11, hawk: 1.2, dive: 1, fox: 0.5, snap: 0.15, sizzle: 0.4 };
+const CUE_GAIN = { bite: 0.9, gore: 0.8, chunk: 0.55, hawk: 0.7, dive: 0.6, fox: 0.7, snap: 0.9, sizzle: 0.6, lunge: 0.8, dodge: 0.7, parry: 1, peck: 0.8, caw: 0.8, squeal: 0.7, grunt: 0.8, engine: 0.7 };
+const CUE_GAP = { bite: 0.07, gore: 0.3, chunk: 0.11, hawk: 1.2, dive: 1, fox: 0.5, snap: 0.15, sizzle: 0.4, lunge: 0.2, dodge: 0.2, parry: 0.3, peck: 0.4, caw: 0.3, squeal: 0.6, grunt: 1, engine: 3 };
 const SAMPLE_GAP = 0.06; // seconds before the same sample may start again
 const MAX_VOICES = 8;
 const STORAGE_KEY = 'pixel-worms-sound';

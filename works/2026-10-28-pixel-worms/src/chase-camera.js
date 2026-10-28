@@ -62,7 +62,9 @@ void main() {
     nearest = min(nearest, neighbour);
     if (wormMask(texel + offsets[index]) > 0.5) nearestWorm = min(nearestWorm, neighbour);
   }
-  if (isWorm < 0.5) color = quietWorld(color);
+  // Alpha 0.85 marks an accent (the mower): it keeps its own colour instead of the quiet-world grade.
+  float isAccent = sampled.a > 0.75 && sampled.a < 0.95 ? 1.0 : 0.0;
+  if (isWorm < 0.5 && isAccent < 0.5) color = quietWorld(color);
   // Worms stay bright and red at a distance: lift them as the fog and the pull-back make them small.
   color *= 1.0 + isWorm * (0.3 + 0.35 * smoothstep(20.0, 75.0, here));
   // A texel with a clearly nearer neighbour is darkened, so a 1 texel outline hugs the outside of every silhouette.

@@ -12,3 +12,5 @@ export const START_WORMS = 1;
 export const SEED = 20261028;
 export const HORIZON_COLOR = "#e4e2d6";
 export const SKY_TOP_COLOR = "#a9bfd0";
+// Plays differ by this offset (`?seed=N`); the world itself always uses SEED. The balance bots run several seeds.
+export const RUN_SEED = SEED + (typeof location === 'undefined' ? 0 : Number(new URLSearchParams(location.search).get('seed') ?? 0));

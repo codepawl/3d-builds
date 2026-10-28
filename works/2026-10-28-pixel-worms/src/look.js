@@ -68,6 +68,15 @@ export function addGlint(material, strength) {
   return material;
 }
 
+// Tags the pixels of a model with alpha 0.85 so the post pass leaves its colour alone (see isAccent in chase-camera.js).
+export function addAccentTag(material) {
+  material.onBeforeCompile = (shader) => {
+    shader.fragmentShader = shader.fragmentShader.replace('#include <fog_fragment>', '#include <fog_fragment>\n  gl_FragColor.a = 0.85;');
+  };
+  material.customProgramCacheKey = () => 'accent-tag';
+  return material;
+}
+
 // Shared by every prop: where the swarm sits on the low-res screen and how far it is from the camera. A prop fragment
 // that is nearer than the swarm and sits over it on screen, or is very close to the camera, dissolves in Bayer dither.
 export const propFadeUniforms = {

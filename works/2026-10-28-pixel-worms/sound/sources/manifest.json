@@ -418,6 +418,39 @@
       "license": "Creative Commons 0 (CC0 1.0), sound page checked for publicdomain/zero/1.0 before download",
       "bytes": 323010,
       "sha256": "587609f2c0a307af9c8d0ddcac7f65c8b43297af4d9e1b54de4a8f809f7a8daf"
+    },
+    {
+      "role": "crow_caw_a",
+      "file": "crow_caw_a_855096_qubodup.ogg",
+      "source": "Freesound HQ preview",
+      "url": "https://freesound.org/people/qubodup/sounds/855096/",
+      "author": "qubodup",
+      "title": "Unusual Crow Caw Call 2 by qubodup",
+      "license": "Creative Commons 0 (CC0 1.0), sound page checked for publicdomain/zero/1.0 before download",
+      "bytes": 9434,
+      "sha256": "65da209644140cd407ef044ce9d61d2a9f538d201a97526ec66eae316beb7ff6"
+    },
+    {
+      "role": "crow_caw_b",
+      "file": "crow_caw_b_361470_Jofae.ogg",
+      "source": "Freesound HQ preview",
+      "url": "https://freesound.org/people/Jofae/sounds/361470/",
+      "author": "Jofae",
+      "title": "Crow Caw by Jofae",
+      "license": "Creative Commons 0 (CC0 1.0), sound page checked for publicdomain/zero/1.0 before download",
+      "bytes": 12810,
+      "sha256": "57c881ccac6c28631e9f47e6eaf94c1ed50e2bccf808b2e028e07192bc524e59"
+    },
+    {
+      "role": "engine_lawn_mower",
+      "file": "engine_lawn_mower_84764_bsumusictech.ogg",
+      "source": "Freesound HQ preview",
+      "url": "https://freesound.org/people/bsumusictech/sounds/84764/",
+      "author": "bsumusictech",
+      "title": "lawn mower.wav by bsumusictech",
+      "license": "Creative Commons 0 (CC0 1.0), sound page checked for publicdomain/zero/1.0 before download",
+      "bytes": 234503,
+      "sha256": "fffa876911859383a90824e3121d9bf8adb3bf7b513b4b3b16b7d3caa692aad9"
     }
   ]
 }

@@ -1,0 +1,28 @@
+{
+  "name": "Pixel Worms",
+  "short_name": "Pixel Worms",
+  "description": "A free swarm game in the browser. Start as one worm, eat everything, survive.",
+  "start_url": "./",
+  "display": "fullscreen",
+  "orientation": "any",
+  "background_color": "#ead9b4",
+  "theme_color": "#2a080c",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

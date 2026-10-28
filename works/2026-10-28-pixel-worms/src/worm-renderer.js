@@ -101,14 +101,26 @@ export class WormRenderer {
     const liftShare = smoothstep(0.5, 0.95, reach) * smoothstep(0.7, 0.92, swarm.layer[worm]);
     // In a heap most worms lie low and coil; only about one in eight keeps its head up.
     const heap = swarm.heap[worm];
-    const heapCalm = 1 - heap * (variety > 1.2 ? 0.45 : 0.9);
+    // In a crowd a body lies low along its own path (a loose S or C) and what little it lifts leans outward from the mass,
+    // never toward the camera, so a pile reads as worms draped over each other and not as a curtain of strands.
+    const crowd = smoothstep(0.2, 0.6, heap);
+    const flatten = 1 - swarm.dodgeSmooth;
+    const heapCalm = (1 - crowd * (variety > 1.2 ? 0.55 : 0.92)) * flatten * (1 - 0.75 * bite);
     const rearHeight = (0.12 + 0.08 * reach + 0.42 * liftShare) * variety * heapCalm;
-    // Each lifter leans toward the aim point, turned a little left or right so neighbours do not line up.
-    const yaw = (((phase * 3.17) % 1) - 0.5) * 1.1;
+    const outwardX = swarm.x[base] - swarm.centroid.x;
+    const outwardZ = swarm.z[base] - swarm.centroid.z;
+    const outwardLength = Math.hypot(outwardX, outwardZ) + 1e-4;
+    let leanBaseX = aimX * (1 - crowd) + (outwardX / outwardLength) * crowd;
+    let leanBaseZ = aimZ * (1 - crowd) + (outwardZ / outwardLength) * crowd;
+    const leanBaseLength = Math.hypot(leanBaseX, leanBaseZ) + 1e-4;
+    leanBaseX /= leanBaseLength;
+    leanBaseZ /= leanBaseLength;
+    // Each lifter is turned a little left or right so neighbours do not line up.
+    const yaw = (((phase * 3.17) % 1) - 0.5) * (1.1 + 1.4 * crowd);
     const aimCos = Math.cos(yaw);
     const aimSin = Math.sin(yaw);
-    const leanX = aimX * aimCos - aimZ * aimSin;
-    const leanZ = aimX * aimSin + aimZ * aimCos;
+    const leanX = leanBaseX * aimCos - leanBaseZ * aimSin;
+    const leanZ = leanBaseX * aimSin + leanBaseZ * aimCos;
     const anchorSlot = base + ANCHOR_POINT;
     // A worm hanging on a wall or roof would stand as a vertical stick. Its climb is soft-capped per worm (so they top out at
     // different heights) and bent into a sideways S that grows with the climb, so a crowd reads as curved strands.
@@ -139,10 +151,10 @@ export class WormRenderer {
       const lift = Math.max(0, (rearHeight * rear * sway + bob * rear) * droop - dip);
       const envelope = Math.sin(Math.PI * (along * 0.9 + 0.05));
       const waveAngle = (2 * Math.PI * (point * SEGMENT_SPACING)) / WAVE_LENGTH - 2 * Math.PI * WAVE_FREQUENCY * time + phase;
-      const writhe = Math.sin(waveAngle) * WAVE_AMPLITUDE * (0.35 + 0.65 * along) * girth * Math.min(1, envelope * 1.6) * (1 + 2.2 * heap);
-      // Pull the rearing part back along the body (it keeps its length) and lean it toward the aim point. In a heap the
-      // whole body is drawn in toward its middle, so it coils instead of trailing out as a strand.
-      const contract = Math.min(0.3, 0.15 * lift * rear) + 0.7 * heap;
+      const writhe = Math.sin(waveAngle) * WAVE_AMPLITUDE * (0.35 + 0.65 * along) * girth * Math.min(1, envelope * 1.6) * (1 + 1.6 * crowd);
+      // Pull the rearing part back along the body (it keeps its length) and lean it away. In a dense pile the whole body is
+      // drawn in a third toward its middle along its own path: shorter bodies, no long trailing strands.
+      const contract = Math.min(0.3, 0.15 * lift * rear) + 0.32 * crowd;
       // The head leans out further than the neck, so the rearing part curves like a swan's neck.
       const lean = Math.min(1.3, lift * (0.9 + 0.6 * smoothstep(0.5, 0, along)));
       let x = swarm.x[slot] + (swarm.x[anchorSlot] - swarm.x[slot]) * contract + leanX * lean;
@@ -150,34 +162,12 @@ export class WormRenderer {
       x -= tangentZ * writhe + aimZ * climbSway;
       z += tangentX * writhe + aimX * climbSway;
       this.spineX[point] = x;
-      this.spineY[point] = lowestY + climb + lift;
+      // Eating: the head rises a little and dips back onto the piece, over and over.
+      const chew = bite * 0.14 * (0.5 + 0.5 * Math.sin(time * 9 + phase * 2)) * smoothstep(0.3, 0, along);
+      this.spineY[point] = lowestY + climb + lift + chew;
       this.spineZ[point] = z;
     }
     if (heap > 0.05) this.flattenInHeap(heap);
-    // Most worms in a heap lie flat in a spiral around their middle (heads of the few lifters stay up), so edge worms make a
-    // low mat and never hang. Seen from a high camera a long body pointing at it reads as a hanging string.
-    const coil = smoothstep(0.25, 0.7, heap) * (variety > 1.2 ? 0.5 : 1);
-    if (coil > 0.01) this.coilSpine(worm, coil, phase, ANCHOR_POINT);
-  }
-
-  coilSpine(worm, amount, phase, anchor) {
-    const centerX = this.spineX[anchor];
-    const centerZ = this.spineZ[anchor];
-    const centerY = this.spineY[anchor];
-    const direction = worm % 2 === 0 ? 1 : -1;
-    // Spiral with the head on the outside: radius shrinks along the body, each step about one segment long.
-    let angle = phase;
-    let radius = 0.55;
-    for (let point = 0; point < POINTS; point++) {
-      const coiledX = centerX + Math.cos(angle) * radius;
-      const coiledZ = centerZ + Math.sin(angle) * radius;
-      const coiledY = centerY + 0.02 * (POINTS - point) * 0.2;
-      this.spineX[point] += (coiledX - this.spineX[point]) * amount;
-      this.spineZ[point] += (coiledZ - this.spineZ[point]) * amount;
-      this.spineY[point] += (coiledY - this.spineY[point]) * amount;
-      angle += direction * SEGMENT_SPACING / Math.max(radius, 0.12);
-      radius = Math.max(0.12, radius - 0.022);
-    }
   }
 
   // Limits how steeply a worm in a heap can rise from its lowest point, so a pile reads as coils lying on each other and not as
@@ -201,7 +191,8 @@ export class WormRenderer {
       this.buildSpine(worm, time);
       const girth = swarm.girth[worm];
       const phase = swarm.phase[worm] * 6.2832;
-      const tint = swarm.tint[worm];
+      const tint = swarm.tint[worm] * (1 + 0.3 * swarm.pinch[worm]);
+      const pinch = swarm.pinch[worm];
       for (let point = 0; point < POINTS; point++) {
         const before = Math.max(point - 1, 0);
         const after = Math.min(point + 1, POINTS - 1);
@@ -231,7 +222,10 @@ export class WormRenderer {
         const uy = liftY / liftLength;
         const uz = liftZ / liftLength;
         const bulge = 1 + 0.04 * Math.sin(time * 1.6 - point * 0.5 + phase);
-        const radius = WORM_RADIUS * girth * PROFILE[point] * bulge;
+        // A worm about to split thins to a thread in the middle.
+        const narrow = Math.exp(-(((point - 9.5) / 2.0) ** 2));
+        const waist = pinch > 0 ? 1 - 0.9 * pinch * narrow + 0.3 * pinch * (1 - narrow) : 1;
+        const radius = WORM_RADIUS * girth * PROFILE[point] * bulge * waist;
         const ringShade = (point % 3 === 0 ? 0.9 : 1) * tint;
         for (let side = 0; side < RING; side++) {
           const cosine = RING_COSINE[side];
