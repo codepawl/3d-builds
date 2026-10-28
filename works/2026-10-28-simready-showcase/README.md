@@ -4,7 +4,7 @@ A 29 s film about optimizing all 2,595 free NVIDIA SimReady 3D models for the br
 changed, before and after, with measured numbers. The optimized set is on Hugging Face:
 https://huggingface.co/datasets/codepawl/simready-glb
 
-- Post: (added after posting)
+- Post: https://x.com/anxuanng/status/2115494696097394947
 - Made with: Claude Opus 5.5 in Claude Code, the visualize-in-3d skill (https://github.com/codepawl/viz3d), three.js,
   Blender 5.2, glTF Transform 4.5
 
