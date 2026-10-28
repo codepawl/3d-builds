@@ -4,6 +4,7 @@
 // optimize.mjs, then delete the download. Results: <work-root>/out/glb/<asset>.glb and <work-root>/out/manifest.jsonl.
 // Assets already in the manifest are skipped, so the run can be stopped and started again.
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import { spawn } from 'node:child_process';
 import { Readable } from 'node:stream';
@@ -17,6 +18,8 @@ const MAX_TEXTURE_EDGE = 1024;
 // A few heavy assets (robot trolleys, coilovers) need more than 30 minutes in the glTF export, so the retry pass sets
 // BLENDER_TIMEOUT_MINUTES higher.
 const BLENDER_TIMEOUT_MS = Number(process.env.BLENDER_TIMEOUT_MINUTES ?? 30) * 60 * 1000;
+// Threads per Blender, so two workers leave half of the 12 threads free for the rest of the machine.
+const BLENDER_THREADS = Number(process.env.BLENDER_THREADS ?? 3);
 const here = path.dirname(fileURLToPath(import.meta.url));
 
 const [listPath, workRoot, workerCountText] = process.argv.slice(2);
@@ -100,16 +103,33 @@ async function download(file, target) {
   fs.copyFileSync(cached, target);
 }
 
+// Kills the child and everything it started. child.kill() alone can leave a Blender process holding a core on Windows.
+function killTree(child) {
+  if (process.platform === 'win32') spawn('taskkill', ['/T', '/F', '/PID', String(child.pid)], { stdio: 'ignore' });
+  else child.kill('SIGKILL');
+}
+
 function run(command, args, timeoutMs) {
   return new Promise((resolve, reject) => {
     const child = spawn(command, args, { stdio: ['ignore', 'pipe', 'pipe'] });
+    // Set on each child, not only inherited: a parent started at Normal gave its Blender children Normal priority.
+    try {
+      os.setPriority(child.pid, os.constants.priority.PRIORITY_BELOW_NORMAL);
+    } catch (error) {
+      console.log(`could not lower priority of ${child.pid}: ${error.message}`);
+    }
     let output = '';
+    let timedOut = false;
     child.stdout.on('data', (chunk) => { output += chunk; });
     child.stderr.on('data', (chunk) => { output += chunk; });
-    const timer = setTimeout(() => child.kill(), timeoutMs);
+    const timer = setTimeout(() => {
+      timedOut = true;
+      killTree(child);
+    }, timeoutMs);
     child.on('close', (code) => {
       clearTimeout(timer);
       if (code === 0) resolve(output);
+      else if (timedOut) reject(new Error(`${path.basename(command)} timed out after ${timeoutMs / 60000} min: ${output.slice(-600)}`));
       else reject(new Error(`${path.basename(command)} exit ${code}: ${output.slice(-600)}`));
     });
   });
@@ -142,7 +162,8 @@ async function processAsset(asset) {
   const blenderGlb = path.join(assetFolder, `${asset}.blender.glb`);
   const outputGlb = path.join(glbFolder, `${asset}.glb`);
   const blenderStartedAt = Date.now();
-  await run(BLENDER, ['-b', '--factory-startup', '--python', path.join(here, 'usd_to_glb.py'), '--',
+  // --python-exit-code: without it a Python error in usd_to_glb.py still exits 0 and leaves no glb behind.
+  await run(BLENDER, ['-b', '--factory-startup', '--python-exit-code', '1', '-t', String(BLENDER_THREADS), '--python', path.join(here, 'usd_to_glb.py'), '--',
     path.join(workRoot, 'raw', mainUsd.path), blenderGlb], BLENDER_TIMEOUT_MS);
   const blenderSeconds = (Date.now() - blenderStartedAt) / 1000;
   const optimizeOutput = await run(process.execPath, [path.join(here, 'optimize.mjs'), blenderGlb, outputGlb,

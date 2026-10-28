@@ -29,8 +29,13 @@ The models are rendered clean. The dither and ASCII passes stay on the backdrop.
    WebP and compresses geometry with meshopt. It does not simplify meshes.
 5. Each result goes to `out/manifest.jsonl` with the numbers before and after.
 
-Run it with `npm install` in `batch/`, then `node run.mjs <asset-list.txt> <work-root> 5`. Set
-`BLENDER_TIMEOUT_MINUTES` higher for very large assets. A full run took about 8 hours on a 10 MB/s line.
+Run it with `npm install` in `batch/`, then `node run.mjs <asset-list.txt> <work-root> 2`. Each Blender runs at below
+normal priority with `BLENDER_THREADS` threads (default 3). A conversion that passes `BLENDER_TIMEOUT_MINUTES` (default
+30) is killed with its process tree. A full run took about 8 hours on a 10 MB/s line.
+
+Five assets (two coilovers and three robot trolleys) use UDIM textures with 2 to 14 tiles on meshes of about a million
+polygons. Blender's glTF exporter splits UDIM tiles in Python and did not finish them in two hours. `usd_to_glb.py`
+now does that split with numpy before the export, so each tile gets its own material and the export takes seconds.
 
 ## The film (`src/`)
 
