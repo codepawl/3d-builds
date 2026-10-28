@@ -1,0 +1,45 @@
+{
+  "input": "../web/models/test/engineAssembly_v8_engine_a01.blender.glb",
+  "stages": [
+    {
+      "label": "blender",
+      "bytes": 888141600,
+      "triangles": 1917530,
+      "drawCalls": 82,
+      "textures": 47,
+      "largestTextureEdge": 4096
+    },
+    {
+      "label": "instances",
+      "bytes": 867905648,
+      "triangles": 1138369,
+      "drawCalls": 64,
+      "textures": 44,
+      "largestTextureEdge": 4096
+    },
+    {
+      "label": "weld",
+      "bytes": 867937508,
+      "triangles": 1138369,
+      "drawCalls": 64,
+      "textures": 44,
+      "largestTextureEdge": 4096
+    },
+    {
+      "label": "textures",
+      "bytes": 26415760,
+      "triangles": 1138369,
+      "drawCalls": 64,
+      "textures": 44,
+      "largestTextureEdge": 1024
+    },
+    {
+      "label": "meshopt",
+      "bytes": 9335040,
+      "triangles": 1138369,
+      "drawCalls": 64,
+      "textures": 44,
+      "largestTextureEdge": 1024
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Measure load</title>
+<style>html, body { margin: 0; background: transparent; } canvas { display: block; }</style>
+<script type="importmap">{ "imports": { "three": "./vendor/three.module.js", "three/addons/": "./vendor/" } }</script>
+</head><body><canvas id="view"></canvas>
+<script type="module">
+// Loads one glb in real Chrome and measures the time to the first drawn frame.
+// ?url=<glb>   window.__renderAt(yaw, elevation) draws the loaded model for a screenshot (transparent background).
+import * as THREE from 'three';
+import { makeStudioRenderer, loadEnvironment, makeStudioScene, makeLoader, frameBox, WIDTH, HEIGHT, FIELD_OF_VIEW } from './src/studio.js';
+
+const url = new URLSearchParams(location.search).get('url');
+const renderer = makeStudioRenderer(document.getElementById('view'));
+const environment = await loadEnvironment();
+const scene = makeStudioScene(environment);
+const camera = new THREE.PerspectiveCamera(FIELD_OF_VIEW, WIDTH / HEIGHT);
+const loader = makeLoader();
+const result = { url };
+const startedAt = performance.now();
+try {
+  const gltf = await loader.loadAsync(url);
+  result.loadAndParseMs = performance.now() - startedAt;
+  scene.add(gltf.scene);
+  const box = new THREE.Box3().setFromObject(gltf.scene);
+  window.__renderAt = (yaw, elevation, zoom = 1) => {
+    frameBox(camera, box, yaw, elevation, zoom);
+    renderer.render(scene, camera);
+    renderer.getContext().finish();
+  };
+  window.__renderAt(35, 14);
+  result.firstFrameMs = performance.now() - startedAt;
+  window.__renderAt(35, 14);
+  result.ok = true;
+} catch (error) {
+  result.ok = false;
+  result.error = String(error);
+}
+window.__result = result;
+window.__ready = true;
+</script></body></html>

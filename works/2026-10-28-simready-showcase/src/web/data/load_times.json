@@ -1,0 +1,184 @@
+{
+  "vise_raw": {
+    "url": "models/test/equipment_bench_vise_a01.blender.glb",
+    "runs": [
+      {
+        "url": "models/test/equipment_bench_vise_a01.blender.glb",
+        "loadAndParseMs": 687.0999999046326,
+        "firstFrameMs": 1450.1999998092651,
+        "ok": true,
+        "consoleMessages": 1,
+        "blobOutOfMemory": 0,
+        "sampleError": "THREE.WebGLProgram: Program Info Log: (210,86-138): warning X4122: sum of 0.996094 and -2.98545e-017 cannot be represented accurately in double precision\n(209,39-65): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(210,87-113): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(209,39-65): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(210,87-113): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision"
+      },
+      {
+        "url": "models/test/equipment_bench_vise_a01.blender.glb",
+        "loadAndParseMs": 715,
+        "firstFrameMs": 897.3999998569489,
+        "ok": true,
+        "consoleMessages": 0,
+        "blobOutOfMemory": 0,
+        "sampleError": null
+      },
+      {
+        "url": "models/test/equipment_bench_vise_a01.blender.glb",
+        "loadAndParseMs": 623,
+        "firstFrameMs": 811.7000000476837,
+        "ok": true,
+        "consoleMessages": 0,
+        "blobOutOfMemory": 0,
+        "sampleError": null
+      }
+    ],
+    "medianFirstFrameMs": 897.3999998569489
+  },
+  "vise_opt": {
+    "url": "models/vise.opt.glb",
+    "runs": [
+      {
+        "url": "models/vise.opt.glb",
+        "loadAndParseMs": 44.59999990463257,
+        "firstFrameMs": 112.89999985694885,
+        "ok": true,
+        "consoleMessages": 0,
+        "blobOutOfMemory": 0,
+        "sampleError": null
+      },
+      {
+        "url": "models/vise.opt.glb",
+        "loadAndParseMs": 58.40000009536743,
+        "firstFrameMs": 138.30000019073486,
+        "ok": true,
+        "consoleMessages": 0,
+        "blobOutOfMemory": 0,
+        "sampleError": null
+      },
+      {
+        "url": "models/vise.opt.glb",
+        "loadAndParseMs": 64.5,
+        "firstFrameMs": 143.5,
+        "ok": true,
+        "consoleMessages": 0,
+        "blobOutOfMemory": 0,
+        "sampleError": null
+      }
+    ],
+    "medianFirstFrameMs": 138.30000019073486
+  },
+  "v8_opt": {
+    "url": "models/test/v8.nosimp.glb",
+    "runs": [
+      {
+        "url": "models/test/v8.nosimp.glb",
+        "loadAndParseMs": 230.89999985694885,
+        "firstFrameMs": 777,
+        "ok": true,
+        "consoleMessages": 0,
+        "blobOutOfMemory": 0,
+        "sampleError": null
+      },
+      {
+        "url": "models/test/v8.nosimp.glb",
+        "loadAndParseMs": 267.90000009536743,
+        "firstFrameMs": 538.9000000953674,
+        "ok": true,
+        "consoleMessages": 0,
+        "blobOutOfMemory": 0,
+        "sampleError": null
+      },
+      {
+        "url": "models/test/v8.nosimp.glb",
+        "loadAndParseMs": 205.70000004768372,
+        "firstFrameMs": 572.6000001430511,
+        "ok": true,
+        "consoleMessages": 0,
+        "blobOutOfMemory": 0,
+        "sampleError": null
+      }
+    ],
+    "medianFirstFrameMs": 572.6000001430511
+  },
+  "v8_raw": {
+    "url": "models/test/engineAssembly_v8_engine_a01.blender.glb",
+    "runs": [
+      {
+        "url": "models/test/engineAssembly_v8_engine_a01.blender.glb",
+        "loadAndParseMs": 6260.899999856949,
+        "firstFrameMs": 9400.299999952316,
+        "ok": true,
+        "consoleMessages": 1,
+        "blobOutOfMemory": 0,
+        "sampleError": "THREE.WebGLProgram: Program Info Log: (210,86-138): warning X4122: sum of 0.996094 and -2.98545e-017 cannot be represented accurately in double precision\n(209,39-65): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(210,87-113): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(209,39-65): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(210,87-113): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision"
+      }
+    ],
+    "medianFirstFrameMs": 9400.299999952316
+  },
+  "orbitFrames": 220,
+  "measuredAt": "2026-10-28T17:07:23.701Z",
+  "alternator_raw": {
+    "url": "models/test/electricalSystem_alternator_d01.blender.glb",
+    "runs": [
+      {
+        "url": "models/test/electricalSystem_alternator_d01.blender.glb",
+        "loadAndParseMs": 11663.900000095367,
+        "firstFrameMs": 33448.10000014305,
+        "ok": true,
+        "consoleMessages": 1,
+        "blobOutOfMemory": 0,
+        "sampleError": "THREE.WebGLProgram: Program Info Log: (210,86-138): warning X4122: sum of 0.996094 and -2.98545e-017 cannot be represented accurately in double precision\n(209,39-65): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(210,87-113): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(209,39-65): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(210,87-113): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision"
+      },
+      {
+        "url": "models/test/electricalSystem_alternator_d01.blender.glb",
+        "loadAndParseMs": 6581.199999809265,
+        "firstFrameMs": 12627.699999809265,
+        "ok": true,
+        "consoleMessages": 1,
+        "blobOutOfMemory": 0,
+        "sampleError": "THREE.WebGLProgram: Program Info Log: (210,86-138): warning X4122: sum of 0.996094 and -2.98545e-017 cannot be represented accurately in double precision\n(209,39-65): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(210,87-113): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(209,39-65): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(210,87-113): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision"
+      },
+      {
+        "url": "models/test/electricalSystem_alternator_d01.blender.glb",
+        "loadAndParseMs": 6146.699999809265,
+        "firstFrameMs": 10248.099999904633,
+        "ok": true,
+        "consoleMessages": 0,
+        "blobOutOfMemory": 0,
+        "sampleError": null
+      }
+    ],
+    "medianFirstFrameMs": 12627.699999809265
+  },
+  "alternator_opt": {
+    "url": "models/test/electricalSystem_alternator_d01.glb",
+    "runs": [
+      {
+        "url": "models/test/electricalSystem_alternator_d01.glb",
+        "loadAndParseMs": 350.7999999523163,
+        "firstFrameMs": 2121.2999999523163,
+        "ok": true,
+        "consoleMessages": 1,
+        "blobOutOfMemory": 0,
+        "sampleError": "THREE.WebGLProgram: Program Info Log: (210,86-138): warning X4122: sum of 0.996094 and -2.98545e-017 cannot be represented accurately in double precision\n(209,39-65): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(210,87-113): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(209,39-65): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(210,87-113): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision"
+      },
+      {
+        "url": "models/test/electricalSystem_alternator_d01.glb",
+        "loadAndParseMs": 240.30000019073486,
+        "firstFrameMs": 605.1000001430511,
+        "ok": true,
+        "consoleMessages": 0,
+        "blobOutOfMemory": 0,
+        "sampleError": null
+      },
+      {
+        "url": "models/test/electricalSystem_alternator_d01.glb",
+        "loadAndParseMs": 590,
+        "firstFrameMs": 1029.5999999046326,
+        "ok": true,
+        "consoleMessages": 0,
+        "blobOutOfMemory": 0,
+        "sampleError": null
+      }
+    ],
+    "medianFirstFrameMs": 1029.5999999046326
+  }
+}

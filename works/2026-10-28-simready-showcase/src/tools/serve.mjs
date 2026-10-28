@@ -7,8 +7,8 @@ import { fileURLToPath } from 'node:url';
 const root = join(fileURLToPath(new URL('.', import.meta.url)), '..', 'web');
 const port = Number(process.argv[2] ?? 5530);
 const types = {
-  '.html': 'text/html', '.js': 'text/javascript', '.glb': 'model/gltf-binary', '.hdr': 'application/octet-stream',
-  '.woff2': 'font/woff2', '.json': 'application/json',
+  '.html': 'text/html', '.js': 'text/javascript', '.mjs': 'text/javascript', '.glb': 'model/gltf-binary', '.hdr': 'application/octet-stream',
+  '.woff2': 'font/woff2', '.png': 'image/png', '.svg': 'image/svg+xml', '.json': 'application/json',
 };
 
 createServer((request, response) => {

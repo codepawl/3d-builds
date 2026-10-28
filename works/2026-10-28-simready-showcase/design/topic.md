@@ -1,59 +1,42 @@
-# SimReady showcase
+# SimReady optimized: film plan (v2)
 
-A 24 s, 16:9 (1920x1080, 30 fps) film for an X post about NVIDIA's free SimReady assets on Hugging Face
-(`huggingface.co/datasets/nvidia/simready-assets`). Verified 2026-10-28 from the HF API: 2,595 asset folders, dataset
-licence CC BY 4.0, created 2026-06-29, updated 2026-10-27. Point of the film: these are real, textured, articulated
-models that drop straight into a browser scene, light enough for 3D work and videos.
+An, 2026-10-28, replacing v1: the film shows **what the optimization changed**, before vs after, with measured
+numbers. Models are rendered clean (lit PBR). Dither and ASCII only on what is around them (backdrop, floor,
+transitions, UI, stat readouts); mask the model out of both passes. The whole set (2,595 assets) is optimized and
+published as a Hugging Face repo, linked in a reply under the post.
 
-## Assets (each folder's `.metadata/LICENSE.txt` is CC BY 4.0, checked 2026-10-28)
+Source: `huggingface.co/datasets/nvidia/simready-assets`, 2,595 asset folders, 80.7 GB (`usedStorage`), CC BY 4.0
+per folder (checked by `batch/run.mjs` on every asset).
 
-Converted in Blender 5.2 with `tools/usd_to_glb.py` (USD import, textures shrunk to 1024, JPEG, glb). Numbers are
-measured from the glb files; refresh them in the UI if a file is re-exported.
+## Pipeline (`batch/`)
 
-| File | Source folder | Downloaded | glb | Triangles | Moving parts |
-|---|---|---|---|---|---|
-| `web/models/v8.glb` | `engineAssembly_v8_engine_a01` | 1.7 GB | 27.5 MB | 959k | 9 gears + strap separate; hero, slow orbit |
-| `web/models/turbo.glb` | `engineComponent_turbocompressor_a01` | 168 MB | 13.1 MB | 363k | `turbine_01`, `turbine_02` spin |
-| `web/models/fan.glb` | `climate_shopFan_pedestal_a01` | 72 MB | 31.4 MB | 1.05M | `blade_01` spins |
-| `web/models/vise.glb` | `equipment_bench_vise_a01` | 115 MB | 3.1 MB | 106k | `slidingJaw_01`, `screw_01`, `handle_01` slide and turn |
-| `web/models/extinguisher.glb` | `fireExtinguisher_abc_a03` | 13 MB | 3.8 MB | 109k | none, turntable |
+1. Download `simready_usd/` without `.thumbs/` and `source_assets/`. `source_assets/` repeats every texture and is
+   referenced only by MDL shader files that Blender ignores. V8: 1.7 GB folder, half of it that copy.
+2. Blender 5.2 USD -> glb with the original textures (`usd_to_glb.py`).
+3. `optimize.mjs`: drop duplicate mesh instances left by USD references, dedup, prune, weld, textures to WebP at
+   1024 max edge, meshopt geometry compression. No simplify: at error 0.0001 it broke curved shading into facets.
+4. Delete the download. `run.mjs` runs it all, 2 workers, results in `<work-root>/out/` (`glb/`,
+   `manifest.jsonl` with per-stage numbers, `failures.jsonl`).
 
-"Downloaded" is what `tools/download.mjs` fetched per asset (the `simready_usd` folder without thumbnails, plus the licence).
+## Measured on the hero assets (2026-10-28)
 
-Each glb lists every mesh node twice (USD reference copies); the loader keeps the first node per mesh and hides the rest.
+| Asset | HF folder | Blender glb | Optimized | Triangles | Draw calls | Textures |
+|---|---|---|---|---|---|---|
+| V8 `engineAssembly_v8_engine_a01` | 1.7 GB | 888 MB | 9.3 MB | 1.92M -> 1.14M | 82 -> 64 | 47 x 4096 PNG -> 44 x 1024 WebP |
+| Vise `equipment_bench_vise_a01` | 127 MB | 60 MB | 1.2 MB | 212k | 16 | 3 x 4096 -> 3 x 1024 |
+| IV pole `IV_pole_a01` | 421 MB | - | 3.3 MB | | | |
+| Extinguisher `fireExtinguisher_abc_a03` | 19 MB | - | 1.1 MB | | | |
 
-## Look: Dither + ASCII showcase (`visualize-in-3d` references/looks.md)
+The 888 MB V8 glb is slow, not broken: first frame 10.4 s against 0.57 s optimized (`web/data/load_times.json`). Its
+textures failed once with `net::ERR_BLOB_OUT_OF_MEMORY`, but only with a second model loaded in the same page; alone
+it loaded fully, so the film and post claim only the measured load time.
 
-- Real three.js PBR scene (studio HDRI `~/Documents/social/assets-lib/hdri/lilienstein_2k.hdr` or similar, one key
-  light, soft contact shadow) on a near-black ground.
-- Two passes in the same frame: ASCII (reuse `~/Documents/social/demos/ascii-depths/web/src/ascii.js` and its
-  JetBrains Mono font) and 1-bit ordered Bayer dither (off-white ink on near-black, 2-3 px cells). A soft wipe splits
-  them across the subject, and a thin band (about 40-80 px) of the raw render rides the wipe edge.
-- Each shot moves the wipe differently: left-to-right sweep, a radial wipe from the clicked part, a wipe that
-  follows the cursor during the vise drag, a diagonal on the end lineup.
-- Monospace UI in the same two colours: a left rail with the five assets (name, glb MB, triangles), a small header
-  "NVIDIA SimReady / Hugging Face / CC BY 4.0". House UI rules: no eyebrows, no divider lines, no coloured left
-  borders; the selected row is a subtle fill with a filled marker.
+## Beats (real clicks, drags and keys on a virtual clock, every input has a sound)
 
-## Beats (driven only by real clicks, drags and keys on a virtual clock, visible cursor)
-
-1. 0.0-4.5 V8 engine, low hero orbit, sweep from ASCII to dither.
-2. 4.5 click "turbo" row. Turbo: click a "spin" button, both turbines spin up with motion blur glyphs; radial wipe.
-3. 9.0 click "fan" row. Fan blades spin; camera cranes from low front to three-quarter.
-4. 13.0 click "vise" row. Drag the jaw handle: the jaw slides open, the screw and handle turn with it; wipe follows the cursor.
-5. 17.0 click "extinguisher" row. Turntable, key press `Space` flips which side is ASCII.
-6. 20.0-24.0 all five on one shelf line, diagonal wipe, end card: "2,595 free 3D assets · NVIDIA SimReady on Hugging
-   Face · CC BY 4.0 · assets by NVIDIA".
-
-Every transition between assets is a dither dissolve, never a pop. Nothing stops dead (film.md, Motion).
-
-## Sound
-
-Every click, drag step and key press gets its own sound from `input_events.json` (film.md, Sound). Recordings to
-reuse: `~/Documents/social/demos/grid-power/sound/sources/` (click_a, click_b, switch_a, whoosh) with their credits.
-Add a short turbine whir and fan hum from CC0 recordings if found. Mix to -16 LUFS, true peak under -1 dBFS.
-
-## Output
-
-`out/simready-showcase.mp4` (H.264, yuv420p, AAC), contact sheets in `out/sheets/`, peak stills in `out/stills/`.
-`CREDITS.md` lists every asset folder (CC BY 4.0, NVIDIA) and every sound.
+1. Before: the V8 as NVIDIA ships it, 1.7 GB. Load the 888 MB glb: show the real failed render and the real error.
+2. Pipeline: one row per step, each click applies it and the stat panel counts to the measured numbers
+   (size, triangles, draw calls, texture size). The model stays clean and on screen.
+3. Look held: same camera, raw 4K vs optimized 1K side by side on an asset that loads raw (vise), with a drag
+   slider across it, then a close-up.
+4. The whole set: many optimized assets load into one scene fast, with the set totals from the manifest.
+5. End card: the Hugging Face repo name, "Models by NVIDIA SimReady, CC BY 4.0".

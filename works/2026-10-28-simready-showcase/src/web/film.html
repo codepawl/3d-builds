@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SimReady optimized</title>
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.js", "three/addons/": "./vendor/" } }
+</script>
+<style>
+  :root { --ink: #e9e5d8; --bg: #0b0b0d; --panel: #141416; --fail: #ff6b5c; --pass: #7be08a; --warn: #f2b84b; }
+  html, body { margin: 0; width: 1920px; height: 1080px; background: var(--bg); overflow: hidden; cursor: none; }
+  body { font-family: 'JetBrainsMono', Consolas, monospace; color: var(--ink); user-select: none; -webkit-user-select: none; }
+  canvas { position: fixed; left: 0; top: 0; width: 1920px; height: 1080px; display: block; }
+  #before, #view { pointer-events: none; }
+  .page { position: fixed; inset: 0; opacity: 0; pointer-events: none; }
+  .page.on { opacity: 1; }
+  .page.on button, .page.on .grab { pointer-events: auto; }
+  button { font: inherit; color: var(--ink); border: 0; outline: none; cursor: none; text-align: left; }
+  .icon { width: 28px; height: 28px; display: block; flex: none; }
+  .brand { display: inline-flex; align-items: center; gap: 0.38em; }
+  .setlabel.brand { display: flex; }
+  .logo { width: 1em; height: 1em; display: block; flex: none; }
+  .step-icon { width: 28px; height: 28px; display: block; flex: none; }
+  small { font-size: 28px; font-weight: 400; opacity: 0.65; margin-left: 10px; }
+
+  /* progress beat: the track, the stat panels, the step rows */
+  #modelTitle { position: fixed; left: 0; width: 1240px; top: 206px; text-align: center; font-size: 28px; opacity: 0.6; }
+  .head { position: fixed; top: 662px; display: flex; align-items: center; gap: 14px; font-size: 36px; font-weight: 700; }
+  #headRaw { left: 72px; }
+  #headOpt { left: 1012px; }
+  .col { position: fixed; top: 722px; width: 900px; box-sizing: border-box; padding: 12px 32px; border-radius: 18px; background: var(--panel); }
+  #colRaw { left: 40px; }
+  #colOpt { left: 980px; }
+  .row { display: grid; grid-template-columns: 230px 1fr auto; align-items: baseline; height: 60px; }
+  .row .label { font-size: 28px; opacity: 0.6; }
+  .row .value { font-size: 50px; font-weight: 700; white-space: nowrap; }
+  .row .delta { font-size: 28px; font-weight: 700; color: var(--pass); white-space: nowrap; }
+  .row.dim .value { opacity: 0.3; }
+  .row.hot .value { color: var(--pass); }
+  .row.slow .value { color: var(--warn); }
+  #track { position: fixed; left: 40px; top: 30px; width: 1840px; height: 160px; }
+  #trackBar { position: absolute; left: 153px; top: 12px; width: 1534px; height: 14px; margin-top: 0; border-radius: 7px; background: rgba(233, 229, 216, 0.14); overflow: hidden; }
+  #trackFill { display: block; height: 100%; width: 0; background: var(--pass); }
+  #trackNodes { position: absolute; left: 0; top: 0; width: 1840px; display: grid; grid-template-columns: repeat(6, 1fr); }
+  .node { display: flex; flex-direction: column; align-items: center; opacity: 0.55; }
+  .node.lit { opacity: 1; }
+  .node .mark { display: flex; width: 38px; height: 38px; align-items: center; justify-content: center; border-radius: 19px; background: var(--bg); color: var(--ink); }
+  .node .mark .icon { width: 34px; height: 34px; }
+  .node .name { display: flex; align-items: center; gap: 10px; margin-top: 14px; font-size: 26px; font-weight: 700; white-space: nowrap; }
+  .node .sub { margin-top: 6px; font-size: 26px; white-space: nowrap; opacity: 0; }
+  .node.lit .sub { opacity: 0.8; }
+  #centre { position: fixed; left: 1200px; top: 232px; width: 660px; }
+  #steps { margin: 0; }
+  .step { display: grid; grid-template-columns: 28px 28px 1fr; column-gap: 12px; align-items: center; width: 100%; box-sizing: border-box; padding: 8px 20px; margin-bottom: 8px; border-radius: 14px; background: transparent; font-size: 30px; font-weight: 700; opacity: 0.6; }
+  .step span { white-space: nowrap; }
+  .step .delta { grid-column: 3; font-size: 28px; font-weight: 400; opacity: 0.8; color: var(--ink); }
+  .step.done { opacity: 1; background: rgba(233, 229, 216, 0.12); }
+
+  /* beat 2: the vise slider */
+  .side { position: fixed; top: 96px; width: 440px; box-sizing: border-box; padding: 26px 32px 30px; border-radius: 18px; background: var(--panel); }
+  #sideRaw { left: 56px; }
+  #sideOpt { right: 56px; text-align: right; }
+  .side .bigvalue { font-size: 56px; font-weight: 700; }
+  .side .tag { font-size: 32px; font-weight: 700; display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+  #sideOpt .tag { justify-content: flex-end; }
+  .side .line { margin-top: 8px; font-size: 28px; opacity: 0.75; }
+  #slider { position: fixed; top: 0; width: 14px; height: 1080px; margin-left: -7px; background-image: var(--bayer); background-size: 14px 14px; image-rendering: pixelated; opacity: 0.85; pointer-events: none; }
+  #handle { position: fixed; top: 640px; width: 96px; height: 96px; margin: -48px 0 0 -48px; border-radius: 48px; background: var(--ink); color: var(--bg); display: flex; align-items: center; justify-content: center; font-size: 34px; font-weight: 700; }
+  #grabTag { position: fixed; top: 548px; transform: translateX(-50%); padding: 6px 16px; border-radius: 8px; background: var(--ink); color: var(--bg); font-size: 28px; font-weight: 700; }
+  #keyHint { position: fixed; left: 50%; bottom: 52px; transform: translateX(-50%); display: flex; align-items: center; gap: 14px; font-size: 28px; opacity: 0; }
+  #keyHint b { padding: 6px 16px; border-radius: 8px; background: rgba(233, 229, 216, 0.16); }
+
+  /* beat 3: the whole set */
+  #setPanel { position: fixed; left: 40px; top: 230px; width: 560px; box-sizing: border-box; padding: 30px 36px 34px; border-radius: 18px; background: var(--panel); }
+  .bigline { font-size: 52px; font-weight: 700; white-space: nowrap; }
+  .setlabel { margin-top: 26px; font-size: 28px; opacity: 0.6; }
+  .setbar { height: 22px; margin: 6px 0 4px; border-radius: 4px; background: rgba(233, 229, 216, 0.08); overflow: hidden; }
+  .setbar i { display: block; height: 100%; }
+  #setBarSource { background-image: var(--bayer); background-size: 12px 12px; image-rendering: pixelated; }
+  #setBarOpt { background: var(--pass); }
+  #setBtn { display: flex; align-items: center; gap: 14px; margin-top: 34px; padding: 18px 26px; border-radius: 12px; background: rgba(233, 229, 216, 0.16); font-size: 30px; font-weight: 700; }
+
+  #end { position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); padding: 64px 80px 66px; border-radius: 22px; background: var(--panel); text-align: center; opacity: 0; white-space: nowrap; }
+  #end .l1 { font-size: 48px; font-weight: 700; }
+  #end .l2 { margin-top: 26px; font-size: 76px; font-weight: 700; }
+  #end .brand { justify-content: center; }
+  #end .l1.brand { display: flex; }
+  #end .l2.brand { display: flex; gap: 0.3em; font-size: 68px; }
+  #end { padding: 64px 56px 66px; }
+  #end .l3 { margin-top: 26px; font-size: 28px; opacity: 0.7; }
+  #dimmer { position: fixed; inset: 0; background: var(--bg); opacity: 0; pointer-events: none; }
+  #film-cursor { position: fixed; left: 0; top: 0; width: 26px; height: 34px; z-index: 99; pointer-events: none; }
+</style>
+</head>
+<body>
+<canvas id="backdrop" width="1920" height="1080"></canvas>
+<canvas id="before" width="1920" height="1080"></canvas>
+<canvas id="view" width="1920" height="1080"></canvas>
+
+<div class="page" id="pageProgress">
+  <div id="track"><div id="trackBar"><i id="trackFill"></i></div><div id="trackNodes"></div></div>
+  <div id="modelTitle">engineAssembly_v8_engine_a01</div>
+  <div class="head" id="headRaw"></div>
+  <div class="head" id="headOpt"></div>
+  <div class="col" id="colRaw"></div>
+  <div class="col" id="colOpt"></div>
+  <div id="centre"><div id="steps"></div></div>
+</div>
+
+<div class="page" id="pageVise">
+  <div class="side" id="sideRaw"></div>
+  <div class="side" id="sideOpt"></div>
+  <div id="slider"></div>
+  <div id="grabTag">drag</div>
+  <button id="handle" class="grab">&#9664;&#9654;</button>
+  <div id="keyHint"><b>space</b>close-up</div>
+</div>
+
+<div class="page" id="pageSet">
+  <div id="setPanel">
+    <div class="bigline" id="setCount"></div>
+    <div class="setlabel brand" id="setLabelSource"></div>
+    <div class="bigline" id="setSource"></div>
+    <div class="setbar"><i id="setBarSource"></i></div>
+    <div class="setlabel">optimized glb</div>
+    <div class="bigline" id="setOptimized"></div>
+    <div class="setbar"><i id="setBarOpt"></i></div>
+    <div class="bigline" style="margin-top:26px" id="setRatio"></div>
+    <button id="setBtn"><svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4l13 8-13 8z"/></svg>load the set</button>
+  </div>
+</div>
+
+<div class="page" id="pageEnd"><div id="end"></div></div>
+<div id="dimmer"></div>
+<script type="module" src="./src/film.js"></script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Compare</title>
+<style>html, body { margin: 0; background: #111; } canvas { display: block; }</style>
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.js", "three/addons/": "./vendor/" } }
+</script>
+</head>
+<body>
+<script type="module">
+// Renders two glb files side by side from one camera. Usage: compare.html?a=<url>&b=<url>&yaw=<degrees>&zoom=<factor>
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { HDRLoader } from 'three/addons/loaders/HDRLoader.js';
+import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.mjs';
+
+const parameters = new URLSearchParams(location.search);
+const yaw = THREE.MathUtils.degToRad(Number(parameters.get('yaw') ?? 35));
+const zoom = Number(parameters.get('zoom') ?? 1);
+const width = 1920;
+const height = 1080;
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+renderer.setSize(width, height);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.setScissorTest(true);
+document.body.appendChild(renderer.domElement);
+
+const loader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
+const environment = await new HDRLoader().loadAsync('./assets/lilienstein_2k.hdr');
+environment.mapping = THREE.EquirectangularReflectionMapping;
+
+async function makeScene(url) {
+  const scene = new THREE.Scene();
+  scene.environment = environment;
+  scene.background = new THREE.Color(0x1a1a1a);
+  const gltf = await loader.loadAsync(url);
+  scene.add(gltf.scene);
+  return { scene, box: new THREE.Box3().setFromObject(gltf.scene) };
+}
+
+try {
+  const left = await makeScene(parameters.get('a'));
+  const right = await makeScene(parameters.get('b'));
+  const center = left.box.getCenter(new THREE.Vector3());
+  const radius = left.box.getSize(new THREE.Vector3()).length() / 2;
+  const camera = new THREE.PerspectiveCamera(30, width / 2 / height, radius / 100, radius * 100);
+  const distance = radius / Math.sin(THREE.MathUtils.degToRad(15)) / zoom;
+  camera.position.set(center.x + Math.sin(yaw) * distance, center.y + distance * 0.35, center.z + Math.cos(yaw) * distance);
+  camera.lookAt(center);
+  // Several passes: the first render of each scene uploads textures and builds the environment map.
+  for (let pass = 0; pass < 3; pass++) {
+    for (const [index, side] of [left, right].entries()) {
+      renderer.setViewport(index * width / 2, 0, width / 2, height);
+      renderer.setScissor(index * width / 2, 0, width / 2, height);
+      renderer.render(side.scene, camera);
+    }
+  }
+  const describeMaps = (scene) => {
+    const rows = new Set();
+    scene.traverse((object) => {
+      if (!object.material || !object.material.name.includes('steel_a01')) return;
+      const map = object.material.metalnessMap;
+      rows.add(`${object.material.name} metal=${object.material.metalness} rough=${object.material.roughness} map=${map ? map.image?.width + ' ' + map.image?.constructor.name : 'none'}`);
+    });
+    return [...rows];
+  };
+  window.__debug = { left: describeMaps(left.scene), right: describeMaps(right.scene), gl: renderer.getContext().getError() };
+  window.__ready = true;
+} catch (error) {
+  window.__error = String(error);
+  console.error(error);
+}
+</script>
+</body>
+</html>

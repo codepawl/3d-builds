@@ -1,0 +1,100 @@
+{
+  "models": [
+    {
+      "asset": "equipment_tool_organizer_cart_j01",
+      "category": "equipment",
+      "file": "models/set/equipment_tool_organizer_cart_j01.glb",
+      "folderBytes": 1109572577,
+      "optimizedBytes": 44516048,
+      "triangles": 11136704
+    },
+    {
+      "asset": "workstation_factory_a01",
+      "category": "workstation",
+      "file": "models/set/workstation_factory_a01.glb",
+      "folderBytes": 1312639798,
+      "optimizedBytes": 27635080,
+      "triangles": 4900080
+    },
+    {
+      "asset": "serviceTool_used_filter_crusher_b01",
+      "category": "serviceTool",
+      "file": "models/set/serviceTool_used_filter_crusher_b01.glb",
+      "folderBytes": 1445488375,
+      "optimizedBytes": 16128532,
+      "triangles": 3873880
+    },
+    {
+      "asset": "chair_patient_mobile_a01",
+      "category": "chair",
+      "file": "models/set/chair_patient_mobile_a01.glb",
+      "folderBytes": 871125616,
+      "optimizedBytes": 16451472,
+      "triangles": 3753398
+    },
+    {
+      "asset": "tireTool_tire_changer_a01",
+      "category": "tireTool",
+      "file": "models/set/tireTool_tire_changer_a01.glb",
+      "folderBytes": 1573993472,
+      "optimizedBytes": 16582676,
+      "triangles": 3402956
+    },
+    {
+      "asset": "appliance_dishwasher_a01",
+      "category": "appliance",
+      "file": "models/set/appliance_dishwasher_a01.glb",
+      "folderBytes": 478103241,
+      "optimizedBytes": 11453548,
+      "triangles": 2917512
+    },
+    {
+      "asset": "facilityFurniture_lockerUnit_multiDoor_a01",
+      "category": "facilityFurniture",
+      "file": "models/set/facilityFurniture_lockerUnit_multiDoor_a01.glb",
+      "folderBytes": 281534783,
+      "optimizedBytes": 15006828,
+      "triangles": 2787015
+    },
+    {
+      "asset": "furniture_workbench_standard_d01",
+      "category": "furniture",
+      "file": "models/set/furniture_workbench_standard_d01.glb",
+      "folderBytes": 526061448,
+      "optimizedBytes": 11858384,
+      "triangles": 2591312
+    },
+    {
+      "asset": "robotic_system_console_b01",
+      "category": "robotic",
+      "file": "models/set/robotic_system_console_b01.glb",
+      "folderBytes": 2021531143,
+      "optimizedBytes": 11923616,
+      "triangles": 2539960
+    },
+    {
+      "asset": "cabinet_for_drugs_a06",
+      "category": "cabinet",
+      "file": "models/set/cabinet_for_drugs_a06.glb",
+      "folderBytes": 347452443,
+      "optimizedBytes": 11867652,
+      "triangles": 2482170
+    },
+    {
+      "asset": "refrigerator_b01",
+      "category": "refrigerator",
+      "file": "models/set/refrigerator_b01.glb",
+      "folderBytes": 832303159,
+      "optimizedBytes": 14001504,
+      "triangles": 2423518
+    },
+    {
+      "asset": "hemodialysis_machine_a01",
+      "category": "hemodialysis",
+      "file": "models/set/hemodialysis_machine_a01.glb",
+      "folderBytes": 1038729927,
+      "optimizedBytes": 14748180,
+      "triangles": 2411128
+    }
+  ]
+}
