@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SimReady showcase</title>
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.js", "three/addons/": "./vendor/" } }
+</script>
+<style>
+  :root { --ink: #e9e5d8; --bg: #0b0b0d; --panel: #141416; }
+  html, body { margin: 0; height: 100%; background: var(--bg); overflow: hidden; cursor: none; }
+  body { font-family: 'JetBrainsMono', Consolas, monospace; color: var(--ink); user-select: none; -webkit-user-select: none; }
+  canvas { position: fixed; inset: 0; width: 100vw; height: 100vh; display: block; }
+  #header { position: fixed; left: 56px; top: 44px; display: flex; gap: 22px; font-size: 17px; opacity: 0.78; }
+  #header span:first-child { opacity: 1; }
+  #rail { position: fixed; left: 40px; top: 50%; transform: translateY(-50%); width: 340px; display: flex; flex-direction: column; gap: 10px; }
+  .row {
+    display: grid; grid-template-columns: 22px 1fr; column-gap: 10px; align-items: center;
+    padding: 14px 16px; border: 0; border-radius: 12px; background: transparent; color: var(--ink);
+    font: inherit; text-align: left; cursor: none; opacity: 0.62; outline: none;
+  }
+  .row.selected { background: rgba(233, 229, 216, 0.11); opacity: 1; }
+  .marker { width: 11px; height: 11px; border-radius: 50%; border: 2px solid var(--ink); box-sizing: border-box; justify-self: center; }
+  .row.selected .marker { background: var(--ink); }
+  .name { font-size: 23px; font-weight: 700; line-height: 1.2; }
+  .meta { grid-column: 2; font-size: 15px; opacity: 0.6; margin-top: 3px; }
+  #actions { position: fixed; left: 440px; right: 0; bottom: 56px; display: flex; justify-content: center; gap: 16px; }
+  .action {
+    padding: 14px 26px; border: 0; border-radius: 12px; background: rgba(233, 229, 216, 0.14); color: var(--ink);
+    font: 700 21px 'JetBrainsMono', Consolas, monospace; cursor: none; display: none; outline: none;
+  }
+  .action.visible { display: block; }
+  .hint { display: none; font-size: 18px; padding: 14px 4px; opacity: 0.8; }
+  .hint.visible { display: block; }
+  .hint b { background: rgba(233, 229, 216, 0.14); padding: 4px 10px; border-radius: 8px; margin-right: 8px; }
+  #grab { pointer-events: none; position: fixed; display: none; font-size: 16px; font-weight: 700; color: var(--bg); background: var(--ink); padding: 4px 10px; border-radius: 8px; transform: translate(-50%, -190%); }
+  #endcard {
+    pointer-events: none;
+    position: fixed; left: 1150px; top: 50%; transform: translate(-50%, -50%); width: max-content; text-align: center;
+    padding: 40px 52px 44px; border-radius: 18px; background: var(--panel); opacity: 0; font-size: 72px; font-weight: 700; line-height: 1.15;
+  }
+  #endcard small { display: block; margin-top: 22px; font-size: 30px; font-weight: 400; opacity: 0.75; }
+  #dimmer { position: fixed; inset: 0; background: var(--bg); opacity: 0; pointer-events: none; }
+  #film-cursor { position: fixed; left: 0; top: 0; width: 26px; height: 34px; z-index: 99; pointer-events: none; }
+</style>
+</head>
+<body>
+<canvas id="view"></canvas>
+<div id="dimmer"></div>
+<div id="header"><span>NVIDIA SimReady</span><span>Hugging Face</span><span>CC BY 4.0</span></div>
+<div id="rail"></div>
+<div id="actions">
+  <button class="action" id="spin" data-for="turbo">spin</button>
+  <div class="hint" id="flip-hint" data-for="extinguisher"><b>space</b>swap the two looks</div>
+</div>
+<div id="grab">drag</div>
+<div id="endcard">2,595 free 3D assets<small>NVIDIA SimReady on Hugging Face · CC BY 4.0 · assets by NVIDIA</small></div>
+<script type="module" src="./src/app.js"></script>
+</body>
+</html>
