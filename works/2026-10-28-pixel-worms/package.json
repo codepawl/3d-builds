@@ -1,0 +1,9 @@
+{
+  "name": "pixel-worms",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": { "dev": "vite --port 5471 --strictPort --host 127.0.0.1", "build": "vite build" },
+  "dependencies": { "three": "0.186.1" },
+  "devDependencies": { "vite": "8.3.4" }
+}

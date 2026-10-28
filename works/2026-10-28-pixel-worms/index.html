@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="Pixel Worms: a free, open-source game. Lead a swarm of worms, eat everything and grow." />
+  <title>Pixel Worms</title>
+  <style>
+    @font-face { font-family: 'Pixelify Sans'; src: url('./fonts/PixelifySans.ttf'); font-weight: 400 700; }
+    html, body { margin: 0; height: 100%; background: #ead9b4; overflow: hidden; touch-action: none; }
+    canvas { position: fixed; inset: 0; width: 100vw; height: 100vh; object-fit: contain; image-rendering: pixelated; cursor: crosshair; }
+    body.play canvas { object-fit: fill; width: 100%; height: 100%; }
+    #hud {
+      position: fixed; left: 28px; bottom: 24px; color: #fff3d6; font: 600 30px/1 'Pixelify Sans', monospace;
+      text-shadow: 3px 3px 0 #3a1017; white-space: pre; pointer-events: none; user-select: none;
+    }
+    body.play #hud { display: none; }
+    #loading {
+      position: fixed; inset: 0; display: grid; place-items: center; color: #8a1828;
+      font: 600 28px/1 'Pixelify Sans', monospace; letter-spacing: 0.04em; pointer-events: none;
+    }
+    #loading span { animation: blink 1s steps(2) infinite; }
+    @keyframes blink { 50% { opacity: 0.35; } }
+  </style>
+</head>
+<body>
+  <canvas id="view"></canvas>
+  <div id="hud"></div>
+  <div id="loading"><span>Loading worms</span></div>
+  <div id="play" hidden>
+    <div id="stats">
+      <div class="row"><span id="count-chip" class="chip"></span><span id="time-chip" class="chip"></span></div>
+      <div id="eaten" class="row"></div>
+    </div>
+    <button id="sound" class="icon-button" aria-label="Sound"></button>
+    <section id="start" class="screen">
+      <h1>Pixel Worms</h1>
+      <button id="play-button" class="primary">Play</button>
+    </section>
+    <button id="credits-open" class="text-button">Credits</button>
+    <section id="end" class="screen" hidden>
+      <div id="end-icon"></div>
+      <h2 id="end-title"></h2>
+      <div id="end-stats" class="row"></div>
+      <button id="again-button" class="primary">Play again</button>
+    </section>
+    <section id="credits" class="page" hidden>
+      <div class="page-inner">
+        <button id="credits-back" class="text-button">Back</button>
+        <h2>Credits</h2>
+        <div id="credits-body"></div>
+      </div>
+    </section>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

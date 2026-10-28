@@ -1,0 +1,7 @@
+// Static site for worms.codepawl.com: `npm run build`, then `wrangler deploy`.
+{
+  "name": "pixel-worms",
+  "compatibility_date": "2026-10-01",
+  "assets": { "directory": "./dist" },
+  "routes": [{ "pattern": "worms.codepawl.com", "custom_domain": true }]
+}

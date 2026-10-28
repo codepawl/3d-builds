@@ -1,0 +1,83 @@
+[
+  {
+    "kind": "model",
+    "pack": "Cube Pets 1.0",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/cube-pets",
+    "license": "CC0 1.0",
+    "used": [
+      "animal-chick (chicken)",
+      "animal-bunny (rabbit)",
+      "animal-hog (pig, replaces the recoloured polar bear that stood in for a sheep)",
+      "animal-deer",
+      "animal-cow",
+      "animal-fox copied, not placed"
+    ],
+    "files": "public/models/cube-pets"
+  },
+  {
+    "kind": "model",
+    "pack": "Blocky Characters 2.0",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/blocky-characters",
+    "license": "CC0 1.0",
+    "used": [
+      "character-a to character-h (villagers: Tom, Mara, Ned, Ivy, Finn, Rosa, Ben, Elsie, Hugo, Nell, Otto, June)"
+    ],
+    "files": "public/models/blocky"
+  },
+  {
+    "kind": "model",
+    "pack": "Fantasy Town Kit 2.0",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/fantasy-town-kit",
+    "license": "CC0 1.0",
+    "used": [
+      "wall-wood, wall-wood-door, wall-wood-window-shutters, roof-gable, roof-gable-end, roof-high-gable (houses and barns, roofs recoloured weathered brown, slate and straw at load time)",
+      "stall-red",
+      "cart"
+    ],
+    "files": "public/models/fantasy-town"
+  },
+  {
+    "kind": "model",
+    "pack": "Nature Kit",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0 1.0",
+    "used": [
+      "trees, rocks, grass_large, flowers, bushes, fence_planks, crops_wheatStageB, log_stack, sign, stump_old, lily_small"
+    ],
+    "files": "public/models/nature-kit",
+    "note": "teal leaves and orange wood are remapped to green and brown at load time"
+  },
+  {
+    "kind": "font",
+    "id": "Pixelify Sans",
+    "source": "https://fonts.google.com/specimen/Pixelify+Sans",
+    "license": "SIL OFL 1.1",
+    "files": "public/fonts"
+  },
+  {
+    "kind": "code",
+    "id": "three.js 0.186.1",
+    "license": "MIT",
+    "source": "https://threejs.org/"
+  },
+  {
+    "kind": "inspiration",
+    "id": "@Yokohara_h's worm swarm",
+    "source": "https://x.com/Yokohara_h/status/2113611938337038512"
+  },
+  {
+    "kind": "source",
+    "id": "Source code: codepawl/3d-builds, works/2026-10-28-pixel-worms",
+    "source": "https://github.com/codepawl/3d-builds",
+    "license": "MIT"
+  },
+  {
+    "kind": "made",
+    "id": "Made by CodePawl with Claude Opus 5.5 in Claude Code",
+    "source": "https://codepawl.com/"
+  }
+]

@@ -1,0 +1,240 @@
+{
+  "legs": [
+    {
+      "type": "point",
+      "until": 60,
+      "x": 14,
+      "z": 5.5,
+      "label": "wake"
+    },
+    {
+      "type": "point",
+      "until": 150,
+      "x": 15,
+      "z": -1,
+      "label": "lead"
+    },
+    {
+      "type": "hunt",
+      "until": 820,
+      "label": "paddock",
+      "kinds": [
+        "chicken",
+        "cow",
+        "pig",
+        "rabbit"
+      ],
+      "near": [
+        15,
+        -3
+      ],
+      "radius": 10,
+      "fallback": [
+        15,
+        -4
+      ]
+    },
+    {
+      "type": "hunt",
+      "until": 1000,
+      "label": "pigs",
+      "kinds": [
+        "pig",
+        "cow"
+      ],
+      "near": [
+        -6,
+        1
+      ],
+      "radius": 9,
+      "fallback": [
+        -8,
+        -2
+      ]
+    },
+    {
+      "type": "point",
+      "until": 1040,
+      "x": -9,
+      "z": -5.5,
+      "y": 3.2,
+      "label": "cottage"
+    },
+    {
+      "type": "hunt",
+      "until": 1130,
+      "label": "village",
+      "kinds": [
+        "villager"
+      ],
+      "near": [
+        -17,
+        -9
+      ],
+      "radius": 12,
+      "fallback": [
+        -17,
+        -9
+      ]
+    },
+    {
+      "type": "hunt",
+      "until": 1280,
+      "label": "meadow",
+      "kinds": [
+        "rabbit",
+        "deer",
+        "pig"
+      ],
+      "near": [
+        -16,
+        10
+      ],
+      "radius": 14,
+      "fallback": [
+        -30,
+        14
+      ]
+    },
+    {
+      "type": "hunt",
+      "until": 1400,
+      "label": "fields",
+      "kinds": [
+        "chicken",
+        "rabbit",
+        "pig",
+        "deer",
+        "cow"
+      ],
+      "near": [
+        -42,
+        6
+      ],
+      "radius": 20,
+      "fallback": [
+        -50,
+        8
+      ]
+    },
+    {
+      "type": "hunt",
+      "until": 1560,
+      "label": "wood",
+      "kinds": [
+        "chicken",
+        "rabbit"
+      ],
+      "near": [
+        -52,
+        6
+      ],
+      "radius": 30,
+      "fallback": [
+        -78,
+        12
+      ]
+    },
+    {
+      "type": "hunt",
+      "until": 1800,
+      "label": "deep-wood",
+      "kinds": [
+        "chicken",
+        "rabbit",
+        "pig",
+        "deer",
+        "cow"
+      ],
+      "near": [
+        -84,
+        22
+      ],
+      "radius": 24,
+      "fallback": [
+        -90,
+        16
+      ]
+    }
+  ],
+  "speedKeys": [
+    [
+      0,
+      1
+    ],
+    [
+      300,
+      1.2
+    ],
+    [
+      1000,
+      1.4
+    ],
+    [
+      1130,
+      1.8
+    ],
+    [
+      1800,
+      2.2
+    ]
+  ],
+  "eatGapKeys": [
+    [
+      0,
+      0.5
+    ],
+    [
+      600,
+      0.5
+    ],
+    [
+      1000,
+      0.4
+    ],
+    [
+      1130,
+      0.3
+    ]
+  ],
+  "growthKeys": [
+    [
+      0,
+      0.7
+    ],
+    [
+      500,
+      1
+    ],
+    [
+      900,
+      1.3
+    ],
+    [
+      1300,
+      2.4
+    ],
+    [
+      1800,
+      2.3
+    ]
+  ],
+  "fleeKeys": [[0, 0.2], [500, 0.4], [900, 1]],
+  "pullFrame": 1480,
+  "pullAmount": 0.5,
+  "totalFrames": 1800,
+  "spreadKeys": [
+    [
+      0,
+      1
+    ],
+    [
+      1440,
+      1
+    ],
+    [
+      1700,
+      3
+    ]
+  ]
+}
