@@ -6,6 +6,7 @@ an error on an input it has no sound for, and checks that every input has sound 
 Effects are real CC0 Freesound recordings, small and soft: a light mouse click, a soft whoosh, a quiet tick.
 Music is Hypnothis by Kevin MacLeod (incompetech.com, CC BY 4.0), ducked under the effects, faded in and out.
 Mix: about -16 LUFS integrated, true peak under -1 dBFS. See CREDITS.md for sources and licences.
+Env for another film: INPUTS (events json), CUES (optional), SECONDS (film length), OUTPUT (wav path).
 Run: uv run --offline --no-project --python 3.12 --with numpy --with scipy --with soundfile --with pyloudnorm python sound/make_sound.py
 """
 import json
@@ -110,11 +111,17 @@ def build_effects(length, inputs, cues):
     for event in inputs:
         seconds = event["frame"] / FRAMES_PER_SECOND
         target = event["target"]
-        if event["kind"] == "click" and target.startswith(("button:", "row:")):
+        if event["kind"] == "click" and target.startswith(("button:", "row:", "tile:", "input:")):
             name = effects.alternate("click", ["click_a", "click_b"])
             effects.place(click(name, 1.0, 0.8), seconds)
         elif event["kind"] == "click" and target == "slider.grab":
             effects.place(click("click_b", 0.88, 0.7), seconds)
+        elif event["kind"] == "click" and target.endswith(".grab"):
+            # Grabbing a slider, a part or the stage: a low click, and a soft swipe that carries the drag.
+            effects.place(click("click_b", 0.88, 0.7), seconds)
+            effects.place(whoosh("whoosh_swipe", 0.5, 0.4, pitch_factor=0.85, low_pass_hz=4000), seconds + 0.05)
+        elif event["kind"] == "release":
+            continue
         elif event["kind"] == "drag":
             # No tick per drag step: repeated ticks read as tapping a bowl (An, 2026-10-28). The slide whoosh cue
             # carries the drag.
@@ -185,7 +192,7 @@ def build_music(length):
 
 def check_every_input_is_heard(effect_bus, inputs):
     for event in inputs:
-        if event["kind"] == "drag":
+        if event["kind"] in ("drag", "release"):
             continue
         begin = int(event["frame"] / FRAMES_PER_SECOND * SAMPLE_RATE)
         window = effect_bus[begin: begin + int(0.1 * SAMPLE_RATE)]
@@ -194,10 +201,14 @@ def check_every_input_is_heard(effect_bus, inputs):
 
 
 def main():
-    inputs = json.load(open(os.path.join(PROJECT, "out", "input_events.json"), encoding="utf-8"))
-    cues = json.load(open(os.path.join(PROJECT, "out", "cue_events.json"), encoding="utf-8"))
-    script = open(os.path.join(PROJECT, "web", "src", "script.js"), encoding="utf-8").read()
-    seconds = float(script.split("endSeconds:")[1].split(",")[0])
+    inputs = json.load(open(os.environ.get("INPUTS", os.path.join(PROJECT, "out", "input_events.json")), encoding="utf-8"))
+    cues_path = os.environ.get("CUES", os.path.join(PROJECT, "out", "cue_events.json") if "INPUTS" not in os.environ else "")
+    cues = json.load(open(cues_path, encoding="utf-8")) if cues_path else []
+    if "SECONDS" in os.environ:
+        seconds = float(os.environ["SECONDS"])
+    else:
+        script = open(os.path.join(PROJECT, "web", "src", "script.js"), encoding="utf-8").read()
+        seconds = float(script.split("endSeconds:")[1].split(",")[0])
     length = int(round(seconds * SAMPLE_RATE))
 
     effect_bus = build_effects(length, inputs, cues)
@@ -216,7 +227,7 @@ def main():
     print(f"music alone {music_only:.2f} LUFS, effects peak {20 * np.log10(EFFECT_PEAK * gain):.1f} dBFS, gain {gain:.2f}")
     if peak > -1.0 or abs(final - TARGET_LUFS) > 0.6:
         raise SystemExit("mix is outside the loudness or true peak target")
-    output = os.path.join(PROJECT, "sound", "simready-optimized.wav")
+    output = os.environ.get("OUTPUT", os.path.join(PROJECT, "sound", "simready-optimized.wav"))
     soundfile.write(output, mix, SAMPLE_RATE, subtype="PCM_16")
     print(output)
 

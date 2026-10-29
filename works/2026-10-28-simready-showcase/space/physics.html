@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SimReady Physics</title>
+<meta name="description" content="Drop SimReady models and pull their doors and drawers, simulated from the physics stored in each glb.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./style.css">
+<link rel="stylesheet" href="./physics.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/",
+    "rapier": "https://cdn.jsdelivr.net/npm/@dimforge/rapier3d-compat@0.19.3/rapier.mjs"
+  }
+}
+</script>
+</head>
+<body class="physics-page">
+<header class="top">
+  <a class="brand" href="./">SimReady GLB</a>
+  <p class="summary">Physics from the glb: mass, friction, colliders and joints.</p>
+  <a class="dataset-link" href="./">Viewer</a>
+</header>
+<main class="playground">
+  <canvas id="world"></canvas>
+  <div id="status" class="stage-status"></div>
+  <div class="playground-bar">
+    <p class="stage-hint">Drag a part to pull it, drag the floor to orbit</p>
+    <button id="drop-again" class="button" type="button">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4h4"/></svg>
+      Drop again
+    </button>
+  </div>
+</main>
+<script type="module" src="./physics.js"></script>
+</body>
+</html>

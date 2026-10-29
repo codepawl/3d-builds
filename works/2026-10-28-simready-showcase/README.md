@@ -25,8 +25,9 @@ The models are rendered clean. The dither and ASCII passes stay on the backdrop.
    textures. Files are cached by content hash, because many assets share the same textures.
 2. It checks that the asset's licence is CC BY 4.0.
 3. `usd_to_glb.py` imports the USD in Blender 5.2 and exports a glb with the original textures.
-4. `optimize.mjs` removes duplicate mesh instances, then runs dedup, prune and weld. It resizes textures to 1024 px as
-   WebP and compresses geometry with meshopt. It does not simplify meshes.
+4. `optimize.mjs` removes the USD instance prototypes Blender imports (`prototypes.mjs`) and duplicate mesh
+   instances, then runs dedup, prune and weld. It resizes textures to 1024 px as WebP and compresses geometry with
+   meshopt. It does not simplify meshes.
 5. Each result goes to `out/manifest.jsonl` with the numbers before and after.
 
 Run it with `npm install` in `batch/`, then `node run.mjs <asset-list.txt> <work-root> 2`. Each Blender runs at below
@@ -36,6 +37,41 @@ normal priority with `BLENDER_THREADS` threads (default 3). A conversion that pa
 Five assets (two coilovers and three robot trolleys) use UDIM textures with 2 to 14 tiles on meshes of about a million
 polygons. Blender's glTF exporter splits UDIM tiles in Python and did not finish them in two hours. `usd_to_glb.py`
 now does that split with numpy before the export, so each tile gets its own material and the export takes seconds.
+The exporter's own UDIM handling also dropped the faces of some tiles: the first release of crate_plywood_b01 kept
+only its metal frame. Every UDIM asset now goes through the numpy split. `replace_from_recheck.mjs <recheck>/out <work-root>/out`
+swaps in a re-run glb when it has more triangles than the published one.
+
+SimReady places its parts as instanceable prims that reference prototypes in `payloads/instances.usda`. Blender's USD
+import also brings each prototype in, as a scene-root object at the origin, so a moved part (the eyeglasses' arms, a
+door) showed twice and an unmoved one overlapped itself. The first release carried them in 1,305 of 2,595 files.
+`remove_prototypes.mjs <work-root>/out` repairs finished glbs by editing only their JSON chunk, so nothing is
+re-encoded, and refreshes `manifest.jsonl`.
+
+## Physics and moving parts (`batch/add_physics.mjs`)
+
+`add_physics.mjs <list> <glb-in> <glb-out> <usd-cache> <report.jsonl>` reads each asset's `base.usda`,
+`instances.usda` and `Physics/physics.usda` with the small USDA reader in `usda.mjs`. It writes the rigid bodies,
+mass, physics materials and joints into the glb JSON as `KHR_physics_rigid_bodies`, and mirrors each joint into the
+moving part's node extras (`joints: [{ type, parent, pivot, axis, min, max, unit }]`). The USD is Z-up and the glbs
+are Y-up, so a joint's Y axis becomes the frame's Z column with its limits negated. Where Blender merged a body prim
+into its only mesh, a wrapper node with the body's name and USD transform goes above the mesh. `apply_physics.mjs`
+moves the results into the published set. `scan_physics.mjs` is the first survey of what the USD layers hold.
+
+`space/physics.html` is a playground for that data: it drops a few models into Rapier with their mass, friction,
+convex-hull colliders and joints, and you drag any part with the mouse. `src/tools/physics_film.mjs` records the 32 s
+physics film the same way as the first one, and `make_sound.py` takes `INPUTS`, `SECONDS` and `OUTPUT` for it.
+
+## Thumbnails and the viewer (`batch/thumbs/`, `space/`)
+
+- `render_thumbs.mjs` renders every glb to a 512 px WebP in headless Chrome, with the film's three.js studio look.
+- `build_index.mjs <manifest.jsonl> <thumbs> <space>` writes `thumbs/metadata.jsonl` for the Hugging Face Dataset
+  Viewer and `space/assets.json` for the viewer.
+- `build_atlas.mjs <thumbs> <space>` packs them into 26 sprite sheets (`space/atlas/`), so a page of the viewer's grid
+  is two requests instead of 120 redirects to the dataset.
+- `make_sheet.mjs` lays thumbnails out in a grid, for the dataset card's hero image.
+- `space/` is the static Space at https://huggingface.co/spaces/codepawl/simready-glb-viewer. It loads thumbnails and
+  glbs straight from the dataset. `serve_space.mjs` serves it with a local copy of the files
+  (`http://127.0.0.1:5541/?base=/data/`).
 
 ## The film (`src/`)
 

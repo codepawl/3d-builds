@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SimReady GLB Viewer</title>
+<meta name="description" content="Browse and orbit 2,595 web-ready NVIDIA SimReady models (glb, meshopt, WebP).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./style.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="#/">SimReady GLB</a>
+  <p class="summary">2,595 NVIDIA SimReady models, web-ready. <strong>228 GB → 3.2 GB</strong>.</p>
+  <a class="dataset-link" href="https://huggingface.co/datasets/codepawl/simready-glb" target="_blank" rel="noopener">Dataset</a>
+</header>
+
+<main id="browse" class="browse">
+  <div class="filters">
+    <label class="search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="query" type="search" placeholder="Search 2,595 models" autocomplete="off" spellcheck="false">
+    </label>
+    <select id="category" aria-label="Category"></select>
+    <button id="moving-only" class="toggle" type="button" aria-pressed="false" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V14M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></svg>Moving parts</button>
+    <span id="count" class="count"></span>
+  </div>
+  <ul id="grid" class="grid"></ul>
+  <div id="sentinel" class="sentinel"></div>
+  <p id="empty" class="empty" hidden>No model matches that search.</p>
+</main>
+
+<main id="detail" class="detail" hidden>
+  <a class="back" href="#/">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+    All models
+  </a>
+  <div class="detail-body">
+    <div class="stage">
+      <canvas id="view"></canvas>
+      <div id="stage-status" class="stage-status"></div>
+      <p class="stage-hint">Drag to orbit, scroll to zoom</p>
+    </div>
+    <aside class="facts">
+      <h1 id="asset-name" class="asset-name"></h1>
+      <p id="asset-category" class="asset-category"></p>
+      <div class="ratio">
+        <span id="ratio-value" class="ratio-value"></span>
+        <span class="ratio-label">than the Blender export</span>
+      </div>
+      <dl id="stats" class="stats"></dl>
+      <section id="parts" class="parts" hidden>
+        <div class="parts-head">
+          <h2>Moving parts</h2>
+          <button id="parts-open" class="quiet" type="button">Open all</button>
+          <button id="parts-reset" class="quiet" type="button">Reset</button>
+        </div>
+        <ul id="part-list" class="part-list"></ul>
+      </section>
+      <div class="actions">
+        <a id="download" class="button primary" download>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m-5-5 5 5 5-5M5 20h14"/></svg>
+          <span id="download-label">Download .glb</span>
+        </a>
+        <button id="copy-code" class="button" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></svg>
+          <span id="copy-label">Copy three.js code</span>
+        </button>
+      </div>
+      <a id="source-link" class="source-link" target="_blank" rel="noopener">Original USD on nvidia/simready-assets</a>
+    </aside>
+  </div>
+</main>
+
+<footer class="credit">
+  Models by <a href="https://huggingface.co/datasets/nvidia/simready-assets" target="_blank" rel="noopener">NVIDIA SimReady</a>,
+  CC BY 4.0. Converted and compressed by <a href="https://huggingface.co/codepawl" target="_blank" rel="noopener">CodePawl</a>.
+</footer>
+<script type="module" src="./app.js"></script>
+</body>
+</html>

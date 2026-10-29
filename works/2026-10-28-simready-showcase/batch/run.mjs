@@ -178,6 +178,7 @@ async function processAsset(asset) {
       downloadedBytes: neededFiles.reduce((sum, file) => sum + file.size, 0), files: files.length },
     blender: result.before,
     optimized: result.after,
+    prototypesRemoved: result.prototypesRemoved,
     duplicateNodesRemoved: result.duplicateNodesRemoved,
     bounds: result.bounds,
     blenderSeconds,

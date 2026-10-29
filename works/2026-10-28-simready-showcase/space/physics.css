@@ -1,0 +1,32 @@
+.physics-page { overflow: hidden; }
+
+.playground {
+  position: relative;
+  height: calc(100vh - 64px);
+  margin: 0 24px 24px;
+  border-radius: 14px;
+  background: radial-gradient(ellipse at 50% 35%, var(--surface), var(--tile));
+  overflow: hidden;
+}
+
+.playground canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+
+.playground-bar {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.playground-bar .stage-hint { position: static; margin: 0; }
+
+.playground-bar .button { pointer-events: auto; background: var(--surface); }
+
+@media (max-width: 640px) {
+  .playground { margin: 0 16px 16px; height: calc(100vh - 120px); }
+}
