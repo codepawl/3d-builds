@@ -32,7 +32,6 @@ Controls: move the pointer to lead the spider, arrow keys move the target, right
 The model has six legs in the style of the reference: an armoured body, glowing amber eyes, brass pipes and thin multi-jointed legs. The gait steps each foot when it drifts from its home position.
 `design/MOTION-REFERENCES.md` lists the jump studies behind the jump animation. `src/README.md` describes the environment, hoses, jump and sound.
 `poster.jpg` is a frame of a jump.
-The Opus version of the same spider is in `works/2026-10-11-spider-opus-vs-argon`.
 
 ## Assets and credits
 

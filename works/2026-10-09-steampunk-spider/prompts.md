@@ -7,4 +7,3 @@ The Astra run happened in a Codex session. The Codex session files were removed 
 The linked video explains procedural leg animation: feet stay planted while the body moves; when a foot drifts too far from its ideal position under the moving body it steps to a new target ahead in the direction of travel, lifting in an arc; legs step in alternating groups so the body is always supported; the body's height and tilt follow the average of the feet, with a little lag and bounce; inverse kinematics places the joints. You may use the `watch-video` skill to read the video's transcript if you want more detail (yt-dlp is at ~/.local/bin/yt-dlp.exe; YouTube needs `--js-runtimes node`).
 
 
-(The same text appears in the Opus and Argon briefs in the work 2026-10-11-spider-opus-vs-argon.)
