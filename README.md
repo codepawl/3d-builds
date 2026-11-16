@@ -1,4 +1,13 @@
-# 3d-builds
+<p align="center">
+  <a href="https://codepawl.com">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/codepawl/.github/main/brand/codepawl-lockup-dark.png">
+      <img alt="CodePawl" src="https://raw.githubusercontent.com/codepawl/.github/main/brand/codepawl-lockup.png" width="200">
+    </picture>
+  </a>
+</p>
+
+<h1 align="center">3d-builds</h1>
 
 The source, prompts and design notes behind the 3D pieces posted on [@anxuanng](https://x.com/anxuanng). Each folder under `works/` matches one post, or a few posts about the same build. Most of them were built by Claude Opus 5.5 in Claude Code with the [visualize-in-3d skill (viz3d)](https://github.com/codepawl/viz3d).
 
@@ -47,3 +56,18 @@ Videos, downloaded music, other people's reference media and assets without a li
 ## Licence
 
 The code and text written for these works are under the MIT licence (see `LICENSE`). Third-party assets keep their own licences, listed in each work's README. To add a work, see `CONTRIBUTING.md`.
+
+<br>
+
+<p align="center">
+  <sub>Made by CodePawl, an independent 3D studio in Vietnam.</sub>
+  <br>
+  <sub>
+    <a href="https://codepawl.com">Website</a> ·
+    <a href="https://x.com/codepawl">X</a> ·
+    <a href="https://github.com/codepawl">GitHub</a> ·
+    <a href="https://huggingface.co/codepawl">Hugging Face</a> ·
+    <a href="https://www.youtube.com/@codepawlhq">YouTube</a> ·
+    <a href="https://www.threads.com/@codepawl">Threads</a>
+  </sub>
+</p>
