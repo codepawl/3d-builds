@@ -1,0 +1,18 @@
+{
+  "name": "rackline-warehouse",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 5493 --strictPort",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "n8ao": "1.10.1",
+    "postprocessing": "6.39.5",
+    "three": "0.186.1"
+  },
+  "devDependencies": {
+    "vite": "8.3.4"
+  }
+}
