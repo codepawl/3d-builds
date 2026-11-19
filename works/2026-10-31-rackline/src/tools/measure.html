@@ -1,0 +1,45 @@
+<!doctype html>
+<meta charset="utf-8" />
+<script type="module">
+import * as THREE from 'three'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js'
+
+const loader = new GLTFLoader()
+loader.setMeshoptDecoder(MeshoptDecoder)
+
+window.measureAsset = async (name) => {
+  const gltf = await loader.loadAsync(`/assets/${name}.glb`)
+  gltf.scene.updateMatrixWorld(true)
+  const bounds = new THREE.Box3().setFromObject(gltf.scene)
+  const parts = []
+  gltf.scene.traverse((node) => {
+    if (!node.isMesh) return
+    const box = new THREE.Box3().setFromObject(node)
+    parts.push({
+      name: node.name,
+      parent: node.parent?.name,
+      min: box.min.toArray().map((value) => +value.toFixed(3)),
+      max: box.max.toArray().map((value) => +value.toFixed(3)),
+      material: node.material.name,
+    })
+  })
+  return { name, min: bounds.min.toArray().map((value) => +value.toFixed(3)), max: bounds.max.toArray().map((value) => +value.toFixed(3)), parts }
+}
+window.ready = true
+</script>
+<script type="module">
+import * as THREE from 'three'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js'
+const loader = new GLTFLoader()
+loader.setMeshoptDecoder(MeshoptDecoder)
+window.heightsAlong = async (name) => {
+  const gltf = await loader.loadAsync(`/assets/${name}.glb`)
+  gltf.scene.updateMatrixWorld(true)
+  const center = new THREE.Box3().setFromObject(gltf.scene).getCenter(new THREE.Vector3())
+  const raycaster = new THREE.Raycaster(new THREE.Vector3(center.x + 0.3, 30, center.z + 0.2), new THREE.Vector3(0, -1, 0))
+  const hits = raycaster.intersectObject(gltf.scene, true)
+  return [...new Set(hits.map((hit) => +hit.point.y.toFixed(2)))]
+}
+</script>

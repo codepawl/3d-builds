@@ -1,0 +1,39 @@
+<!doctype html>
+<meta charset="utf-8" />
+<script type="module">
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js'
+const loader = new GLTFLoader()
+loader.setMeshoptDecoder(MeshoptDecoder)
+const gltf = await loader.loadAsync('/assets/box_cardboard_c01.glb')
+const output = []
+gltf.scene.traverse((node) => {
+  if (!node.isMesh) return
+  const material = node.material
+  const normal = node.geometry.getAttribute('normal')
+  const uv = node.geometry.getAttribute('uv')
+  output.push({
+    name: node.name,
+    type: material.type,
+    color: material.color.getHexString(),
+    metalness: material.metalness,
+    roughness: material.roughness,
+    map: material.map ? `${material.map.image?.width}x${material.map.image?.height}` : null,
+    mrMap: material.metalnessMap ? `${material.metalnessMap.image?.width}` : null,
+    normalMap: Boolean(material.normalMap),
+    aoMap: Boolean(material.aoMap),
+    emissive: material.emissive?.getHexString(),
+    normalType: normal?.array?.constructor?.name,
+    normalNormalized: normal?.normalized,
+    normalSample: normal ? [normal.getX(0), normal.getY(0), normal.getZ(0)] : null,
+    uvType: uv?.array?.constructor?.name,
+    uvNormalized: uv?.normalized,
+    uvSample: uv ? [uv.getX(0), uv.getY(0)] : null,
+    mapTransform: material.map ? [material.map.offset.toArray(), material.map.repeat.toArray()] : null,
+    vertexColors: material.vertexColors,
+    hasColorAttribute: Boolean(node.geometry.getAttribute('color')),
+    interleaved: Boolean(normal?.isInterleavedBufferAttribute),
+  })
+})
+window.result = output
+</script>

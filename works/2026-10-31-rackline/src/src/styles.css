@@ -1,0 +1,303 @@
+:root {
+  --ink: #f2f5f7;
+  --muted: #9aa6b2;
+  --accent: #35d6bf;
+  --good: #47d78a;
+  --wait: #f5b53f;
+  --fault: #ff5c54;
+  --panel: rgba(13, 17, 22, 0.72);
+  --fill: rgba(255, 255, 255, 0.07);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #07090c;
+  color: var(--ink);
+  user-select: none;
+}
+
+#world {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: grab;
+}
+
+#world.hovering {
+  cursor: pointer;
+}
+
+#marks {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.mark {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 26px;
+  height: 26px;
+  margin: -13px 0 0 -13px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  background: rgba(8, 11, 15, 0.82);
+  will-change: transform;
+}
+
+.mark svg {
+  width: 16px;
+  height: 16px;
+}
+
+.mark.driving,
+.mark.running {
+  color: var(--good);
+}
+
+.mark.working {
+  color: var(--accent);
+}
+
+.mark.waiting,
+.mark.idle {
+  color: var(--wait);
+}
+
+.mark.fault {
+  color: #fff;
+  background: var(--fault);
+}
+
+.mark.selected {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+#brand {
+  position: fixed;
+  left: 24px;
+  top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+#brand span {
+  color: var(--ink);
+}
+
+#kpis {
+  position: fixed;
+  left: 24px;
+  top: 58px;
+  display: flex;
+  gap: 10px;
+}
+
+.kpi {
+  width: 158px;
+  padding: 11px 14px 12px;
+  border-radius: 13px;
+  background: var(--panel);
+  backdrop-filter: blur(10px);
+}
+
+.kpi label {
+  display: block;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.kpi strong {
+  display: block;
+  margin-top: 3px;
+  font-size: 27px;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.kpi small {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--muted);
+  margin-left: 3px;
+}
+
+#card {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 340px;
+  padding: 16px 18px 18px;
+  border-radius: 15px;
+  background: rgba(13, 17, 22, 0.9);
+}
+
+#card h2 {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 600;
+}
+
+#card .status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  font-size: 15px;
+  line-height: 1.3;
+}
+
+#card .status svg {
+  flex: none;
+  width: 18px;
+  height: 18px;
+}
+
+#card .status.driving,
+#card .status.running {
+  color: var(--good);
+}
+
+#card .status.working {
+  color: var(--accent);
+}
+
+#card .status.waiting,
+#card .status.idle {
+  color: var(--wait);
+}
+
+#card .status.fault {
+  color: var(--fault);
+}
+
+#card dl {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 14px;
+  margin: 13px 0 0;
+  font-size: 14px;
+}
+
+#card dt {
+  color: var(--muted);
+}
+
+#card dd {
+  margin: 0;
+  text-align: right;
+}
+
+#card .bar {
+  margin-top: 13px;
+  height: 7px;
+  border-radius: 4px;
+  background: var(--fill);
+  overflow: hidden;
+}
+
+#card .bar i {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+}
+
+#dock {
+  position: fixed;
+  left: 24px;
+  bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px 7px 7px;
+  border-radius: 13px;
+  background: var(--panel);
+  backdrop-filter: blur(10px);
+}
+
+#dock button {
+  height: 34px;
+  min-width: 42px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#dock button:hover {
+  color: var(--ink);
+}
+
+#dock button.on {
+  color: var(--ink);
+  background: var(--fill);
+}
+
+#dock svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+  margin: auto;
+}
+
+#speeds {
+  display: flex;
+  gap: 2px;
+}
+
+#clock {
+  margin-left: 8px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+@media (max-width: 760px) {
+  #kpis {
+    left: 12px;
+    right: 12px;
+    flex-wrap: wrap;
+  }
+
+  .kpi {
+    width: calc(50% - 5px);
+  }
+
+  #brand {
+    left: 14px;
+  }
+
+  #dock {
+    left: 12px;
+    bottom: 12px;
+  }
+
+  #card {
+    left: 12px;
+    right: 12px;
+    width: auto;
+    bottom: 70px;
+  }
+}

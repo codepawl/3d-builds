@@ -1,0 +1,94 @@
+[
+ {
+  "time": 0.0,
+  "kind": "click"
+ },
+ {
+  "time": 2.466666666666667,
+  "kind": "click"
+ },
+ {
+  "time": 2.486666666666667,
+  "kind": "camera_move"
+ },
+ {
+  "time": 2.5166666666666666,
+  "kind": "card_open"
+ },
+ {
+  "time": 3.466666666666667,
+  "kind": "forklift_lift_long",
+  "seconds": 8.2,
+  "take": 2,
+  "pitch": 0.72
+ },
+ {
+  "time": 6.533333333333333,
+  "kind": "click"
+ },
+ {
+  "time": 13.166666666654692,
+  "kind": "pallet_set"
+ },
+ {
+  "time": 14.166666666666666,
+  "kind": "click"
+ },
+ {
+  "time": 14.186666666666666,
+  "kind": "camera_move"
+ },
+ {
+  "time": 15.966666666666667,
+  "kind": "click"
+ },
+ {
+  "time": 15.986666666666666,
+  "kind": "camera_move"
+ },
+ {
+  "time": 16.016666666666666,
+  "kind": "card_open"
+ },
+ {
+  "time": 16.366666666666667,
+  "kind": "conveyor",
+  "seconds": 2.2
+ },
+ {
+  "time": 17.79999999998381,
+  "kind": "gantry_grab"
+ },
+ {
+  "time": 19.033333333333335,
+  "kind": "click"
+ },
+ {
+  "time": 19.053333333333335,
+  "kind": "camera_move"
+ },
+ {
+  "time": 20.833333333333332,
+  "kind": "click"
+ },
+ {
+  "time": 20.85333333333333,
+  "kind": "camera_move"
+ },
+ {
+  "time": 20.883333333333333,
+  "kind": "card_open"
+ },
+ {
+  "time": 21.73333333333333,
+  "kind": "trailer_load"
+ },
+ {
+  "time": 23.566666666666666,
+  "kind": "click"
+ },
+ {
+  "time": 23.586666666666666,
+  "kind": "camera_move"
+ }
+]

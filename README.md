@@ -25,6 +25,7 @@ Videos, downloaded music, other people's reference media and assets without a li
 
 | Date | Work | Post |
 |---|---|---|
+| 2026-10-31 | [Rackline: a live automated pallet warehouse](works/2026-10-31-rackline) | [post](https://x.com/anxuanng/status/2116504653215248436) |
 | 2026-10-27 | [How Big Things Work, a pop-up book](works/2026-10-27-popup-book) | [post](https://x.com/anxuanng/status/2114939687693594624) |
 | 2026-10-26 | [The Titanic, deck by deck](works/2026-10-26-titanic-plate) | [post](https://x.com/anxuanng/status/2114742781520593343) |
 | 2026-10-26 | [Fixing the jitter in pixel-on-3D dioramas](works/2026-10-26-pixel-jitter-fix) | [post](https://x.com/anxuanng/status/2114775030710338042) [2](https://x.com/anxuanng/status/2114776119778197861) |
