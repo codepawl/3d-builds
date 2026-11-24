@@ -5,7 +5,7 @@
 A live warehouse in three.js, built from NVIDIA's free SimReady models. Pallets come in at three receiving doors, forklifts put them in the racks, two pick lines pack orders, and forklifts carry the packed pallets to two shipping doors.
 
 - Post: https://x.com/anxuanng/status/2116504653215248436
-- Play it in the browser: https://collab.market/anxuanng/rackline
+- Play it and make your own version: https://collab.market/anxuanng/rackline
 - Made with: Claude Opus 5.5 in Claude Code, three.js, NVIDIA SimReady models converted to GLB in [codepawl/simready-glb](https://huggingface.co/datasets/codepawl/simready-glb)
 
 ## How it was made
